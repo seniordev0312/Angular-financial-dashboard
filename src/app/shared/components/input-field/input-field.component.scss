@@ -1,0 +1,30 @@
+:host ::ng-deep {
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        background-color: unset !important;
+    }
+
+    .mat-form-field-label {
+        font-weight: 900;
+        color: black;
+        font-size: 11px;
+    }
+
+    .mat-input-element {
+        color: var(--accent-color) !important;
+        font-size: 12px;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-underline::before {
+        background-color: #707070 !important;
+        height: 2px !important;
+    }
+
+    .mat-form-field.mat-focused .mat-form-field-ripple {
+        background-color: #707070 !important;
+        height: 2px !important;
+    }
+
+    .mat-form-field.mat-focused .mat-form-field-label {
+        color: black !important;
+    }
+}

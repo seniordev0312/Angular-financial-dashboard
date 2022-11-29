@@ -15,13 +15,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CardComponent } from './components/card/card.component';
 import { CardItemComponent } from './components/card-item/card-item.component';
+import { ButtonComponent } from './components/button/button.component';
+import { InputFieldComponent } from './components/input-field/input-field.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SelectListComponent } from './components/select-list/select-list.component';
 
 @NgModule({
     declarations: [
         CardItemComponent,
-        CardComponent
+        CardComponent,
+        ButtonComponent,
+        InputFieldComponent,
+        SelectListComponent
     ],
     imports: [
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
         MatSelectModule,
         MatSlideToggleModule,
         MatMenuModule,
@@ -35,10 +48,15 @@ import { CardItemComponent } from './components/card-item/card-item.component';
         SliderModule,
         PaginatorModule,
         InputTextModule,
-        ButtonModule
+        ButtonModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     exports: [
-        CardComponent
+        CardComponent,
+        ButtonComponent,
+        InputFieldComponent,
+        SelectListComponent
     ],
     providers: [],
 })
