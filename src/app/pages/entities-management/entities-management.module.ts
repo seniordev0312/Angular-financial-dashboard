@@ -13,8 +13,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 const routes: Route[] = [
   {
-    path: '',
-    component: EntitiesManagementComponent
+    path: 'templates',
+    loadChildren: () => import('./components/entities-templates-management/entities-templates-management.module').then((m) =>
+      m.EntitiesTemplatesManagementModule)
   }
 ];
 

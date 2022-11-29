@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EntitiesManagementComponent } from './pages/entities-management/components/entities-management/entities-management.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Insurance Power House';
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.keyCode == 113) {
+      this.dialog.open(EntitiesManagementComponent, {
+        width: '100%',
+        height: '100%'
+      })
+    }
+  }
+
+  constructor(private dialog: MatDialog) { }
 }
