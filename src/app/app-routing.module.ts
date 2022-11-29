@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/components/layout/layout.component';
+import { EntitiesManagementModule } from './pages/entities-management/entities-management.module';
 
 const routes: Routes = [
   {
@@ -16,14 +17,12 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: 'entities',
-    loadChildren: () => import('./pages/entities-management/entities-management.module').then((m) => m.EntitiesManagementModule)
-  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    EntitiesManagementModule,
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

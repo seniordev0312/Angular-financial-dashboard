@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BaseComponent } from './components/base-component/base-component';
+import { WidgetTableComponent } from './components/widget-table/widget-table.component';
 import { IconSvgModule } from './utilities-modules/icon-svg.module';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -29,7 +31,9 @@ import { SelectListComponent } from './components/select-list/select-list.compon
         CardComponent,
         ButtonComponent,
         InputFieldComponent,
-        SelectListComponent
+        SelectListComponent,
+        WidgetTableComponent,
+        BaseComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -56,7 +60,9 @@ import { SelectListComponent } from './components/select-list/select-list.compon
         CardComponent,
         ButtonComponent,
         InputFieldComponent,
-        SelectListComponent
+        SelectListComponent,
+        WidgetTableComponent,
+        BaseComponent
     ],
     providers: [],
 })
