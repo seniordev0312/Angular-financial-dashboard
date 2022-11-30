@@ -4,13 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { SharedModule } from './shared/shared.module';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslationService } from './shared/services/translation.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [

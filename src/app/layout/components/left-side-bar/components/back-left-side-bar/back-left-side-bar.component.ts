@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate, group, state } from '@angular/animations';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-back-left-side-bar',
@@ -45,14 +46,17 @@ export class BackLeftSideBarComponent implements OnInit {
   @Output() flip: EventEmitter<any> =
     new EventEmitter<any>();
   animationState: string = 'out';
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
 
   flipCard(): void {
     this.flip.emit();
-    this.animationState = 'out'
+    this.animationState = 'out';
   }
 
+  navigate(url: string) {
+    this.route.navigate([url]);
+  }
 }

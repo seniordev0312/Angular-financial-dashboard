@@ -1,0 +1,13 @@
+<div class="flex flex-row justify-start items-center gap-2">
+    <div *ngFor="let item of contentHeaderModel.paths; let i = index" class="flex flex-row items-center">
+        <div *ngIf="i == 0" class="font-bold">
+            {{item}} >
+        </div>
+        <div *ngIf="i !== 0 && i !== contentHeaderModel.paths.length -1" class="font-bold">
+            {{item}} >
+        </div>
+        <div *ngIf="i !== 0 && i === contentHeaderModel.paths.length -1" class="text-primary font-bold">
+            {{item}}
+        </div>
+    </div>
+</div>

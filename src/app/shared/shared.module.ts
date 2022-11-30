@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SelectListComponent } from './components/select-list/select-list.component';
 import { AutomaticFormValidationModule } from './automatic-form-validation/automatic-form-validation.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [
@@ -55,6 +56,7 @@ import { AutomaticFormValidationModule } from './automatic-form-validation/autom
         InputTextModule,
         ButtonModule,
         FormsModule,
+        TranslateModule,
         ReactiveFormsModule,
         AutomaticFormValidationModule
     ],
@@ -65,6 +67,7 @@ import { AutomaticFormValidationModule } from './automatic-form-validation/autom
         SelectListComponent,
         WidgetTableComponent,
         BaseComponent,
+        TranslateModule,
         AutomaticFormValidationModule
     ],
     providers: [],

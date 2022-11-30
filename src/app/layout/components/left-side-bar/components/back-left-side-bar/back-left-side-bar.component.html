@@ -1,8 +1,147 @@
-<div class="h-full pl-4 pr-4" [@fadeSlideInOut]="animationState">
+<div class="h-full pl-4 pr-4 pb-2" [@fadeSlideInOut]="animationState">
     <div class="h-[5%] flex items-center gap-2 text-lg text-black">
-        <mat-icon svgIcon="close" class="cursor-pointer" (click)="flipCard()">
+        <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold" (click)="flipCard()">
         </mat-icon>
     </div>
-    <div class="h-[95%]">
+    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4">
+        <div class="h-4/6 flex flex-col items-start gap-1">
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-pointer" (click)="navigate('dashboard')" translate>
+                        <span translate>core.left-side-bar-back.dashboard</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">
+                        <span translate>core.left-side-bar-back.customer-service</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.customer-service</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.insurance-renewals</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">
+                        <span translate>core.left-side-bar-back.insurance-underwriting</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.general-insurance-underwriting</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.motor-insurance-underwriting</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.medical-insurance-underwriting</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.life-insurance-underwriting</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">
+                        <span translate>core.left-side-bar-back.accounting-and-finance</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.cashier</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.general-accounting</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.accounts-payable</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.finance-and-reporting</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">
+                        <span translate>core.left-side-bar-back.human-resources</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.payroll</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">
+                        <span translate>core.left-side-bar-back.correspondence</span>
+                    </div>
+                    <div class="cursor-pointer hover:font-bold">
+                        <span translate>core.left-side-bar-back.correspondence-management</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-2/6 flex flex-col items-start justify-end gap-1">
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">
+                    <span translate>core.left-side-bar-back.correspondence</span>
+                    Activity Log
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">
+                    <span translate>core.left-side-bar-back.product-management</span>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">
+                    <span translate>core.left-side-bar-back.treaty-management</span>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">
+                    <span translate>core.left-side-bar-back.entity-management</span>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">
+                    <span translate>core.left-side-bar-back.settings</span>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer"
+                    (click)="navigate('system-setup')">
+                    <span translate>core.left-side-bar-back.system-setup</span>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

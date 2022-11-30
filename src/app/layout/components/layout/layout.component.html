@@ -1,15 +1,20 @@
 <app-header (ToggleSideBarForLeftMenu)="LSideBarToggle()" class="shadow-2xl poppins-font"></app-header>
 
-<mat-sidenav-container class="poppins-font">
+<mat-sidenav-container class="poppins-font" [dir]="(isRTLDirection$|async) ? 'rtl': 'ltr'">
     <mat-sidenav #sidenav mode="side" position="start" opened="true">
         <app-left-side-bar></app-left-side-bar>
     </mat-sidenav>
 
-    <mat-sidenav-content>
-        <router-outlet></router-outlet>
+    <mat-sidenav-content class="p-2 h-full">
+        <div *ngIf="contentHeaderModel?.paths" class="h-[5%] flex items-center">
+            <app-content-header [contentHeaderModel]="contentHeaderModel"></app-content-header>
+        </div>
+        <div [ngClass]="{'h-[95%]': contentHeaderModel?.paths, 'h-full': !contentHeaderModel?.paths}">
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
 
-    <mat-sidenav #sidenav mode="side" position="end" opened="true" class="bg-[#FAFAFA]">
+    <mat-sidenav #sidenav mode="side" position="end" opened="false" class="bg-[#FAFAFA]">
         <app-right-side-bar></app-right-side-bar>
     </mat-sidenav>
 </mat-sidenav-container>
