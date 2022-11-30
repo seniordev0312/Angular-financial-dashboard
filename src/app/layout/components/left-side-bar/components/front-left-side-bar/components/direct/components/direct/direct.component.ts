@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ContactCard } from '../../models/contact-card.model';
 
 @Component({
   selector: 'app-direct',
   templateUrl: './direct.component.html',
-  styleUrls: ['./direct.component.scss']
+  styleUrls: ['./direct.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DirectComponent implements OnInit {
 
