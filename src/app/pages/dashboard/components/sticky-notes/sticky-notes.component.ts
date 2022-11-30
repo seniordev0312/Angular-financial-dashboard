@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sticky-notes',
   templateUrl: './sticky-notes.component.html',
-  styleUrls: ['./sticky-notes.component.scss']
+  styleUrls: ['./sticky-notes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StickyNotesComponent implements OnInit {
 

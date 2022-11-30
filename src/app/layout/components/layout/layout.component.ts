@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ContentHeaderModel } from '@root/shared/models/content-header/content.header';
 import { UiService } from '@root/shared/services/ui.service';
 import { LayoutService } from 'src/app/shared/services/layout.service';
@@ -6,7 +6,8 @@ import { LayoutService } from 'src/app/shared/services/layout.service';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
 

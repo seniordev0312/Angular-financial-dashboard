@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivationStart, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-right-side-bar',
   templateUrl: './right-side-bar.component.html',
-  styleUrls: ['./right-side-bar.component.scss']
+  styleUrls: ['./right-side-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RightSideBarComponent implements OnInit {
   @ViewChild(RouterOutlet) outlet: RouterOutlet;

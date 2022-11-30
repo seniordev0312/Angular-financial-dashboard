@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CardItem } from '@root/shared/models/card/card-item.model';
 
 @Component({
   selector: 'app-card-item',
   templateUrl: './card-item.component.html',
-  styleUrls: ['./card-item.component.scss']
+  styleUrls: ['./card-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardItemComponent implements OnInit {
 

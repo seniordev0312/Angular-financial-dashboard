@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-general-system-settings',
   templateUrl: './general-system-settings.component.html',
-  styleUrls: ['./general-system-settings.component.scss']
+  styleUrls: ['./general-system-settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeneralSystemSettingsComponent implements OnInit {
 

@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { BackLeftSideBarComponent } from '../back-left-side-bar/back-left-side-bar.component';
 
 @Component({
@@ -17,7 +17,8 @@ import { BackLeftSideBarComponent } from '../back-left-side-bar/back-left-side-b
       transition('active => inactive', animate('500ms ease-out')),
       transition('inactive => active', animate('500ms ease-in'))
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LeftSideBarComponent implements OnInit {
 

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ContactCard } from '../../models/contact-card.model';
 
 @Component({
   selector: 'app-chat-card',
   templateUrl: './chat-card.component.html',
-  styleUrls: ['./chat-card.component.scss']
+  styleUrls: ['./chat-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatCardComponent implements OnInit {
 
