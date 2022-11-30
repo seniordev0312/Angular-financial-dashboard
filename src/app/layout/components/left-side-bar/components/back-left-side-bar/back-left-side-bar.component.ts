@@ -1,5 +1,5 @@
-import { trigger, transition, style, animate, group, state } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { animate, group, state, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -40,7 +40,6 @@ import { Router } from '@angular/router';
       )])
     ])
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackLeftSideBarComponent implements OnInit {
 

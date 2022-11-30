@@ -38,9 +38,11 @@ export class IconSvgModule {
                 'search',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/search.svg')
             ).addSvgIcon(
+                'treaty',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/treaty.svg')
+            ).addSvgIcon(
                 'search-gray',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/search-gray.svg')
             );
-
     }
 }

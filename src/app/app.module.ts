@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { TranslationService } from './shared/services/translation.service';
+import { SharedModule } from './shared/shared.module';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
     AppRoutingModule,
     MatDialogModule,
     LayoutModule,
+    SharedModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
