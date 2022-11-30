@@ -52,8 +52,9 @@ export class TranslationService {
         if (defaultLanguage === Lang.Arabic) {
             this.layoutService.isRTLDirection$.next(true);
         }
-        else if (defaultLanguage === undefined) {
+        else if (defaultLanguage === null) {
             defaultLanguage = Lang.English;
+            localStorage.setItem('language', defaultLanguage);
             this.layoutService.isRTLDirection$.next(false);
         }
         this.document.body.dir = defaultLanguage === Lang.Arabic ? 'rtl' : 'ltr';
