@@ -8,11 +8,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 })
 export class ButtonComponent implements OnInit {
 
-  @Input() color = 'primary';
+  @Output() trigger = new EventEmitter<void>();
   @Input() classes: string;
-
   @Input() text: string;
-  @Output() onTrigger = new EventEmitter<void>();
+  @Input() icon: string;
+
   constructor() {
   }
 
@@ -20,6 +20,6 @@ export class ButtonComponent implements OnInit {
   }
 
   onClick() {
-    this.onTrigger.emit();
+    this.trigger.emit();
   }
 }

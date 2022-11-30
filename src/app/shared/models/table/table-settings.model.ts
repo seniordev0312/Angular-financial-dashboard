@@ -26,7 +26,7 @@ export class TableSettings {
         this.enablePaging = data?.enablePaging ?? true;
         this.enableExport = data?.enableExport ?? true;
         this.actionsMode = data?.actionsMode ?? 'menu';
-        this.pageSize = data?.pageSize ?? 50;
+        this.pageSize = data?.pageSize ?? 10;
         this.cssClasses = data?.cssClasses ?? '';
         this.showChangeTableSize = data?.showChangeTableSize ?? true;
         this.isLocalPaging = data?.isLocalPaging ?? true;

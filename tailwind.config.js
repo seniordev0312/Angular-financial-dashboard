@@ -714,30 +714,6 @@ module.exports = {
       4: '4px',
       8: '8px',
     },
-    ringColor: ({ theme }) => ({
-      DEFAULT: theme(`colors.blue.500`, '#005F83'),
-      ...theme('colors'),
-    }),
-    ringOffsetColor: ({ theme }) => theme('colors'),
-    ringOffsetWidth: {
-      0: '0px',
-      1: '1px',
-      2: '2px',
-      4: '4px',
-      8: '8px',
-    },
-    ringOpacity: ({ theme }) => ({
-      DEFAULT: '0.5',
-      ...theme('opacity'),
-    }),
-    ringWidth: {
-      DEFAULT: '3px',
-      0: '0px',
-      1: '1px',
-      2: '2px',
-      4: '4px',
-      8: '8px',
-    },
     rotate: {
       0: '0deg',
       1: '1deg',

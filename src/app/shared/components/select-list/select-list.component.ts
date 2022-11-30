@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
@@ -17,7 +17,6 @@ export class SelectListComponent implements OnInit {
     id: '1',
     name: '1111111'
   }];
-  @Output() onTrigger = new EventEmitter<void>();
 
   constructor() {
   }
@@ -25,7 +24,4 @@ export class SelectListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
-    this.onTrigger.emit();
-  }
 }

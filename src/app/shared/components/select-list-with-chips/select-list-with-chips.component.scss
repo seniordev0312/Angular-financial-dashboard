@@ -6,7 +6,11 @@
     .mat-form-field-label {
         font-weight: 900;
         color: black;
-        font-size: 11px;
+        font-size: 12px;
+    }
+
+    .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+        font-size: 15px;
     }
 
     .mat-select-value-text {
@@ -34,5 +38,30 @@
 
     .mat-form-field.mat-focused .mat-form-field-label {
         color: black !important;
+    }
+
+    ::ng-deep .mat-chip.mat-standard-chip {
+        background-color: var(--accent-color) !important;
+        color: white !important;
+        font-size: 10px !important;
+        border-radius: 7px !important;
+    }
+
+    ::ng-deep .mat-chip.mat-standard-chip .mat-chip-remove {
+        color: white !important;
+        opacity: 1 !important;
+    }
+
+    .cancel-icon {
+        height: 16px !important;
+        width: 16px !important;
+        font-size: 13px !important;
+    }
+
+    .chips-list {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-top-color: var(--accent-color);
+        border-top-width: 1px;
     }
 }
