@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     PagesRoutingModule
   ]
