@@ -1,8 +1,104 @@
-<div class="h-full pl-4 pr-4" [@fadeSlideInOut]="animationState">
+<div class="h-full pl-4 pr-4 pb-2" [@fadeSlideInOut]="animationState">
     <div class="h-[5%] flex items-center gap-2 text-lg text-black">
-        <mat-icon svgIcon="close" class="cursor-pointer" (click)="flipCard()">
+        <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold" (click)="flipCard()">
         </mat-icon>
     </div>
-    <div class="h-[95%]">
+    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4">
+        <div class="h-4/6 flex flex-col items-start gap-1">
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-pointer" (click)="navigate('dashboard')">Dashboard</div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">Customer Service</div>
+                    <div class="cursor-pointer hover:font-bold">Customer Service</div>
+                    <div class="cursor-pointer hover:font-bold">Insurance Renewals</div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">Insurance Underwriting</div>
+                    <div class="cursor-pointer hover:font-bold">General Insurance Underwriting</div>
+                    <div class="cursor-pointer hover:font-bold">Motor Insurance Underwriting</div>
+                    <div class="cursor-pointer hover:font-bold">Medical Insurance Underwriting</div>
+                    <div class="cursor-pointer hover:font-bold">Life Insurance Underwriting</div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">Accounting & Finance</div>
+                    <div class="cursor-pointer hover:font-bold">Cashier</div>
+                    <div class="cursor-pointer hover:font-bold">General Accounting</div>
+                    <div class="cursor-pointer hover:font-bold">Accounts Payable</div>
+                    <div class="cursor-pointer hover:font-bold">Finance & Reporting</div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">Human Resources</div>
+                    <div class="cursor-pointer hover:font-bold">Payroll</div>
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <div>
+                    <mat-icon>dashboard</mat-icon>
+                </div>
+                <div class="flex flex-col text-left w-full gap-1">
+                    <div class="text-primary font-bold cursor-default">Correspondence</div>
+                    <div class="cursor-pointer hover:font-bold">Correspondence Management</div>
+                </div>
+            </div>
+        </div>
+        <div class="h-2/6 flex flex-col items-start justify-end gap-1">
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">Activity Log
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">Product Management
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">Treaty Management
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">Entity Management
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer">Settings
+                </div>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon>dashboard</mat-icon>
+                <div class="text-primary font-bold items-center justify-center cursor-pointer"
+                    (click)="navigate('system-setup')">System Setup
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

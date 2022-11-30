@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UiService } from '@root/shared/services/ui.service';
 import { card } from '../../../../shared/models/card/card.model';
 
 @Component({
@@ -94,9 +95,10 @@ export class DashboardComponent implements OnInit {
       backgroundColor: '#7BC8FF'
     }
   ]
-  constructor() { }
+  constructor(private uiService: UiService) { }
 
   ngOnInit(): void {
+    this.uiService.toggleUpdateContentHeader({})
   }
 
 }

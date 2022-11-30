@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { SharedModule } from './shared/shared.module';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -18,8 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppRoutingModule,
     MatDialogModule,
     LayoutModule,
-    BrowserAnimationsModule,
-    SharedModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
