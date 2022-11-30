@@ -1,4 +1,4 @@
-import * as moment from 'moment-mini-ts';
+import dayjs from 'dayjs';
 import { TableColumnFilterDataType } from '../models/table/enum/table-column-filter-data-type.enum';
 import { TableColumnFilterType } from '../models/table/enum/table-column-filter-type.enum';
 
@@ -37,7 +37,7 @@ export const getFilterValue = (data: any) => {
     if (Array.isArray(data.value)) {
         return data.value.join(',');
     } else if (getDataType(data.value) === TableColumnFilterDataType.Date) {
-        return moment(data.value).format('DD/MM/YYYY');
+        return dayjs(data.value).format('DD/MM/YYYY');
     } else if (typeof data.value === 'string' && data.value.length === 0) {
         return null;
     }

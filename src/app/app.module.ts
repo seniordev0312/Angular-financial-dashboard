@@ -7,6 +7,10 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslationService } from './shared/services/translation.service';
 
 @NgModule({
   declarations: [
@@ -19,9 +23,17 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     LayoutModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (client: HttpClient) =>
+          new TranslateHttpLoader(client, 'assets/i18n/', '.json'),
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [],
+  providers: [TranslationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

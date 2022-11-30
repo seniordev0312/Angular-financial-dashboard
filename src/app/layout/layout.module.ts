@@ -20,8 +20,6 @@ import { DirectComponent } from './components/left-side-bar/components/front-lef
 import { ChatCardComponent } from './components/left-side-bar/components/front-left-side-bar/components/direct/components/chat-card/chat-card.component';
 import { ContactCardComponent } from './components/left-side-bar/components/front-left-side-bar/components/direct/components/contact-card/contact-card.component';
 import { MessageCardComponent } from './components/left-side-bar/components/front-left-side-bar/components/direct/components/chat-card/components/message-card/message-card.component';
-import { CalendarComponent } from './components/right-side-bar/components/calendar/calendar.component';
-import { EmailsComponent } from './components/right-side-bar/components/emails/emails.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '@root/shared/shared.module';
 import { RightSideBarComponent } from './components/right-side-bar/components/right-side-bar/right-side-bar.component';
@@ -42,8 +40,6 @@ import { LeftSideBarComponent } from './components/left-side-bar/components/left
     ContactCardComponent,
     ChatCardComponent,
     MessageCardComponent,
-    CalendarComponent,
-    EmailsComponent
   ],
   imports: [
     CommonModule,
