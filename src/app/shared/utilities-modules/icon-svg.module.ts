@@ -41,8 +41,35 @@ export class IconSvgModule {
                 'treaty',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/treaty.svg')
             ).addSvgIcon(
+                'system-setup',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/system-setup.svg')
+            ).addSvgIcon(
+                'settings',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/settings.svg')
+            ).addSvgIcon(
+                'entity-management',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/entity-management.svg')
+            ).addSvgIcon(
                 'search-gray',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/search-gray.svg')
+            ).addSvgIcon(
+                'product-management',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/product-management.svg')
+            ).addSvgIcon(
+                'activityLog',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/activityLog.svg')
+            ).addSvgIcon(
+                'correspondence',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/correspondence.svg')
+            ).addSvgIcon(
+                'customer-service',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/customer-service.svg')
+            ).addSvgIcon(
+                'insurance-underwriting',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/insurance-underwriting.svg')
+            ).addSvgIcon(
+                'accounting-and-finance',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/accounting-and-finance.svg')
             );
     }
 }
