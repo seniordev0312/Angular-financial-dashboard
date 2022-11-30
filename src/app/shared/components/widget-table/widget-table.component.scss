@@ -156,3 +156,12 @@
 ::ng-deep .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody>tr>td {
     border-width: 0 0 1px 0px !important;
 }
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: #EBEBEB !important;
+    border-color: #EBEBEB !important;
+    color: black !important;
+    font-weight: 700;
+    height: 2rem !important;
+    min-width: 2rem !important;
+}

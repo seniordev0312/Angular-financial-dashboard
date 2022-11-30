@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SelectListComponent } from './components/select-list/select-list.component';
 import { AutomaticFormValidationModule } from './automatic-form-validation/automatic-form-validation.module';
+import { DialogHeaderComponent } from './components/dialog-header/dialog-header.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { TranslateModule } from '@ngx-translate/core';
         InputFieldComponent,
         SelectListComponent,
         WidgetTableComponent,
-        BaseComponent
+        BaseComponent,
+        DialogHeaderComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -68,7 +70,8 @@ import { TranslateModule } from '@ngx-translate/core';
         WidgetTableComponent,
         BaseComponent,
         TranslateModule,
-        AutomaticFormValidationModule
+        AutomaticFormValidationModule,
+        DialogHeaderComponent
     ],
     providers: [],
 })
