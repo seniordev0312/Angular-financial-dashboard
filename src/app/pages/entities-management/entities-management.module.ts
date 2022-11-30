@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EntitiesManagementComponent } from './components/entities-management/entities-management.component';
+import { EntitiesViewerComponent } from './components/entities-viewer/entities-viewer.component';
 import { Route, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { EntityInformationComponent } from './components/entity-information/entity-information.component';
@@ -21,7 +21,7 @@ const routes: Route[] = [
 
 @NgModule({
   declarations: [
-    EntitiesManagementComponent,
+    EntitiesViewerComponent,
     EntityInformationComponent,
     ProfileOverviewComponent,
     ProfileRatioComponent

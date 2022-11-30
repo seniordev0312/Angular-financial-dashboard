@@ -57,7 +57,8 @@ module.exports = {
       },
       'gray': {
         light1: '#E8EFF7',
-        light2: '#E2E2E2'
+        light2: '#E2E2E2',
+        light3: '#FAFAFA'
       }
     }),
     columns: {
