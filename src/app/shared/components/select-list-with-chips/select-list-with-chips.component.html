@@ -1,0 +1,43 @@
+<div class="flex flex-col border border-accent rounded-2xl relative pt-5 w-48">
+
+    <mat-form-field *ngIf="showFirstSelectList" class="px-4" appearance="fill">
+        <mat-label>{{firstSelectListLabel}}</mat-label>
+        <mat-select [formControl]="firstSelectListFormControl">
+            <mat-option value="">
+                <span class="text-accent text-xs">All</span>
+            </mat-option>
+            <mat-option *ngFor="let option of firstSelectListOptionsList" [value]="option.id">
+                <span class="text-accent text-xs">{{option.name}}</span>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="px-4" appearance="fill">
+        <mat-label>{{secondSelectListLabel}}</mat-label>
+        <mat-select multiple [formControl]="secondSelectListFormControl">
+            <mat-option value="">
+                <span class="text-accent text-xs">All</span>
+            </mat-option>
+            <mat-option *ngFor="let option of secondSelectListOptionsList" [value]="option.id">
+                <span class="text-accent text-xs">{{option.name}}</span>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-chip-list *ngIf="chipsList.length>0" class="bg-[#C0C6CC] border-t-primary p-2 chips-list rounded-2xl">
+        <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
+            <span>{{getChipLabel(chip)}}</span>
+            <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
+                aria-label="'remove ' + chip">
+                <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
+                    close
+                </span>
+            </button>
+        </mat-chip>
+    </mat-chip-list>
+    <button *ngIf="showAddIcon" class="absolute top-[40%] -right-[0.79rem] ">
+        <span class="material-icons text-accent">
+            add_circle_outline
+        </span>
+    </button>
+</div>

@@ -27,6 +27,8 @@ import { SelectListComponent } from './components/select-list/select-list.compon
 import { AutomaticFormValidationModule } from './automatic-form-validation/automatic-form-validation.module';
 import { DialogHeaderComponent } from './components/dialog-header/dialog-header.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SelectListWithChipsComponent } from './components/select-list-with-chips/select-list-with-chips.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     declarations: [
@@ -37,7 +39,8 @@ import { TranslateModule } from '@ngx-translate/core';
         SelectListComponent,
         WidgetTableComponent,
         BaseComponent,
-        DialogHeaderComponent
+        DialogHeaderComponent,
+        SelectListWithChipsComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -60,7 +63,8 @@ import { TranslateModule } from '@ngx-translate/core';
         FormsModule,
         TranslateModule,
         ReactiveFormsModule,
-        AutomaticFormValidationModule
+        AutomaticFormValidationModule,
+        MatChipsModule
     ],
     exports: [
         CardComponent,
@@ -71,7 +75,8 @@ import { TranslateModule } from '@ngx-translate/core';
         BaseComponent,
         TranslateModule,
         AutomaticFormValidationModule,
-        DialogHeaderComponent
+        DialogHeaderComponent,
+        SelectListWithChipsComponent
     ],
     providers: [],
 })
