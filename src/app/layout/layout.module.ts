@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
+import { ContentHeaderComponent } from './components/content-header/content-header.component';
 
 import { DropdownComponent } from './components/header/component/dropdown/dropdown.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -36,10 +37,7 @@ import {
   FrontLeftSideBarComponent,
 } from './components/left-side-bar/components/front-left-side-bar/front-left-side-bar.component';
 import { LeftSideBarComponent } from './components/left-side-bar/components/left-side-bar/left-side-bar.component';
-import { CalendarComponent } from './components/right-side-bar/components/calendar/calendar.component';
-import { EmailsComponent } from './components/right-side-bar/components/emails/emails.component';
 import { RightSideBarComponent } from './components/right-side-bar/components/right-side-bar/right-side-bar.component';
-import { ContentHeaderComponent } from './components/content-header/content-header.component';
 
 
 @NgModule({
@@ -56,8 +54,6 @@ import { ContentHeaderComponent } from './components/content-header/content-head
     ContactCardComponent,
     ChatCardComponent,
     MessageCardComponent,
-    CalendarComponent,
-    EmailsComponent,
     ContentHeaderComponent
   ],
   imports: [

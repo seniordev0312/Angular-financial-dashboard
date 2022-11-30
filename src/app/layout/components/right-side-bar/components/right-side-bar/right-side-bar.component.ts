@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivationStart, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-right-side-bar',
@@ -6,16 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./right-side-bar.component.scss']
 })
 export class RightSideBarComponent implements OnInit {
+  @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
-  showCalender: boolean = true;
-  ButtonText: string = 'View Emails'
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-  }
-
-  ChangeView(): void {
-    this.ButtonText = this.ButtonText === 'View Calender' ? 'View Emails' : 'View Calender';
-    this.showCalender = !this.showCalender
+    this.router.events.subscribe(e => {
+      if (e instanceof ActivationStart && e.snapshot.outlet === 'sidenav') {
+        this.outlet.deactivate();
+      }
+    });
   }
 }

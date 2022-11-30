@@ -1,10 +1,3 @@
 <div class="h-full w-full px-10">
-    <div class="h-[90%]">
-        <app-calendar *ngIf="showCalender"></app-calendar>
-        <app-emails *ngIf="!showCalender"></app-emails>
-    </div>
-    <div class="h-[10%] flex justify-center items-center">
-        <app-button class="w-full" classes="bg-accent text-white w-full" (onTrigger)="ChangeView()" [text]="ButtonText">
-        </app-button>
-    </div>
+    <router-outlet name="sidenav"></router-outlet>
 </div>
