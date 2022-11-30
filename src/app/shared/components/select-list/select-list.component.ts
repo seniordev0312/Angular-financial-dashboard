@@ -8,6 +8,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   styleUrls: ['./select-list.component.scss']
 })
 export class SelectListComponent implements OnInit {
+  @Output() trigger = new EventEmitter<void>();
   @Input() label: string;
   @Input() formControl: FormControl;
   @Input() isMultiple = false;
@@ -16,7 +17,6 @@ export class SelectListComponent implements OnInit {
     id: '1',
     name: '1111111'
   }];
-  @Output() onTrigger = new EventEmitter<void>();
 
   constructor() {
   }
@@ -25,6 +25,6 @@ export class SelectListComponent implements OnInit {
   }
 
   onClick() {
-    this.onTrigger.emit();
+    this.trigger.emit();
   }
 }

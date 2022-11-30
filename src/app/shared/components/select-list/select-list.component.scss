@@ -16,6 +16,10 @@
 
     .mat-select-arrow {
         color: var(--accent-color) !important;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-top: 7px solid;
+        margin-top: 10px;
     }
 
     .mat-form-field-appearance-fill .mat-form-field-underline::before {

@@ -1,0 +1,11 @@
+<app-dialog-header label="Entity Control"></app-dialog-header>
+<div class="px-12">
+    <div class="flex items-center justify-between my-6">
+        <div class="flex items-center">
+            <h5 class="text-base mr-4">Entity Type</h5>
+            <app-select-list></app-select-list>
+        </div>
+        <app-button text="Add Entity" icon="add" classes="bg-accent h-10 w-32 text-white"></app-button>
+    </div>
+    <app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+</div>

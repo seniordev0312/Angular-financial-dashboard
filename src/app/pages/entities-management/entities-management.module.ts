@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { EntitiesManagementComponent } from './components/entities-management/entities-management.component';
 import { Route, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { HeaderComponent } from './components/header/header.component';
 import { EntityInformationComponent } from './components/entity-information/entity-information.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { ProfileOverviewComponent } from './components/profile-overview/profile-overview.component';
 import { ProfileRatioComponent } from './components/profile-ratio/profile-ratio.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedModule } from '@root/shared/shared.module';
 
 const routes: Route[] = [
   {
@@ -22,7 +22,6 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     EntitiesManagementComponent,
-    HeaderComponent,
     EntityInformationComponent,
     ProfileOverviewComponent,
     ProfileRatioComponent
@@ -32,6 +31,7 @@ const routes: Route[] = [
     MatIconModule,
     MatDividerModule,
     MatTooltipModule,
+    SharedModule,
     MatTabsModule,
     RouterModule.forChild(routes)
   ]
