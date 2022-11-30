@@ -22,12 +22,9 @@ export class LayoutComponent implements OnInit {
     private uiService: UiService
   ) {
     this.onUpdateContentHeaderToggle();
-    console.log(this.contentHeaderModel?.paths);
-
   }
 
   ngOnInit(): void {
-    this.layoutService.isRTLDirection$.next(true)
   }
 
   LSideBarToggle() {

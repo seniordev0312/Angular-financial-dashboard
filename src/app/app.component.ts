@@ -1,6 +1,10 @@
 import { Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EntitiesManagementComponent } from './pages/entities-management/components/entities-management/entities-management.component';
+
+import {
+  EntitiesManagementComponent,
+} from './pages/entities-management/components/entities-management/entities-management.component';
+import { TranslationService } from './shared/services/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -19,5 +23,10 @@ export class AppComponent {
     }
   }
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    translationService: TranslationService
+  ) {
+    translationService.setDefaultLanguage();
+  }
 }

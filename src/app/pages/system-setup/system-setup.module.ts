@@ -11,6 +11,7 @@ import { CompanySetupComponent } from './components/company-setup/company-setup.
 import { CompanyStructureComponent } from './components/company-structure/company-structure.component';
 import { ChartOfAccountsComponent } from './components/chart-of-accounts/chart-of-accounts.component';
 import { ReferenceTablesComponent } from './components/reference-tables/reference-tables.component';
+import { SharedModule } from '@root/shared/shared.module';
 
 const routes: Route[] = [
   {
@@ -61,6 +62,7 @@ const routes: Route[] = [
     ReferenceTablesComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     MatIconModule,
     MatSidenavModule,

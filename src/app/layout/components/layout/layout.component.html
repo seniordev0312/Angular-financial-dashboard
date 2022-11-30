@@ -1,6 +1,6 @@
 <app-header (ToggleSideBarForLeftMenu)="LSideBarToggle()" class="shadow-2xl poppins-font"></app-header>
 
-<mat-sidenav-container class="poppins-font">
+<mat-sidenav-container class="poppins-font" [dir]="(isRTLDirection$|async) ? 'rtl': 'ltr'">
     <mat-sidenav #sidenav mode="side" position="start" opened="true">
         <app-left-side-bar></app-left-side-bar>
     </mat-sidenav>

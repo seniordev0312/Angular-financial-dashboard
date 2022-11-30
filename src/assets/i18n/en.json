@@ -1,0 +1,54 @@
+{
+    "routes": {
+        "system-setup": "System Setup",
+        "general-system-settings": "General System Settings",
+        "system-claims": "System Claims",
+        "user-security": "User Security",
+        "company-setup": "Company Setup",
+        "company-structure": "Company Structure",
+        "chart-of-accounts": "Chart of Accounts",
+        "reference-tables": "Reference Tables"
+    },
+    "core": {
+        "toolbar": {},
+        "footer": {},
+        "left-side-bar-front": {},
+        "left-side-bar-back": {
+            "dashboard": "Dashboard",
+            "customer-service": "Customer Service",
+            "insurance-renewals": "Insurance Renewals",
+            "insurance-underwriting": "Insurance Underwriting",
+            "general-insurance-underwriting": "General Insurance Underwriting",
+            "motor-insurance-underwriting": "Motor Insurance Underwriting",
+            "medical-insurance-underwriting": "Medical Insurance Underwriting",
+            "life-insurance-underwriting": "Life Insurance Underwriting",
+            "accounting-and-finance": "Accounting & Finance",
+            "cashier": "Cashier",
+            "general-accounting": "General Accounting",
+            "accounts-payable": "Accounts Payable",
+            "finance-and-reporting": "Finance & Reporting",
+            "human-resources": "Human Resources",
+            "payroll": "Payroll",
+            "correspondence": "Correspondence",
+            "correspondence-management": "Correspondence Management",
+            "activity-log": "Activity Log",
+            "product-management": "Product Management",
+            "treaty-management": "Treaty Management",
+            "entity-management": "Entity Management",
+            "settings": "Settings",
+            "system-setup": "System Setup"
+        }
+    },
+    "system-setup": {
+        "system-setup": {
+            "general-system-settings": "General System Settings",
+            "system-claims": "System Claims",
+            "user-security": "User Security",
+            "company-setup": "Company Setup",
+            "company-structure": "Company Structure",
+            "chart-of-accounts": "Chart of Accounts",
+            "reference-tables": "Reference Tables",
+            "please-select-system-setup-component": "Please select System Setup Component"
+        }
+    }
+}
