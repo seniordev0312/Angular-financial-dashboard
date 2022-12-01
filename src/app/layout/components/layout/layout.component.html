@@ -1,4 +1,4 @@
-<app-header (ToggleSideBarForLeftMenu)="LSideBarToggle()" class="shadow-2xl poppins-font"></app-header>
+<app-toolbar (ToggleSideBarForLeftMenu)="LSideBarToggle()" class="shadow-2xl poppins-font"></app-toolbar>
 
 <mat-sidenav-container class="poppins-font" [dir]="(isRTLDirection$|async) ? 'rtl': 'ltr'">
     <mat-sidenav #sidenav mode="side" position="start" opened="true">
@@ -6,10 +6,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="p-2 h-full">
-        <div *ngIf="contentHeaderModel?.paths" class="h-[5%] flex items-center">
-            <app-content-header [contentHeaderModel]="contentHeaderModel"></app-content-header>
+        <div *ngIf="routeCrumbsList?.crumbs" class="h-[5%] flex items-center">
+            <app-breadcrumbs></app-breadcrumbs>
         </div>
-        <div [ngClass]="{'h-[95%]': contentHeaderModel?.paths, 'h-full': !contentHeaderModel?.paths}">
+        <div [ngClass]="{'h-[95%]': routeCrumbsList?.crumbs, 'h-full': !routeCrumbsList?.crumbs}">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

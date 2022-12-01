@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UiService } from '@root/shared/services/ui.service';
+import { NavListItem } from '@root/shared/models/nav-list-item.model';
+import { systemSetupNavigationList } from 'src/statics/system-setup-navigations-list';
 
 @Component({
   selector: 'app-system-setup',
@@ -8,18 +9,14 @@ import { UiService } from '@root/shared/services/ui.service';
   styleUrls: ['./system-setup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SystemSetupComponent implements OnInit {
+export class SystemSetupComponent {
 
-  constructor(private uiService: UiService, private route: Router) { }
-  SystemSetupComp = false;
-  ngOnInit(): void {
-    this.uiService.toggleUpdateContentHeader({ paths: ['System Setup'] });
-  }
+  navList = systemSetupNavigationList;
+  constructor(private route: Router) { }
 
-  onItemClick(page: string, paths: string[]) {
-    this.SystemSetupComp = true;
-    this.route.navigate([`system-setup/${page}`]);
-    this.uiService.toggleUpdateContentHeader({ paths: paths });
+
+  onItemClick(navListItem: NavListItem) {
+    this.route.navigate([`system-setup/${navListItem.route}`]);
   }
 
 }

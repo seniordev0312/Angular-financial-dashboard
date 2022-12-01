@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ContentHeaderModel } from '@root/shared/models/content-header/content.header';
-import { UiService } from '@root/shared/services/ui.service';
+import { RouteCrumbsList } from '@root/shared/models/bread-crumbs/router-crumbs-list.model';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
@@ -14,15 +13,14 @@ export class LayoutComponent implements OnInit {
 
   RSideBarOpen: boolean = false;
   LSideBarOpen: boolean = true;
-  contentHeaderModel: ContentHeaderModel;
+  routeCrumbsList: RouteCrumbsList;
 
   isRTLDirection$ = this.layoutService.isRTLDirection$;
 
   constructor(
     private layoutService: LayoutService,
-    private uiService: UiService
   ) {
-    this.onUpdateContentHeaderToggle();
+    this.updateBreadCrumbsRouter();
   }
 
   ngOnInit(): void {
@@ -31,10 +29,11 @@ export class LayoutComponent implements OnInit {
   LSideBarToggle() {
     throw new Error('Method not implemented.');
   }
-  onUpdateContentHeaderToggle(): void {
-    this.uiService.onUpdateContentHeaderToggle().subscribe((contentHeaderModel: ContentHeaderModel) => {
-      this.contentHeaderModel = contentHeaderModel;
-    })
+
+  updateBreadCrumbsRouter(): void {
+    this.layoutService.breadcrumbsRoutes$.subscribe((routeCrumbsList: RouteCrumbsList) => {
+      this.routeCrumbsList = routeCrumbsList;
+    });
   }
 
 }

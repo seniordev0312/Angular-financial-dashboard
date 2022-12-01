@@ -41,6 +41,7 @@
     },
     "system-setup": {
         "system-setup": {
+            "system-setup": "System Setup",
             "general-system-settings": "General System Settings",
             "system-claims": "System Claims",
             "user-security": "User Security",

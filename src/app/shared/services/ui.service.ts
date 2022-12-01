@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { ContentHeaderModel } from "../models/content-header/content.header";
+import { RouteCrumb } from "../models/bread-crumbs/router-crumbs-list.model";
 
 @Injectable({
     providedIn: 'root',
@@ -9,7 +9,7 @@ export class UiService {
     private updateContentHeader = new Subject<any>();
     constructor() { }
 
-    toggleUpdateContentHeader(data: ContentHeaderModel): void {
+    toggleUpdateContentHeader(data: RouteCrumb): void {
         this.updateContentHeader.next(data);
     }
 

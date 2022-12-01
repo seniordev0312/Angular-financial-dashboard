@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-general-system-settings',
@@ -7,10 +9,21 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeneralSystemSettingsComponent implements OnInit {
-
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.SystemSetup,
+          translationKey: 'system-setup.system-setup.system-setup'
+        },
+        {
+          route: 'general-system-settings',
+          translationKey: 'system-setup.system-setup.general-system-settings'
+        }
+      ],
+    });
   }
-
 }
+

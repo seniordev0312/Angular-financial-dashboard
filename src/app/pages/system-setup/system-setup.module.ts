@@ -12,12 +12,17 @@ import { CompanyStructureComponent } from './components/company-structure/compan
 import { ChartOfAccountsComponent } from './components/chart-of-accounts/chart-of-accounts.component';
 import { ReferenceTablesComponent } from './components/reference-tables/reference-tables.component';
 import { SharedModule } from '@root/shared/shared.module';
+import { SystemSetupEmptyPageComponent } from './components/system-setup-empty-page/system-setup-empty-page.component';
 
 const routes: Route[] = [
   {
     path: '',
     component: SystemSetupComponent,
     children: [
+      {
+        path: '',
+        component: SystemSetupEmptyPageComponent,
+      },
       {
         path: 'general-system-settings',
         component: GeneralSystemSettingsComponent
@@ -59,7 +64,8 @@ const routes: Route[] = [
     CompanySetupComponent,
     CompanyStructureComponent,
     ChartOfAccountsComponent,
-    ReferenceTablesComponent
+    ReferenceTablesComponent,
+    SystemSetupEmptyPageComponent
   ],
   imports: [
     SharedModule,
