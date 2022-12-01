@@ -1,7 +1,6 @@
 <div class="flex justify-start items-center h-[5%] gap-4">
     <mat-icon (click)="back()" class="cursor-pointer"> keyboard_arrow_left</mat-icon>
-    <!-- <img class="rounded-full w-[40px] h-[40px]" [src]="photoURL"> -->
-    <span>{{message.Name}}</span>
+    <span class="text-base">{{message.Name}}</span>
 </div>
 <div class="h-[75%] overflow-auto">
     <div class="flex-col" *ngFor="let item of message.Messages">

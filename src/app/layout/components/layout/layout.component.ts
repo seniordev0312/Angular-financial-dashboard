@@ -9,8 +9,6 @@ import { LayoutService } from 'src/app/shared/services/layout.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
-
-
   RSideBarOpen: boolean = false;
   LSideBarOpen: boolean = true;
   routeCrumbsList: RouteCrumbsList;

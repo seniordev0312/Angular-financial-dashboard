@@ -6,7 +6,7 @@
                 alt="profile">
         </div>
         <div class="flex flex-col w-9/12 justify-start">
-            <div class="flex justify-start font-bold">{{contact.Name}}</div>
+            <div class="flex justify-start font-bold text-sm">{{contact.Name}}</div>
             <div class="text-xs flex justify-start">
                 {{ (contact.Messages[contact.Messages.length -1 ].message) | slice:0:36 }}...
             </div>

@@ -18,6 +18,9 @@ const routes: Route[] = [
   {
     path: '',
     component: SystemSetupComponent,
+    data: {
+      breadcrumb: undefined
+    },
     children: [
       {
         path: '',
@@ -28,27 +31,45 @@ const routes: Route[] = [
         component: GeneralSystemSettingsComponent
       },
       {
-        path: 'system-claims',
+        path: ApplicationRoutes.SystemClaims,
+        data: {
+          breadcrumb: ApplicationRoutes.SystemClaims
+        },
         component: SystemClaimsComponent
       },
       {
-        path: 'user-security',
+        path: ApplicationRoutes.UserSecurity,
+        data: {
+          breadcrumb: ApplicationRoutes.UserSecurity
+        },
         component: UserSecurityComponent
       },
       {
-        path: 'company-setup',
+        path: ApplicationRoutes.CompanySetup,
+        data: {
+          breadcrumb: ApplicationRoutes.CompanySetup
+        },
         component: CompanySetupComponent
       },
       {
-        path: 'company-structure',
+        path: ApplicationRoutes.CompanyStructure,
+        data: {
+          breadcrumb: ApplicationRoutes.CompanyStructure
+        },
         component: CompanyStructureComponent
       },
       {
-        path: 'chart-of-accounts',
+        path: ApplicationRoutes.ChartOfAccounts,
+        data: {
+          breadcrumb: ApplicationRoutes.ChartOfAccounts
+        },
         component: ChartOfAccountsComponent
       },
       {
-        path: 'reference-tables',
+        path: ApplicationRoutes.ReferenceTables,
+        data: {
+          breadcrumb: ApplicationRoutes.ReferenceTables
+        },
         component: ReferenceTablesComponent
       }
     ]

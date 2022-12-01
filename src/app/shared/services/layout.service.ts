@@ -34,6 +34,4 @@ export class LayoutService {
     isLtLg = () => this.breakpointObserver.isMatched('(max-width: 1279px)');
 
     isMobile = () => this.breakpointObserver.isMatched('(max-width: 599px)');
-
-
 }
