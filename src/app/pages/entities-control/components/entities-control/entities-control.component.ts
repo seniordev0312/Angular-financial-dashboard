@@ -234,7 +234,12 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     this.table.refresh();
   }
 
-
+  onEntityAdded() {
+    this.dialog.open(AddEntityComponent, {
+      width: '100%',
+      height: '100%'
+    });
+  }
 
 
   onEntityEdited(_category: EntitiesControlListItem) {

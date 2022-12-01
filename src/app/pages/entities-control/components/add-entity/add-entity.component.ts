@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-entity',
   templateUrl: './add-entity.component.html',
   styleUrls: ['./add-entity.component.scss']
 })
-export class AddEntityComponent implements OnInit {
+export class AddEntityComponent {
+  expandedPanelIndex: number;
+  constructor(private dialog: MatDialog) { }
 
-  constructor() { }
+  onEntitySaved() {
+    this.dialog.closeAll();
+  }
 
-  ngOnInit(): void {
+  toggleExpandedPanel(index: number) {
+    this.expandedPanelIndex = index;
+  }
+
+  isPanelExpanded(index: number) {
+    return this.expandedPanelIndex === index;
   }
 
 }
