@@ -38,9 +38,56 @@ export class IconSvgModule {
                 'search',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/search.svg')
             ).addSvgIcon(
+                'treaty',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/treaty.svg')
+            ).addSvgIcon(
+                'system-setup',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/system-setup.svg')
+            ).addSvgIcon(
+                'settings',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/settings.svg')
+            ).addSvgIcon(
+                'entity-management',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/entity-management.svg')
+            ).addSvgIcon(
                 'search-gray',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/search-gray.svg')
+            ).addSvgIcon(
+                'product-management',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/product-management.svg')
+            ).addSvgIcon(
+                'activityLog',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/activityLog.svg')
+            ).addSvgIcon(
+                'correspondence',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/correspondence.svg')
+            ).addSvgIcon(
+                'customer-service',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/customer-service.svg')
+            ).addSvgIcon(
+                'insurance-underwriting',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/insurance-underwriting.svg')
+            ).addSvgIcon(
+                'accounting-and-finance',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/accounting-and-finance.svg')
+            ).addSvgIcon(
+                'dashboard',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/dashboard.svg')
+            ).addSvgIcon(
+                'microphone',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/microphone.svg')
+            ).addSvgIcon(
+                'attach',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/attach.svg')
+            ).addSvgIcon(
+                'call-out',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/call-out.svg')
+            ).addSvgIcon(
+                'gallery',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/gallery.svg')
+            ).addSvgIcon(
+                'human-resources',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/human-resources.svg')
             );
-
     }
 }

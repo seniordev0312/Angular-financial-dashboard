@@ -4,16 +4,36 @@
         </mat-icon>
         Switch to Menu
     </div>
-    <div class="h-[95%]">
-        <div class="bg-[#F4F4F4] text-primary pt-2 pb-2 rounded-lg h-[5%]">
+    <div class="h-[95%] w-full flex flex-col justify-center items-center">
+        <div class="bg-[#F4F4F4] text-primary pt-2 pb-2 rounded-lg h-[5%] w-[100%] relative font-bold">
+            <div
+                class="absolute flex justify-center items-center bottom-[10px] -right-0 -top-2 text-xs bg-primary rounded-2xl text-[#FFFFFF] h-6 w-6 font-normal">
+                +2
+            </div>
             Communication Inbox
         </div>
-        <div class="h-[95%]">
-            <mat-tab-group class="h-[100%]">
-                <mat-tab label="DIRECT" class="h-[100%]">
+        <div class="h-[95%] w-full flex justify-center items-center">
+            <mat-tab-group class="flex justify-center items-center h-full w-full">
+                <mat-tab class="w-full h-full">
+                    <ng-template mat-tab-label class="h-full w-full relative font-bold">
+                        <div
+                            class="absolute flex justify-center items-center bottom-[10px] right-4 top-2 bg-[#FD3B31] text-xs rounded-2xl h-2 w-2 font-bold">
+                        </div>
+                        <div>
+                            DIRECT
+                        </div>
+                    </ng-template>
                     <app-direct></app-direct>
                 </mat-tab>
-                <mat-tab label="GROUPS" class="h-[100%]">
+                <mat-tab class="w-full h-full">
+                    <ng-template mat-tab-label class="h-full w-full relative font-bold">
+                        <div
+                            class="absolute flex justify-center items-center bottom-[10px] right-4 top-2 bg-[#FD3B31] text-xs rounded-2xl h-2 w-2 font-bold">
+                        </div>
+                        <div>
+                            GROUPS
+                        </div>
+                    </ng-template>
                     <app-group></app-group>
                 </mat-tab>
             </mat-tab-group>

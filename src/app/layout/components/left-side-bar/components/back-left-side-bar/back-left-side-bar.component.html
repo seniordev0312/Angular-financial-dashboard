@@ -3,11 +3,11 @@
         <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold" (click)="flipCard()">
         </mat-icon>
     </div>
-    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4">
-        <div class="h-4/6 flex flex-col items-start gap-1">
+    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4 overflow-y-auto">
+        <div class="flex flex-col items-start gap-1">
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="dashboard"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-pointer" (click)="navigate('dashboard')">
@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="customer-service"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-default">
@@ -33,7 +33,7 @@
             </div>
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="insurance-underwriting"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-default">
@@ -55,7 +55,7 @@
             </div>
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="accounting-and-finance"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-default">
@@ -77,7 +77,7 @@
             </div>
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="human-resources"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-default">
@@ -90,7 +90,7 @@
             </div>
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="correspondence"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-default">
@@ -102,49 +102,49 @@
                 </div>
             </div>
         </div>
-        <div class="h-2/6 flex flex-col items-start justify-end gap-1">
+        <span class="spacer"></span>
+        <div class="flex justify-center flex-col items-start gap-2">
             <div class="flex flex-row justify-start items-center gap-2">
-                <mat-icon>dashboard</mat-icon>
+                <mat-icon svgIcon="activityLog"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
                     (click)="navigate('activity-log')">
                     <span translate>core.left-side-bar-back.activity-log</span>
                 </div>
             </div>
             <div class="flex flex-row justify-start items-center gap-2">
-                <mat-icon>dashboard</mat-icon>
+                <mat-icon svgIcon="product-management"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
                     (click)="navigate('product-management')">
                     <span translate>core.left-side-bar-back.product-management</span>
                 </div>
             </div>
             <div class="flex flex-row justify-start items-center gap-2">
-                <mat-icon>dashboard</mat-icon>
+                <mat-icon svgIcon="treaty"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
                     (click)="navigate('treaty-management')">
                     <span translate>core.left-side-bar-back.treaty-management</span>
                 </div>
             </div>
             <div class="flex flex-row justify-start items-center gap-2">
-                <mat-icon>dashboard</mat-icon>
+                <mat-icon svgIcon="entity-management"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer">
                     <span translate>core.left-side-bar-back.entity-management</span>
                 </div>
             </div>
             <div class="flex flex-row justify-start items-center gap-2">
-                <mat-icon>dashboard</mat-icon>
+                <mat-icon svgIcon="settings"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
                     (click)="navigate('settings')">
                     <span translate>core.left-side-bar-back.settings</span>
                 </div>
             </div>
             <div class="flex flex-row justify-start items-center gap-2">
-                <mat-icon>dashboard</mat-icon>
+                <mat-icon svgIcon="system-setup"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
                     (click)="navigate('system-setup')">
                     <span translate>core.left-side-bar-back.system-setup</span>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
