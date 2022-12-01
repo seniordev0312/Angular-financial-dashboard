@@ -20,7 +20,7 @@ export class UserSecurityComponent implements OnInit {
           translationKey: 'system-setup.system-setup.system-setup'
         },
         {
-          route: 'user-security',
+          route: ApplicationRoutes.UserSecurity,
           translationKey: 'system-setup.system-setup.user-security'
         }
       ],

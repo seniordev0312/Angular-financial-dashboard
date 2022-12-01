@@ -20,7 +20,7 @@ export class ReferenceTablesComponent implements OnInit {
           translationKey: 'system-setup.system-setup.system-setup'
         },
         {
-          route: 'reference-tables',
+          route: ApplicationRoutes.ReferenceTables,
           translationKey: 'system-setup.system-setup.reference-tables'
         }
       ],

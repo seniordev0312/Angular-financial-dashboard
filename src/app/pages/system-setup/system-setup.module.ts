@@ -13,6 +13,7 @@ import { ChartOfAccountsComponent } from './components/chart-of-accounts/chart-o
 import { ReferenceTablesComponent } from './components/reference-tables/reference-tables.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { SystemSetupEmptyPageComponent } from './components/system-setup-empty-page/system-setup-empty-page.component';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 const routes: Route[] = [
   {

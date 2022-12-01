@@ -20,7 +20,7 @@ export class CompanyStructureComponent implements OnInit {
           translationKey: 'system-setup.system-setup.system-setup'
         },
         {
-          route: 'company-structure',
+          route: ApplicationRoutes.CompanyStructure,
           translationKey: 'system-setup.system-setup.company-structure'
         }
       ],
