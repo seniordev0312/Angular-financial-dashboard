@@ -1,4 +1,4 @@
 export class CardItem {
     title: string;
-    number: number;
+    number?: number;
 }
