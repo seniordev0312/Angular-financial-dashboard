@@ -15,7 +15,7 @@
                     <div class="flex items-center justify-between w-full panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
-                                class="border-[4px] border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
+                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 1</div>
                             <span class="font-bold text-lg">Select Entity Type</span>
                         </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div role="region" [style.display]="accordionItem0.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-0'" [attr.aria-labelledby]="'accordion-header-0'">
-                        bnnnnnnnnnnnnnnnnnnn
+                        <app-entity-type></app-entity-type>
                     </div>
                 </cdk-accordion-item>
 
@@ -35,7 +35,7 @@
                     <div class="flex items-center justify-between w-full mt-2 panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
-                                class="border-[4px] border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
+                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 2</div>
                             <span class="font-bold text-lg">Basic Information</span>
                         </div>
@@ -45,7 +45,7 @@
                     </div>
                     <div role="region" [style.display]="accordionItem1.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-0'">
-                        bnnnnnnnnnnnnnnnnnnn
+                        <app-entity-basic-information></app-entity-basic-information>
                     </div>
                 </cdk-accordion-item>
 
@@ -55,7 +55,7 @@
                     <div class="flex items-center justify-between w-full panel-header mt-2 bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
-                                class="border-[4px] border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
+                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 3</div>
                             <span class="font-bold text-lg">Address Information</span>
                         </div>
@@ -65,7 +65,7 @@
                     </div>
                     <div role="region" [style.display]="accordionItem2.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'">
-                        bnnnnnnnnnnnnnnnnnnn
+                        <app-entity-address-information></app-entity-address-information>
                     </div>
                 </cdk-accordion-item>
 
@@ -75,7 +75,7 @@
                     <div class="flex items-center justify-between w-full panel-header mt-2 bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
-                                class="border-[4px] border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
+                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 4</div>
                             <span class="font-bold text-lg">Bank Account Information</span>
                         </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div role="region" [style.display]="accordionItem3.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-3'" [attr.aria-labelledby]="'accordion-header-3'">
-                        bnnnnnnnnnnnnnnnnnnn
+                        <app-entity-bank-account-information></app-entity-bank-account-information>
                     </div>
                 </cdk-accordion-item>
 
@@ -95,7 +95,7 @@
                     <div class="flex items-center justify-between w-full panel-header mt-2 bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
-                                class="border-[4px] border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
+                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 5</div>
                             <span class="font-bold text-lg">KYC Information</span>
                         </div>
@@ -105,7 +105,7 @@
                     </div>
                     <div role="region" [style.display]="accordionItem4.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-4'" [attr.aria-labelledby]="'accordion-header-4'">
-                        bnnnnnnnnnnnnnnnnnnn
+                        <app-entity-kyc-information></app-entity-kyc-information>
                     </div>
                 </cdk-accordion-item>
             </cdk-accordion>
