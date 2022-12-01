@@ -1,0 +1,15 @@
+<div class="flex flex-row justify-start items-center gap-2">
+    <div *ngFor="let crumb of routeCrumbsList?.crumbs; let i = index" class="flex flex-row items-center">
+        <div [routerLink]="crumb.route" *ngIf="i === 0" class="font-bold cursor-pointer">
+            <span translate> {{crumb.translationKey}} </span> >
+        </div>
+        <div [routerLink]="crumb.route" *ngIf="i !== 0 && i !== routeCrumbsList?.crumbs.length -1"
+            class="font-bold cursor-pointer">
+            <span translate> {{crumb.translationKey}}</span> >
+        </div>
+        <div [routerLink]="crumb.route" *ngIf="i !== 0 && i === routeCrumbsList?.crumbs.length -1"
+            class="text-primary cursor-pointer font-bold">
+            <span translate> {{crumb.translationKey}} </span>
+        </div>
+    </div>
+</div>

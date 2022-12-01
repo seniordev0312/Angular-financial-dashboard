@@ -2,11 +2,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { RouteCrumbsList } from '../models/bread-crumbs/router-crumbs-list.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LayoutService {
+    breadcrumbsRoutesSubject = new BehaviorSubject<RouteCrumbsList>(null);
+    breadcrumbsRoutes$ = this.breadcrumbsRoutesSubject.asObservable();
+
+    updateBreadCrumbsRouter(data: RouteCrumbsList): void {
+        this.breadcrumbsRoutesSubject.next(data);
+    }
 
     isDesktop$ = this.breakpointObserver.observe('(min-width: 1280px)').pipe(map((state) => state.matches));
 
