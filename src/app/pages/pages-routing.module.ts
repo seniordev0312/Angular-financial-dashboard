@@ -139,6 +139,16 @@ const routes: Routes = [
             breadcrumb: ApplicationRoutes.CorrespondenceManagement
         },
         loadChildren: () => import('./correspondence/correspondence-management/correspondence-management.module').then((m) => m.CorrespondenceManagementModule)
+    },
+    {
+        path: ApplicationRoutes.Templates,
+        loadChildren: () => import('@root/pages/entities-templates-management/entities-templates-management.module').then((m) =>
+            m.EntitiesTemplatesManagementModule)
+    },
+    {
+        path: ApplicationRoutes.EntitiesManagement,
+        loadChildren: () => import('@root/pages/entities-management/entities-management.module').then((m) =>
+            m.EntitiesManagementModule)
     }
 ]
 
