@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BaseComponent } from './components/base-component/base-component';
-import { WidgetTableComponent } from './components/widget-table/widget-table.component';
-import { IconSvgModule } from './utilities-modules/icon-svg.module';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { IconSvgModule } from '@root/shared/utilities-modules/icon-svg.module';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
@@ -15,20 +15,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CardComponent } from './components/card/card.component';
-import { CardItemComponent } from './components/card-item/card-item.component';
-import { ButtonComponent } from './components/button/button.component';
-import { InputFieldComponent } from './components/input-field/input-field.component';
+import { CardComponent } from '@root/shared/components/card/card.component';
+import { CardItemComponent } from '@root/shared/components/card-item/card-item.component';
+import { ButtonComponent } from '@root/shared/components/button/button.component';
+import { InputFieldComponent } from '@root/shared/components/input-field/input-field.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { SelectListComponent } from './components/select-list/select-list.component';
-import { AutomaticFormValidationModule } from './automatic-form-validation/automatic-form-validation.module';
-import { DialogHeaderComponent } from './components/dialog-header/dialog-header.component';
+import { SelectListComponent } from '@root/shared/components/select-list/select-list.component';
+import { AutomaticFormValidationModule } from '@root/shared/automatic-form-validation/automatic-form-validation.module';
+import { DialogHeaderComponent } from '@root/shared/components/dialog-header/dialog-header.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { SelectListWithChipsComponent } from './components/select-list-with-chips/select-list-with-chips.component';
+import { SelectListWithChipsComponent } from '@root/shared/components/select-list-with-chips/select-list-with-chips.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { EntityInformationComponent } from '@root/shared/components/entity-information/entity-information.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,8 @@ import { MatChipsModule } from '@angular/material/chips';
         WidgetTableComponent,
         BaseComponent,
         DialogHeaderComponent,
-        SelectListWithChipsComponent
+        SelectListWithChipsComponent,
+        EntityInformationComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -62,6 +65,7 @@ import { MatChipsModule } from '@angular/material/chips';
         ButtonModule,
         FormsModule,
         TranslateModule,
+        MatDividerModule,
         ReactiveFormsModule,
         AutomaticFormValidationModule,
         MatChipsModule
@@ -76,7 +80,8 @@ import { MatChipsModule } from '@angular/material/chips';
         TranslateModule,
         AutomaticFormValidationModule,
         DialogHeaderComponent,
-        SelectListWithChipsComponent
+        SelectListWithChipsComponent,
+        EntityInformationComponent
     ],
     providers: [],
 })

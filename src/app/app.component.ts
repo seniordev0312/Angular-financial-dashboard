@@ -16,14 +16,14 @@ export class AppComponent {
   keyEvent(event: KeyboardEvent) {
     if (event.key == 'F2') {
       this.dialog.open(EntitiesViewerComponent, {
-        width: '100%',
-        height: '100%'
+        width: '90%',
+        height: '90%'
       })
     }
     else if (event.key == 'F3') {
       this.dialog.open(EntitiesControlComponent, {
-        width: '100%',
-        height: '100%'
+        width: '90%',
+        height: '90%'
       })
     }
   }
