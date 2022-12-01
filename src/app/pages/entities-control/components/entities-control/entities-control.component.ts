@@ -236,16 +236,16 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
 
   onEntityAdded() {
     this.dialog.open(AddEntityComponent, {
-      width: '100%',
-      height: '100%'
+      width: '90%',
+      height: '90%'
     });
   }
 
 
   onEntityEdited(_category: EntitiesControlListItem) {
     this.dialog.open(AddEntityComponent, {
-      width: '100%',
-      height: '100%'
+      width: '90%',
+      height: '90%'
     });
   }
 

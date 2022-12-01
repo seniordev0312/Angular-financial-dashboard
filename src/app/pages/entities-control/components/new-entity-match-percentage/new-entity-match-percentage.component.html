@@ -1,0 +1,35 @@
+<app-dialog-header label="Entity Control"></app-dialog-header>
+<div class="px-12">
+    <div class="flex items-center my-6">
+        <button class="flex mr-4" mat-button>
+            <span class="material-icons">
+                keyboard_return
+            </span>
+        </button>
+        <p class="font-semibold text-xl">Back</p>
+    </div>
+</div>
+
+<div class="px-12 grid grid-cols-4 gap-5 mb-6">
+    <app-entity-information [entityTemplate]="entityTemplate" label="New Entity Information"></app-entity-information>
+    <app-entity-information [entityTemplate]="entityTemplate" label="In System Entity Information">
+    </app-entity-information>
+    <app-entity-information [entityTemplatePercentage]="entityTemplatePercentage" [hasContent]="true"
+        [isMatchCard]="true" label="In System Entity Information">
+        <div class="flex justify-center items-center bg-success h-44 rounded-xl match-box text-white">
+            <h5 class="text-3xl font-light">87% Match</h5>
+        </div>
+    </app-entity-information>
+    <div class="flex flex-col">
+        <h4 class="text-xl font-bold">Suggested Action</h4>
+        <div
+            class="flex items-center mt-4 mb-10 justify-center cursor-pointer text-white bg-accent rounded-lg h-[185px]">
+            <h3 class="text-4xl font-black ">Merge & Select</h3>
+        </div>
+        <h4 class="text-xl font-bold">Other Actions</h4>
+        <div class="flex items-center mt-4 justify-center cursor-pointer text-white bg-accent rounded-lg py-4">
+            <h3 class="text-sm font-light">Select EIN</h3>
+        </div>
+        <app-button text="Create As New" classes="border-accent w-full border text-accent h-10 mt-5"></app-button>
+    </div>
+</div>
