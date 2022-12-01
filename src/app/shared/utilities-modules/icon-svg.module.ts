@@ -70,6 +70,24 @@ export class IconSvgModule {
             ).addSvgIcon(
                 'accounting-and-finance',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/accounting-and-finance.svg')
+            ).addSvgIcon(
+                'dashboard',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/dashboard.svg')
+            ).addSvgIcon(
+                'microphone',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/microphone.svg')
+            ).addSvgIcon(
+                'attach',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/attach.svg')
+            ).addSvgIcon(
+                'call-out',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/call-out.svg')
+            ).addSvgIcon(
+                'gallery',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/gallery.svg')
+            ).addSvgIcon(
+                'human-resources',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/human-resources.svg')
             );
     }
 }

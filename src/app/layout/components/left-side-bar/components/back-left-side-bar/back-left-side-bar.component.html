@@ -3,11 +3,11 @@
         <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold" (click)="flipCard()">
         </mat-icon>
     </div>
-    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4">
-        <div class="h-4/6 flex flex-col items-start gap-1">
+    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4 overflow-y-auto">
+        <div class="flex flex-col items-start gap-1">
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="dashboard"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-pointer" (click)="navigate('dashboard')">
@@ -77,7 +77,7 @@
             </div>
             <div class="flex flex-row justify-start items-start gap-2">
                 <div>
-                    <mat-icon>dashboard</mat-icon>
+                    <mat-icon svgIcon="human-resources"></mat-icon>
                 </div>
                 <div class="flex flex-col text-left w-full gap-1">
                     <div class="text-primary font-bold cursor-default">
@@ -102,7 +102,8 @@
                 </div>
             </div>
         </div>
-        <div class="h-2/6 flex flex-col items-start justify-end gap-2">
+        <span class="spacer"></span>
+        <div class="flex justify-center flex-col items-start gap-2">
             <div class="flex flex-row justify-start items-center gap-2">
                 <mat-icon svgIcon="activityLog"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
