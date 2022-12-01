@@ -18,4 +18,6 @@ export const enum ApplicationRoutes {
   GeneralAccounting = 'general-accounting',
   ActivityLog = 'activity-log',
   CorrespondenceManagement = 'correspondence-management',
+  Templates = 'templates',
+  EntitiesManagement = 'entities-management',
 }

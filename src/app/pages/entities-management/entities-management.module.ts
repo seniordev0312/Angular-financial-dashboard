@@ -1,34 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EntitiesViewerComponent } from './components/entities-viewer/entities-viewer.component';
-import { Route, RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { ProfileOverviewComponent } from './components/profile-overview/profile-overview.component';
-import { ProfileRatioComponent } from './components/profile-ratio/profile-ratio.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { EntitiesManagementComponent } from './components/entities-management/entities-management.component';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
 
-const routes: Route[] = [
+const routes: Routes = [
   {
-    path: 'templates',
-    loadChildren: () => import('@root/pages/entities-management/components/entities-templates-management/entities-templates-management.module').then((m) =>
-      m.EntitiesTemplatesManagementModule)
+    path: ApplicationRoutes.Empty,
+    component: EntitiesManagementComponent
   }
 ];
 
 @NgModule({
   declarations: [
-    EntitiesViewerComponent,
-    ProfileOverviewComponent,
-    ProfileRatioComponent
+    EntitiesManagementComponent
   ],
   imports: [
     CommonModule,
-    MatIconModule,
-    MatTooltipModule,
     SharedModule,
-    MatTabsModule,
     RouterModule.forChild(routes)
   ]
 })
