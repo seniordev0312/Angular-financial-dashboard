@@ -20,7 +20,7 @@ export class ChartOfAccountsComponent implements OnInit {
           translationKey: 'system-setup.system-setup.system-setup'
         },
         {
-          route: 'chart-of-accounts',
+          route: ApplicationRoutes.ChartOfAccounts,
           translationKey: 'system-setup.system-setup.chart-of-accounts'
         }
       ],

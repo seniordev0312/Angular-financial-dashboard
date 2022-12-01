@@ -20,7 +20,7 @@ export class SystemClaimsComponent implements OnInit {
           translationKey: 'system-setup.system-setup.system-setup'
         },
         {
-          route: 'system-claims',
+          route: ApplicationRoutes.SystemClaims,
           translationKey: 'system-setup.system-setup.system-claims'
         }
       ],

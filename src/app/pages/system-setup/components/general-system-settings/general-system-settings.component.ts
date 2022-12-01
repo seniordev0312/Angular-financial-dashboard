@@ -19,7 +19,7 @@ export class GeneralSystemSettingsComponent implements OnInit {
           translationKey: 'system-setup.system-setup.system-setup'
         },
         {
-          route: 'general-system-settings',
+          route: ApplicationRoutes.GeneralSystemSettings,
           translationKey: 'system-setup.system-setup.general-system-settings'
         }
       ],
