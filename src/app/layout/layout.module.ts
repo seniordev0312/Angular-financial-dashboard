@@ -12,8 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 
-import { ContentHeaderComponent } from './components/content-header/content-header.component';
 import { DropdownComponent } from './components/header/component/dropdown/dropdown.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -53,8 +53,7 @@ import { RightSideBarComponent } from './components/right-side-bar/components/ri
     GroupComponent,
     ContactCardComponent,
     ChatCardComponent,
-    MessageCardComponent,
-    ContentHeaderComponent
+    MessageCardComponent
   ],
   imports: [
     SharedModule,
@@ -70,7 +69,8 @@ import { RightSideBarComponent } from './components/right-side-bar/components/ri
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    BreadcrumbModule,
   ],
   providers: [],
 })

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ContentHeaderModel } from '@root/shared/models/content-header/content.header';
-import { UiService } from '@root/shared/services/ui.service';
+import { NavigationEnd, Router } from '@angular/router';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
@@ -10,19 +9,25 @@ import { LayoutService } from 'src/app/shared/services/layout.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
-
-
   RSideBarOpen: boolean = false;
   LSideBarOpen: boolean = true;
-  contentHeaderModel: ContentHeaderModel;
+
+  showCrumb: boolean = false;
 
   isRTLDirection$ = this.layoutService.isRTLDirection$;
 
   constructor(
     private layoutService: LayoutService,
-    private uiService: UiService
+    private router: Router
   ) {
-    this.onUpdateContentHeaderToggle();
+    router.events.subscribe((val: NavigationEnd) => {
+      if (val.url === '/dashboard') {
+        console.log(val);
+        this.showCrumb = false;
+      } else {
+        this.showCrumb = true;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -31,10 +36,9 @@ export class LayoutComponent implements OnInit {
   LSideBarToggle() {
     throw new Error('Method not implemented.');
   }
-  onUpdateContentHeaderToggle(): void {
-    this.uiService.onUpdateContentHeaderToggle().subscribe((contentHeaderModel: ContentHeaderModel) => {
-      this.contentHeaderModel = contentHeaderModel;
-    })
+
+  navigate(breadcrumb: string): void {
+    this.router.navigate([breadcrumb])
   }
 
 }

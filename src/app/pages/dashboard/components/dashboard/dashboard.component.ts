@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UiService } from '@root/shared/services/ui.service';
+
 import { card } from '../../../../shared/models/card/card.model';
 
 @Component({
@@ -96,10 +96,8 @@ export class DashboardComponent implements OnInit {
       backgroundColor: '#7BC8FF'
     }
   ]
-  constructor(private uiService: UiService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.uiService.toggleUpdateContentHeader({})
   }
-
 }

@@ -6,10 +6,21 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="p-2 h-full">
-        <div *ngIf="contentHeaderModel?.paths" class="h-[5%] flex items-center">
-            <app-content-header [contentHeaderModel]="contentHeaderModel"></app-content-header>
+        <div class="h-[5%] flex items-center" *ngIf="showCrumb">
+            <xng-breadcrumb [separator]="iconTemplate" class="flex items-center">
+                <ng-container *xngBreadcrumbItem="let breadcrumb;" class="flex items-center">
+                    <ng-container *ngIf="breadcrumb !=='dashboard'" class="flex items-center">
+                        <span translate (click)="navigate(breadcrumb)" class="font-bold text-sm"> routes.{{breadcrumb}}
+                        </span>
+                    </ng-container>
+                </ng-container>
+            </xng-breadcrumb>
         </div>
-        <div [ngClass]="{'h-[95%]': contentHeaderModel?.paths, 'h-full': !contentHeaderModel?.paths}">
+        <ng-template #iconTemplate>
+            <mat-icon>chevron_right</mat-icon>
+        </ng-template>
+
+        <div [ngClass]="{'h-[95%]': showCrumb, 'h-full': !showCrumb}">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
