@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-company-setup',
@@ -8,9 +10,21 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class CompanySetupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.SystemSetup,
+          translationKey: 'system-setup.system-setup.system-setup'
+        },
+        {
+          route: ApplicationRoutes.CompanySetup,
+          translationKey: 'system-setup.system-setup.company-setup'
+        }
+      ],
+    });
   }
 
 }

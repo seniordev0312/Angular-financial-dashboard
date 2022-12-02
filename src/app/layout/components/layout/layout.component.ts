@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouteCrumbsList } from '@root/shared/models/bread-crumbs/router-crumbs-list.model';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
@@ -8,18 +8,16 @@ import { LayoutService } from 'src/app/shared/services/layout.service';
   styleUrls: ['./layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
   RSideBarOpen: boolean = false;
   LSideBarOpen: boolean = true;
-
-  showCrumb: boolean = false;
-
+  routeCrumbsList: RouteCrumbsList;
   isRTLDirection$ = this.layoutService.isRTLDirection$;
 
   constructor(
     private layoutService: LayoutService,
-    private router: Router
   ) {
+    this.updateBreadCrumbsRouter();
   }
 
   ngOnInit(): void {
@@ -29,8 +27,10 @@ export class LayoutComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  navigate(breadcrumb: string): void {
-    this.router.navigate([breadcrumb])
+  updateBreadCrumbsRouter(): void {
+    this.layoutService.breadcrumbsRoutes$.subscribe((routeCrumbsList: RouteCrumbsList) => {
+      this.routeCrumbsList = routeCrumbsList;
+    });
   }
 
 }

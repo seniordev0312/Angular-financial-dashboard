@@ -1,64 +1,10 @@
 <div class="h-full w-full shadow-xl">
     <mat-drawer-container>
         <mat-drawer #drawer mode="side" opened="true" class="flex flex-col p-2 justify-center items-center">
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('general-system-settings')">
+            <div *ngFor="let item of navList" class="flex justify-between items-center cursor-pointer pr-2 pb-4"
+                (click)="onItemClick(item)">
                 <div class="text-sm">
-                    <span translate>system-setup.system-setup.general-system-settings</span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
-                </div>
-            </div>
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('system-claims')">
-                <div class="text-sm">
-                    <span translate>system-setup.system-setup.system-claims</span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
-                </div>
-            </div>
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('user-security')">
-                <div class="text-sm">
-                    <span translate>system-setup.system-setup.user-security</span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
-                </div>
-            </div>
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('company-setup')">
-                <div class="text-sm">
-                    <span translate>system-setup.system-setup.company-setup</span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
-                </div>
-            </div>
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('company-structure')">
-                <div class="text-sm">
-                    <span translate>system-setup.system-setup.company-structure</span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
-                </div>
-            </div>
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('chart-of-accounts')">
-                <div class="text-sm">
-                    <span translate>system-setup.system-setup.chart-of-accounts</span>
-                </div>
-                <div class="flex justify-center items-center">
-                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
-                </div>
-            </div>
-            <div class="flex justify-between items-center cursor-pointer pr-2 pb-4"
-                (click)="onItemClick('reference-tables')">
-                <div class="text-sm">
-                    <span translate>system-setup.system-setup.reference-tables</span>
+                    <span translate>{{item.transitionKey}}</span>
                 </div>
                 <div class="flex justify-center items-center">
                     <mat-icon color="primary">keyboard_arrow_right</mat-icon>
@@ -67,13 +13,7 @@
         </mat-drawer>
         <mat-drawer-content>
             <div class="p-1 h-full">
-                <div *ngIf="SystemSetupComp" class="h-full">
-                    <router-outlet> </router-outlet>
-                </div>
-                <div *ngIf="!SystemSetupComp"
-                    class="flex justify-center items-center opacity-20 h-full text-2xl font-bold">
-                    <span translate>system-setup.system-setup.please-select-system-setup-component</span>
-                </div>
+                <router-outlet> </router-outlet>
             </div>
         </mat-drawer-content>
     </mat-drawer-container>
