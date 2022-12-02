@@ -1,18 +1,18 @@
-<div class="h-full p-4 pb-0">
-    <div class="h-[10%]">
+<div class="h-full p-0">
+    <div class="h-[8%]">
         <span class="font-bold text-2xl">Hello Ali Atwi,</span><br>
-        <span class="font-light">Today is 25.11.2022</span>
+        <span class="font-light text-sm">Today is 25.11.2022</span>
     </div>
-    <div class="flex flex-row h-[30%] gap-4">
+    <div class="flex flex-row h-[30%] gap-2">
         <div *ngFor="let item of cards">
             <app-card [card]="item"></app-card>
         </div>
     </div>
-    <div class="flex flex-row h-[60%] w-full">
-        <div class="w-[800px]">
+    <div class="flex flex-row h-[62%]">
+        <div class="w-[400px]">
             <app-assigned-tasks></app-assigned-tasks>
         </div>
-        <div class="w-full">
+        <div style="width: calc((100%) - 400px);" class="min-w-[500px]">
             <app-sticky-notes></app-sticky-notes>
         </div>
     </div>

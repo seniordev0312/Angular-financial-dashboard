@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
@@ -20,13 +20,6 @@ export class LayoutComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router
   ) {
-    router.events.subscribe((val: NavigationEnd) => {
-      if (val.url === '/dashboard') {
-        this.showCrumb = false;
-      } else {
-        this.showCrumb = true;
-      }
-    });
   }
 
   ngOnInit(): void {

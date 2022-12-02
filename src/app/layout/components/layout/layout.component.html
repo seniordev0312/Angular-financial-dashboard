@@ -5,9 +5,7 @@
         <app-left-side-bar></app-left-side-bar>
     </mat-sidenav>
 
-    <mat-sidenav-content class="p-2 h-full">
-
-
+    <mat-sidenav-content class="p-1 h-full">
         <div [ngClass]="{'h-[95%]': showCrumb, 'h-full': !showCrumb}">
             <router-outlet></router-outlet>
         </div>
