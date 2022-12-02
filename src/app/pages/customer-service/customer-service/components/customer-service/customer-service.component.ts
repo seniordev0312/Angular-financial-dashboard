@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-customer-service',
@@ -8,9 +10,17 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class CustomerServiceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.CustomerService,
+          translationKey: 'customer-service.customer-service'
+        }
+      ],
+    });
   }
 
 }

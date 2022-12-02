@@ -6,7 +6,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="p-2 h-full">
-        <div *ngIf="routeCrumbsList?.crumbs" class="h-[5%] flex items-center">
+        <div *ngIf="showCrumb" class="h-[5%] flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
         <div [ngClass]="{'h-[95%]': routeCrumbsList?.crumbs, 'h-full': !routeCrumbsList?.crumbs}">
