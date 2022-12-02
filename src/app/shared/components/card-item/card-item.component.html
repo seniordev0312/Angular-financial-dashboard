@@ -4,7 +4,7 @@
         <span class="text-xxs font-light"> {{item.title}} </span>
     </div>
     <div class="flex items-center">
-        <span class="text-[10px]"> +{{item.number}} </span>
+        <span *ngIf="item.number" class="text-[10px]"> +{{item.number}} </span>
         <mat-icon [ngStyle]="colorStyle">keyboard_arrow_right</mat-icon>
     </div>
 </div>

@@ -25,4 +25,6 @@ export const enum ApplicationRoutes {
   CompanyStructure = 'company-structure',
   ChartOfAccounts = 'chart-of-accounts',
   ReferenceTables = 'reference-tables',
+  Templates = 'templates',
+  EntitiesManagement = 'entities-management',
 }

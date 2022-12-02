@@ -9,7 +9,7 @@ import { card } from '../../models/card/card.model';
 })
 export class CardComponent implements OnInit {
 
-  @Input() card!: card;
+  @Input() card: card;
   backgroundStyle: any;
   constructor() {
   }

@@ -3,7 +3,7 @@
         <div *ngFor="let employee of card.employees; let i = index">
             <img *ngIf="i < 3" class="w-[30px] h-[30px]  rounded-full" [src]="employee.photoURL">
             <a *ngIf="i === card.employees.length -1 "
-                class="cursor-default flex justify-center text-[#000] z-50 items-center w-[30px] h-[30px] text-xs font-medium bg-[#FFFFFF] rounded-full"
+                class="cursor-default flex justify-center text-black z-50 items-center w-[30px] h-[30px] text-xs font-medium bg-white rounded-full"
                 href="#">+{{card.employees.length - 3}}</a>
         </div>
     </div>
