@@ -88,6 +88,9 @@ export class IconSvgModule {
             ).addSvgIcon(
                 'human-resources',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/human-resources.svg')
+            ).addSvgIcon(
+                'back',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/back.svg')
             );
     }
 }
