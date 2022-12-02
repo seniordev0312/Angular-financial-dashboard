@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { card } from '@root/shared/models/card/card.model';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-entities-management',
@@ -43,9 +45,17 @@ export class EntitiesManagementComponent implements OnInit {
       backgroundColor: '#7BC8FF'
     }
   ];
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.EntitiesManagement,
+          translationKey: 'entities-management.entities-management'
+        }
+      ],
+    });
   }
 
 }

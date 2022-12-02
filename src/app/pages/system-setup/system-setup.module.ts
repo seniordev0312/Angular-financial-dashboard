@@ -29,7 +29,10 @@ const routes: Route[] = [
       },
       {
         path: 'general-system-settings',
-        component: GeneralSystemSettingsComponent
+        component: GeneralSystemSettingsComponent,
+        data: {
+          breadcrumb: ApplicationRoutes.GeneralSystemSettings
+        },
       },
       {
         path: ApplicationRoutes.SystemClaims,

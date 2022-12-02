@@ -67,5 +67,55 @@
             "reference-tables": "Reference Tables",
             "please-select-system-setup-component": "Please select System Setup Component"
         }
+    },
+    "accounting-add-finance": {
+        "accounts-payable": {
+            "accounts-payable": "Accounts Payable"
+        },
+        "cashier": {
+            "cashier": "Cashier"
+        },
+        "finance-and-reporting": {
+            "finance-and-reporting": "Finance & Reporting"
+        },
+        "general-accounting": {
+            "general-accounting": "General Accounting"
+        }
+    },
+    "activity-log": {
+        "activity-log": "Activity Log"
+    },
+    "correspondence-management": {
+        "correspondence-management": "Correspondence Management"
+    },
+    "customer-service": {
+        "customer-service": "Customer Service"
+    },
+    "insurance-renewals": {
+        "insurance-renewals": "Insurance Renewals"
+    },
+    "entities-management": {
+        "entities-management": "Entities Management"
+    },
+    "payroll": {
+        "payroll": "payroll"
+    },
+    "general-insurance-underwriting": {
+        "general-insurance-underwriting": "General Insurance Underwriting"
+    },
+    "life-insurance-underwriting": {
+        "life-insurance-underwriting": "Life Insurance Underwriting"
+    },
+    "medical-insurance-underwriting": {
+        "medical-insurance-underwriting": "Medical Insurance Underwriting"
+    },
+    "product-management": {
+        "product-management": "Product Management"
+    },
+    "treaty-management": {
+        "treaty-management": "Treaty Management"
+    },
+    "settings": {
+        "settings": "Settings"
     }
 }
