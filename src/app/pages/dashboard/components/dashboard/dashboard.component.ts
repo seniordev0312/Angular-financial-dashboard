@@ -63,6 +63,14 @@ export class DashboardComponent implements OnInit {
         {
           title: 'Customer Service',
           number: 21
+        },
+        {
+          title: 'Insurance Renewals',
+          number: 4
+        },
+        {
+          title: 'Customer Service',
+          number: 21
         }
       ],
       backgroundColor: '#469CD9'
