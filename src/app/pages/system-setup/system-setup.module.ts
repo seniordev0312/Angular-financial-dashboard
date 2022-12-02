@@ -12,38 +12,63 @@ import { CompanyStructureComponent } from './components/company-structure/compan
 import { ChartOfAccountsComponent } from './components/chart-of-accounts/chart-of-accounts.component';
 import { ReferenceTablesComponent } from './components/reference-tables/reference-tables.component';
 import { SharedModule } from '@root/shared/shared.module';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 const routes: Route[] = [
   {
     path: '',
     component: SystemSetupComponent,
+    data: {
+      breadcrumb: undefined
+    },
     children: [
       {
-        path: 'general-system-settings',
+        path: ApplicationRoutes.GeneralSystemSettings,
+        data: {
+          breadcrumb: ApplicationRoutes.GeneralSystemSettings
+        },
         component: GeneralSystemSettingsComponent
       },
       {
-        path: 'system-claims',
+        path: ApplicationRoutes.SystemClaims,
+        data: {
+          breadcrumb: ApplicationRoutes.SystemClaims
+        },
         component: SystemClaimsComponent
       },
       {
-        path: 'user-security',
+        path: ApplicationRoutes.UserSecurity,
+        data: {
+          breadcrumb: ApplicationRoutes.UserSecurity
+        },
         component: UserSecurityComponent
       },
       {
-        path: 'company-setup',
+        path: ApplicationRoutes.CompanySetup,
+        data: {
+          breadcrumb: ApplicationRoutes.CompanySetup
+        },
         component: CompanySetupComponent
       },
       {
-        path: 'company-structure',
+        path: ApplicationRoutes.CompanyStructure,
+        data: {
+          breadcrumb: ApplicationRoutes.CompanyStructure
+        },
         component: CompanyStructureComponent
       },
       {
-        path: 'chart-of-accounts',
+        path: ApplicationRoutes.ChartOfAccounts,
+        data: {
+          breadcrumb: ApplicationRoutes.ChartOfAccounts
+        },
         component: ChartOfAccountsComponent
       },
       {
-        path: 'reference-tables',
+        path: ApplicationRoutes.ReferenceTables,
+        data: {
+          breadcrumb: ApplicationRoutes.ReferenceTables
+        },
         component: ReferenceTablesComponent
       }
     ]

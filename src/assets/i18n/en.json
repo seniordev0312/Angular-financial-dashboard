@@ -1,5 +1,21 @@
 {
-    "routes": {
+    "navigation": {
+        "settings": "Settings",
+        "customer-service": "Customer Service",
+        "insurance-renewals": "Insurance Renewals",
+        "product-management": "Product Management",
+        "treaty-management": "Treaty Management",
+        "general-insurance-underwriting": "General Insurance Underwriting",
+        "life-insurance-underwriting": "Life Insurance Underwriting",
+        "medical-insurance-underwriting": "Medical Insurance Underwriting",
+        "motor-insurance-underwriting": "Motor Insurance Underwriting",
+        "payroll": "Payroll",
+        "accounts-payable": "Accounts Payable",
+        "cashier": "Cashier",
+        "finance-and-reporting": "Finance And Reporting",
+        "general-accounting": "General Accounting",
+        "activity-log": "Activity Log",
+        "correspondence-management": "Correspondence Management",
         "system-setup": "System Setup",
         "general-system-settings": "General System Settings",
         "system-claims": "System Claims",
