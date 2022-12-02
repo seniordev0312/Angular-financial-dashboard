@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
+import { FormArrayService } from '@root/shared/services/form-array.service';
 
 @Component({
   selector: 'app-select-list-with-chips',
@@ -8,13 +9,17 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   styleUrls: ['./select-list-with-chips.component.scss']
 })
 export class SelectListWithChipsComponent {
+  @Output() addNewItem = new EventEmitter<void>();
   @Input() firstSelectListLabel: string;
   @Input() secondSelectListLabel: string;
   @Input() showFirstSelectList = true;
   @Input() showAddIcon = true;
 
-  @Input() firstSelectListFormControl: FormControl;
-  @Input() secondSelectListFormControl: FormControl;
+  @Input() firstSelectListFormControlName: string;
+  @Input() secondSelectListFormControlName: string;
+
+  @Input() fg: FormGroup;
+  @Input() arrayControlName: string;
 
   @Input() firstSelectListOptionsList: BaseListItem[] = [{
     id: '1',
@@ -42,20 +47,31 @@ export class SelectListWithChipsComponent {
     name: '1111111'
   }];
 
-  constructor() {
+  get items() {
+    return this.fg && this.formArrayService.getFormArrayItems(this.arrayControlName, this.fg) as FormArray;
   }
 
-  get chipsList(): string[] {
-    return this.secondSelectListFormControl?.value || [];
+  constructor(private formArrayService: FormArrayService) {
+  }
+
+  getFormGroup(index: number): FormGroup {
+    return this.items?.controls[index] as FormGroup;
+  }
+
+  getChipsList(index: number): string[] {
+    return this.getFormGroup(index)?.get(this.secondSelectListFormControlName)?.value || [];
   }
 
   getChipLabel(id: string) {
     return this.secondSelectListOptionsList.find(c => c.id === id).name;
   }
 
-  removeChip(id: string) {
-    const temp = this.chipsList.filter(e => e !== id);
-    this.secondSelectListFormControl.patchValue(temp);
+  removeChip(id: string, index: number) {
+    const types = this.getChipsList(index).filter(e => e !== id);
+    this.getFormGroup(index).patchValue({ types });
   }
 
+  onAddClicked() {
+    this.addNewItem.emit();
+  }
 }

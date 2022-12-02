@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
@@ -7,6 +8,10 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { take } from 'rxjs';
 import { EntityTemplatesListItem } from '../../models/entity-templates-list-item.model';
 
 @Component({
@@ -25,25 +30,21 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
     {
       id: 1,
       name: '222',
-      isActive: false,
       description: 'oooooo'
     },
     {
       id: 1,
-      name: '222',
-      isActive: true,
-      description: 'oooooo'
+      name: 'Address Template',
+      description: 'All fields and verification for address input with map integration'
     },
     {
       id: 1,
-      name: '222',
-      isActive: true,
-      description: 'oooooo'
+      name: 'Address Template',
+      description: 'All fields and verification for address input with map integration'
     },
     {
       id: 1,
-      name: '222',
-      isActive: true,
+      name: 'Address Template',
       description: 'oooooo'
     }
   ]
@@ -97,20 +98,6 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
         filterType: TableColumnFilterDataType.Text
       }
     },
-    {
-      translationKey: '',
-      property: 'isActive',
-      type: 'bool',
-      cssClasses: () => '',
-      dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
-      enableSort: false,
-      hasFilter: false,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      action: () => { }
-    },
   ];
 
   editAction: TableRowAction<EntityTemplatesListItem> = {
@@ -123,37 +110,91 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
     isIconButton: true,
   };
 
+  deleteAction: TableRowAction<EntityTemplatesListItem> = {
+    action: (data) => this.onTemplateDeleted(data),
+    cssClasses: 'text-warn',
+    iconName: 'delete_outline',
+    translationKey: '',
+    alwaysShow: true,
+    showConditionProperty: null,
+    isIconButton: true,
+  };
+
+  viewAction: TableRowAction<EntityTemplatesListItem> = {
+    action: (data) => this.onTemplateViewed(data),
+    cssClasses: 'text-accent',
+    iconName: 'visibility',
+    translationKey: '',
+    alwaysShow: true,
+    showConditionProperty: null,
+    isIconButton: true,
+  };
 
   tableSettings = new TableSettings({ actionsMode: 'inline' });
 
   tableConfiguration: TableConfiguration<EntityTemplatesListItem> = {
-    tableRowsActionsList: [this.editAction],
+    tableRowsActionsList: [this.viewAction, this.editAction, this.deleteAction],
     columns: this.tableColumns,
     data: [],
     dataCount: 3,//todo replace after api
     settings: this.tableSettings,
   };
 
-  constructor(
-  ) {
+  constructor(private layoutService: LayoutService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private router: Router) {
     super();
   }
 
   ngOnInit(): void {
     this.tableConfiguration.data = this.templatesList;
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.EntitiesManagement,
+          translationKey: 'Entity Management'
+        },
+        {
+          route: ApplicationRoutes.EntitiesTemplates,
+          translationKey: 'Manage Entity Section Templates'
+        }
+      ],
+    });
   }
 
   ngAfterViewInit(): void {
     this.table.refresh();
   }
 
-
-
-
-  onTemplateEdited(_category: EntityTemplatesListItem) {
+  onTemplateAdded() {
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+    this.router.navigate([ApplicationRoutes.EntitiesTemplates, {
+      outlets: { sidenav: ApplicationRoutes.AddTemplate },
+    }], { skipLocationChange: true });
   }
 
-  onTemplateDeleted(_category: EntityTemplatesListItem) {
+
+  onTemplateEdited(_template: EntityTemplatesListItem) {
   }
 
+  onTemplateDeleted(_template: EntityTemplatesListItem) {
+    this.confirmationDialogService.open({
+      description: 'Are you sure you want to delete this template?',
+      title: 'Delete Template',
+      icon: 'error_outline',
+      cancelText: 'Cancel',
+      confirmText: 'Confirm',
+      actionButtonsColor: 'warn',
+      iconCssClasses: 'text-warn',
+    });
+
+    this.subscriptions.add(
+      this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
+        if (isConfirmed) { }
+      }));
+  }
+
+  onTemplateViewed(_template: EntityTemplatesListItem) {
+  }
 }

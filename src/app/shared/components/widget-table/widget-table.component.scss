@@ -12,8 +12,14 @@
         vertical-align: center !important;
     }
 
+    .p-datatable-table {
+        border-width: 1px !important;
+        border-color: #E8E8E8 !important;
+    }
+
     .p-datatable-wrapper {
         min-height: 50vh;
+        border-radius: 12px;
     }
 
     .p-datatable-responsive-scroll>.p-datatable-wrapper {

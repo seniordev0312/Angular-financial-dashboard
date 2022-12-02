@@ -14,7 +14,8 @@
         </div>
     </mat-sidenav-content>
 
-    <mat-sidenav #sidenav mode="side" position="end" opened="false" class="bg-[#FAFAFA]">
+    <mat-sidenav #sidenav [mode]="rightSidenavMode$|async" position="end" [opened]="isRightSidenavOpened$|async"
+        class="bg-[#FAFAFA]">
         <app-right-side-bar></app-right-side-bar>
     </mat-sidenav>
 </mat-sidenav-container>

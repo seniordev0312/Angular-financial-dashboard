@@ -3,18 +3,26 @@ import { CommonModule } from '@angular/common';
 import { EntitiesTemplatesManagementComponent } from './components/entities-templates-management/entities-templates-management.component';
 import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { AddEntityTemplateComponent } from './components/add-entity-template/add-entity-template.component';
 
 
 const routes: Route[] = [
   {
-    path: '',
+    path: ApplicationRoutes.Empty,
     component: EntitiesTemplatesManagementComponent
+  },
+  {
+    path: ApplicationRoutes.AddTemplate,
+    component: AddEntityTemplateComponent,
+    outlet: 'sidenav',
   }
 ];
 
 @NgModule({
   declarations: [
-    EntitiesTemplatesManagementComponent
+    EntitiesTemplatesManagementComponent,
+    AddEntityTemplateComponent
   ],
   imports: [
     CommonModule,

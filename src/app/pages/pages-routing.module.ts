@@ -141,7 +141,7 @@ const routes: Routes = [
         loadChildren: () => import('./correspondence/correspondence-management/correspondence-management.module').then((m) => m.CorrespondenceManagementModule)
     },
     {
-        path: ApplicationRoutes.Templates,
+        path: ApplicationRoutes.EntitiesTemplates,
         loadChildren: () => import('@root/pages/entities-templates-management/entities-templates-management.module').then((m) =>
             m.EntitiesTemplatesManagementModule)
     },
