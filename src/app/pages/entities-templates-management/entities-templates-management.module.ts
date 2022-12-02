@@ -16,6 +16,11 @@ const routes: Route[] = [
     path: ApplicationRoutes.AddTemplate,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
+  },
+  {
+    path: `${ApplicationRoutes.AddTemplate}/:id`,
+    component: AddEntityTemplateComponent,
+    outlet: 'sidenav',
   }
 ];
 
