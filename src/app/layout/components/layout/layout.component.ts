@@ -22,7 +22,6 @@ export class LayoutComponent implements OnInit {
   ) {
     router.events.subscribe((val: NavigationEnd) => {
       if (val.url === '/dashboard') {
-        console.log(val);
         this.showCrumb = false;
       } else {
         this.showCrumb = true;
