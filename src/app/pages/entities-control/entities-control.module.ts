@@ -11,6 +11,8 @@ import { EntityKycInformationComponent } from './components/entity-kyc-informati
 import { EntityAddressInformationComponent } from './components/entity-address-information/entity-address-information.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { NewEntityMatchPercentageComponent } from './components/new-entity-match-percentage/new-entity-match-percentage.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -29,7 +31,9 @@ import { NewEntityMatchPercentageComponent } from './components/new-entity-match
   imports: [
     CommonModule,
     CdkAccordionModule,
-    SharedModule
+    SharedModule,
+    MatIconModule,
+    MatDialogModule
   ]
 })
 export class EntitiesControlModule { }

@@ -8,6 +8,7 @@ import { ProfileRatioComponent } from './components/profile-ratio/profile-ratio.
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@root/shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Route[] = [
 ];
@@ -23,6 +24,7 @@ const routes: Route[] = [
     MatIconModule,
     MatTooltipModule,
     SharedModule,
+    MatDialogModule,
     MatTabsModule,
     RouterModule.forChild(routes)
   ]

@@ -15,11 +15,6 @@ import { PagingConfig } from '@root/shared/models/table/page-configuration.model
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Table } from 'primeng/table';
 import {
-    DateTableColumnFilterType,
-    NumericTableColumnFilterType,
-    TextTableColumnFilterType,
-} from '@root/shared/statics/primeng-filters-statics';
-import {
     getDataType,
     getFilterValue,
     getType,
@@ -48,20 +43,10 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
     filterData: Filter[] = [];
     isSliderChangeConfirmed: boolean;
-    // emptyPage: EmptyPage = {
-    //     showAddButton: false,
-    //     buttonText: null,
-    //     showImage: true,
-    //     subTitle: null,
-    //     title: 'general.noDataFound',
-    // };
     pageSize = 50;
     currentPageIndex = 0;
     isSpinning$: Observable<boolean>;
     data: T[];
-    textMatchModeOptions = TextTableColumnFilterType;
-    numericMatchModeOptions = NumericTableColumnFilterType;
-    dateTableColumnFilterType = DateTableColumnFilterType;
     isDesktop$ = this.layoutService.isDesktop$;
     isMobile$ = this.layoutService.isMobile$;
 

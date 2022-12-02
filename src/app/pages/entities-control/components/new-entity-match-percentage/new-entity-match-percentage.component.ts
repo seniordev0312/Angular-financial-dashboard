@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { EntityTemplatePercentage } from '@root/shared/models/entities/entity-template-percentage.model';
 import { EntityTemplate } from '@root/shared/models/entities/entity-template.model';
+import { AddEntityComponent } from '../add-entity/add-entity.component';
 
 @Component({
   selector: 'app-new-entity-match-percentage',
@@ -42,11 +44,16 @@ export class NewEntityMatchPercentageComponent implements OnInit {
     profession: 'nmmnm',
     state: 'lebanon'
   };
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
-
+  onBackClicked() {
+    this.dialog.open(AddEntityComponent, {
+      width: '90%',
+      height: '90%'
+    });
+  }
 
 }
