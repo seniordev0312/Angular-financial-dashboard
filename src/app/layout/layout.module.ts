@@ -11,6 +11,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
+
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import {
@@ -65,7 +66,7 @@ import { ToolbarModule } from './components/toolbar/toolbar.module';
     MatInputModule,
     MatTabsModule,
     MatButtonModule,
-    ToolbarModule
+    ToolbarModule,
   ],
   providers: [],
 })

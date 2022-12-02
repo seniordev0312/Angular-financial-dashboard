@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StickyNotesComponent implements OnInit {
-
+  items: any[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
   constructor() { }
 
   ngOnInit(): void {
