@@ -1,0 +1,23 @@
+<div [class.dialog-confirmation-simple]="!data.description" [class.dialog-confirmation-complex]="data.description">
+    <div>
+        <div class="flex">
+            <span [ngClass]="data.iconCssClasses" class="mr-4">
+                <mat-icon>{{ data.icon ?? close }}</mat-icon>
+            </span>
+            <h2 mat-dialog-title class="text-lg font-bold">{{ data.title | translate }}</h2>
+        </div>
+        <div class="ml-10">
+            <p class="mb-4" translate="">{{ data.description | translate }}</p>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions class="flex justify-end w-full items-center">
+    <button type="button" style="margin-right: 10px;" mat-raised-button [color]="data.actionButtonsColor ?? 'accent'"
+        class="text-white" mat-dialog-close>
+        {{ data.cancelText | translate }}
+    </button>
+    <button type="button" mat-stroked-button [color]="data.actionButtonsColor ?? 'accent'" (click)="confirm()">
+        {{ data.confirmText | translate }}
+    </button>
+</div>

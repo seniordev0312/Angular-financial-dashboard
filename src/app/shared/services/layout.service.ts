@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { RouteCrumbsList } from '../models/bread-crumbs/router-crumbs-list.model';
+import { MatDrawerMode } from '@angular/material/sidenav';
 
 @Injectable({
     providedIn: 'root',
@@ -14,6 +15,12 @@ export class LayoutService {
     updateBreadCrumbsRouter(data: RouteCrumbsList): void {
         this.breadcrumbsRoutesSubject.next(data);
     }
+
+    isRightSidenavOpenedSubject = new BehaviorSubject<boolean>(false);
+    isRightSidenavOpened$ = this.isRightSidenavOpenedSubject.asObservable();
+
+    rightSidenavModeSubject = new BehaviorSubject<MatDrawerMode>('side');
+    rightSidenavMode$ = this.rightSidenavModeSubject.asObservable();
 
     isDesktop$ = this.breakpointObserver.observe('(min-width: 1280px)').pipe(map((state) => state.matches));
 
@@ -34,4 +41,18 @@ export class LayoutService {
     isLtLg = () => this.breakpointObserver.isMatched('(max-width: 1279px)');
 
     isMobile = () => this.breakpointObserver.isMatched('(max-width: 599px)');
+
+
+    openRightSideNav(): void {
+        this.isRightSidenavOpenedSubject.next(true);
+    }
+
+    closeRightSideNav(): void {
+        this.isRightSidenavOpenedSubject.next(false);
+    }
+
+
+    changeRightSideNavMode(mode: MatDrawerMode): void {
+        this.rightSidenavModeSubject.next(mode);
+    }
 }

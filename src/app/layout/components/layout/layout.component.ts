@@ -13,14 +13,13 @@ export class LayoutComponent {
   LSideBarOpen: boolean = true;
   routeCrumbsList: RouteCrumbsList;
   isRTLDirection$ = this.layoutService.isRTLDirection$;
+  rightSidenavMode$ = this.layoutService.rightSidenavMode$;
+  isRightSidenavOpened$ = this.layoutService.isRightSidenavOpened$;
 
   constructor(
     private layoutService: LayoutService,
   ) {
     this.updateBreadCrumbsRouter();
-  }
-
-  ngOnInit(): void {
   }
 
   LSideBarToggle() {
