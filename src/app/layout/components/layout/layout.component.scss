@@ -5,7 +5,16 @@
 }
 
 mat-sidenav {
-    width: 40vh;
+    width: var(--sideNavSize);
+}
+
+::ng-deep .mat-drawer-content {
+    margin-left: var(--marginLeftValue);
+
+}
+
+::ng-deep .content {
+    margin-left: var(--marginLeftValue);
 }
 
 mat-sidenav-container {

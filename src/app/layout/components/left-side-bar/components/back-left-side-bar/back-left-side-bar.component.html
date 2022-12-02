@@ -1,4 +1,4 @@
-<div class="h-full pl-4 pr-4 pb-2" [@fadeSlideInOut]="animationState">
+<div *ngIf="extended" class="h-full pl-4 pr-4 pb-2" [@fadeSlideInOut]="animationState">
     <div class="h-[5%] flex items-center gap-2 text-lg text-black">
         <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold icon" (click)="flipCard()">
         </mat-icon>
@@ -141,9 +141,54 @@
             <div class="flex flex-row justify-start items-center gap-2">
                 <mat-icon svgIcon="system-setup"></mat-icon>
                 <div class="text-primary font-bold items-center justify-center cursor-pointer"
-                    (click)="navigate('system-setup')">
+                    (click)="openAndClose('system-setup')">
                     <span translate>core.left-side-bar-back.system-setup</span>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!extended" class="h-full pl-4 pr-4 pb-2" [@fadeSlideInOut]="animationState">
+    <div class="h-full flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4 overflow-y-auto">
+        <div class="flex flex-col items-start gap-1">
+            <div class="flex flex-row justify-start items-start gap-2">
+                <mat-icon svgIcon="dashboard"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <mat-icon svgIcon="customer-service"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <mat-icon svgIcon="insurance-underwriting"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <mat-icon svgIcon="accounting-and-finance"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <mat-icon svgIcon="human-resources"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-start gap-2">
+                <mat-icon svgIcon="correspondence"></mat-icon>
+            </div>
+        </div>
+        <span class="spacer"></span>
+        <div class="flex justify-center flex-col items-start gap-2">
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon svgIcon="activityLog"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon svgIcon="product-management"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon svgIcon="treaty"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon svgIcon="entity-management"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon svgIcon="settings"></mat-icon>
+            </div>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <mat-icon svgIcon="system-setup" (click)="openAndClose('system-setup')"></mat-icon>
             </div>
         </div>
     </div>

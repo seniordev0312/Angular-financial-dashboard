@@ -9,7 +9,7 @@
         <div *ngIf="showCrumb" class="h-[5%] flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
-        <div [ngClass]="{'h-[95%]': routeCrumbsList?.crumbs, 'h-full': !routeCrumbsList?.crumbs}">
+        <div [ngClass]="mainContentClass">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
