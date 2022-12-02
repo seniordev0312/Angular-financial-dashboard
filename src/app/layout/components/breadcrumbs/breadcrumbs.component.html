@@ -6,6 +6,8 @@
         <div [routerLink]="crumb.route" *ngIf="i !== 0 && i !== routeCrumbsList?.crumbs.length -1"
             class="font-bold cursor-pointer">
             <span translate> {{crumb.translationKey}}</span> >
+            <span translate> {{crumb.translationKey}} </span><span
+                *ngIf="i !== routeCrumbsList?.crumbs.length -1">></span>
         </div>
         <div [routerLink]="crumb.route" *ngIf="i !== 0 && i === routeCrumbsList?.crumbs.length -1"
             class="text-primary cursor-pointer font-bold">

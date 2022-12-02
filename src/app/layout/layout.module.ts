@@ -66,7 +66,7 @@ import { ToolbarModule } from './components/toolbar/toolbar.module';
     MatInputModule,
     MatTabsModule,
     MatButtonModule,
-    ToolbarModule,
+    ToolbarModule
   ],
   providers: [],
 })
