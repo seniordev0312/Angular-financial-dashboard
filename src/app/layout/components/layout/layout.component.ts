@@ -50,7 +50,6 @@ export class LayoutComponent implements OnInit {
   }
 
   openAndClose(extended: any): void {
-
     const size = extended ? '384px' : '50px';
     document.documentElement.style.setProperty('--sidenav-width', size);
     if (extended) {
