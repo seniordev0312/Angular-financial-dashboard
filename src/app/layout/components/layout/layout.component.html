@@ -2,20 +2,20 @@
 
 <mat-sidenav-container class="poppins-font" [dir]="(isRTLDirection$|async) ? 'rtl': 'ltr'">
     <mat-sidenav #sidenav mode="side" position="start" opened="true">
-        <app-left-side-bar></app-left-side-bar>
+        <app-left-side-bar (toggleSidenavCollapsedEvent)="toggleSidenav($event)"></app-left-side-bar>
     </mat-sidenav>
 
-    <mat-sidenav-content class="p-2 h-full">
+    <mat-sidenav-content class="p-2 h-full" [ngStyle]="{'margin-left': ml}">
         <div *ngIf="showCrumb" class="h-[5%] flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
-        <div [ngClass]="{'h-[95%]': routeCrumbsList?.crumbs, 'h-full': !routeCrumbsList?.crumbs}">
+        <div [ngClass]="mainContentClass">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>
 
     <mat-sidenav #sidenav [mode]="rightSidenavMode$|async" position="end" [opened]="isRightSidenavOpened$|async"
-        class="bg-[#FAFAFA]">
+        class="bg-white">
         <app-right-side-bar></app-right-side-bar>
     </mat-sidenav>
 </mat-sidenav-container>

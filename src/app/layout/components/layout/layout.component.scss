@@ -5,7 +5,7 @@
 }
 
 mat-sidenav {
-    width: 40vh;
+    width: var(--sidenav-width);
 }
 
 mat-sidenav-container {

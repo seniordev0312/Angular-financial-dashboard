@@ -17,18 +17,24 @@ export class LayoutComponent implements OnInit {
   rightSidenavMode$ = this.layoutService.rightSidenavMode$;
   isRightSidenavOpened$ = this.layoutService.isRightSidenavOpened$;
   showCrumb: boolean = false;
+  mainContentClass: any = { 'h-full': true };
+  ml: string = '384px';
   constructor(
     private layoutService: LayoutService,
     private router: Router,
   ) {
     this.updateBreadCrumbsRouter();
   }
+
   ngOnInit(): void {
+    document.documentElement.style.setProperty('--sidenav-width', '40vh');
     this.router.events.subscribe((val: NavigationEnd) => {
       if (val.url === '/dashboard') {
         this.showCrumb = false;
+        this.mainContentClass = { 'h-full': true };
       } else {
         this.showCrumb = true;
+        this.mainContentClass = { 'h-[95%]': true }
       }
     });
   }
@@ -43,4 +49,13 @@ export class LayoutComponent implements OnInit {
     });
   }
 
+  toggleSidenav(extended: any): void {
+    const size = extended ? '384px' : '50px';
+    document.documentElement.style.setProperty('--sidenav-width', size);
+    if (extended) {
+      this.ml = '384px'
+    } else {
+      this.ml = '50px'
+    }
+  }
 }
