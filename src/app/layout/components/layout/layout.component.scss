@@ -11,3 +11,7 @@ mat-sidenav {
 mat-sidenav-container {
     height: 100%;
 }
+
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: unset !important;
+}

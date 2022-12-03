@@ -167,15 +167,20 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
   }
 
   onTemplateAdded() {
-    this.layoutService.openRightSideNav();
-    this.layoutService.changeRightSideNavMode('over');
     this.router.navigate([ApplicationRoutes.EntitiesTemplates, {
       outlets: { sidenav: ApplicationRoutes.AddTemplate },
     }], { skipLocationChange: true });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
   }
 
 
-  onTemplateEdited(_template: EntityTemplatesListItem) {
+  onTemplateEdited(template: EntityTemplatesListItem) {
+    this.router.navigate([ApplicationRoutes.EntitiesTemplates, {
+      outlets: { sidenav: `${ApplicationRoutes.AddTemplate}/${template.id}` },
+    }], { skipLocationChange: true });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
   }
 
   onTemplateDeleted(_template: EntityTemplatesListItem) {
