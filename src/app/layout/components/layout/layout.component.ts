@@ -50,7 +50,7 @@ export class LayoutComponent implements OnInit {
   }
 
   openAndClose(extended: any): void {
-    console.log(extended);
+
     const size = extended ? '40vh' : '6vh';
     document.documentElement.style.setProperty('--sideNavSize', size);
     if (extended) {
