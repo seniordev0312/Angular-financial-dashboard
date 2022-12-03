@@ -24,7 +24,7 @@ export class LeftSideBarComponent implements OnInit {
 
   flip: string = 'inactive';
   @ViewChild(BackLeftSideBarComponent) BackLeftSideBarComponent!: BackLeftSideBarComponent;
-  @Output() openAndCloseEvent: EventEmitter<any> = new EventEmitter<void>();
+  @Output() toggleSidenavCollapsedEvent: EventEmitter<any> = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class LeftSideBarComponent implements OnInit {
     this.BackLeftSideBarComponent.animationState = 'in';
   }
 
-  openAndClose(data: any) {
-    this.openAndCloseEvent.emit(data);
+  toggleSidenav(data: any) {
+    this.toggleSidenavCollapsedEvent.emit(data);
   }
 }

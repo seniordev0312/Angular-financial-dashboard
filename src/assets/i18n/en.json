@@ -55,6 +55,10 @@
             "system-setup": "System Setup"
         }
     },
+    "dashboard": {
+        "new": "New",
+        "sticky-notes": "Sticky Notes"
+    },
     "system-setup": {
         "system-setup": {
             "system-setup": "System Setup",

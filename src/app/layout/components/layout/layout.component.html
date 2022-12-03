@@ -2,7 +2,7 @@
 
 <mat-sidenav-container class="poppins-font" [dir]="(isRTLDirection$|async) ? 'rtl': 'ltr'">
     <mat-sidenav #sidenav mode="side" position="start" opened="true">
-        <app-left-side-bar (openAndCloseEvent)="openAndClose($event)"></app-left-side-bar>
+        <app-left-side-bar (toggleSidenavCollapsedEvent)="toggleSidenav($event)"></app-left-side-bar>
     </mat-sidenav>
 
     <mat-sidenav-content class="p-2 h-full" [ngStyle]="{'margin-left': ml}">
@@ -15,7 +15,7 @@
     </mat-sidenav-content>
 
     <mat-sidenav #sidenav [mode]="rightSidenavMode$|async" position="end" [opened]="isRightSidenavOpened$|async"
-        class="bg-[#FAFAFA]">
+        class="bg-white">
         <app-right-side-bar></app-right-side-bar>
     </mat-sidenav>
 </mat-sidenav-container>
