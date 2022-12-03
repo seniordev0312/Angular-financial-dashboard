@@ -18,7 +18,7 @@ export class LayoutComponent implements OnInit {
   isRightSidenavOpened$ = this.layoutService.isRightSidenavOpened$;
   showCrumb: boolean = false;
   mainContentClass: any = { 'h-full': true };
-  ml: any = '384px';
+  ml: string = '384px';
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    document.documentElement.style.setProperty('--sideNavSize', '40vh');
+    document.documentElement.style.setProperty('--sidenav-width', '40vh');
     this.router.events.subscribe((val: NavigationEnd) => {
       if (val.url === '/dashboard') {
         this.showCrumb = false;
@@ -50,13 +50,12 @@ export class LayoutComponent implements OnInit {
   }
 
   openAndClose(extended: any): void {
-    console.log(extended);
-    const size = extended ? '40vh' : '6vh';
-    document.documentElement.style.setProperty('--sideNavSize', size);
+    const size = extended ? '384px' : '50px';
+    document.documentElement.style.setProperty('--sidenav-width', size);
     if (extended) {
       this.ml = '384px'
     } else {
-      this.ml = '6vh'
+      this.ml = '50px'
     }
   }
 }
