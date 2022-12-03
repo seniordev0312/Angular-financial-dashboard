@@ -45,8 +45,13 @@ export class BackLeftSideBarComponent implements OnInit {
 
   @Output() flip: EventEmitter<any> =
     new EventEmitter<any>();
+
+  @Output() openAndCloseEvent: EventEmitter<any> = new EventEmitter<boolean>();
+
+
   animationState: string = 'out';
   extended: boolean = true;
+  path: string = '<'
   constructor(private route: Router) { }
 
   ngOnInit(): void {
@@ -61,12 +66,9 @@ export class BackLeftSideBarComponent implements OnInit {
     this.route.navigate([url]);
   }
 
-  openAndClose(_url: string) {
-    const size = !this.extended ? '40vh' : '10vh';
-    const marginLeftValue = !this.extended ? '384px' : '10vh';
-    document.documentElement.style.setProperty('--sideNavSize', size);
-    document.documentElement.style.setProperty('--marginLeftValue', marginLeftValue);
+  openAndClose() {
     this.extended = !this.extended;
-    console.log(this.extended, size);
+    this.path = this.extended ? '<' : '>';
+    this.openAndCloseEvent.emit(this.extended);
   }
 }

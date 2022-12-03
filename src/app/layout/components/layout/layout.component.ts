@@ -18,6 +18,7 @@ export class LayoutComponent implements OnInit {
   isRightSidenavOpened$ = this.layoutService.isRightSidenavOpened$;
   showCrumb: boolean = false;
   mainContentClass: any = { 'h-full': true };
+  ml: any = '384px';
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -48,4 +49,14 @@ export class LayoutComponent implements OnInit {
     });
   }
 
+  openAndClose(extended: any): void {
+    console.log(extended);
+    const size = extended ? '40vh' : '6vh';
+    document.documentElement.style.setProperty('--sideNavSize', size);
+    if (extended) {
+      this.ml = '384px'
+    } else {
+      this.ml = '6vh'
+    }
+  }
 }
