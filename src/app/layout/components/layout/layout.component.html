@@ -6,10 +6,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="p-2 h-full" [ngStyle]="{'margin-left': ml}">
-        <div *ngIf="showCrumb" class="h-[5%] flex items-center">
+        <div *ngIf="showCrumb" class="h-[5%] pt-5 pl-5 flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
-        <div [ngClass]="mainContentClass">
+        <div class="pl-5" [ngClass]="mainContentClass">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

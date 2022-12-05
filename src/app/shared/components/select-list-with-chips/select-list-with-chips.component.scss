@@ -13,6 +13,10 @@
         font-size: 15px;
     }
 
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        padding: 0.25em 0.25em 0 0.25em !important;
+    }
+
     .mat-select-value-text {
         color: var(--accent-color) !important;
         font-size: 12px;
@@ -58,10 +62,19 @@
         font-size: 13px !important;
     }
 
-    .chips-list {
+
+    ::ng-deep .mat-chip-list-wrapper {
+        background-color: #C0C6CC;
+        margin: 0px !important;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
         border-top-color: var(--accent-color);
         border-top-width: 1px;
+    }
+
+    .delete-icon {
+        font-size: 20px !important;
     }
 }

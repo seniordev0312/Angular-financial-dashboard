@@ -15,3 +15,8 @@ mat-sidenav-container {
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
     background-color: unset !important;
 }
+
+:host ::ng-deep .mat-drawer-over {
+    width: 45vh !important;
+    background-color: #FAFAFA !important;
+}

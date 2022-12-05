@@ -1,0 +1,20 @@
+<form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
+    <h4 class="font-bold text-sm mb-7">Add New Entity Relationship Type</h4>
+    <app-input-field label="Code" [formControl]="getFormControl('code')"></app-input-field>
+    <app-select-list label="Relationship Type Forward:" [formControl]="getFormControl('forward')"></app-select-list>
+    <app-select-list label="Relationship Type Backward:" [formControl]="getFormControl('back')"></app-select-list>
+    <app-input-field label="Description" [formControl]="getFormControl('description')"></app-input-field>
+
+    <!-- <app-select-list-with-chips [fg]="fg" arrayControlName="elements" [showFirstSelectList]="false"
+        [showAddIcon]="false" secondSelectListFormControlName="allowedEntities" secondSelectListLabel="AllowedEntities">
+    </app-select-list-with-chips> -->
+    <div class="flex items-center">
+        <p class="text-xs font-bold mr-16">Lock Entity Type</p>
+        <mat-slide-toggle></mat-slide-toggle>
+    </div>
+    <div class="flex items-center mt-7 justify-between w-full">
+        <app-button (trigger)="onClose()" text="cancel"
+            classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
+        <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
+    </div>
+</form>
