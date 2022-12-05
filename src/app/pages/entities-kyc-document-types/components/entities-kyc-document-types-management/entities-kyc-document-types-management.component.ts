@@ -10,98 +10,61 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { RelationshipTypesListItem } from '../../models/relationship-types-list-item.model';
+import { KYCDocumentInterfaceListItem } from '../../models/kyc-document-types-list-item.model';
 
 @Component({
-  selector: 'app-entities-relationship-types-management',
-  templateUrl: './entities-relationship-types-management.component.html',
-  styleUrls: ['./entities-relationship-types-management.component.scss'],
+  selector: 'app-entities-kyc-document-types-management',
+  templateUrl: './entities-kyc-document-types-management.component.html',
+  styleUrls: ['./entities-kyc-document-types-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesRelationshipTypesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<RelationshipTypesListItem>;
+  table: WidgetTableComponent<KYCDocumentInterfaceListItem>;
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];
-  relationshipTypesList: RelationshipTypesListItem[] = [
+  templatesList: KYCDocumentInterfaceListItem[] = [
     {
-      id: ' 1',
+      id: '1',
       code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
+      information: 'CGI9-1028-YUIW-C3OP',
+      process: true,
+      type: 'Passport'
     },
     {
-      id: ' 1',
+      id: '1',
       code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
+      information: 'CGI9-1028-YUIW-C3OP',
+      process: true,
+      type: 'Passport'
     },
     {
-      id: ' 1',
+      id: '1',
       code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
+      information: 'CGI9-1028-YUIW-C3OP',
+      process: true,
+      type: 'Passport'
     },
     {
-      id: ' 1',
+      id: '1',
       code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
+      information: 'CGI9-1028-YUIW-C3OP',
+      process: true,
+      type: 'Passport'
     },
     {
-      id: ' 1',
+      id: '1',
       code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
+      information: 'CGI9-1028-YUIW-C3OP',
+      process: true,
+      type: 'Passport'
     },
-    {
-      id: ' 1',
-      code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
-    },
-    {
-      id: ' 1',
-      code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
-    },
-    {
-      id: ' 1',
-      code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
-    },
-    {
-      id: ' 1',
-      code: '1',
-      forward: 'Father Of',
-      back: 'Child Of',
-      allowedEntities: ['1', '3'],
-      description: 'Parent child relationship link'
-    }
   ]
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'Entity Relationship Type Code',
+      translationKey: 'KYC Document Type Code',
       property: 'code',
       type: 'text',
       svgIcon: '',
@@ -118,8 +81,8 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
       }
     },
     {
-      translationKey: 'Relationship Type Forward',
-      property: 'forward',
+      translationKey: 'KYC Document Type',
+      property: 'type',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
@@ -134,12 +97,12 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
       }
     },
     {
-      translationKey: 'Relationship Type Back',
-      property: 'back',
+      translationKey: 'Template Processing Key Information',
+      property: 'information',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
-      enableSort: true,
+      enableSort: false,
       hasFilter: true,
       visible: true,
       displayInFilterList: true,
@@ -150,25 +113,9 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
       }
     },
     {
-      translationKey: 'Relationship Type Description',
-      property: 'description',
-      type: 'text',
-      cssClasses: () => '',
-      dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
-    },
-    {
-      translationKey: 'Allowed Entities',
-      property: 'allowedEntities',
-      type: 'text',
+      translationKey: 'Process',
+      property: 'process',
+      type: 'bool',
       cssClasses: () => '',
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
       enableSort: false,
@@ -183,10 +130,10 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
     },
   ];
 
-  lockAction: TableRowAction<RelationshipTypesListItem> = {
-    action: () => { },
+  editAction: TableRowAction<KYCDocumentInterfaceListItem> = {
+    action: (data) => this.onDocumentTypeEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'lock',
+    iconName: 'edit',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,
@@ -194,10 +141,11 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
   };
 
 
+
   tableSettings = new TableSettings({ actionsMode: 'inline' });
 
-  tableConfiguration: TableConfiguration<RelationshipTypesListItem> = {
-    tableRowsActionsList: [this.lockAction],
+  tableConfiguration: TableConfiguration<KYCDocumentInterfaceListItem> = {
+    tableRowsActionsList: [this.editAction],
     columns: this.tableColumns,
     data: [],
     dataCount: 3,//todo replace after api
@@ -210,7 +158,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
   }
 
   ngOnInit(): void {
-    this.tableConfiguration.data = this.relationshipTypesList;
+    this.tableConfiguration.data = this.templatesList;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -218,8 +166,8 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
           translationKey: 'Entity Management'
         },
         {
-          route: ApplicationRoutes.EntitiesRelationshipTypesManagement,
-          translationKey: 'Manage Entity Relationship Types'
+          route: ApplicationRoutes.EntitiesKYCDocumentTypesManagement,
+          translationKey: 'Manage KYC Document Types'
         }
       ],
     });
@@ -229,9 +177,18 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
     this.table.refresh();
   }
 
-  onRelationshipTypeAdded() {
-    this.router.navigate([ApplicationRoutes.EntitiesRelationshipTypesManagement, {
-      outlets: { sidenav: ApplicationRoutes.AddRelationshipType },
+  onDocumentTypeAdded() {
+    this.router.navigate([ApplicationRoutes.EntitiesTemplates, {
+      outlets: { sidenav: ApplicationRoutes.AddTemplate },
+    }], { skipLocationChange: true });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+  }
+
+
+  onDocumentTypeEdited(documentType: KYCDocumentInterfaceListItem) {
+    this.router.navigate([ApplicationRoutes.EntitiesTemplates, {
+      outlets: { sidenav: `${ApplicationRoutes.AddTemplate}/${documentType.id}` },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');

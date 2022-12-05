@@ -50,7 +50,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
   ]
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'ID',
+      translationKey: 'Entity Section Templates ID',
       property: 'id',
       type: 'text',
       svgIcon: '',
@@ -67,7 +67,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
       }
     },
     {
-      translationKey: 'Name',
+      translationKey: 'Section Template Name',
       property: 'name',
       type: 'text',
       cssClasses: () => '',
@@ -83,7 +83,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
       }
     },
     {
-      translationKey: 'Description',
+      translationKey: 'Section Description',
       property: 'description',
       type: 'text',
       cssClasses: () => '',
