@@ -13,12 +13,12 @@ const routes: Route[] = [
     component: EntitiesKycDocumentTypesManagementComponent
   },
   {
-    path: ApplicationRoutes.AddKYCDocumentType,
+    path: ApplicationRoutes.Add,
     component: AddDocumentTypeComponent,
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.AddKYCDocumentType}/:id`,
+    path: `${ApplicationRoutes.Add}/:id`,
     component: AddDocumentTypeComponent,
     outlet: 'sidenav',
   },

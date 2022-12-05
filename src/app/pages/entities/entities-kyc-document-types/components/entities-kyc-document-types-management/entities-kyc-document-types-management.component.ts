@@ -179,7 +179,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
 
   onDocumentTypeAdded() {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesKYCDocumentTypesManagement}`, {
-      outlets: { sidenav: ApplicationRoutes.AddKYCDocumentType },
+      outlets: { sidenav: ApplicationRoutes.Add },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
@@ -188,7 +188,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
 
   onDocumentTypeEdited(documentType: KYCDocumentInterfaceListItem) {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesKYCDocumentTypesManagement}`, {
-      outlets: { sidenav: `${ApplicationRoutes.AddKYCDocumentType}/${documentType.id}` },
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${documentType.id}` },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');

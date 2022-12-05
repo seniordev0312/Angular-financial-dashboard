@@ -28,6 +28,11 @@ const routes: Routes = [
     path: ApplicationRoutes.EntitiesKYCDocumentTypesManagement,
     loadChildren: () => import('@root/pages/entities/entities-kyc-document-types/entities-kyc-document-types.module').then((m) =>
       m.EntitiesKycDocumentTypesModule)
+  },
+  {
+    path: ApplicationRoutes.EntitiesSourcesManagement,
+    loadChildren: () => import('@root/pages/entities/entities-sources-management/entities-sources-management.module').then((m) =>
+      m.EntitiesSourcesManagementModule)
   }
 ]
 
