@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '@root/layout/components/layout/layout.component';
-import { EntitiesControlModule } from '@root/pages/entities-control/entities-control.module';
-import { EntitiesViewerModule } from '@root/pages/entities-viewer/entities-viewer.module';
+import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
+import { EntitiesViewerModule } from '@root/pages/entities/entities-viewer/entities-viewer.module';
 
 const routes: Routes = [
   {

@@ -84,25 +84,9 @@ const routes: Routes = [
         loadChildren: () => import('./correspondence/correspondence-management/correspondence-management.module').then((m) => m.CorrespondenceManagementModule)
     },
     {
-        path: ApplicationRoutes.EntitiesTemplates,
-        loadChildren: () => import('@root/pages/entities-templates-management/entities-templates-management.module').then((m) =>
-            m.EntitiesTemplatesManagementModule)
+        path: ApplicationRoutes.Entities,
+        loadChildren: () => import('@root/pages/entities/entities.module').then((m) => m.EntitiesModule)
     },
-    {
-        path: ApplicationRoutes.EntitiesManagement,
-        loadChildren: () => import('@root/pages/entities-management/entities-management.module').then((m) =>
-            m.EntitiesManagementModule)
-    },
-    {
-        path: ApplicationRoutes.EntitiesRelationshipTypesManagement,
-        loadChildren: () => import('@root/pages/entities-relationship-types/entities-relationship-types.module').then((m) =>
-            m.EntitiesRelationshipTypesModule)
-    },
-    {
-        path: ApplicationRoutes.EntitiesKYCDocumentTypesManagement,
-        loadChildren: () => import('@root/pages/entities-kyc-document-types/entities-kyc-document-types.module').then((m) =>
-            m.EntitiesKycDocumentTypesModule)
-    }
 ]
 
 @NgModule({

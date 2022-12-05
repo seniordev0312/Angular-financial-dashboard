@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EntitiesControlComponent } from './pages/entities-control/components/entities-control/entities-control.component';
-import { EntitiesViewerComponent } from './pages/entities-viewer/components/entities-viewer/entities-viewer.component';
+import { EntitiesControlComponent } from './pages/entities/entities-control/components/entities-control/entities-control.component';
+import { EntitiesViewerComponent } from './pages/entities/entities-viewer/components/entities-viewer/entities-viewer.component';
 import { TranslationService } from './shared/services/translation.service';
 
 @Component({
