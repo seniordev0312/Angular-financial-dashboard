@@ -28,4 +28,5 @@ export const enum ApplicationRoutes {
   EntitiesTemplates = 'entities-templates',
   EntitiesManagement = 'entities-management',
   AddTemplate = 'add-template',
+  EntitiesRelationshipTypesManagement = 'entities-relationship-types',
 }
