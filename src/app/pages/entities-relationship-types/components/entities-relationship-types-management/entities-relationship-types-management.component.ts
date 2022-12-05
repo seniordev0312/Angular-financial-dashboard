@@ -230,8 +230,8 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
   }
 
   onRelationshipTypeAdded() {
-    this.router.navigate([ApplicationRoutes.EntitiesTemplates, {
-      outlets: { sidenav: ApplicationRoutes.AddTemplate },
+    this.router.navigate([ApplicationRoutes.EntitiesRelationshipTypesManagement, {
+      outlets: { sidenav: ApplicationRoutes.AddRelationshipType },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');

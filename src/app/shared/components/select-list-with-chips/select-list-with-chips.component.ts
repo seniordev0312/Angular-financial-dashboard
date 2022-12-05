@@ -54,24 +54,39 @@ export class SelectListWithChipsComponent {
   constructor(private formArrayService: FormArrayService) {
   }
 
-  getFormGroup(index: number): FormGroup {
-    return this.items?.controls[index] as FormGroup;
+  get chipsList(): string[] {
+    let chipsList: string[] = [];
+    this.items?.controls.forEach((control) => {
+      if (control.get(this.secondSelectListFormControlName).value) {
+        chipsList = [...chipsList, ...control.get(this.secondSelectListFormControlName).value]
+      }
+    })
+    return chipsList;
   }
 
-  getChipsList(index: number): string[] {
-    return this.getFormGroup(index)?.get(this.secondSelectListFormControlName)?.value || [];
+  getFormGroup(index: number): FormGroup {
+    return this.items?.controls[index] as FormGroup;
   }
 
   getChipLabel(id: string) {
     return this.secondSelectListOptionsList.find(c => c.id === id).name;
   }
 
-  removeChip(id: string, index: number) {
-    const types = this.getChipsList(index).filter(e => e !== id);
-    this.getFormGroup(index).patchValue({ types });
+  removeChip(id: string) {
+    this.items.controls.forEach(control => {
+      const index = control.get(this.secondSelectListFormControlName).value.findIndex((c: string) => c === id);
+      if (index !== -1) {
+        const types = control.get(this.secondSelectListFormControlName).value.filter((c: string) => c !== id);
+        this.getFormGroup(index).patchValue({ types });
+      }
+    })
   }
 
   onAddClicked() {
     this.addNewItem.emit();
+  }
+
+  onItemDeleted(index: number) {
+    this.formArrayService.removeItemFromFormArray(this.arrayControlName, this.fg, index);
   }
 }

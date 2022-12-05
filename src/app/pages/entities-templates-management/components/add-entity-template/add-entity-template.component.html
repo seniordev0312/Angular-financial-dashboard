@@ -5,7 +5,7 @@
     <app-select-list label="Entity Section Template Name:" [formControl]="getFormControl('name')"></app-select-list>
 
     <p class="text-xxs font-bold my-2">Add Element in Template</p>
-    <app-select-list-with-chips [fg]="fg" arrayControlName="elements" firstSelectListFormControlName="name"
+    <app-select-list-with-chips [fg]="fg" arrayControlName="elementTypes" firstSelectListFormControlName="name"
         secondSelectListFormControlName="types" secondSelectListLabel="Element Type" firstSelectListLabel="Element Name"
         (addNewItem)="onNewElementAdded()">
     </app-select-list-with-chips>

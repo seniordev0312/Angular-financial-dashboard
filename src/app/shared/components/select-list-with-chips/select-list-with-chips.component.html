@@ -1,36 +1,49 @@
-<ng-container *ngIf="items" [formGroup]="fg">
-    <div class="flex flex-col border border-accent rounded-2xl relative pt-5 w-48" [formArrayName]="arrayControlName"
-        *ngFor="let item of items['controls']; let i = index">
-        <ng-container [formGroupName]="i">
-            <mat-form-field *ngIf="showFirstSelectList" class="px-4" appearance="fill">
-                <mat-label>{{firstSelectListLabel}}</mat-label>
-                <mat-select [formControlName]="firstSelectListFormControlName">
-                    <mat-option value="">
-                        <span class="text-accent text-xs">All</span>
-                    </mat-option>
-                    <mat-option *ngFor="let option of firstSelectListOptionsList" [value]="option.id">
-                        <span class="text-accent text-xs">{{option.name}}</span>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+<ng-container [formGroup]="fg">
+    <div class="flex flex-col border border-accent rounded-2xl pt-5 w-48">
+        <mat-form-field *ngIf="showFirstSelectList" class="px-4" appearance="fill">
+            <mat-label>{{firstSelectListLabel}}</mat-label>
+            <mat-select [formControlName]="firstSelectListFormControlName">
+                <mat-option value="">
+                    <span class="text-accent text-xs">All</span>
+                </mat-option>
+                <mat-option *ngFor="let option of firstSelectListOptionsList" [value]="option.id">
+                    <span class="text-accent text-xs">{{option.name}}</span>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="relative">
+            <ng-container [formArrayName]="arrayControlName" *ngFor="let item of items['controls']; let i = index">
+                <ng-container [formGroupName]="i">
+                    <div class="flex items-center relative">
+                        <mat-form-field class="px-4 w-full" appearance="fill">
+                            <mat-label>{{secondSelectListLabel}}</mat-label>
+                            <mat-select multiple [formControlName]="secondSelectListFormControlName">
+                                <mat-option value="">
+                                    <span class="text-accent text-xs">All</span>
+                                </mat-option>
+                                <mat-option *ngFor="let option of secondSelectListOptionsList" [value]="option.id">
+                                    <span class="text-accent text-xs">{{option.name}}</span>
+                                </mat-option>
+                            </mat-select>
 
-            <mat-form-field class="px-4" appearance="fill">
-                <mat-label>{{secondSelectListLabel}}</mat-label>
-                <mat-select multiple [formControlName]="secondSelectListFormControlName">
-                    <mat-option value="">
-                        <span class="text-accent text-xs">All</span>
-                    </mat-option>
-                    <mat-option *ngFor="let option of secondSelectListOptionsList" [value]="option.id">
-                        <span class="text-accent text-xs">{{option.name}}</span>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                        </mat-form-field>
+                        <span *ngIf="i>0" (click)="onItemDeleted(i)"
+                            class="material-icons cursor-pointer text-accent absolute right-12 bottom-10 delete-icon">
+                            delete
+                        </span>
+                    </div>
+                </ng-container>
 
-            <mat-chip-list *ngIf="getChipsList(i).length>0"
-                class="bg-[#C0C6CC] border-t-primary p-2 chips-list rounded-2xl">
-                <mat-chip class="relative" *ngFor="let chip of getChipsList(i)" color="primary">
+                <button (click)="onAddClicked()" *ngIf="showAddIcon" class="absolute top-[20%] -right-[0.79rem] ">
+                    <span class="material-icons text-accent">
+                        add_circle_outline
+                    </span>
+                </button>
+            </ng-container>
+            <mat-chip-list *ngIf="chipsList.length>0" class="border-t-primary">
+                <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
                     <span>{{getChipLabel(chip)}}</span>
-                    <button (click)="removeChip(chip,i)" class="absolute -top-1 -right-2 z-10" matChipRemove
+                    <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
                         aria-label="'remove ' + chip">
                         <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
                             close
@@ -38,11 +51,6 @@
                     </button>
                 </mat-chip>
             </mat-chip-list>
-        </ng-container>
-        <button (click)="onAddClicked()" *ngIf="showAddIcon" class="absolute top-[40%] -right-[0.79rem] ">
-            <span class="material-icons text-accent">
-                add_circle_outline
-            </span>
-        </button>
+        </div>
     </div>
 </ng-container>

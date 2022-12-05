@@ -5,7 +5,7 @@ import { DialogMode } from '@root/shared/models/enums/dialog-mode.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { AddTemplateFormGroup } from '../../form-groups/add-template-form-group.service';
-import { TemplateElementFormGroup } from '../../form-groups/template-element-form-group.service';
+import { TemplateElementTypesFormGroup } from '../../form-groups/template-element-form-group.service';
 
 @Component({
   selector: 'app-add-entity-template',
@@ -18,7 +18,7 @@ export class AddEntityTemplateComponent implements OnInit {
   mode: DialogMode = DialogMode.Add;
   constructor(private addTemplateFormGroup: AddTemplateFormGroup,
     private formArrayService: FormArrayService,
-    private templateElementFormGroup: TemplateElementFormGroup,
+    private templateElementTypesFormGroup: TemplateElementTypesFormGroup,
     private activeRoute: ActivatedRoute,
     private layoutService: LayoutService) { }
 
@@ -49,8 +49,8 @@ export class AddEntityTemplateComponent implements OnInit {
   }
 
   onNewElementAdded() {
-    const newElementFG = this.templateElementFormGroup.getFormGroup();
-    this.formArrayService.addItemToFormArray('elements', this.fg, newElementFG);
+    const newElementFG = this.templateElementTypesFormGroup.getFormGroup();
+    this.formArrayService.addItemToFormArray('elementTypes', this.fg, newElementFG);
   }
 
   isCreateMode() {
