@@ -32,7 +32,7 @@ export class AddEntityTemplateComponent implements OnInit {
       else {
         this.fg = this.addTemplateFormGroup.getFormGroup();
       }
-    })
+    });
   }
 
   onSave(): void {
