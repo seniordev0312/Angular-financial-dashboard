@@ -97,6 +97,11 @@ const routes: Routes = [
         path: ApplicationRoutes.EntitiesRelationshipTypesManagement,
         loadChildren: () => import('@root/pages/entities-relationship-types/entities-relationship-types.module').then((m) =>
             m.EntitiesRelationshipTypesModule)
+    },
+    {
+        path: ApplicationRoutes.EntitiesKYCDocumentTypesManagement,
+        loadChildren: () => import('@root/pages/entities-kyc-document-types/entities-kyc-document-types.module').then((m) =>
+            m.EntitiesKycDocumentTypesModule)
     }
 ]
 
