@@ -27,6 +27,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showCrumb = this.router.url !== '/dashboard';
     document.documentElement.style.setProperty('--sidenav-width', '40vh');
     this.router.events.subscribe((val: NavigationEnd) => {
       if (val.url === '/dashboard') {
