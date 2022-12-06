@@ -13,7 +13,7 @@ const routes: Route[] = [
     component: EntitiesRelationshipTypesManagementComponent
   },
   {
-    path: ApplicationRoutes.AddRelationshipType,
+    path: ApplicationRoutes.Add,
     component: AddRelationshipTypeComponent,
     outlet: 'sidenav',
   },

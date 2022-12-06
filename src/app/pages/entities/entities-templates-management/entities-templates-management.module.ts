@@ -13,12 +13,12 @@ const routes: Route[] = [
     component: EntitiesTemplatesManagementComponent
   },
   {
-    path: ApplicationRoutes.AddTemplate,
+    path: ApplicationRoutes.Add,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.AddTemplate}/:id`,
+    path: `${ApplicationRoutes.Add}/:id`,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
   }
