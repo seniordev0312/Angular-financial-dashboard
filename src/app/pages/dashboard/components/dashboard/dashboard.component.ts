@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { LayoutService } from '@root/shared/services/layout.service';
+
 import { card } from '../../../../shared/models/card/card.model';
 
 @Component({
@@ -104,7 +105,9 @@ export class DashboardComponent implements OnInit {
       backgroundColor: '#7BC8FF'
     }
   ]
-  constructor(private layoutService: LayoutService) { }
+  constructor(private layoutService: LayoutService) {
+
+  }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({})
