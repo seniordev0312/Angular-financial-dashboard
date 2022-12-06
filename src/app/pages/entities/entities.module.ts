@@ -33,6 +33,11 @@ const routes: Routes = [
     path: ApplicationRoutes.EntitiesSourcesManagement,
     loadChildren: () => import('@root/pages/entities/entities-sources-management/entities-sources-management.module').then((m) =>
       m.EntitiesSourcesManagementModule)
+  },
+  {
+    path: ApplicationRoutes.EntitiesMappingManagement,
+    loadChildren: () => import('@root/pages/entities/entities-mapping-management/entities-mapping-management.module').then((m) =>
+      m.EntitiesMappingManagementModule)
   }
 ]
 

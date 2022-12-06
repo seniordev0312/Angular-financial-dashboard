@@ -1,32 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EntitiesSourcesManagementComponent } from './components/entities-sources-management/entities-sources-management.component';
+import { EntitiesMappingManagementComponent } from './components/entities-mapping-management/entities-mapping-management.component';
+import { SharedModule } from '@root/shared/shared.module';
 import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { SharedModule } from '@root/shared/shared.module';
-import { AddEntitySourceComponent } from './components/add-entity-source/add-entity-source.component';
+import { AddNewMappingComponent } from './components/add-new-mapping/add-new-mapping.component';
+
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: EntitiesSourcesManagementComponent
+    component: EntitiesMappingManagementComponent
   },
   {
     path: ApplicationRoutes.Add,
-    component: AddEntitySourceComponent,
+    component: AddNewMappingComponent,
     outlet: 'sidenav',
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
-    component: AddEntitySourceComponent,
+    component: AddNewMappingComponent,
     outlet: 'sidenav',
   }
 ];
 
 @NgModule({
   declarations: [
-    EntitiesSourcesManagementComponent,
-    AddEntitySourceComponent
+    EntitiesMappingManagementComponent,
+    AddNewMappingComponent
   ],
   imports: [
     CommonModule,
@@ -34,4 +35,4 @@ const routes: Route[] = [
     RouterModule.forChild(routes)
   ]
 })
-export class EntitiesSourcesManagementModule { }
+export class EntitiesMappingManagementModule { }
