@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
 @Component({
   selector: 'app-input-field',
@@ -10,8 +9,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 })
 export class InputFieldComponent {
   @Input() label: string;
-  @Input() formControl: FormControl;
-  @Input() baseListItemsList: BaseListItem[];
+  @Input() control: FormControl;
 
   constructor() {
   }

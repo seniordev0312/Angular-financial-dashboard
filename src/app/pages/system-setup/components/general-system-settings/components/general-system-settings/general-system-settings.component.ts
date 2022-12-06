@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-// import { GeneralSystemSettingsFormGroup } from '../form-groups/general-system-settings-from-group.service';
+import { GeneralSystemSettingsFormGroup } from '../../form-groups/general-system-settings-from-group.service';
 
 @Component({
   selector: 'app-general-system-settings',
@@ -17,10 +17,11 @@ export class GeneralSystemSettingsComponent implements OnInit {
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    // private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup
+    private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup
   ) { }
 
   ngOnInit(): void {
+    this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {

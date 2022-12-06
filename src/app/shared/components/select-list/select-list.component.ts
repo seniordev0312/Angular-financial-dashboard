@@ -10,7 +10,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 })
 export class SelectListComponent implements OnInit {
   @Input() label: string;
-  @Input() formControl: FormControl;
+  @Input() control: FormControl;
   @Input() isMultiple = false;
 
   @Input() optionsList: BaseListItem[] = [{
