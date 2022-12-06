@@ -1,7 +1,6 @@
-<div class="h-full w-full flex flex-row overflow-y-auto min-w-[40rem] min-h-[40rem]">
-    <div class="w-1/3 px-1 flex flex-col">
-        <div class="h-[10%]"></div>
-        <div class="h-[90%] px-2">
+<div class="h-full w-full pl-6 flex flex-row overflow-y-auto min-w-[40rem] min-h-[40rem]">
+    <div class="w-1/3 flex flex-col">
+        <div class="h-full pt-4">
             <app-input-field label="Company Name:" [control]="getFormControl('companyName')"></app-input-field>
             <div class="flex items-center">
                 <app-select-list label="Default Language:" [control]="getFormControl('defaultLanguage')">
@@ -26,13 +25,18 @@
         </div>
     </div>
     <div class="w-2/3 flex flex-col">
-        <div class="h-[10%] flex justify-end items-center">
-            <app-button (trigger)="onHolidayAdded()" icon="add" text="Add New Holiday"
-                classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
-            </app-button>
-        </div>
-        <div class="h-[90%] bg-red-300">
-            s
+        <div class="h-full flex flex-col gap-1 pt-4">
+            <div class="w-full flex flex-row">
+                <div class="w-1/2">
+                    <span>Holiday List Definition for: <span class="text-primary">2023</span></span>
+                </div>
+                <div class="w-1/2 flex justify-end ">
+                    <app-button (trigger)="onHolidayAdded()" icon="add" text="Add New Holiday"
+                        classes="bg-accent text-xxs rounded-md text-white font-light h-6 w-[150px]">
+                    </app-button>
+                </div>
+            </div>
+            <app-widget-table class="w-full" [tableConfiguration]="tableConfiguration"></app-widget-table>
         </div>
     </div>
 </div>
