@@ -26,6 +26,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "angular-auth-oidc-client": "15.0.2",
     "dayjs": "^1.11.6",
     "primeicons": "^6.0.1",
     "primeng": "^14.1.2",
