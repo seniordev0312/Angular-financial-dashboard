@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+// import { GeneralSystemSettingsFormGroup } from '../form-groups/general-system-settings-from-group.service';
 
 @Component({
   selector: 'app-general-system-settings',
@@ -9,7 +12,13 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeneralSystemSettingsComponent implements OnInit {
-  constructor(private layoutService: LayoutService) { }
+
+  fg: FormGroup;
+  constructor(
+    private layoutService: LayoutService,
+    private router: Router,
+    // private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -24,6 +33,18 @@ export class GeneralSystemSettingsComponent implements OnInit {
         }
       ],
     });
+  }
+
+  getFormControl(key: string): FormControl {
+    return this.fg.controls[key] as FormControl;
+  }
+
+  onHolidayAdded() {
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
+      outlets: { sidenav: ApplicationRoutes.Add },
+    }], { skipLocationChange: true });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
   }
 }
 

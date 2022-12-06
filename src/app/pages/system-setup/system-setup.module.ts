@@ -4,7 +4,6 @@ import { SystemSetupComponent } from './components/system-setup/system-setup.com
 import { Route, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { GeneralSystemSettingsComponent } from './components/general-system-settings/general-system-settings.component';
 import { SystemClaimsComponent } from './components/system-claims/system-claims.component';
 import { UserSecurityComponent } from './components/user-security/user-security.component';
 import { CompanySetupComponent } from './components/company-setup/company-setup.component';
@@ -19,61 +18,37 @@ const routes: Route[] = [
   {
     path: '',
     component: SystemSetupComponent,
-    data: {
-      breadcrumb: undefined
-    },
     children: [
       {
         path: '',
         component: SystemSetupEmptyPageComponent,
       },
       {
-        path: 'general-system-settings',
-        component: GeneralSystemSettingsComponent,
-        data: {
-          breadcrumb: ApplicationRoutes.GeneralSystemSettings
-        },
+        path: ApplicationRoutes.GeneralSystemSettings,
+        loadChildren: () => import('@root/pages/system-setup/components/general-system-settings/general-system-settings.module').then((m) => m.GeneralSystemSettingsModule)
       },
       {
         path: ApplicationRoutes.SystemClaims,
-        data: {
-          breadcrumb: ApplicationRoutes.SystemClaims
-        },
         component: SystemClaimsComponent
       },
       {
         path: ApplicationRoutes.UserSecurity,
-        data: {
-          breadcrumb: ApplicationRoutes.UserSecurity
-        },
         component: UserSecurityComponent
       },
       {
         path: ApplicationRoutes.CompanySetup,
-        data: {
-          breadcrumb: ApplicationRoutes.CompanySetup
-        },
         component: CompanySetupComponent
       },
       {
         path: ApplicationRoutes.CompanyStructure,
-        data: {
-          breadcrumb: ApplicationRoutes.CompanyStructure
-        },
         component: CompanyStructureComponent
       },
       {
         path: ApplicationRoutes.ChartOfAccounts,
-        data: {
-          breadcrumb: ApplicationRoutes.ChartOfAccounts
-        },
         component: ChartOfAccountsComponent
       },
       {
         path: ApplicationRoutes.ReferenceTables,
-        data: {
-          breadcrumb: ApplicationRoutes.ReferenceTables
-        },
         component: ReferenceTablesComponent
       }
     ]
@@ -83,7 +58,6 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     SystemSetupComponent,
-    GeneralSystemSettingsComponent,
     SystemClaimsComponent,
     UserSecurityComponent,
     CompanySetupComponent,

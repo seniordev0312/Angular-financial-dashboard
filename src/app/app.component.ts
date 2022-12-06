@@ -14,13 +14,13 @@ export class AppComponent {
   title = 'Insurance Power House';
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if (event.key == 'F2') {
+    if (event.key == 'F3') {
       this.dialog.open(EntitiesViewerComponent, {
         width: '90%',
         height: '90%'
       })
     }
-    else if (event.key == 'F3') {
+    else if (event.key == 'F2') {
       this.dialog.open(EntitiesControlComponent, {
         width: '90%',
         height: '90%'
