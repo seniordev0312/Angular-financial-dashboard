@@ -1,0 +1,26 @@
+<div class="flex flex-col justify-center items-center relative rounded-2xl min-h-[160px] w-[203px]">
+    <div class="flex flex-col items-center justify-center h-[96px] bg-accent w-full title border-accent border-2">
+        <p class="text-white text-sm font-medium">Common</p>
+        <p class="text-black text-xxs font-bold mt-2">section</p>
+    </div>
+    <div
+        class="flex py-2 gap-1 items-center justify-center flex-wrap min-h-[64px] bg-[#C0C6CC] elements w-full border-accent border-2">
+        <app-element-chip></app-element-chip>
+        <app-element-chip></app-element-chip>
+        <app-element-chip></app-element-chip>
+        <app-element-chip></app-element-chip>
+
+    </div>
+    <button (click)="onSectionEdited()"
+        class="flex border-2 border-accent rounded-full absolute -top-[2px] -right-1 bg-white">
+        <span class="material-icons right-icon text-accent">
+            chevron_right
+        </span>
+    </button>
+    <button mat-button (click)="onElementAdded()"
+        class="flex justify-center items-center cursor-pointer rounded-sm absolute top-8 -right-[5.7rem] bg-accent h-[25px] w-[92px]">
+        <span class="text-xxs font-medium text-white">
+            Add Element
+        </span>
+    </button>
+</div>

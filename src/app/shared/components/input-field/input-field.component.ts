@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -7,10 +7,13 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./input-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputFieldComponent {
+export class InputFieldComponent implements OnInit {
   @Input() label: string;
   @Input() control: FormControl;
 
   constructor() {
+  }
+
+  ngOnInit(): void {
   }
 }

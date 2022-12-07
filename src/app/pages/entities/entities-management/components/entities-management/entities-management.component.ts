@@ -16,12 +16,15 @@ export class EntitiesManagementComponent implements OnInit {
       items: [
         {
           title: 'Manage Entity Section Templates',
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`
         },
         {
           title: 'Manage Entity Relationship Types',
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesRelationshipTypesManagement}`
         },
         {
           title: 'Manage KYC Document Types',
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesKYCDocumentTypesManagement}`
         }
       ],
       backgroundColor: '#186AA5'
@@ -31,6 +34,7 @@ export class EntitiesManagementComponent implements OnInit {
       items: [
         {
           title: 'Manage Entity Sources & Mapping',
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`
         },
       ],
       backgroundColor: '#469CD9'
@@ -40,6 +44,7 @@ export class EntitiesManagementComponent implements OnInit {
       items: [
         {
           title: 'Manage Entities',
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`
         },
       ],
       backgroundColor: '#7BC8FF'

@@ -1,16 +1,19 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">Add New Entity Relationship Type</h4>
-    <app-input-field label="Code" [control]="getFormControl('code')"></app-input-field>
-    <app-select-list label="Relationship Type Forward:" [control]="getFormControl('forward')"></app-select-list>
-    <app-select-list label="Relationship Type Backward:" [control]="getFormControl('back')"></app-select-list>
-    <app-input-field label="Description" [control]="getFormControl('description')"></app-input-field>
+    <div class="mr-[45px]">
 
-    <!-- <app-select-list-with-chips [fg]="fg" arrayControlName="elements" [showFirstSelectList]="false"
+        <app-input-field label="Code" [control]="getFormControl('code')"></app-input-field>
+        <app-select-list label="Relationship Type Forward:" [control]="getFormControl('forward')"></app-select-list>
+        <app-select-list label="Relationship Type Backward:" [control]="getFormControl('back')"></app-select-list>
+        <app-input-field label="Description" [control]="getFormControl('description')"></app-input-field>
+
+        <!-- <app-select-list-with-chips [fg]="fg" arrayControlName="elements" [showFirstSelectList]="false"
         [showAddIcon]="false" secondSelectListFormControlName="allowedEntities" secondSelectListLabel="AllowedEntities">
     </app-select-list-with-chips> -->
-    <div class="flex items-center">
-        <p class="text-xs font-bold mr-16">Lock Entity Type</p>
-        <mat-slide-toggle></mat-slide-toggle>
+        <div class="flex items-center">
+            <p class="text-xs font-bold mr-[45px]">Lock Entity Type</p>
+            <mat-slide-toggle></mat-slide-toggle>
+        </div>
     </div>
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"

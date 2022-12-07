@@ -1,6 +1,7 @@
-<div class="m-5 h-full">
-    <h1 class="font-black text-xl">Entity Management</h1>
-    <div class="flex items-start gap-5 mt-5 pt-6 px-14 shadow-md rounded bg-white box">
-        <app-card [card]="card" *ngFor="let card of cards"></app-card>
+<div class="my-5 h-full">
+    <div class="w-full mt-5 pt-6 px-14 shadow-md rounded bg-white box">
+        <div class="flex items-stretch gap-5 w-full">
+            <app-card [card]="card" *ngFor="let card of cards"></app-card>
+        </div>
     </div>
 </div>

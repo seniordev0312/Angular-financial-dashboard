@@ -162,7 +162,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
-          route: ApplicationRoutes.EntitiesManagement,
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesManagement}`,
           translationKey: 'Entity Management'
         },
         {

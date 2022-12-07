@@ -21,7 +21,7 @@ const routes: Route[] = [
     component: AddEntitySourceComponent,
     outlet: 'sidenav',
   }
-]
+];
 
 @NgModule({
   declarations: [

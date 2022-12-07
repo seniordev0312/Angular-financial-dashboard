@@ -32,4 +32,8 @@ export const enum ApplicationRoutes {
   EntitiesRelationshipTypesManagement = 'relationship-types',
   EntitiesKYCDocumentTypesManagement = 'kyc-document-types',
   EntitiesSourcesManagement = 'sources',
+  EntitiesMappingManagement = 'mapping',
+  EntitiesListManagement = 'list',
+  EntitiesSection = 'section',
+  EntitiesElement = 'element',
 }
