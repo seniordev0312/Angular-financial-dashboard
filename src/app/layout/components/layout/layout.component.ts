@@ -27,17 +27,28 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showCrumb = this.router.url !== '/dashboard';
+    if (this.router.url !== '/dashboard')
+      this.handleCrumb(true);
+    else
+      this.handleCrumb(false);
+
     document.documentElement.style.setProperty('--sidenav-width', '40vh');
     this.router.events.subscribe((val: NavigationEnd) => {
-      if (val.url === '/dashboard') {
-        this.showCrumb = false;
-        this.mainContentClass = { 'h-full': true };
-      } else {
-        this.showCrumb = true;
-        this.mainContentClass = { 'h-[95%]': true }
-      }
+      if (val.url !== '/dashboard')
+        this.handleCrumb(true);
+      else
+        this.handleCrumb(false);
     });
+  }
+
+  handleCrumb(show: boolean) {
+    if (show) {
+      this.showCrumb = true;
+      this.mainContentClass = { 'h-[95%]': true };
+    } else {
+      this.showCrumb = false;
+      this.mainContentClass = { 'h-full': true };
+    }
   }
 
   LSideBarToggle() {
