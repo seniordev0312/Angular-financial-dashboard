@@ -5,6 +5,6 @@
     </div>
     <div class="flex items-center">
         <span *ngIf="item.number" class="text-[10px]"> +{{item.number}} </span>
-        <mat-icon [ngStyle]="colorStyle">keyboard_arrow_right</mat-icon>
+        <mat-icon [routerLink]="['/'+item.route]" [ngStyle]="colorStyle">keyboard_arrow_right</mat-icon>
     </div>
 </div>

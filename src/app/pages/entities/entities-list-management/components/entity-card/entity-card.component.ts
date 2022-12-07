@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
@@ -30,4 +30,8 @@ export class EntityCardComponent implements OnInit {
     this.layoutService.changeRightSideNavMode('over');
   }
 
+
+  getFormControl(key: string): FormControl {
+    return this.fg.controls[key] as FormControl;
+  }
 }

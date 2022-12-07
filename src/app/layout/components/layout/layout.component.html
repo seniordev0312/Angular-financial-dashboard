@@ -6,7 +6,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="p-2 h-full" [ngStyle]="{'margin-left': ml}">
-        <div *ngIf="showCrumb" class="h-[5%] pt-5 pl-5 flex items-center">
+        <div *ngIf="showBreadcrumb" class="h-[5%] pt-5 pl-5 flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
         <div class="pl-5" [ngClass]="mainContentClass">
@@ -14,8 +14,8 @@
         </div>
     </mat-sidenav-content>
 
-    <mat-sidenav #sidenav [mode]="rightSidenavMode$|async" position="end" [opened]="isRightSidenavOpened$|async"
-        class="bg-white">
+    <mat-sidenav #sidenav [disableClose]="true" [mode]="rightSidenavMode$|async" position="end"
+        [opened]="isRightSidenavOpened$|async" class="bg-white">
         <app-right-side-bar></app-right-side-bar>
     </mat-sidenav>
 </mat-sidenav-container>

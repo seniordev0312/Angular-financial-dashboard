@@ -32,6 +32,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { EntityInformationComponent } from '@root/shared/components/entity-information/entity-information.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { NotificationModule } from './notifications/notification.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { NotificationModule } from './notifications/notification.module';
         ReactiveFormsModule,
         AutomaticFormValidationModule,
         MatChipsModule,
-        NotificationModule
+        NotificationModule,
+        RouterModule
     ],
     exports: [
         CardComponent,

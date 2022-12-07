@@ -30,11 +30,13 @@ export class DashboardComponent implements OnInit {
       items: [
         {
           title: 'Insurance Renewals',
-          number: 4
+          number: 4,
+          route: ''
         },
         {
           title: 'Customer Service',
-          number: 21
+          number: 21,
+          route: ''
         }
       ],
       backgroundColor: '#186AA5'
@@ -58,19 +60,23 @@ export class DashboardComponent implements OnInit {
       items: [
         {
           title: 'Insurance Renewals',
-          number: 4
+          number: 4,
+          route: ''
         },
         {
           title: 'Customer Service',
-          number: 21
+          number: 21,
+          route: ''
         },
         {
           title: 'Insurance Renewals',
-          number: 4
+          number: 4,
+          route: ''
         },
         {
           title: 'Customer Service',
-          number: 21
+          number: 21,
+          route: ''
         }
       ],
       backgroundColor: '#469CD9'
@@ -94,11 +100,13 @@ export class DashboardComponent implements OnInit {
       items: [
         {
           title: 'Insurance Renewals',
-          number: 4
+          number: 4,
+          route: ''
         },
         {
           title: 'Customer Service',
-          number: 21
+          number: 21,
+          route: ''
         }
       ],
       backgroundColor: '#7BC8FF'

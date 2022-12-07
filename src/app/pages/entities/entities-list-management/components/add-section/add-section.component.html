@@ -1,11 +1,12 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add Section':'Edit Section'}}</h4>
-    <app-select-list *ngIf="isCreateMode()" label="Section Template:" [control]="getFormControl('template')">
-    </app-select-list>
+    <div class="mr-[45px]">
+        <app-select-list *ngIf="isCreateMode()" label="Section Template:" [control]="getFormControl('template')">
+        </app-select-list>
 
-    <app-input-field label="Section Name" [control]="getFormControl('name')"></app-input-field>
+        <app-input-field label="Section Name" [control]="getFormControl('name')"></app-input-field>
 
-
+    </div>
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"
             classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
