@@ -39,6 +39,16 @@ export class LayoutComponent implements OnInit {
     });
   }
 
+  handleCrumb(show: boolean) {
+    if (show) {
+      this.showBreadcrumb = true;
+      this.mainContentClass = { 'h-[95%]': true };
+    } else {
+      this.showBreadcrumb = false;
+      this.mainContentClass = { 'h-full': true };
+    }
+  }
+
   LSideBarToggle() {
     throw new Error('Method not implemented.');
   }

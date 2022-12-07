@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { authService } from '@root/auth/auth.service';
 
 @Component({
   selector: 'app-sticky-notes',
@@ -9,14 +8,12 @@ import { authService } from '@root/auth/auth.service';
 })
 export class StickyNotesComponent implements OnInit {
   items: any[] = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
-  constructor(private _authService: authService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   addStickyNote(): void {
-    this._authService.doLogin().subscribe((result: any) => {
-      console.log(result);
-    })
+
   }
 }
