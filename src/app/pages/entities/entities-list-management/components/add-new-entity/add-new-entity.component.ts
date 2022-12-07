@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DialogMode } from '@root/shared/models/enums/dialog-mode.model';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { EntityFormGroup } from '../../form-groups/entity-form-group.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-add-new-entity',
@@ -12,11 +12,10 @@ import { EntityFormGroup } from '../../form-groups/entity-form-group.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddNewEntityComponent implements OnInit {
-
-  fg: FormGroup;
   mode: DialogMode = DialogMode.Add;
+  data1: TreeNode[];
+
   constructor(
-    private entityFormGroup: EntityFormGroup,
     private activeRoute: ActivatedRoute,
     private layoutService: LayoutService) { }
 
@@ -25,26 +24,63 @@ export class AddNewEntityComponent implements OnInit {
       if (params.get('id')) {
         this.mode = DialogMode.Edit;
         //todo wait fetch api
-        this.fg = this.entityFormGroup.getFormGroup();
       }
       else {
-        this.fg = this.entityFormGroup.getFormGroup();
       }
     });
+
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesManagement}`,
+          translationKey: 'Entity Management'
+        },
+        {
+          route: `${ApplicationRoutes.EntitiesListManagement}/${ApplicationRoutes.Add}`,
+          translationKey: 'Define New Entity'
+        }
+      ],
+    });
+
+    this.data1 = [{
+      label: 'CEO',
+      type: 'entity',
+      styleClass: 'p-person',
+      expanded: true,
+      data: { name: 'Walter White', 'avatar': 'walter.jpg' },
+      children: [
+        {
+          label: 'CFO',
+          type: 'section',
+          styleClass: 'p-person',
+          expanded: true,
+          data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' },
+        },
+        {
+          label: 'COO',
+          type: 'section',
+          styleClass: 'p-person',
+          expanded: true,
+          data: { name: 'Mike E.', 'avatar': 'mike.jpg' },
+        },
+        {
+          label: 'CTO',
+          type: 'section',
+          styleClass: 'p-person',
+          expanded: true,
+          data: { name: 'Jesse Pinkman', 'avatar': 'jesse.jpg' },
+        }
+      ]
+    }];
   }
 
   onSave(): void {
-    this.layoutService.closeRightSideNav();
   }
 
 
-  onClose(): void {
-    this.layoutService.closeRightSideNav();
+  onCancel(): void {
   }
 
-  getFormControl(key: string): FormControl {
-    return this.fg.controls[key] as FormControl;
-  }
 
   isCreateMode() {
     return this.mode === DialogMode.Add;

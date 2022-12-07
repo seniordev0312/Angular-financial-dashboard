@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
@@ -8,11 +8,14 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   styleUrls: ['./input-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputFieldComponent {
+export class InputFieldComponent implements OnInit {
   @Input() label: string;
-  @Input() formControl: FormControl;
-  @Input() baseListItemsList: BaseListItem[];
+  @Input() control: FormControl;
+  @Input() baseListItemsList: BaseListItem[] = [];
 
   constructor() {
+  }
+
+  ngOnInit(): void {
   }
 }

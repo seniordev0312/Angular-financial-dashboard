@@ -169,20 +169,12 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
   }
 
   onEntityAdded() {
-    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`, {
-      outlets: { sidenav: ApplicationRoutes.Add },
-    }], { skipLocationChange: true });
-    this.layoutService.openRightSideNav();
-    this.layoutService.changeRightSideNavMode('over');
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}/${ApplicationRoutes.Add}`]);
   }
 
 
   onEntityEdited(template: EntitiesListItem) {
-    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.id}` },
-    }], { skipLocationChange: true });
-    this.layoutService.openRightSideNav();
-    this.layoutService.changeRightSideNavMode('over');
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}/${ApplicationRoutes.Add}/${template.id}`]);
   }
 
   onEntityDeleted(_template: EntitiesListItem) {

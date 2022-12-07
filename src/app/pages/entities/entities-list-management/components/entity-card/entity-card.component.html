@@ -1,0 +1,14 @@
+<div
+    class="flex flex-col justify-center items-center relative rounded-2xl h-[160px] w-[203px] border-2 border-accent p-4">
+    <div class="w-full overflow-hidden">
+        <app-input-field label="Define Entity Name:"></app-input-field>
+        <app-input-field label="Define Entity Code:"></app-input-field>
+        <p class="text-xxs text-success">Code available</p>
+    </div>
+    <button (click)="onSectionAdded()" mat-button
+        class="flex justify-center items-center cursor-pointer rounded-sm absolute top-8 -right-[5.7rem] bg-accent h-[25px] w-[92px]">
+        <span class="text-xxs font-medium text-white">
+            Add Section
+        </span>
+    </button>
+</div>

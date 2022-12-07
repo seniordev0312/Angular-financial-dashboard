@@ -148,7 +148,7 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
-          route: ApplicationRoutes.EntitiesManagement,
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesManagement}`,
           translationKey: 'Entity Management'
         },
         {

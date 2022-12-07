@@ -1,8 +1,8 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New Entity Source':'Edit New Entity Source'}}</h4>
 
-    <app-input-field label="Entity Source ID:" [formControl]="getFormControl('id')"></app-input-field>
-    <app-input-field label="Source Name:" [formControl]="getFormControl('name')"></app-input-field>
+    <app-input-field label="Entity Source ID:" [control]="getFormControl('id')"></app-input-field>
+    <app-input-field label="Source Name:" [control]="getFormControl('name')"></app-input-field>
 
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"

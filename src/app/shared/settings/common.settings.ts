@@ -34,4 +34,6 @@ export const enum ApplicationRoutes {
   EntitiesSourcesManagement = 'sources',
   EntitiesMappingManagement = 'mapping',
   EntitiesListManagement = 'list',
+  EntitiesSection = 'section',
+  EntitiesElement = 'element',
 }

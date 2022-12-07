@@ -1,13 +1,17 @@
-<form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
-    <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New Entity':'Edit New Entity'}}</h4>
+<div class="flex flex-col mt-5 py-6 px-14 shadow-md rounded bg-white box">
+    <p-organizationChart [value]="data1" selectionMode="single">
+        <ng-template let-node pTemplate="entity">
+            <app-entity-card></app-entity-card>
+        </ng-template>
+        <ng-template let-node pTemplate="section">
+            <app-section-card></app-section-card>
+        </ng-template>
+    </p-organizationChart>
 
-    <app-input-field label="Entity Code:" [formControl]="getFormControl('code')"></app-input-field>
-    <app-input-field label="Entity Name:" [formControl]="getFormControl('name')"></app-input-field>
-    <app-input-field label="Entity Description:" [formControl]="getFormControl('description')"></app-input-field>
-
-    <div class="flex items-center mt-7 justify-between w-full">
-        <app-button (trigger)="onClose()" text="cancel"
-            classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
+    <div class="flex items-center justify-between w-full mt-auto">
+        <app-button (trigger)="onCancel()" text="cancel"
+            classes="h-9 w-[95px] bg-white border border-accent text-accent">
+        </app-button>
         <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
     </div>
-</form>
+</div>
