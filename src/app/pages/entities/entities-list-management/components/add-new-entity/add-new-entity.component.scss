@@ -1,0 +1,32 @@
+:host ::ng-deep {
+    .p-organizationchart .p-organizationchart-node-content {
+        border: none !important;
+    }
+
+    .p-organizationchart .p-organizationchart-line-down {
+        background: var(--accent-color) !important;
+        width: 2px !important;
+    }
+
+    .p-organizationchart .p-organizationchart-line-top {
+        border-color: var(--accent-color) !important;
+        border-top-width: 2px !important;
+    }
+
+    .p-organizationchart .p-organizationchart-line-left {
+        border-color: var(--accent-color) !important;
+        border-right-width: 2px !important;
+    }
+
+    .p-node-toggler {
+        display: none !important;
+    }
+
+    .p-organizationchart-node-content {
+        padding: 0px !important;
+    }
+
+    .p-organizationchart-table>tbody>tr>td {
+        padding: 0 1.5rem !important;
+    }
+}

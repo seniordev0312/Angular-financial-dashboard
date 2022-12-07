@@ -1,8 +1,8 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New Entity Mapping':'Edit New Entity Mapping'}}</h4>
 
-    <app-input-field label="External Field:" [formControl]="getFormControl('externalField')"></app-input-field>
-    <app-input-field label="System Field:" [formControl]="getFormControl('systemField')"></app-input-field>
+    <app-input-field label="External Field:" [control]="getFormControl('externalField')"></app-input-field>
+    <app-input-field label="System Field:" [control]="getFormControl('systemField')"></app-input-field>
 
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"
