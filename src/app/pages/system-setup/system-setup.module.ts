@@ -1,18 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SystemSetupComponent } from './components/system-setup/system-setup.component';
-import { Route, RouterModule } from '@angular/router';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { SystemClaimsComponent } from './components/system-claims/system-claims.component';
-import { UserSecurityComponent } from './components/user-security/user-security.component';
-import { CompanySetupComponent } from './components/company-setup/company-setup.component';
-import { CompanyStructureComponent } from './components/company-structure/company-structure.component';
-import { ChartOfAccountsComponent } from './components/chart-of-accounts/chart-of-accounts.component';
-import { ReferenceTablesComponent } from './components/reference-tables/reference-tables.component';
-import { SharedModule } from '@root/shared/shared.module';
-import { SystemSetupEmptyPageComponent } from './components/system-setup-empty-page/system-setup-empty-page.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { SharedModule } from '@root/shared/shared.module';
+import { SystemSetupEmptyPageComponent } from './system-setup-empty-page/system-setup-empty-page.component';
+import { SystemSetupComponent } from './system-setup/system-setup.component';
 
 const routes: Route[] = [
   {
@@ -25,31 +19,31 @@ const routes: Route[] = [
       },
       {
         path: ApplicationRoutes.GeneralSystemSettings,
-        loadChildren: () => import('@root/pages/system-setup/components/general-system-settings/general-system-settings.module').then((m) => m.GeneralSystemSettingsModule)
+        loadChildren: () => import('@root/pages/system-setup/general-system-settings/general-system-settings.module').then((m) => m.GeneralSystemSettingsModule)
       },
       {
         path: ApplicationRoutes.SystemClaims,
-        component: SystemClaimsComponent
+        loadChildren: () => import('@root/pages/system-setup/system-claims/system-claims.module').then(m => m.SystemClaimsModule)
       },
       {
         path: ApplicationRoutes.UserSecurity,
-        component: UserSecurityComponent
+        loadChildren: () => import('@root/pages/system-setup/user-security/user-security.module').then(m => m.UserSecurityModule)
       },
       {
         path: ApplicationRoutes.CompanySetup,
-        component: CompanySetupComponent
+        loadChildren: () => import('@root/pages/system-setup/company-setup/company-setup.module').then(m => m.CompanySetupModule)
       },
       {
         path: ApplicationRoutes.CompanyStructure,
-        component: CompanyStructureComponent
+        loadChildren: () => import('@root/pages/system-setup/company-structure/company-structure.module').then(m => m.CompanyStructureModule)
       },
       {
         path: ApplicationRoutes.ChartOfAccounts,
-        component: ChartOfAccountsComponent
+        loadChildren: () => import('@root/pages/system-setup/chart-of-accounts/chart-of-accounts.module').then(m => m.ChartOfAccountsModule)
       },
       {
         path: ApplicationRoutes.ReferenceTables,
-        component: ReferenceTablesComponent
+        loadChildren: () => import('@root/pages/system-setup/reference-tables/reference-tables.module').then(m => m.ReferenceTablesModule)
       }
     ]
   }
@@ -58,12 +52,6 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     SystemSetupComponent,
-    SystemClaimsComponent,
-    UserSecurityComponent,
-    CompanySetupComponent,
-    CompanyStructureComponent,
-    ChartOfAccountsComponent,
-    ReferenceTablesComponent,
     SystemSetupEmptyPageComponent
   ],
   imports: [
