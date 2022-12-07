@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { TranslationService } from './shared/services/translation.service';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
+import { AuthConfigModule } from './auth/auth-config.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
         deps: [HttpClient],
       },
     }),
+    AuthConfigModule
   ],
   providers: [TranslationService],
   bootstrap: [AppComponent]
