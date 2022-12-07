@@ -10,13 +10,12 @@ import { LayoutService } from 'src/app/shared/services/layout.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
-  RSideBarOpen: boolean = false;
-  LSideBarOpen: boolean = true;
+  isLSideBarOpen: boolean = true;
   routeCrumbsList: RouteCrumbsList;
   isRTLDirection$ = this.layoutService.isRTLDirection$;
   rightSidenavMode$ = this.layoutService.rightSidenavMode$;
   isRightSidenavOpened$ = this.layoutService.isRightSidenavOpened$;
-  showCrumb: boolean = false;
+  showBreadcrumb: boolean = false;
   mainContentClass: any = { 'h-full': true };
   ml: string = '384px';
   constructor(
@@ -27,14 +26,14 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showCrumb = this.router.url !== '/dashboard';
+    this.showBreadcrumb = this.router.url !== '/dashboard';
     document.documentElement.style.setProperty('--sidenav-width', '40vh');
     this.router.events.subscribe((val: NavigationEnd) => {
       if (val.url === '/dashboard') {
-        this.showCrumb = false;
+        this.showBreadcrumb = false;
         this.mainContentClass = { 'h-full': true };
       } else {
-        this.showCrumb = true;
+        this.showBreadcrumb = true;
         this.mainContentClass = { 'h-[95%]': true }
       }
     });

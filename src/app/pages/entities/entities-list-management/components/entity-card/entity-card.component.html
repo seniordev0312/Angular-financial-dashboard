@@ -1,8 +1,8 @@
 <div
     class="flex flex-col justify-center items-center relative rounded-2xl h-[160px] w-[203px] border-2 border-accent p-4">
     <div class="w-full overflow-hidden">
-        <app-input-field label="Define Entity Name:"></app-input-field>
-        <app-input-field label="Define Entity Code:"></app-input-field>
+        <app-input-field label="Define Entity Name:" [control]="getFormControl('name')"></app-input-field>
+        <app-input-field label="Define Entity Code:" [control]="getFormControl('code')"></app-input-field>
         <p class="text-xxs text-success">Code available</p>
     </div>
     <button (click)="onSectionAdded()" mat-button
