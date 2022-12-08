@@ -5,7 +5,6 @@ import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-li
 import { LayoutService } from '@root/shared/services/layout.service';
 
 import { ModuleElementTypesFormGroup } from '../../form-groups/module-element-type-form-group.service';
-import { AddUserRoleFormGroup } from '../../form-groups/add-user-role-form-group.service';
 
 @Component({
   selector: 'app-add-user-role',
@@ -33,7 +32,6 @@ export class AddUserRoleComponent implements OnInit {
           id: '2',
           name: 'Delete System Setup'
         },
-
         {
           id: '3',
           name: 'Add System Setup'
@@ -56,7 +54,6 @@ export class AddUserRoleComponent implements OnInit {
           id: '2',
           name: 'Delete Entity Management'
         },
-
         {
           id: '3',
           name: 'Add Entity Management'
@@ -79,7 +76,6 @@ export class AddUserRoleComponent implements OnInit {
           id: '2',
           name: 'Delete Accounting'
         },
-
         {
           id: '3',
           name: 'Add Accounting'

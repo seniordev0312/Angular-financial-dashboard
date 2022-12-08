@@ -74,7 +74,7 @@ export class UserRolesManagementComponent implements OnInit {
   onRoleAdded() {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.UserSecurity}`, {
       outlets: {
-        sidenav: ApplicationRoutes.Add
+        sidenav: ApplicationRoutes.AddUserRole
       },
     }], { skipLocationChange: true });
 

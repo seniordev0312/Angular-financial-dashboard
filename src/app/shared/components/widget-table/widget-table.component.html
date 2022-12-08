@@ -92,47 +92,7 @@
                 </th>
             </tr>
         </ng-template>
-
-        <ng-template *ngIf="tableConfiguration.settings.isGropingMode" pTemplate="groupheader" let-row
-            let-rowIndex="rowIndex" let-expanded="expanded">
-            <tr>
-                <td colspan="999">
-                    <div class="flex items-center justify-between w-full">
-                        <div class="flex items-center">
-                            <button name="expand" type="button" pButton pRipple [pRowToggler]="row"
-                                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-                                class="p-button-text mr-6 p-button-rounded p-button-plain p-mr-2"></button>
-                            <ng-container *ngFor="let item of tableConfiguration.settings.groupingHeaderProperties">
-                                <div *ngIf="item.type === 'text'" class="min-w-32">
-                                    <div [ngClass]="item.cssClasses(row[item.property])" class="flex">
-                                        <span [matTooltipDisabled]="!item?.hasToolTip" [matTooltip]="item?.toolTipText"
-                                            [ngClass]="item.iconCssClass" class="mr-2 material-icons" *ngIf="item.icon">
-                                            {{ item.icon }}</span>
-                                        <span class="text-sm">
-                                            {{ item?.toolTipText }} {{ row[item.property] }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div *ngIf="item.type === 'labels'" class="mx-8 my-1">
-                                    <div *ngFor="let label of row[item.property]"
-                                        [ngClass]="item.cssClasses(row[item.property])"
-                                        class="rounded mr-2 px-2 font-medium text-sm" fxFlex="none">
-                                        {{ label }}
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <button *ngIf="tableConfiguration.settings.enableGropingActions"
-                            (click)="$event.stopPropagation()" [matMenuTriggerData]="{ row: row }"
-                            [matMenuTriggerFor]="actionsMenu" name="menu button" mat-icon-button type="button">
-                            <!-- <mat-icon [icIcon]="icMoreHoriz"></mat-icon> -->
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-
-        <ng-template [pTemplate]="tableConfiguration.settings.isGropingMode ? 'rowexpansion' : 'body'" let-row>
+        <ng-template [pTemplate]="'body'" let-row>
             <tr class="p-selectable-row">
                 <ng-container *ngFor="let column of tableConfiguration.columns">
                     <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
@@ -192,7 +152,6 @@
                 </td>
             </tr>
         </ng-template>
-
         <ng-template pTemplate="emptymessage">
             <tr>
                 <td colspan="8">

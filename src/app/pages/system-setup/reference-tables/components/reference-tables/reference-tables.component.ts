@@ -6,7 +6,7 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { ReferenceTables } from '../model/reference-tables.model';
+import { ReferenceTables } from '../../model/reference-tables.model';
 
 @Component({
   selector: 'app-reference-tables',

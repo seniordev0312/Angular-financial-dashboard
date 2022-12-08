@@ -4,15 +4,25 @@ import { GeneralSystemSettingsComponent } from './components/general-system-sett
 import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
-import { AddHolidayComponent } from './components/add-holiday/add-holiday.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
+import { AddHolidayComponent } from './components/add-holiday/add-holiday.component';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: GeneralSystemSettingsComponent
-  }
+  },
+  {
+    path: ApplicationRoutes.AddHoliday,
+    component: AddHolidayComponent,
+    outlet: 'sidenav',
+  },
+  {
+    path: `${ApplicationRoutes.AddHoliday}/:id`,
+    component: AddHolidayComponent,
+    outlet: 'sidenav',
+  },
 ]
 
 @NgModule({
