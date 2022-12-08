@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CommonModule } from '@angular/common';
+import { CompanyStructureComponent } from './components/company-structure/company-structure.component';
 import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { SharedModule } from 'primeng/api';
-
-import { CompanyStructureComponent } from './components/company-structure.component';
+import { SharedModule } from '@root/shared/shared.module';
+import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
 
 const routes: Route[] = [
   {
@@ -21,7 +20,7 @@ const routes: Route[] = [
   imports: [
     CommonModule,
     SharedModule,
-    MatSlideToggleModule,
+    SharedSystemSetupModule,
     RouterModule.forChild(routes)
   ]
 })

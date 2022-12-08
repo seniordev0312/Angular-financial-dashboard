@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavListItem } from '@root/shared/models/nav-list-item.model';
-import { systemSetupNavigationList } from '../statics/system-setup-navigations-list';
+import { systemSetupNavigationList } from '../../statics/system-setup-navigations-list';
 
 @Component({
   selector: 'app-system-setup',

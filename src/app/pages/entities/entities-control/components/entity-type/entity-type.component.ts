@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-entity-type',
@@ -7,7 +8,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntityTypeComponent implements OnInit {
-
+  entityTypeFormControl = new FormControl();
   constructor() { }
 
   ngOnInit(): void {

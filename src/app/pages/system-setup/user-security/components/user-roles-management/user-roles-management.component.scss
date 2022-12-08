@@ -1,0 +1,174 @@
+:host ::ng-deep {
+    .mat-form-field-wrapper {
+        padding-bottom: 10px !important;
+        padding-top: 5px !important;
+    }
+
+    .p-inputtext {
+        font-size: 0.7rem !important;
+        padding: 0.5rem 0.5rem !important;
+    }
+
+    p-columnfilter {
+        width: 100% !important;
+    }
+
+    .p-datatable>.p-datatable-wrapper {
+        overflow-y: hidden !important;
+    }
+
+    .p-paginator {
+        .p-paginator-current {
+            margin-left: auto;
+        }
+
+        vertical-align: center !important;
+    }
+
+    .p-datatable-table {
+        border-width: 1px !important;
+        border-color: #E8E8E8 !important;
+    }
+
+    .main-table .p-datatable-wrapper {
+        border-radius: 12px;
+    }
+
+    .sub-table .p-datatable-wrapper {
+        border-radius: 0px;
+    }
+
+    .p-datatable-responsive-scroll>.p-datatable-wrapper {
+        overflow-y: hidden !important;
+    }
+
+    .p-component-overlay {
+        background-color: rgb(227, 229, 233, 0.7) !important;
+    }
+
+    .p-progressbar {
+        height: 0.5rem;
+        background-color: #d8dadc;
+
+        .p-progressbar-value {
+            background-color: #607d8b;
+        }
+    }
+
+    .table-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .p-datatable.p-datatable-widget {
+        .p-datatable-header {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .p-element {
+            font-size: 14px !important;
+            vertical-align: middle !important;
+        }
+
+        .p-paginator {
+            padding: 1rem;
+        }
+
+        .p-dropdown-label:not(.p-placeholder) {
+            text-transform: uppercase;
+            vertical-align: middle !important;
+        }
+    }
+
+    .loading-icon-size {
+        font-size: 5em !important;
+        color: #5c77ff;
+    }
+
+    .p-datatable .p-datatable-tbody>tr>td {
+        cursor: auto;
+        word-break: break-word;
+    }
+
+    .p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
+        padding: 0.05rem 0.3rem !important;
+    }
+
+    .p-datatable .p-datatable-thead>tr>th {
+        text-align: center !important;
+    }
+
+    /* Responsive */
+    .p-datatable-widget .p-datatable-tbody>tr>td .p-column-title {
+        display: none;
+    }
+
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+        padding: 0 1vw !important;
+    }
+}
+
+.field-icon {
+    width: 20px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+}
+
+@media screen and (max-width: 960px) {
+    :host ::ng-deep {
+        .p-datatable {
+            &.p-datatable-widget {
+
+                .p-datatable-thead>tr>th,
+                .p-datatable-tfoot>tr>td {
+                    display: none !important;
+                }
+
+                .p-datatable-tbody>tr {
+                    border-bottom: 1px solid var(--layer-2);
+
+                    >td {
+                        text-align: left;
+                        display: block;
+                        border: 0 none !important;
+                        float: left;
+                        clear: left;
+                        border: 0 none;
+
+                        .p-progressbar {
+                            margin-top: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .p-datatable.p-datatable-gridlines .p-datatable-thead>tr>th {
+    border-width: 0px !important;
+    background-color: #E8E8E8 !important;
+}
+
+::ng-deep .sub-table-header {
+    background-color: #E8E8E8 !important;
+}
+
+
+::ng-deep .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody>tr>td {
+    border-width: 0 0 1px 0px !important;
+}
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: #EBEBEB !important;
+    border-color: #EBEBEB !important;
+    color: black !important;
+    font-weight: 700;
+    height: 2rem !important;
+    min-width: 2rem !important;
+}
+
+.sub-table {
+    padding: 0px !important;
+}

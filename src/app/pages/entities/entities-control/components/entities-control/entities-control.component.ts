@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -9,6 +10,7 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { EntityFilterFormGroup } from '../../form-group/entity-filter-form-group.service';
 import { EntitiesControlListItem } from '../../models/entities-control-list-item.model';
 import { AddEntityComponent } from '../add-entity/add-entity.component';
 
@@ -213,7 +215,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   };
 
   tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize });
-
+  filterFG: FormGroup;
   tableConfiguration: TableConfiguration<EntitiesControlListItem> = {
     tableRowsActionsList: [this.editAction, this.viewAction],
     columns: this.tableColumns,
@@ -222,10 +224,12 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     settings: this.tableSettings,
   };
 
-  constructor(private dialog: MatDialog) { super(); }
+  constructor(private dialog: MatDialog,
+    private entityFilterFormGroup: EntityFilterFormGroup) { super(); }
 
 
   ngOnInit(): void {
+    this.filterFG = this.entityFilterFormGroup.getFormGroup();
     this.tableConfiguration.data = this.entitiesList;
     this.tableConfiguration.dataCount = this.entitiesList.length;
   }
@@ -252,4 +256,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   onEntityViewed(_category: EntitiesControlListItem) {
   }
 
+  getFormControl(key: string): FormControl {
+    return this.filterFG.controls[key] as FormControl;
+  }
 }

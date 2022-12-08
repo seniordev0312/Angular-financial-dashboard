@@ -1,12 +1,30 @@
 <app-dialog-header label="Entity Control"></app-dialog-header>
 <mat-dialog-content class="px-12">
     <div class="flex items-center justify-between my-6">
-        <div class="flex items-center">
-            <h5 class="text-base mr-4">Entity Type</h5>
-            <app-select-list></app-select-list>
+        <div>
         </div>
-        <app-button (trigger)="onEntityAdded()" text="Add Entity" icon="add" classes="bg-accent h-10 w-32 text-white">
+        <app-button (trigger)="onEntityAdded()" text="Add Entity" icon="add"
+            classes="bg-accent text-sm h-10 w-32 text-white">
         </app-button>
     </div>
+    <form [formGroup]="filterFG"
+        class="flex items-stretch lg:items-center my-6 h-max lg:h-[133px] shadow rounded-[14px] justify-between">
+        <div class="flex justify-center filter-title items-center w-28 h-full bg-[#F2F2F2]">
+            <p class="text-xs font-bold text-center">Dynamically Generated Filters</p>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-1 py-2 px-4 filters">
+            <app-input-field [control]="getFormControl('einNumber')" class="mr-8" label="EIN Code"></app-input-field>
+            <app-input-field [control]="getFormControl('name')" class="mr-8" label="Name"></app-input-field>
+            <app-input-field [control]="getFormControl('type')" class="mr-8" label="Entity Type"></app-input-field>
+            <app-input-field [control]="getFormControl('location')" class="mr-8" label="Location"></app-input-field>
+            <app-select-list [control]="getFormControl('source')" class="mr-8" label="Source"></app-select-list>
+        </div>
+        <div class="flex flex-col justify-center items-center w-32 h-full bg-accent text-white rounded-[14px]">
+            <p class="text-base font-medium">Search</p>
+            <span class="material-icons mt-2">
+                search
+            </span>
+        </div>
+    </form>
     <app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
 </mat-dialog-content>

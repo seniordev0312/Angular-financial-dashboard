@@ -1,6 +1,3 @@
-import { GroupProperty } from "./table-group-property.model";
-
-
 export class TableSettings {
     enableActions: boolean;
     enablePaging: boolean;
@@ -9,10 +6,6 @@ export class TableSettings {
     cssClasses: string;
     showChangeTableSize: boolean;
     isLocalPaging: boolean;
-    isGropingMode: boolean;
-    groupingProperty?: string;
-    groupingHeaderProperties?: GroupProperty[];
-    enableGropingActions?: boolean;
     enableFilter: boolean;
     hasNextPage?: boolean;
     haxPreviousPage?: boolean;
@@ -30,10 +23,6 @@ export class TableSettings {
         this.cssClasses = data?.cssClasses ?? '';
         this.showChangeTableSize = data?.showChangeTableSize ?? true;
         this.isLocalPaging = data?.isLocalPaging ?? true;
-        this.isGropingMode = data?.isGropingMode ?? false;
-        this.groupingProperty = data?.groupingProperty;
-        this.groupingHeaderProperties = data?.groupingHeaderProperties;
-        this.enableGropingActions = data?.enableGropingActions ?? true;
         this.enableFilter = data?.enableFilter ?? true;
         this.hasNextPage = data?.hasNextPage ?? true;
         this.haxPreviousPage = data?.haxPreviousPage ?? true;
