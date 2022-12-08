@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+// import { MatOption } from '@angular/material/core';
 import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-list-item.model';
 import { SecondaryListItem } from '@root/shared/models/select-list-with-chips/secondary-list-item.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
@@ -70,7 +71,17 @@ export class SelectListWithChipsComponent {
   }
 
   onFirstSelectListItemClick(item: BaseListItem): void {
-    this.secondSelectListOptionsList = null;
     this.secondSelectListOptionsList = item.secondaryList;
+  }
+
+  // @ViewChild('allSelected') private allSelected: MatOption;
+
+  toggleAllSelection() {
+    console.log(this.fg.value);
+
+    // if (this.allSelected.selected) {
+    //   this.fg.controls.elementTypes
+    //     .patchValue([...this.secondSelectListOptionsList.map(item => item.id), 0]);
+    // }
   }
 }

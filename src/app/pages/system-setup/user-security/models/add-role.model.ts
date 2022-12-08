@@ -1,10 +1,9 @@
-import { RoleElement } from "./role-element.model";
+import { ModuleElement } from "./module-element.model";
 
 
 
 export class AddRole {
     id: number;
     name: string;
-    elementName: string;
-    elementTypes: RoleElement[];
+    modules: ModuleElement[];
 }

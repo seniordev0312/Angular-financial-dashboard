@@ -15,9 +15,8 @@
                     <div class="flex items-center relative">
                         <mat-form-field class="px-4 w-full" appearance="fill">
                             <mat-label>{{secondSelectListLabel}}</mat-label>
-                            <mat-select multiple *ngIf="secondSelectListOptionsList"
-                                [formControlName]="secondSelectListFormControlName">
-                                <mat-option value="">
+                            <mat-select multiple [formControlName]="secondSelectListFormControlName">
+                                <mat-option #allSelected (click)="toggleAllSelection()" value="0">
                                     <span class="text-accent text-xs">All</span>
                                 </mat-option>
                                 <mat-option *ngFor="let option of secondSelectListOptionsList" [value]="option.id">

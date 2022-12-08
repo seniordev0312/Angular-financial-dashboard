@@ -3,7 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-list-item.model';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { AddUserRoleFormGroup } from '../../form-groups/add-user-role-form-group.service';
+
+import { ModuleElementTypesFormGroup } from '../../form-groups/module-element-type-form-group.service';
 
 @Component({
   selector: 'app-add-user-role',
@@ -88,7 +89,7 @@ export class AddUserRoleComponent implements OnInit {
 
   constructor(
     private layoutService: LayoutService,
-    private addUserRoleFormGroup: AddUserRoleFormGroup,
+    private moduleElementTypesFormGroup: ModuleElementTypesFormGroup,
     private activeRoute: ActivatedRoute,
   ) { }
 
@@ -97,10 +98,10 @@ export class AddUserRoleComponent implements OnInit {
       if (params.get('id')) {
         // this.mode = DialogMode.Edit;
         //todo wait fetch api
-        this.fg = this.addUserRoleFormGroup.getFormGroup();
+        this.fg = this.moduleElementTypesFormGroup.getFormGroup();
       }
       else {
-        this.fg = this.addUserRoleFormGroup.getFormGroup();
+        this.fg = this.moduleElementTypesFormGroup.getFormGroup();
       }
     });
   }
