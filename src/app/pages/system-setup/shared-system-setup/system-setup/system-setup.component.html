@@ -1,9 +1,9 @@
-<div class="h-full w-full shadow-xl">
+<div class="h-full w-full shadow-xl mt-4">
     <mat-drawer-container>
         <mat-drawer #drawer mode="side" opened="true" class="flex flex-col p-2 justify-center items-center">
-            <div *ngFor="let item of navList" class="flex justify-between items-center cursor-pointer pr-2 pb-4"
+            <div *ngFor="let item of navList" class="flex justify-between items-center cursor-pointer px-2 py-4"
                 (click)="onItemClick(item)">
-                <div class="text-sm">
+                <div class="text-xs">
                     <span translate>{{item.transitionKey}}</span>
                 </div>
                 <div class="flex justify-center items-center">
@@ -13,7 +13,7 @@
         </mat-drawer>
         <mat-drawer-content>
             <div class="p-1 h-full">
-                <router-outlet> </router-outlet>
+                <ng-content></ng-content>
             </div>
         </mat-drawer-content>
     </mat-drawer-container>

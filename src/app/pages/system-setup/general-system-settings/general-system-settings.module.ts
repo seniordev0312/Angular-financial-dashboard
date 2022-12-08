@@ -6,6 +6,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
 import { AddHolidayComponent } from './components/add-holiday/add-holiday.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
 
 const routes: Route[] = [
   {
@@ -33,6 +34,7 @@ const routes: Route[] = [
     CommonModule,
     SharedModule,
     MatSlideToggleModule,
+    SharedSystemSetupModule,
     RouterModule.forChild(routes)
   ]
 })

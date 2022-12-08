@@ -1,0 +1,24 @@
+<div class="p-10">
+    <h1 class="text-base font-medium mb-5">User Policies</h1>
+    <div class="grid grid-cols-4 gap-10 mb-3">
+        <app-select-list label="Force Complex Passwords:" [control]="getFormControl('isComplexPasswordForced')">
+        </app-select-list>
+    </div>
+
+    <div class="grid grid-cols-4 gap-10 mb-3">
+        <app-select-list label="Force Change Password:" [control]="getFormControl('isChangePasswordForced')">
+        </app-select-list>
+        <app-input-field label="Every X Days (Enter X):" [control]="getFormControl('numberOfDays')"></app-input-field>
+    </div>
+
+    <div class="grid grid-cols-4 gap-10 mb-3">
+        <app-input-field label="Minimum Password Length:" [control]="getFormControl('minPasswordLength')">
+        </app-input-field>
+    </div>
+
+    <div class="grid grid-cols-4 gap-10">
+        <app-input-field label="Maximum Trials before Locking:"
+            [control]="getFormControl('maxTrialsBeforeLockingLength')">
+        </app-input-field>
+    </div>
+</div>

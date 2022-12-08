@@ -11,3 +11,12 @@
     margin: 0px !important;
     max-height: 90% !important;
 }
+
+.filter-title {
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+
+.filters {
+    width: calc(100% - 240px);
+}

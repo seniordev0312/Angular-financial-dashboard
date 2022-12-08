@@ -6,7 +6,7 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { SystemClaims } from '../models/system-claims.model';
+import { SystemClaims } from '../../models/system-claims.model';
 
 
 @Component({
