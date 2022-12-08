@@ -91,6 +91,12 @@ export class IconSvgModule {
             ).addSvgIcon(
                 'back',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/back.svg')
+            ).addSvgIcon(
+                'true',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/true.svg')
+            ).addSvgIcon(
+                'false',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/false.svg')
             );
     }
 }

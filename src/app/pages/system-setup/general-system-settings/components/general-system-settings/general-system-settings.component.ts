@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } 
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
@@ -57,9 +58,44 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       name: 'New Year',
       offDay: false,
       startDate: '29/12/2023'
+    },
+    {
+      endDate: '05/7/2023',
+      name: 'Eid El Saydeh',
+      offDay: true,
+      startDate: '05/7/2023'
+    },
+    {
+      endDate: '11/11/2023',
+      name: 'Independence Day',
+      offDay: true,
+      startDate: '11/11/2023'
+    },
+    {
+      endDate: '05/06/2023',
+      name: 'Eid Marmaroun',
+      offDay: false,
+      startDate: '04/06/2023'
+    },
+    {
+      endDate: '26/12/2023',
+      name: 'Christmas',
+      offDay: true,
+      startDate: '23/12/2023'
+    },
+    {
+      endDate: '31/12/2023',
+      name: 'New Year',
+      offDay: false,
+      startDate: '29/12/2023'
     }
   ]
   fg: FormGroup;
+
+  ofDayTypesList: BaseListItem[] = [
+    { id: '0', name: 'true' },
+    { id: '1', name: 'false' }
+  ];
 
   editAction: TableRowAction<Holiday> = {
     action: (data) => this.onHolidayEdited(data),
@@ -81,7 +117,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: 10 });
 
   tableColumns: TableColumn[] = [
     {
@@ -122,7 +158,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       property: 'endDate',
       type: 'text',
       cssClasses: () => 'w-[25%]',
-      dataCssClasses: () => 'flex w-full',
+      dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -134,7 +170,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       }
     },
     {
-      translationKey: 'offDay',
+      translationKey: '',
       property: 'offDay',
       type: 'bool',
       cssClasses: () => 'w-[25%]',
@@ -146,7 +182,9 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
+        filterType: TableColumnFilterDataType.DropDown,
+        selectListViewProperty: 'name',
+        selectOptionsList: this.ofDayTypesList
       }
     },
   ];
@@ -155,7 +193,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
     tableRowsActionsList: [this.editAction, this.deleteAction],
     columns: this.tableColumns,
     data: [],
-    dataCount: 3,//todo replace after api
+    dataCount: 0,//todo replace after api
     settings: this.tableSettings,
   };
 
@@ -167,6 +205,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.tableConfiguration.data = this.templatesList;
+    this.tableConfiguration.dataCount = this.templatesList.length;
     this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
@@ -191,7 +230,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
   }
 
   onHolidayAdded() {
-    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}`, {
       outlets: { sidenav: ApplicationRoutes.Add },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
@@ -204,6 +243,9 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
 
   onHolidayEdited(data: Holiday) {
     console.log(data);
+  }
+  onSave() {
+
   }
 }
 

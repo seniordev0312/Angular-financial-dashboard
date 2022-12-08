@@ -83,7 +83,7 @@ export class SystemClaimsComponent implements OnInit, AfterViewInit {
     },
   ]
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: 10 });
 
   tableColumns: TableColumn[] = [
     {
@@ -149,6 +149,7 @@ export class SystemClaimsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.tableConfiguration.data = this.templatesList;
+    this.tableConfiguration.dataCount = this.templatesList.length;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
