@@ -31,12 +31,6 @@
                         </span>
                     </div>
                 </ng-container>
-
-                <button (click)="onAddClicked()" *ngIf="showAddIcon" class="absolute top-[20%] -right-[0.79rem] ">
-                    <span class="material-icons text-accent">
-                        add_circle_outline
-                    </span>
-                </button>
             </ng-container>
             <mat-chip-list *ngIf="chipsList.length>0" class="border-t-primary">
                 <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
