@@ -1,6 +1,6 @@
 <mat-form-field class="w-full" appearance="fill">
     <mat-label>{{label}}</mat-label>
-    <mat-select [multiple]="isMultiple" [formControl]="control">
+    <mat-select [disabled]="isDisabled" [multiple]="isMultiple" [formControl]="control">
         <mat-option value="">
             <span class="text-accent text-xs">All</span>
         </mat-option>

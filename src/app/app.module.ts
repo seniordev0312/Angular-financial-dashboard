@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +10,17 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { TranslationService } from './shared/services/translation.service';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
+import { Actions } from '@ngneat/effects-ng';
+import { devTools } from '@ngneat/elf-devtools';
+
+export function initElfDevTools(actions: Actions) {
+  return () => {
+    devTools({
+      name: 'Insurance Power House',
+      actionsDispatcher: actions,
+    });
+  };
+}
 
 @NgModule({
   declarations: [
@@ -31,7 +42,14 @@ import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
       },
     }),
   ],
-  providers: [TranslationService],
+  providers: [
+    TranslationService,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: initElfDevTools,
+      deps: [Actions],
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

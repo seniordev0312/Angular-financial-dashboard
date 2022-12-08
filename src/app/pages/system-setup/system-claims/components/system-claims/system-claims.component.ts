@@ -83,7 +83,7 @@ export class SystemClaimsComponent implements OnInit, AfterViewInit {
     },
   ]
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ enableActions: false });
 
   tableColumns: TableColumn[] = [
     {

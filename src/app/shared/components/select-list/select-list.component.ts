@@ -12,7 +12,7 @@ export class SelectListComponent implements OnInit {
   @Input() label: string;
   @Input() control: FormControl;
   @Input() isMultiple = false;
-
+  @Input() isDisabled = false;
   @Input() optionsList: BaseListItem[] = [{
     id: '1',
     name: '1111111'

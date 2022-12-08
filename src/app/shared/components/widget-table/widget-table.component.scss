@@ -121,6 +121,11 @@
 
 @media screen and (max-width: 960px) {
     :host ::ng-deep {
+        .p-datatable-wrapper {
+            overflow-y: hidden !important;
+            width: max-content !important;
+        }
+
         .p-datatable {
             &.p-datatable-widget {
 

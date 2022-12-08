@@ -114,7 +114,7 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
   editAction: TableRowAction<EntitiesListItem> = {
     action: (data) => this.onEntityEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,

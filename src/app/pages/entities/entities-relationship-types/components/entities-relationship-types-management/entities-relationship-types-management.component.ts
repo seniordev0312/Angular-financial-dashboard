@@ -185,7 +185,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
 
   lockAction: TableRowAction<RelationshipTypesListItem> = {
     action: () => { },
-    cssClasses: 'text-primary',
+    cssClasses: 'text-black',
     iconName: 'lock',
     translationKey: '',
     alwaysShow: true,
