@@ -11,17 +11,7 @@ const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: GeneralSystemSettingsComponent
-  },
-  {
-    path: ApplicationRoutes.Add,
-    component: AddHolidayComponent,
-    outlet: 'sidenav',
-  },
-  {
-    path: `${ApplicationRoutes.Add}/:id`,
-    component: AddHolidayComponent,
-    outlet: 'sidenav',
-  },
+  }
 ]
 
 @NgModule({

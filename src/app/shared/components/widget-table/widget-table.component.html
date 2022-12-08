@@ -93,6 +93,7 @@
                 </th>
             </tr>
         </ng-template>
+
         <ng-template *ngIf="tableConfiguration.settings.isGropingMode" pTemplate="groupheader" let-row
             let-rowIndex="rowIndex" let-expanded="expanded">
             <tr>
@@ -131,14 +132,15 @@
                 </td>
             </tr>
         </ng-template>
+
         <ng-template [pTemplate]="tableConfiguration.settings.isGropingMode ? 'rowexpansion' : 'body'" let-row>
             <tr class="p-selectable-row">
                 <ng-container *ngFor="let column of tableConfiguration.columns">
                     <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
                         <div class="flex justify-center">
-                            <mat-slide-toggle color="primary" *ngSwitchCase="'bool'" [checked]="row[column.property]"
-                                (change)="column.action({ data: row, value: $event.checked })">
-                            </mat-slide-toggle>
+                            <mat-icon *ngSwitchCase="'bool'" class="cursor-pointer"
+                                [svgIcon]="row[column.property] ? 'true' :'false'">
+                            </mat-icon>
                         </div>
                         <div class="w-full" *ngSwitchCase="'dropDown'">
                             <mat-form-field class="text-sm w-32" appearance="outline">
@@ -191,6 +193,7 @@
                 </td>
             </tr>
         </ng-template>
+
         <ng-template pTemplate="emptymessage">
             <tr>
                 <td colspan="8">

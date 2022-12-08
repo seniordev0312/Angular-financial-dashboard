@@ -5,8 +5,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
+import { AddHolidayComponent } from './general-system-settings/components/add-holiday/add-holiday.component';
 import { SystemSetupEmptyPageComponent } from './system-setup-empty-page/system-setup-empty-page.component';
 import { SystemSetupComponent } from './system-setup/system-setup.component';
+import { AddUserRoleComponent } from './user-security/components/add-user-role/add-user-role.component';
 
 const routes: Route[] = [
   {
@@ -46,13 +48,33 @@ const routes: Route[] = [
         loadChildren: () => import('@root/pages/system-setup/reference-tables/reference-tables.module').then(m => m.ReferenceTablesModule)
       }
     ]
-  }
+  },
+  {
+    path: ApplicationRoutes.Add,
+    component: AddHolidayComponent,
+    outlet: 'sidenav',
+  },
+  {
+    path: `${ApplicationRoutes.Add}/:id`,
+    component: AddHolidayComponent,
+    outlet: 'sidenav',
+  },
+  {
+    path: ApplicationRoutes.AddUserRole,
+    component: AddUserRoleComponent,
+    outlet: 'sidenav',
+  },
+  {
+    path: `${ApplicationRoutes.AddUserRole}/:id`,
+    component: AddUserRoleComponent,
+    outlet: 'sidenav',
+  },
 ];
 
 @NgModule({
   declarations: [
     SystemSetupComponent,
-    SystemSetupEmptyPageComponent
+    SystemSetupEmptyPageComponent,
   ],
   imports: [
     SharedModule,

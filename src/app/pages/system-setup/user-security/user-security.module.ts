@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserSecurityComponent } from './components/user-security.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Route, RouterModule } from '@angular/router';
-import { SharedModule } from 'primeng/api';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { SharedModule } from '@root/shared/shared.module';
+import { UserSecurityComponent } from './components/user-security/user-security.component';
+import { AddUserRoleComponent } from './components/add-user-role/add-user-role.component';
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
@@ -14,6 +15,7 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     UserSecurityComponent,
+    AddUserRoleComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { BaseListItem } from '@root/shared/models/base-list-item.model';
+import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-list-item.model';
+import { SecondaryListItem } from '@root/shared/models/select-list-with-chips/secondary-list-item.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
 
 @Component({
@@ -21,31 +22,9 @@ export class SelectListWithChipsComponent {
   @Input() fg: FormGroup;
   @Input() arrayControlName: string;
 
-  @Input() firstSelectListOptionsList: BaseListItem[] = [{
-    id: '1',
-    name: '1111111'
-  }];
+  @Input() firstSelectListOptionsList: BaseListItem[] = [];
 
-  @Input() secondSelectListOptionsList: BaseListItem[] = [{
-    id: '1',
-    name: '1111111'
-  },
-  {
-    id: '2',
-    name: '1111111'
-  },
-  {
-    id: '3',
-    name: '1111111'
-  },
-  {
-    id: '4',
-    name: '1111111'
-  },
-  {
-    id: '5',
-    name: '1111111'
-  }];
+  secondSelectListOptionsList: SecondaryListItem[] = [];
 
   get items() {
     return this.fg && this.formArrayService.getFormArrayItems(this.arrayControlName, this.fg) as FormArray;
@@ -88,5 +67,10 @@ export class SelectListWithChipsComponent {
 
   onItemDeleted(index: number) {
     this.formArrayService.removeItemFromFormArray(this.arrayControlName, this.fg, index);
+  }
+
+  onFirstSelectListItemClick(item: BaseListItem): void {
+    this.secondSelectListOptionsList = null;
+    this.secondSelectListOptionsList = item.secondaryList;
   }
 }

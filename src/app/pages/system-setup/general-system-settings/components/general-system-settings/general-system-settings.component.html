@@ -1,42 +1,57 @@
-<div class="h-full w-full pl-6 flex flex-row overflow-y-auto min-w-[40rem] min-h-[40rem]">
-    <div class="w-1/3 flex flex-col">
-        <div class="h-full pt-4">
-            <app-input-field label="Company Name:" [control]="getFormControl('companyName')"></app-input-field>
-            <div class="flex items-center">
-                <app-select-list label="Default Language:" [control]="getFormControl('defaultLanguage')">
-                </app-select-list>
+<div class="h-full w-full flex flex-col overflow-y-auto min-w-[40rem] min-h-[40rem]">
+    <div class="h-[90%] flex flex-row gap-8">
+        <div class="w-1/3 flex flex-col">
+            <div class="h-full w-full">
+                <app-input-field label="Company Name:" [control]="getFormControl('companyName')"></app-input-field>
+                <div class="flex items-center">
+                    <app-select-list label="Default Language:" class="w-full"
+                        [control]="getFormControl('defaultLanguage')">
+                    </app-select-list>
+                </div>
+                <div class="flex items-center">
+                    <app-select-list label="Country:" class="w-full" [control]="getFormControl('country')">
+                    </app-select-list>
+                </div>
+                <div class="flex items-center">
+                    <app-select-list label="Default Currency:" class="w-full"
+                        [control]="getFormControl('defaultCurrency')">
+                    </app-select-list>
+                </div>
+                <div class="flex items-center">
+                    <app-select-list label="Fiscal Year:" class="w-full" [control]="getFormControl('fiscalYear')">
+                    </app-select-list>
+                </div>
+                <app-input-field label="Underwriting Year:" class="w-full"
+                    [control]="getFormControl('underwritingYear')">
+                </app-input-field>
+                <div class="flex items-center">
+                    <app-select-list label="Accounting Style:" class="w-full"
+                        [control]="getFormControl('accountingStyle')">
+                    </app-select-list>
+                </div>
             </div>
-            <div class="flex items-center">
-                <app-select-list label="Country:" [control]="getFormControl('country')"></app-select-list>
-            </div>
-            <div class="flex items-center">
-                <app-select-list label="Default Currency:" [control]="getFormControl('defaultCurrency')">
-                </app-select-list>
-            </div>
-            <div class="flex items-center">
-                <app-select-list label="Fiscal Year:" [control]="getFormControl('fiscalYear')"></app-select-list>
-            </div>
-            <app-input-field label="Underwriting Year:" [control]="getFormControl('underwritingYear')">
-            </app-input-field>
-            <div class="flex items-center">
-                <app-select-list label="Accounting Style:" [control]="getFormControl('accountingStyle')">
-                </app-select-list>
+        </div>
+        <div class="w-2/3 flex flex-col">
+            <div class="h-full flex flex-col gap-1">
+                <div class="w-full flex flex-row">
+                    <div class="w-1/2">
+                        <span>Holiday List Definition for: <span class="text-primary">2023</span></span>
+                    </div>
+                    <div class="w-1/2 flex justify-end">
+                        <div class="w-full flex justify-end ">
+                            <app-button (trigger)="onHolidayAdded()" text="Add New Holiday" icon="add"
+                                classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
+                            </app-button>
+                        </div>
+                    </div>
+                </div>
+                <app-widget-table class="w-full" [tableConfiguration]="tableConfiguration"></app-widget-table>
             </div>
         </div>
     </div>
-    <div class="w-2/3 flex flex-col">
-        <div class="h-full flex flex-col gap-1 pt-4">
-            <div class="w-full flex flex-row">
-                <div class="w-1/2">
-                    <span>Holiday List Definition for: <span class="text-primary">2023</span></span>
-                </div>
-                <div class="w-1/2 flex justify-end ">
-                    <app-button (trigger)="onHolidayAdded()" icon="add" text="Add New Holiday"
-                        classes="bg-accent text-xxs rounded-md text-white font-light h-6 w-[150px]">
-                    </app-button>
-                </div>
-            </div>
-            <app-widget-table class="w-full" [tableConfiguration]="tableConfiguration"></app-widget-table>
-        </div>
+    <div class="h-[5%] flex items-start justify-end">
+        <app-button (trigger)="onSave()" text="Save" classes="h-8 w-[80px] font-thin text-xs bg-accent text-white">
+        </app-button>
     </div>
+    <div class="h-[5%]"></div>
 </div>

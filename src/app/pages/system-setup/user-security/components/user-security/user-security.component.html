@@ -1,0 +1,49 @@
+<div class="h-full w-full flex flex-col overflow-y-auto min-w-[40rem] min-h-[40rem]">
+    <div class="h-[25%] flex flex-col gap-2">
+        <div class="w-full h-1/3 flex flex-row gap-2 items-center">
+            <span>User Policies</span>
+        </div>
+        <div class="w-full h-1/3 flex flex-row gap-2">
+            <div class="w-1/3">
+                <app-input-field label="Force Complex Passwords:" [control]="getFormControl('forceComplexPasswords')">
+                </app-input-field>
+            </div>
+            <div class="w-1/3">
+                <app-input-field label="Force Change Password:" [control]="getFormControl('forceChangePassword')">
+                </app-input-field>
+            </div>
+            <div class="w-1/3">
+                <app-input-field label="Every X Days (Enter X):" [control]="getFormControl('everyXDays')">
+                </app-input-field>
+            </div>
+        </div>
+        <div class="w-full h-1/3 flex flex-row gap-2">
+            <div class="w-1/3">
+                <app-input-field label="Minimum Password Length:" [control]="getFormControl('minimumPasswordLength')">
+                </app-input-field>
+            </div>
+            <div class="w-1/3">
+                <app-input-field label="Maximum Trials before Locking:"
+                    [control]="getFormControl('maximumTrailsBeforeLocking')">
+                </app-input-field>
+            </div>
+        </div>
+    </div>
+    <div class="h-[75%] flex flex-col gap-4">
+        <div class="w-full flex flex-row items-center">
+            <div class="w-1/2">
+                <span>Manage User Roles</span>
+            </div>
+            <div class="w-1/2 flex justify-end">
+                <div class="w-full flex justify-end ">
+                    <app-button (trigger)="onUserRoleAdded()" text="Add New Holiday" icon="add"
+                        classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
+                    </app-button>
+                </div>
+            </div>
+        </div>
+        <div class="h-full">
+            <app-widget-table class="w-full" [tableConfiguration]="tableConfiguration"></app-widget-table>
+        </div>
+    </div>
+</div>
