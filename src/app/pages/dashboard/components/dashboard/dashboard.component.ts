@@ -14,16 +14,16 @@ export class DashboardComponent implements OnInit {
     {
       employees: [
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
       ],
       title: 'Customer Service',
@@ -44,16 +44,16 @@ export class DashboardComponent implements OnInit {
     {
       employees: [
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
       ],
       title: 'Insurance Underwriting',
@@ -84,16 +84,16 @@ export class DashboardComponent implements OnInit {
     {
       employees: [
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
         {
-          photoURL: '../../../../../assets//images/profile.jpg',
+          photoURL: '../../../../../assets//images/profile.svg',
         },
       ],
       title: 'Accounting & Finance',

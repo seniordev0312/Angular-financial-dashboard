@@ -5,8 +5,8 @@
         <app-left-side-bar (toggleSidenavCollapsedEvent)="toggleSidenav($event)"></app-left-side-bar>
     </mat-sidenav>
 
-    <mat-sidenav-content class="p-2 h-full" [ngStyle]="{'margin-left': ml}">
-        <div *ngIf="showBreadcrumb" class="h-[5%] pt-5 pl-5 flex items-center">
+    <mat-sidenav-content class="p-2 pt-0 h-full" [ngStyle]="{'margin-left': ml}">
+        <div *ngIf="showBreadcrumb" class="h-[5%] pl-5 flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
         <div class="pl-5" [ngClass]="mainContentClass">

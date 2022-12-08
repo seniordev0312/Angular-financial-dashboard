@@ -1,9 +1,4 @@
 <mat-form-field class="w-full" appearance="fill">
     <mat-label>{{label}}</mat-label>
-    <input [matAutocomplete]="auto" [formControl]="control" matInput>
-    <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of baseListItemsList" [value]="option.id">
-            {{option.name}}
-        </mat-option>
-    </mat-autocomplete>
+    <input [formControl]="control" matInput>
 </mat-form-field>
