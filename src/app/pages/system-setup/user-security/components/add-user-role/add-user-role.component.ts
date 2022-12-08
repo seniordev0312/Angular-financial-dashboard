@@ -5,6 +5,7 @@ import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-li
 import { LayoutService } from '@root/shared/services/layout.service';
 
 import { ModuleElementTypesFormGroup } from '../../form-groups/module-element-type-form-group.service';
+import { AddUserRoleFormGroup } from '../../form-groups/add-user-role-form-group.service';
 
 @Component({
   selector: 'app-add-user-role',
