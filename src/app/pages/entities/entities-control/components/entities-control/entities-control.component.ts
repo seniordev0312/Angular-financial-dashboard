@@ -197,7 +197,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   editAction: TableRowAction<EntitiesControlListItem> = {
     action: (data) => this.onEntityEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,

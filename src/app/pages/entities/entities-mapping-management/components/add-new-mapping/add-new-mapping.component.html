@@ -1,6 +1,6 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New Entity Mapping':'Edit New Entity Mapping'}}</h4>
-    <div class="mr-[45px]">
+    <div class="mr-[45px] gap-4 flex flex-col">
         <app-input-field label="External Field:" [control]="getFormControl('externalField')"></app-input-field>
         <app-input-field label="System Field:" [control]="getFormControl('systemField')"></app-input-field>
     </div>

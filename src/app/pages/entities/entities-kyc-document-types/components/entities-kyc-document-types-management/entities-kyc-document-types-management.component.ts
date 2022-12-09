@@ -133,7 +133,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
   editAction: TableRowAction<KYCDocumentInterfaceListItem> = {
     action: (data) => this.onDocumentTypeEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,

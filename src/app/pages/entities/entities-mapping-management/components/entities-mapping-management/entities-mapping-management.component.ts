@@ -109,7 +109,7 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
   editAction: TableRowAction<EntitiesMappingListItem> = {
     action: (data) => this.onEntitySourceEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,

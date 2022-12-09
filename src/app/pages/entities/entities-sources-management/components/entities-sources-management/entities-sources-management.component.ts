@@ -100,7 +100,7 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
   editAction: TableRowAction<EntitiesSourcesListItem> = {
     action: (data) => this.onEntitySourceEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,
