@@ -1,1 +1,17 @@
-<p>add-role works!</p>
+<form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
+    <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New User Role':'Edit User Role'}}</h4>
+    <div class="mr-[45px] gap-4 flex flex-col">
+
+        <app-input-field label="Name:" [control]="getFormControl('name')"></app-input-field>
+
+        <p class="text-xs text-accent font-medium">Select Modules</p>
+        <app-select-list-with-chips [fg]="fg" firstSelectListFormControlName="module"
+            secondSelectListFormControlName="claims" secondSelectListLabel="Module" firstSelectListLabel="Claims">
+        </app-select-list-with-chips>
+    </div>
+    <div class="flex items-center mt-7 justify-between w-full">
+        <app-button (trigger)="onClose()" text="cancel"
+            classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
+        <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
+    </div>
+</form>

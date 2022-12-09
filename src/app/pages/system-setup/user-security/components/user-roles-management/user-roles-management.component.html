@@ -41,12 +41,12 @@
                 </td>
                 <td>
                     <div class="flex justify-end">
-                        <button mat-button>
+                        <button (click)="onRoleDeleted(role)" mat-button>
                             <span class="material-icons text-warn">
                                 delete_outline
                             </span>
                         </button>
-                        <button mat-button class="ml-4">
+                        <button (click)="onRoleEdited(role)" mat-button class="ml-4">
                             <span class="material-icons text-accent">
                                 edit
                             </span>
