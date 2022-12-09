@@ -1,3 +1,4 @@
+import { ApplicationRoutes } from "@root/shared/settings/common.settings";
 import { MainRoute } from "../models/mainRoute";
 
 
@@ -5,7 +6,7 @@ export const mainRoutesList: MainRoute = {
     upper: [
         {
             icon: 'dashboard',
-            navigateLink: 'dashboard',
+            navigateLink: ApplicationRoutes.Dashboard,
             translationKey: 'core.left-side-bar-back.dashboard',
             subRouteItems: [],
             upperRoute: true
@@ -16,11 +17,11 @@ export const mainRoutesList: MainRoute = {
             translationKey: 'core.left-side-bar-back.customer-service',
             subRouteItems: [
                 {
-                    navigateLink: 'customer-service',
+                    navigateLink: ApplicationRoutes.CustomerService,
                     translationKey: 'core.left-side-bar-back.customer-service'
                 },
                 {
-                    navigateLink: 'insurance-renewals',
+                    navigateLink: ApplicationRoutes.InsuranceRenewals,
                     translationKey: 'core.left-side-bar-back.insurance-renewals'
                 },
             ],
@@ -32,19 +33,19 @@ export const mainRoutesList: MainRoute = {
             translationKey: 'core.left-side-bar-back.insurance-underwriting',
             subRouteItems: [
                 {
-                    navigateLink: 'general-insurance-underwriting',
+                    navigateLink: ApplicationRoutes.GeneralInsuranceUnderwriting,
                     translationKey: 'core.left-side-bar-back.general-insurance-underwriting'
                 },
                 {
-                    navigateLink: 'motor-insurance-underwriting',
+                    navigateLink: ApplicationRoutes.MotorInsuranceUnderwriting,
                     translationKey: 'core.left-side-bar-back.motor-insurance-underwriting'
                 },
                 {
-                    navigateLink: 'medical-insurance-underwriting',
+                    navigateLink: ApplicationRoutes.MedicalInsuranceUnderwriting,
                     translationKey: 'core.left-side-bar-back.medical-insurance-underwriting'
                 },
                 {
-                    navigateLink: 'life-insurance-underwriting',
+                    navigateLink: ApplicationRoutes.LifeInsuranceUnderwriting,
                     translationKey: 'core.left-side-bar-back.life-insurance-underwriting'
                 },
             ],
@@ -56,19 +57,19 @@ export const mainRoutesList: MainRoute = {
             translationKey: 'core.left-side-bar-back.accounting-and-finance',
             subRouteItems: [
                 {
-                    navigateLink: 'cashier',
+                    navigateLink: ApplicationRoutes.Cashier,
                     translationKey: 'core.left-side-bar-back.cashier',
                 },
                 {
-                    navigateLink: 'general-accounting',
+                    navigateLink: ApplicationRoutes.GeneralAccounting,
                     translationKey: 'core.left-side-bar-back.general-accounting',
                 },
                 {
-                    navigateLink: 'accounts-payable',
+                    navigateLink: ApplicationRoutes.AccountsPayable,
                     translationKey: 'core.left-side-bar-back.accounts-payable',
                 },
                 {
-                    navigateLink: 'finance-and-reporting',
+                    navigateLink: ApplicationRoutes.FinanceAndReporting,
                     translationKey: 'core.left-side-bar-back.finance-and-reporting',
                 },
             ],
@@ -80,7 +81,7 @@ export const mainRoutesList: MainRoute = {
             translationKey: 'core.left-side-bar-back.human-resources',
             subRouteItems: [
                 {
-                    navigateLink: 'payroll',
+                    navigateLink: ApplicationRoutes.Payroll,
                     translationKey: 'core.left-side-bar-back.payroll'
                 }
             ],
@@ -92,7 +93,7 @@ export const mainRoutesList: MainRoute = {
             translationKey: 'core.left-side-bar-back.correspondence',
             subRouteItems: [
                 {
-                    navigateLink: 'correspondence-management',
+                    navigateLink: ApplicationRoutes.CorrespondenceManagement,
                     translationKey: 'core.left-side-bar-back.correspondence-management',
                 }
             ],
@@ -102,42 +103,42 @@ export const mainRoutesList: MainRoute = {
     lower: [
         {
             icon: 'activityLog',
-            navigateLink: 'activity-log',
+            navigateLink: ApplicationRoutes.ActivityLog,
             translationKey: 'core.left-side-bar-back.activity-log',
             subRouteItems: [],
             upperRoute: false
         },
         {
             icon: 'product-management',
-            navigateLink: 'product-management',
+            navigateLink: ApplicationRoutes.ProductManagement,
             translationKey: 'core.left-side-bar-back.product-management',
             subRouteItems: [],
             upperRoute: false
         },
         {
             icon: 'treaty',
-            navigateLink: 'treaty-management',
+            navigateLink: ApplicationRoutes.TreatyManagement,
             translationKey: 'core.left-side-bar-back.treaty-management',
             subRouteItems: [],
             upperRoute: false
         },
         {
             icon: 'entity-management',
-            navigateLink: 'entities',
+            navigateLink: ApplicationRoutes.Entities,
             translationKey: 'core.left-side-bar-back.entity-management',
             subRouteItems: [],
             upperRoute: false
         },
         {
             icon: 'settings',
-            navigateLink: 'settings',
+            navigateLink: ApplicationRoutes.Settings,
             translationKey: 'core.left-side-bar-back.settings',
             subRouteItems: [],
             upperRoute: false
         },
         {
             icon: 'system-setup',
-            navigateLink: 'system-setup',
+            navigateLink: ApplicationRoutes.SystemSetup,
             translationKey: 'core.left-side-bar-back.system-setup',
             subRouteItems: [],
             upperRoute: false
