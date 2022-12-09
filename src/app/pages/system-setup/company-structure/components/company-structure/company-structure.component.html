@@ -1,3 +1,18 @@
 <app-system-setup>
-    <p>company-structure works!</p>
+    <div class="h-[5%] flex items-center">
+        <span>Company Structure :</span>
+    </div>
+    <div class="h-[95%] flex justify-center gap-2">
+        <app-button (trigger)="onGroupAdded()" text="Add New Group" icon="add"
+            classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
+        </app-button>
+
+        <app-button (trigger)="onDepartmentAdded()" text="Add New Department" icon="add"
+            classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
+        </app-button>
+
+        <app-button (trigger)="onBranchAdded()" text="Add New Branch" icon="add"
+            classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
+        </app-button>
+    </div>
 </app-system-setup>

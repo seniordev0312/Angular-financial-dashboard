@@ -17,12 +17,12 @@ const routes: Route[] = [
     component: UserSecurityComponent
   },
   {
-    path: ApplicationRoutes.AddUserRole,
+    path: ApplicationRoutes.Add,
     component: AddUserRoleComponent,
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.AddUserRole}/:id`,
+    path: `${ApplicationRoutes.Add}/:id`,
     component: AddUserRoleComponent,
     outlet: 'sidenav',
   },

@@ -14,12 +14,12 @@ const routes: Route[] = [
     component: GeneralSystemSettingsComponent
   },
   {
-    path: ApplicationRoutes.AddHoliday,
+    path: ApplicationRoutes.Add,
     component: AddHolidayComponent,
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.AddHoliday}/:id`,
+    path: `${ApplicationRoutes.Add}/:id`,
     component: AddHolidayComponent,
     outlet: 'sidenav',
   },

@@ -233,19 +233,12 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
 
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
       outlets: {
-        sidenav: ApplicationRoutes.AddHoliday
+        sidenav: ApplicationRoutes.Add
       },
     }], { skipLocationChange: true });
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
-
-
-    // this.router.navigate([`${ApplicationRoutes.SystemSetup}`, {
-    //   outlets: { sidenav: ApplicationRoutes.AddHoliday },
-    // }], { skipLocationChange: true });
-    // this.layoutService.openRightSideNav();
-    // this.layoutService.changeRightSideNavMode('over');
   }
 
   onHolidayDeleted(data: Holiday) {
@@ -258,5 +251,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
   onSave() {
 
   }
+
+
 }
 
