@@ -123,7 +123,7 @@ export const mainRoutesList: MainRoute = {
         },
         {
             icon: 'entity-management',
-            navigateLink: 'entity-management',
+            navigateLink: 'entities',
             translationKey: 'core.left-side-bar-back.entity-management',
             subRouteItems: [],
             upperRoute: false
