@@ -13,13 +13,35 @@ export class SelectListWithChipsComponent {
   @Input() showFirstSelectList = true;
 
   @Input() firstSelectListFormControlName: string;
-  secondSelectListFormControlName: string;
+  @Input() secondSelectListFormControlName: string;
 
   @Input() fg: FormGroup;
 
-  @Input() firstSelectListOptionsList: any[] = [];
+  @Input() firstSelectListOptionsList: BaseListItem[] = [{
+    id: '1',
+    name: '1111111'
+  }];
 
-  secondSelectListOptionsList: any[] = [];
+  @Input() secondSelectListOptionsList: BaseListItem[] = [{
+    id: '1',
+    name: '1111111'
+  },
+  {
+    id: '2',
+    name: '1111111'
+  },
+  {
+    id: '3',
+    name: '1111111'
+  },
+  {
+    id: '4',
+    name: '1111111'
+  },
+  {
+    id: '5',
+    name: '1111111'
+  }];
 
   constructor() {
   }
