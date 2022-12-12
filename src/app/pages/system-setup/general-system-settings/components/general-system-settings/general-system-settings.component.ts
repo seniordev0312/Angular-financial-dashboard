@@ -100,7 +100,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
   editAction: TableRowAction<Holiday> = {
     action: (data) => this.onHolidayEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,

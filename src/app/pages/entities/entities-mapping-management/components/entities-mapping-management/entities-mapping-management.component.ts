@@ -109,7 +109,7 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
   editAction: TableRowAction<EntitiesMappingListItem> = {
     action: (data) => this.onEntitySourceEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,
@@ -127,7 +127,7 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
   };
 
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntitiesMappingListItem> = {
     tableRowsActionsList: [this.editAction, this.deleteAction],

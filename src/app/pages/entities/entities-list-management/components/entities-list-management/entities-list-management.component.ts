@@ -114,7 +114,7 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
   editAction: TableRowAction<EntitiesListItem> = {
     action: (data) => this.onEntityEdited(data),
     cssClasses: 'text-primary',
-    iconName: 'edit',
+    iconName: 'border_color',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,
@@ -132,7 +132,7 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
   };
 
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntitiesListItem> = {
     tableRowsActionsList: [this.editAction, this.deleteAction],

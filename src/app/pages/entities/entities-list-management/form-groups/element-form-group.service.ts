@@ -1,6 +1,6 @@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { ElementsList } from '../models/element.model';
+import { ElementsListItem } from '../models/element.model';
 
 @Injectable({
     providedIn: 'root',
@@ -9,7 +9,7 @@ export class ElementFormGroup {
     fg: FormGroup;
     constructor(public fb: FormBuilder) { }
 
-    getFormGroup(item?: ElementsList): FormGroup {
+    getFormGroup(item?: ElementsListItem): FormGroup {
         this.fg = this.fb.group({
             id: new FormControl(item?.id || null, [Validators.required]),
             template: new FormControl(item?.template || null, [Validators.required]),
@@ -25,7 +25,7 @@ export class ElementFormGroup {
         return this.fg;
     }
 
-    getValueFromFormGroup(fg: FormGroup): ElementsList {
+    getValueFromFormGroup(fg: FormGroup): ElementsListItem {
         return {
             id: fg.controls.id.value,
             template: fg.controls.template.value,

@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
-import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-list-item.model';
-import { FormArrayService } from '@root/shared/services/form-array.service';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
 @Component({
   selector: 'app-select-list-with-chips',
@@ -9,79 +8,35 @@ import { FormArrayService } from '@root/shared/services/form-array.service';
   styleUrls: ['./select-list-with-chips.component.scss']
 })
 export class SelectListWithChipsComponent {
-  @Output() addNewItem = new EventEmitter<void>();
   @Input() firstSelectListLabel: string;
   @Input() secondSelectListLabel: string;
   @Input() showFirstSelectList = true;
-  @Input() showAddIcon = true;
 
   @Input() firstSelectListFormControlName: string;
   secondSelectListFormControlName: string;
 
   @Input() fg: FormGroup;
-  @Input() arrayControlName: string;
 
   @Input() firstSelectListOptionsList: any[] = [];
 
   secondSelectListOptionsList: any[] = [];
 
-  get items() {
-    return this.fg && this.formArrayService.getFormArrayItems(this.arrayControlName, this.fg) as FormArray;
-  }
-
-  constructor(private formArrayService: FormArrayService) {
+  constructor() {
   }
 
   get chipsList(): string[] {
-    let chipsList: string[] = [];
-    this.items?.controls.forEach((control) => {
-      if (control.get(this.secondSelectListFormControlName).value) {
-        chipsList = [...chipsList, ...control.get(this.secondSelectListFormControlName).value]
-      }
-    })
-    return chipsList;
+    return this.fg.get(this.secondSelectListFormControlName)?.value;
   }
 
-  getFormGroup(index: number): FormGroup {
-    return this.items?.controls[index] as FormGroup;
-  }
 
   getChipLabel(id: string) {
     return this.secondSelectListOptionsList.find(c => c.id === id).name;
   }
 
   removeChip(id: string) {
-    this.items.controls.forEach(control => {
-      const index = control.get(this.secondSelectListFormControlName).value.findIndex((c: string) => c === id);
-      if (index !== -1) {
-        const types = control.get(this.secondSelectListFormControlName).value.filter((c: string) => c !== id);
-        this.getFormGroup(index).patchValue({ types });
-      }
-    })
+    const types = this.fg.get(this.secondSelectListFormControlName).value.filter((c: string) => c !== id);
+
+    this.fg.get(this.secondSelectListFormControlName).patchValue({ types })
   }
 
-  onAddClicked() {
-    this.addNewItem.emit();
-  }
-
-  onItemDeleted(index: number) {
-    this.formArrayService.removeItemFromFormArray(this.arrayControlName, this.fg, index);
-  }
-
-  onFirstSelectListItemClick(item: BaseListItem): void {
-    console.log(item);
-
-    // this.secondSelectListOptionsList = item.secondaryList;
-  }
-
-  // @ViewChild('allSelected') private allSelected: MatOption;
-
-  toggleAllSelection() {
-    console.log(this.fg.value);
-
-    // if (this.allSelected.selected) {
-    //   this.fg.controls.elementTypes
-    //     .patchValue([...this.secondSelectListOptionsList.map(item => item.id), 0]);
-    // }
-  }
 }

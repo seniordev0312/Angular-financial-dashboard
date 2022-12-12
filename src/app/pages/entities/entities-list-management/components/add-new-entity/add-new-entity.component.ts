@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogMode } from '@root/shared/models/enums/dialog-mode.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
@@ -15,7 +15,7 @@ export class AddNewEntityComponent implements OnInit {
   mode: DialogMode = DialogMode.Add;
   data1: TreeNode[];
 
-  constructor(
+  constructor(private router: Router,
     private activeRoute: ActivatedRoute,
     private layoutService: LayoutService) { }
 
@@ -56,20 +56,6 @@ export class AddNewEntityComponent implements OnInit {
           expanded: true,
           data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' },
         },
-        {
-          label: 'COO',
-          type: 'section',
-          styleClass: 'p-person',
-          expanded: true,
-          data: { name: 'Mike E.', 'avatar': 'mike.jpg' },
-        },
-        {
-          label: 'CTO',
-          type: 'section',
-          styleClass: 'p-person',
-          expanded: true,
-          data: { name: 'Jesse Pinkman', 'avatar': 'jesse.jpg' },
-        }
       ]
     }];
   }
@@ -79,6 +65,7 @@ export class AddNewEntityComponent implements OnInit {
 
 
   onCancel(): void {
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`]);
   }
 
 

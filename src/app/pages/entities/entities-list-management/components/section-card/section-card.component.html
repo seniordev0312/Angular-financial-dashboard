@@ -1,9 +1,16 @@
-<div class="flex flex-col justify-center items-center relative rounded-2xl min-h-[160px] w-[203px]">
-    <div class="flex flex-col items-center justify-center h-[96px] bg-accent w-full title border-accent border-2">
+<div [ngClass]="{'min-h-[160px]': showElementsList}"
+    class="flex flex-col justify-center items-center relative rounded-2xl  w-[203px]">
+    <div [ngClass]="{'rounded-2xl': !showElementsList,'title':showElementsList}"
+        class="flex flex-col items-center justify-center relative h-[96px] bg-accent w-full border-accent border-2">
         <p class="text-white text-sm font-medium">Common</p>
         <p class="text-black text-xxs font-bold mt-2">section</p>
+        <div class="absolute right-1 bottom-1  px-2 ">
+            <span (click)="toggleElementsListVisibility()" class="material-icons text-white cursor-pointer">
+                {{showElementsList?'expand_less':'expand_more'}}
+            </span>
+        </div>
     </div>
-    <div
+    <div *ngIf="showElementsList"
         class="flex py-2 gap-1 items-center justify-center flex-wrap min-h-[64px] bg-[#C0C6CC] elements w-full border-accent border-2">
         <app-element-chip></app-element-chip>
         <app-element-chip></app-element-chip>

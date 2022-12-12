@@ -11,7 +11,7 @@ export class RelationshipTypesFormGroup {
 
     getFormGroup(item?: AddRelationshipType): FormGroup {
         this.fg = this.fb.group({
-            code: new FormControl(item?.code || null, [Validators.required]),
+            code: new FormControl({ value: item?.code || null, disabled: true }, [Validators.required]),
             back: new FormControl(item?.back || null, [Validators.required]),
             forward: new FormControl(item?.forward || null, [Validators.required]),
             description: new FormControl(item?.description || null, [Validators.required]),

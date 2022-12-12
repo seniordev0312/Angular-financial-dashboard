@@ -185,7 +185,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
 
   lockAction: TableRowAction<RelationshipTypesListItem> = {
     action: () => { },
-    cssClasses: 'text-primary',
+    cssClasses: 'text-black',
     iconName: 'lock',
     translationKey: '',
     alwaysShow: true,
@@ -194,7 +194,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
   };
 
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<RelationshipTypesListItem> = {
     tableRowsActionsList: [this.lockAction],

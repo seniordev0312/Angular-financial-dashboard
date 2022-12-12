@@ -9,40 +9,29 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <!-- <div class="relative">
-            <ng-container [formArrayName]="arrayControlName" *ngFor="let item of items['controls']; let i = index">
-                <ng-container [formGroupName]="i">
-                    <div class="flex items-center relative">
-                        <mat-form-field class="px-4 w-full" appearance="fill">
-                            <mat-label>{{secondSelectListLabel}}</mat-label>
-                            <mat-select multiple [formControlName]="secondSelectListFormControlName">
-                                <mat-option #allSelected (click)="toggleAllSelection()" value="0">
-                                    <span class="text-accent text-xs">All</span>
-                                </mat-option>
-                                <mat-option *ngFor="let option of secondSelectListOptionsList" [value]="option.id">
-                                    <span class="text-accent text-xs">{{option.name}}</span>
-                                </mat-option>
-                            </mat-select>
 
-                        </mat-form-field>
-                        <span *ngIf="i>0" (click)="onItemDeleted(i)"
-                            class="material-icons cursor-pointer text-accent absolute right-12 bottom-10 delete-icon">
-                            delete
-                        </span>
-                    </div>
-                </ng-container>
-            </ng-container>
-            <mat-chip-list *ngIf="chipsList.length>0" class="border-t-primary">
-                <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
-                    <span>{{getChipLabel(chip)}}</span>
-                    <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
-                        aria-label="'remove ' + chip">
-                        <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
-                            close
-                        </span>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
-        </div> -->
+        <mat-form-field class="px-4 w-full" appearance="fill">
+            <mat-label>{{secondSelectListLabel}}</mat-label>
+            <mat-select multiple [formControlName]="secondSelectListFormControlName">
+                <mat-option value="">
+                    <span class="text-accent text-xs">All</span>
+                </mat-option>
+                <mat-option *ngFor="let option of secondSelectListOptionsList" [value]="option.id">
+                    <span class="text-accent text-xs">{{option.name}}</span>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-chip-list *ngIf="chipsList?.length>0" class="border-t-primary">
+            <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
+                <span>{{getChipLabel(chip)}}</span>
+                <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
+                    aria-label="'remove ' + chip">
+                    <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
+                        close
+                    </span>
+                </button>
+            </mat-chip>
+        </mat-chip-list>
     </div>
 </ng-container>

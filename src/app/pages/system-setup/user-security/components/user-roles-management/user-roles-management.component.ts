@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { take } from 'rxjs';
 import { UserRolesListItem } from '../../models/user-roles-list-item.model';
 
 @Component({
@@ -10,7 +13,7 @@ import { UserRolesListItem } from '../../models/user-roles-list-item.model';
   styleUrls: ['./user-roles-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserRolesManagementComponent implements OnInit {
+export class UserRolesManagementComponent extends BaseComponent implements OnInit {
 
   rolesList: UserRolesListItem[] = [
     {
@@ -54,7 +57,8 @@ export class UserRolesManagementComponent implements OnInit {
   ];
 
   constructor(private layoutService: LayoutService,
-    private router: Router) { }
+    private confirmationDialogService: ConfirmationDialogService,
+    private router: Router) { super(); }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -81,4 +85,33 @@ export class UserRolesManagementComponent implements OnInit {
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
+
+  onRoleEdited(userRolesListItem: UserRolesListItem) {
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.UserSecurity}`, {
+      outlets: {
+        sidenav: `${ApplicationRoutes.Add}/${userRolesListItem.id}`
+      },
+    }], { skipLocationChange: true });
+
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+  }
+
+  onRoleDeleted(_userRolesListItem: UserRolesListItem) {
+    this.confirmationDialogService.open({
+      description: 'Are you sure you want to delete this template?',
+      title: 'Delete Template',
+      icon: 'error_outline',
+      cancelText: 'Cancel',
+      confirmText: 'Confirm',
+      actionButtonsColor: 'warn',
+      iconCssClasses: 'text-warn',
+    });
+
+    this.subscriptions.add(
+      this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
+        if (isConfirmed) { }
+      }));
+  }
+
 }

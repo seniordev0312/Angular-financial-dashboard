@@ -33,8 +33,12 @@ export class EntitiesManagementComponent implements OnInit {
       title: 'Entity Sources Setup',
       items: [
         {
-          title: 'Manage Entity Sources & Mapping',
+          title: 'Manage Entity Sources',
           route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`
+        },
+        {
+          title: 'Manage Entity Mapping',
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesMappingManagement}`
         },
       ],
       backgroundColor: '#469CD9'
