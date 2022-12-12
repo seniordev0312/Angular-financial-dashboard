@@ -127,7 +127,7 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntitiesSourcesListItem> = {
     tableRowsActionsList: [this.sharedAction, this.editAction, this.deleteAction],

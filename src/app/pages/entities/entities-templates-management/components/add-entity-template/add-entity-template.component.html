@@ -1,9 +1,7 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add Template':'Edit Template'}}</h4>
     <div class="mr-[45px] gap-4 flex flex-col">
-
-        <app-input-field label="Entity Section Template ID:" [control]="getFormControl('id')"></app-input-field>
-        <app-select-list label="Entity Section Template Name:" [control]="getFormControl('name')"></app-select-list>
+        <app-input-field label="Entity Section Template Name:" [control]="getFormControl('name')"></app-input-field>
 
         <p class="text-xxs font-bold mb-2">Add Element in Template</p>
         <app-select-list-with-chips [fg]="fg" firstSelectListFormControlName="elementName"

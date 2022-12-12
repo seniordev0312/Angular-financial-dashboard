@@ -18,6 +18,10 @@ export class EntityCardComponent implements OnInit {
     private layoutService: LayoutService,
     private router: Router) { }
 
+  get isEntityStored() {
+    return false;
+  }
+
   ngOnInit(): void {
     this.fg = this.entityFormGroup.getFormGroup();
   }

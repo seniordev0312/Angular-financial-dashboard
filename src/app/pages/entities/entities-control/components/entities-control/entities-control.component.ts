@@ -214,7 +214,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize });
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true });
   filterFG: FormGroup;
   tableConfiguration: TableConfiguration<EntitiesControlListItem> = {
     tableRowsActionsList: [this.editAction, this.viewAction],

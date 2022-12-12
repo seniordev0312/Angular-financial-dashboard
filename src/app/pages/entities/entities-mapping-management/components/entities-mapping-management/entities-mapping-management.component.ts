@@ -127,7 +127,7 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
   };
 
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntitiesMappingListItem> = {
     tableRowsActionsList: [this.editAction, this.deleteAction],

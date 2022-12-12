@@ -1,4 +1,4 @@
-export interface ElementsList {
+export interface ElementsListItem {
     id?: string;
     template: number;
     name: string;

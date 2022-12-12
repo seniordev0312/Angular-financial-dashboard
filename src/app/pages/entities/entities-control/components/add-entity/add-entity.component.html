@@ -21,7 +21,7 @@
                             <span class="font-bold text-lg">Select Entity Type</span>
                         </div>
                         <span (click)="accordionItem0.toggle()" class="material-icons text-accent cursor-pointer">
-                            expand_circle_down
+                            {{accordionItem0.expanded?'expand_less':'expand_more'}}
                         </span>
                     </div>
                     <div role="region" [style.display]="accordionItem0.expanded ? '' : 'none'"
@@ -41,7 +41,7 @@
                             <span class="font-bold text-lg">Basic Information</span>
                         </div>
                         <span (click)="accordionItem1.toggle()" class="material-icons text-accent cursor-pointer">
-                            expand_circle_down
+                            {{accordionItem1.expanded?'expand_less':'expand_more'}}
                         </span>
                     </div>
                     <div role="region" [style.display]="accordionItem1.expanded ? '' : 'none'"
@@ -61,7 +61,7 @@
                             <span class="font-bold text-lg">Address Information</span>
                         </div>
                         <span (click)="accordionItem2.toggle()" class="material-icons text-accent cursor-pointer">
-                            expand_circle_down
+                            {{accordionItem2.expanded?'expand_less':'expand_more'}}
                         </span>
                     </div>
                     <div role="region" [style.display]="accordionItem2.expanded ? '' : 'none'"
@@ -81,7 +81,7 @@
                             <span class="font-bold text-lg">Bank Account Information</span>
                         </div>
                         <span (click)="accordionItem3.toggle()" class="material-icons text-accent cursor-pointer">
-                            expand_circle_down
+                            {{accordionItem3.expanded?'expand_less':'expand_more'}}
                         </span>
                     </div>
                     <div role="region" [style.display]="accordionItem3.expanded ? '' : 'none'"
@@ -101,7 +101,7 @@
                             <span class="font-bold text-lg">KYC Information</span>
                         </div>
                         <span (click)="accordionItem4.toggle()" class="material-icons text-accent cursor-pointer">
-                            expand_circle_down
+                            {{accordionItem4.expanded?'expand_less':'expand_more'}}
                         </span>
                     </div>
                     <div role="region" [style.display]="accordionItem4.expanded ? '' : 'none'"
