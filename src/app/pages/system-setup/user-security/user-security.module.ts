@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatChipsModule } from '@angular/material/chips';
 import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
@@ -39,6 +40,7 @@ const routes: Route[] = [
     CommonModule,
     SharedModule,
     TableModule,
+    MatChipsModule,
     SharedSystemSetupModule,
     RouterModule.forChild(routes)
   ]

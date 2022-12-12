@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { BaseListItem } from '@root/shared/models/select-list-with-chips/base-list-item.model';
-import { SecondaryListItem } from '@root/shared/models/select-list-with-chips/secondary-list-item.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
 
 @Component({
@@ -17,14 +16,14 @@ export class SelectListWithChipsComponent {
   @Input() showAddIcon = true;
 
   @Input() firstSelectListFormControlName: string;
-  @Input() secondSelectListFormControlName: string;
+  secondSelectListFormControlName: string;
 
   @Input() fg: FormGroup;
   @Input() arrayControlName: string;
 
-  @Input() firstSelectListOptionsList: BaseListItem[] = [];
+  @Input() firstSelectListOptionsList: any[] = [];
 
-  secondSelectListOptionsList: SecondaryListItem[] = [];
+  secondSelectListOptionsList: any[] = [];
 
   get items() {
     return this.fg && this.formArrayService.getFormArrayItems(this.arrayControlName, this.fg) as FormArray;
@@ -70,7 +69,9 @@ export class SelectListWithChipsComponent {
   }
 
   onFirstSelectListItemClick(item: BaseListItem): void {
-    this.secondSelectListOptionsList = item.secondaryList;
+    console.log(item);
+
+    // this.secondSelectListOptionsList = item.secondaryList;
   }
 
   // @ViewChild('allSelected') private allSelected: MatOption;

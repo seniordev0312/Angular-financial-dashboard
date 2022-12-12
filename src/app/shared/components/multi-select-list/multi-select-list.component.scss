@@ -1,0 +1,73 @@
+// todo make sure this is being imported correctly into imp global style file
+$blue-10: #008cff;
+
+.search-input {
+    border: none !important;
+    outline: none !important;
+}
+
+.new-select-design {
+    padding: 0 !important;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #63738a;
+}
+
+input {
+    font-size: 16px;
+}
+
+.se-search {
+    color: $blue-10;
+    font-size: 22px;
+}
+
+ngk-icon {
+    cursor: pointer;
+    fill: rgba(0, 0, 0, 0.54);
+}
+
+.mat-option.mat-option-disabled {
+    color: black !important;
+}
+
+.no-results {
+    display: block;
+    line-height: 1;
+    font-size: 14px;
+    margin: 1rem;
+    text-align: center;
+}
+
+.search-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 18.5px 30px;
+
+    .ngk-search-icon,
+    .se-search {
+        margin-right: 10px;
+        margin-left: -16px;
+    }
+
+    .ngk-clear-icon {
+        align-self: flex-end;
+        margin-right: -16px;
+    }
+}
+
+mat-error {
+    color: #d6312b;
+    margin-top: 5px;
+    font-size: 16px;
+}

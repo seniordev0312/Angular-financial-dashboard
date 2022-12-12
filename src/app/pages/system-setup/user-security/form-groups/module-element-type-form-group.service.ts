@@ -19,31 +19,31 @@ export class ModuleElementTypesFormGroup {
 
     getFormGroup(item?: ModuleElement): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null, [Validators.required]),
-            name: new FormControl(item?.name || null, [Validators.required]),
-            claims: this.fb.array([]),
+            id: new FormControl(item?.claimType || null, [Validators.required]),
+            totalCount: new FormControl(item?.totalCount || null, [Validators.required]),
+            clientClaims: this.fb.array([]),
         });
-
-        if (item?.claims) {
-            item?.claims.forEach((elements: ClaimElement) =>
-                this.formArrayService.getFormArrayItems('claims', this.fg).push(this.claimElementTypesFormGroup.getFormGroup(elements))
+        if (item?.clientClaims) {
+            item?.clientClaims.forEach((elements: ClaimElement) =>
+                this.formArrayService.getFormArrayItems('clientClaims', this.fg).push(this.claimElementTypesFormGroup.getFormGroup(elements))
             );
         }
         else {
-            this.formArrayService.getFormArrayItems('claims', this.fg).push(this.claimElementTypesFormGroup.getFormGroup({} as ClaimElement))
+            this.formArrayService.getFormArrayItems('clientClaims', this.fg).push(this.claimElementTypesFormGroup.getFormGroup({} as ClaimElement))
         }
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): ModuleElement {
         const template = {
-            id: fg.controls.id.value,
-            name: fg.controls.name.value,
-            claims: fg.controls.claims.value
+            claimType: fg.controls.claimType.value,
+            totalCount: fg.controls.totalCount.value,
+            clientClaims: fg.controls.clientClaims.value,
+            value: fg.controls.value.value
         };
 
-        this.formArrayService.getFormArrayItems('claims', fg).controls.forEach((item: FormGroup) => {
-            template.claims.push(this.claimElementTypesFormGroup.getValueFromFormGroup(item));
+        this.formArrayService.getFormArrayItems('clientClaims', fg).controls.forEach((item: FormGroup) => {
+            template.clientClaims.push(this.claimElementTypesFormGroup.getValueFromFormGroup(item));
         });
         return template;
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormArrayService } from '@root/shared/services/form-array.service';
 
 import { AddRole } from '../models/add-role.model';
@@ -19,8 +19,6 @@ export class AddUserRoleFormGroup {
 
     getFormGroup(item?: AddRole): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null),
-            name: new FormControl(item?.name || null, [Validators.required]),
             modules: this.fb.array([]),
         });
         if (item?.modules) {
@@ -36,13 +34,15 @@ export class AddUserRoleFormGroup {
 
     getValueFromFormGroup(fg: FormGroup): AddRole {
         const template = {
-            id: fg.controls.id?.value,
-            name: fg.controls.name.value,
             modules: fg.controls.modules.value,
         };
         this.formArrayService.getFormArrayItems('modules', fg).controls.forEach((item: FormGroup) => {
             template.modules.push(this.moduleElementTypesFormGroup.getValueFromFormGroup(item));
         });
         return template;
+    }
+    setValue(modules: any[]) {
+        // this.selectSearchForm.get("SelectControl").setValue(value.value);
+        this.fg.get('modules').setValue(modules);
     }
 }

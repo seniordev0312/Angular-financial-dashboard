@@ -1,8 +1,8 @@
-import { RoleModule } from './role-module.model';
+import { claim } from './claim-module.model';
 
 export interface UserRolesListItem {
     id: string;
-    role: string;
+    name: string;
     description: string;
-    modules: RoleModule[];
+    claims: claim[];
 }

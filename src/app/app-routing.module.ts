@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '@root/layout/components/layout/layout.component';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
 import { EntitiesViewerModule } from '@root/pages/entities/entities-viewer/entities-viewer.module';
-// import { AuthGuard } from './auth/auth-guard.service';
+import { AuthGuard } from './auth/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -18,7 +18,7 @@ const routes: Routes = [
           ),
       }
     ],
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 ];
 

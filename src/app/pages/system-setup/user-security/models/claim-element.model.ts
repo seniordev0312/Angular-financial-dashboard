@@ -1,4 +1,5 @@
 export interface ClaimElement {
-    id: string;
-    name: string;
+    id: number
+    type: string
+    value: string
 }

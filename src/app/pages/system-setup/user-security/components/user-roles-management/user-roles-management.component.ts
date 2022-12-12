@@ -15,39 +15,39 @@ export class UserRolesManagementComponent implements OnInit {
   rolesList: UserRolesListItem[] = [
     {
       id: '1',
-      role: 'Accountting Header',
+      name: 'Accounting Header',
       description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-      modules: [
+      claims: [
         {
-          id: '2',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
+          claimId: '2',
+          roleId: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
+          claimType: 'Entity Management',
+          claimValue: 'Allow add entity'
         },
         {
-          id: '7',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
+          claimId: '7',
+          roleId: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
+          claimType: 'Entity Management',
+          claimValue: 'Allow add entity'
         }
       ]
     },
     {
       id: '2',
-      role: 'Accountting Header',
+      name: 'Accounting Header',
       description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-      modules: [
+      claims: [
         {
-          id: '3',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
+          claimId: '3',
+          roleId: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
+          claimType: 'Entity Management',
+          claimValue: 'Allow add entity'
         },
         {
-          id: '4',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
+          claimId: '4',
+          roleId: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
+          claimType: 'Entity Management',
+          claimValue: 'Allow add entity'
         }
       ]
     },

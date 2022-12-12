@@ -4,26 +4,30 @@
     </div>
     <div class="w-full h-1/3 flex flex-row gap-2">
         <div class="w-1/3">
-            <app-input-field label="Force Complex Passwords:" [control]="getFormControl('forceComplexPasswords')">
+            <app-input-field label="Force Complex Passwords:" [name]="'forceComplexPasswords'"
+                [control]="getFormControl('isComplexPasswordForced')">
             </app-input-field>
         </div>
         <div class="w-1/3">
-            <app-input-field label="Force Change Password:" [control]="getFormControl('forceChangePassword')">
+            <app-input-field label="Force Change Password:" [name]="'forceChangePassword'"
+                [control]="getFormControl('isChangePasswordForced')">
             </app-input-field>
         </div>
         <div class="w-1/3">
-            <app-input-field label="Every X Days (Enter X):" [control]="getFormControl('everyXDays')">
+            <app-input-field label="Every X Days (Enter X):" [name]="'everyXDays'"
+                [control]="getFormControl('numberOfDays')">
             </app-input-field>
         </div>
     </div>
     <div class="w-full h-1/3 flex flex-row gap-2">
         <div class="w-1/3">
-            <app-input-field label="Minimum Password Length:" [control]="getFormControl('minimumPasswordLength')">
+            <app-input-field label="Minimum Password Length:" [name]="'minimumPasswordLength'"
+                [control]="getFormControl('minPasswordLength')">
             </app-input-field>
         </div>
         <div class="w-1/3">
-            <app-input-field label="Maximum Trials before Locking:"
-                [control]="getFormControl('maximumTrailsBeforeLocking')">
+            <app-input-field label="Maximum Trials before Locking:" [name]="'maximumTrailsBeforeLocking'"
+                [control]="getFormControl('maxTrialsBeforeLockingLength')">
             </app-input-field>
         </div>
     </div>

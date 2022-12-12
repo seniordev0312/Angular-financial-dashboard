@@ -2,10 +2,36 @@
     <div class="flex flex-col">
         <span class="font-semibold pb-8">Add New User Role</span>
         <app-input-field label="Role Name:"></app-input-field>
-        <app-select-list-with-chips class="w-full" [fg]="fg" [firstSelectListOptionsList]="moduleList"
-            arrayControlName="claims" firstSelectListFormControlName="name" secondSelectListFormControlName="name"
-            secondSelectListLabel="Claim" firstSelectListLabel="Module" (addNewItem)="onNewUserRoleAdded()">
-        </app-select-list-with-chips>
+
+        <div class="w-full rounded-md border-solid border-2 border-[#186AA5] ">
+
+            <div class="px-4">
+                <app-single-select-search-list [label]="'Module'" [selectPlaceholder]="'Select Module'"
+                    [options]="moduleList" [multiple]=false [extractValue]="'claimType'" [selected]="selectedOptions"
+                    (selectedEvent)="singleSelect($event)">
+                </app-single-select-search-list>
+            </div>
+
+            <div class="px-4">
+                <app-multi-select-list *ngIf="showClaims" [label]="'Claim'" [selectPlaceholder]="'Select Claims'"
+                    [options]="claims" [selected]="claimSelectedOption" [extractValue]="'value'"
+                    (selectedEvent)="claimSingleSelect($event)">
+                </app-multi-select-list>
+            </div>
+
+            <mat-chip-list *ngIf="chipsList.length>0" class="border-t-primary">
+                <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
+                    <span>{{getChipLabel(chip)}}</span>
+                    <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
+                        aria-label="'remove ' + chip">
+                        <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
+                            close
+                        </span>
+                    </button>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+
     </div>
     <div class="flex items-center justify-between w-full mt-8">
         <app-button (trigger)="onCancel()" text="cancel"

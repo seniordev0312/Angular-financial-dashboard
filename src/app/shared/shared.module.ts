@@ -33,6 +33,8 @@ import { EntityInformationComponent } from '@root/shared/components/entity-infor
 import { MatDividerModule } from '@angular/material/divider';
 import { NotificationModule } from './notifications/notification.module';
 import { RouterModule } from '@angular/router';
+import { SingleSelectSearchListComponent } from './components/single-select-search-list/single-select-search-list.component';
+import { MultiSelectListComponent } from './components/multi-select-list/multi-select-list.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +47,9 @@ import { RouterModule } from '@angular/router';
         BaseComponent,
         DialogHeaderComponent,
         SelectListWithChipsComponent,
-        EntityInformationComponent
+        EntityInformationComponent,
+        SingleSelectSearchListComponent,
+        MultiSelectListComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -87,7 +91,9 @@ import { RouterModule } from '@angular/router';
         SelectListWithChipsComponent,
         EntityInformationComponent,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SingleSelectSearchListComponent,
+        MultiSelectListComponent
     ],
     providers: [],
 })

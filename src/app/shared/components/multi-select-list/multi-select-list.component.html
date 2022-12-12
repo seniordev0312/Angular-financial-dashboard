@@ -1,0 +1,41 @@
+<form class="new-select-design" *ngIf="!!options && options.length > 0" [formGroup]="selectSearchForm"
+    [ngClass]="{ inactive: disableSelectSearch }">
+    <mat-label>
+        {{ label }}
+    </mat-label>
+    <mat-form-field [ngClass]="{ inactive: disableSelectSearch }" appearance="fill">
+        <mat-select (selectionChange)="optionSelected($event)"
+            [panelClass]="['new-select-design-panel', panelClass, scrollClass]" formControlName="SelectControl"
+            [disableOptionCentering]="true" [disabled]="disableSelectSearch" (openedChange)="openedChange($event)"
+            multiple=true [value]="selected" [placeholder]="selectPlaceholder" [compareWith]="compareWithFn">
+            <mat-select-trigger>
+                <span *ngIf="multiAllOption?.selected || selected?.length === options?.length">
+                    All {{ options.length }} selected
+                </span>
+                <span *ngIf="!multiAllOption?.selected && selected?.length !== options?.length">
+                    {{ selectSearchForm.get('SelectControl').value?.length }}
+                    selected
+                </span>
+            </mat-select-trigger>
+            <!-- Show 'All' if there is least 2 options -->
+            <mat-option *ngIf="options.length > 1" [value]="options" (click)="toggleSelectAll()"
+                (keyup.enter)="toggleSelectAll()" (keyup.space)="toggleSelectAll()" #multiAllOption>
+                All
+            </mat-option>
+            <ng-container>
+                <mat-option *ngFor="let option of options" [value]="option" (click)="recalculateCheckedBoxes()"
+                    (keyup.enter)="recalculateCheckedBoxes()" (keyup.space)="recalculateCheckedBoxes()">
+                    {{ displayValue(option) }}
+                </mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <ng-container *ngFor="let validator of validatorArray">
+        <mat-error *ngIf="
+        selectSearchForm.get('SelectControl').hasError(validator.type) &&
+        selectSearchForm.get('SelectControl').touched
+      ">
+            {{ validator.message }}
+        </mat-error>
+    </ng-container>
+</form>

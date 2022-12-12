@@ -13,7 +13,8 @@ export class ClaimElementTypesFormGroup {
     getFormGroup(item?: ClaimElement): FormGroup {
         this.fg = this.fb.group({
             id: new FormControl(item?.id || null, [Validators.required]),
-            name: new FormControl(item?.name || null, [Validators.required]),
+            type: new FormControl(item?.type || null, [Validators.required]),
+            value: new FormControl(item?.value || null, [Validators.required]),
         });
         return this.fg;
     }
@@ -21,7 +22,8 @@ export class ClaimElementTypesFormGroup {
     getValueFromFormGroup(fg: FormGroup): ClaimElement {
         return {
             id: fg.controls.id.value,
-            name: fg.controls.name.value,
+            type: fg.controls.type.value,
+            value: fg.controls.value.value,
         };
     }
 }
