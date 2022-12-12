@@ -10,7 +10,7 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { KYCDocumentInterfaceListItem } from '../../models/kyc-document-types-list-item.model';
+import { KYCDocumentListItem } from '../../models/kyc-document-types-list-item.model';
 
 @Component({
   selector: 'app-entities-kyc-document-types-management',
@@ -21,11 +21,11 @@ import { KYCDocumentInterfaceListItem } from '../../models/kyc-document-types-li
 export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<KYCDocumentInterfaceListItem>;
+  table: WidgetTableComponent<KYCDocumentListItem>;
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];
-  templatesList: KYCDocumentInterfaceListItem[] = [
+  templatesList: KYCDocumentListItem[] = [
     {
       id: '1',
       code: '1',
@@ -130,7 +130,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
     },
   ];
 
-  editAction: TableRowAction<KYCDocumentInterfaceListItem> = {
+  editAction: TableRowAction<KYCDocumentListItem> = {
     action: (data) => this.onDocumentTypeEdited(data),
     cssClasses: 'text-primary',
     iconName: 'border_color',
@@ -142,9 +142,9 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
 
 
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
-  tableConfiguration: TableConfiguration<KYCDocumentInterfaceListItem> = {
+  tableConfiguration: TableConfiguration<KYCDocumentListItem> = {
     tableRowsActionsList: [this.editAction],
     columns: this.tableColumns,
     data: [],
@@ -186,7 +186,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
   }
 
 
-  onDocumentTypeEdited(documentType: KYCDocumentInterfaceListItem) {
+  onDocumentTypeEdited(documentType: KYCDocumentListItem) {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesKYCDocumentTypesManagement}`, {
       outlets: { sidenav: `${ApplicationRoutes.Add}/${documentType.id}` },
     }], { skipLocationChange: true });

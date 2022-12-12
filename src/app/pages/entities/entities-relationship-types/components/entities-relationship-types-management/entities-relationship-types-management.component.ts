@@ -194,7 +194,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
   };
 
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<RelationshipTypesListItem> = {
     tableRowsActionsList: [this.lockAction],

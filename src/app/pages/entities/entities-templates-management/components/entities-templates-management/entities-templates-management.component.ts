@@ -130,7 +130,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntityTemplatesListItem> = {
     tableRowsActionsList: [this.viewAction, this.editAction, this.deleteAction],

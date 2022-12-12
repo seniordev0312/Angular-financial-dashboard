@@ -1,4 +1,4 @@
-export interface KYCDocumentInterfaceListItem {
+export interface KYCDocumentListItem {
     id: string;
     code: string;
     process: boolean;

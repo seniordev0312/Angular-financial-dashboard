@@ -10,7 +10,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionCardComponent {
-
+  showElementsList = false;
   constructor(private layoutService: LayoutService,
     private router: Router) { }
 
@@ -31,4 +31,7 @@ export class SectionCardComponent {
     this.layoutService.changeRightSideNavMode('over');
   }
 
+  toggleElementsListVisibility() {
+    this.showElementsList = !this.showElementsList;
+  }
 }

@@ -10,7 +10,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ElementChipComponent implements OnInit {
-
+  isElementSelected = false;
   constructor(private layoutService: LayoutService,
     private router: Router) { }
 
@@ -18,6 +18,7 @@ export class ElementChipComponent implements OnInit {
   }
 
   onElementViewed() {
+    this.isElementSelected = true;
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`, {
       outlets: { sidenav: `${ApplicationRoutes.EntitiesElement}/2` },
     }], { skipLocationChange: true });

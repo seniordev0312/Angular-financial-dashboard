@@ -56,20 +56,6 @@ export class AddNewEntityComponent implements OnInit {
           expanded: true,
           data: { name: 'Saul Goodman', 'avatar': 'saul.jpg' },
         },
-        {
-          label: 'COO',
-          type: 'section',
-          styleClass: 'p-person',
-          expanded: true,
-          data: { name: 'Mike E.', 'avatar': 'mike.jpg' },
-        },
-        {
-          label: 'CTO',
-          type: 'section',
-          styleClass: 'p-person',
-          expanded: true,
-          data: { name: 'Jesse Pinkman', 'avatar': 'jesse.jpg' },
-        }
       ]
     }];
   }
