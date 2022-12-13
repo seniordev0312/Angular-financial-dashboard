@@ -8,10 +8,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { TranslationService } from './shared/services/translation.service';
-import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 import { Actions } from '@ngneat/effects-ng';
 import { devTools } from '@ngneat/elf-devtools';
+import { TranslationService } from './shared/services/translation.service';
+import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 
 export function initElfDevTools(actions: Actions) {
   return () => {

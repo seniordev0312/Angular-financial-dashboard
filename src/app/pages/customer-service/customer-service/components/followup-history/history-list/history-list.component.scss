@@ -1,0 +1,44 @@
+thead {
+  background-color: #f4f4f4;
+}
+.border-color {
+  border-color: #707070;
+}
+.active-color {
+  background-color: #b5b5b5;
+}
+.inactive-color {
+  background-color: #e8e8e8;
+}
+
+::ng-deep .font-light {
+  background-color: white;
+  padding: 10px;
+  color: #a4aab5;
+}
+
+::ng-deep td {
+  height: 70px;
+  font-size: 14px;
+}
+
+::ng-deep td {
+  .underline {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+::ng-deep .ltr\:mr-2 {
+  margin-right: 0px !important;
+}
+
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mt-6 {
+  tbody {
+    border: none;
+  }
+}

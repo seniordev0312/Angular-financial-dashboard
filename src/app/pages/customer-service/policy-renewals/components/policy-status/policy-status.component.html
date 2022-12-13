@@ -1,0 +1,11 @@
+<div *ngIf="step">
+  <div class="flex justify-center items-center h-10 w-full shadow-xl">
+    <div
+      class="flex justify-center items-center {{
+        step.color
+      }} rounded-full w-[85%] h-6 text-[#000000]"
+    >
+      <span class="text-[11px]"> {{ step.title }} </span>
+    </div>
+  </div>
+</div>

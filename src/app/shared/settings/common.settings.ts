@@ -1,10 +1,14 @@
 export const enum ApplicationRoutes {
   Empty = '',
+  Index = 'index',
   Dashboard = 'dashboard',
   Settings = 'settings',
   SystemSetup = 'system-setup',
   CustomerService = 'customer-service',
-  InsuranceRenewals = 'insurance-renewals',
+  CustomerServiceTicketOne = 'customer-service-ticket-one',
+  CustomerServiceTicketTwo = 'customer-service-ticket-two',
+  CustomerServiceTicketThree = 'customer-service-ticket-three',
+  CustomerServiceTicketFour = 'customer-service-ticket-four',
   ProductManagement = 'product-management',
   TreatyManagement = 'treaty-management',
   GeneralInsuranceUnderwriting = 'general-insurance-underwriting',
@@ -37,4 +41,7 @@ export const enum ApplicationRoutes {
   EntitiesListManagement = 'list',
   EntitiesSection = 'section',
   EntitiesElement = 'element',
+  PolicyRenewals = 'policy-renewals',
+  EntitiesControl = 'entities-control',
+  InsuranceRenewals = "insurance-renewals"
 }

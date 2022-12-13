@@ -34,75 +34,75 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   ];
   entitiesList: EntitiesControlListItem[] = [
     {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     },
     {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
     }, {
-      einNumber: 'opoj',
-      name: '222',
+      Date: 'opoj',
+      employeeName: '222',
       location: 'Lebanon',
       sourceType: 'oooooo',
       type: ',mmmmmm'
@@ -110,8 +110,8 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   ]
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'EIN Number',
-      property: 'einNumber',
+      translationKey: 'Date',
+      property: 'Date',
       type: 'text',
       svgIcon: '',
       cssClasses: () => '',
@@ -127,8 +127,8 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
       }
     },
     {
-      translationKey: 'Name',
-      property: 'name',
+      translationKey: 'employeeName',
+      property: 'employeeName',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',

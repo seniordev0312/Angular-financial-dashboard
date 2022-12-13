@@ -19,6 +19,7 @@ import { CardComponent } from '@root/shared/components/card/card.component';
 import { CardItemComponent } from '@root/shared/components/card-item/card-item.component';
 import { ButtonComponent } from '@root/shared/components/button/button.component';
 import { InputFieldComponent } from '@root/shared/components/input-field/input-field.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,6 +35,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NotificationModule } from './notifications/notification.module';
 import { RouterModule } from '@angular/router';
 
+import { DatePickerInputComponent } from './components/date-picker-input/date-picker-input.component';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
     declarations: [
         CardItemComponent,
@@ -45,7 +48,8 @@ import { RouterModule } from '@angular/router';
         BaseComponent,
         DialogHeaderComponent,
         SelectListWithChipsComponent,
-        EntityInformationComponent
+        EntityInformationComponent,
+        DatePickerInputComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -56,6 +60,7 @@ import { RouterModule } from '@angular/router';
         MatMenuModule,
         MatIconModule,
         MatTooltipModule,
+        MatDatepickerModule,
         IconSvgModule,
         CommonModule,
         TableModule,
@@ -64,6 +69,7 @@ import { RouterModule } from '@angular/router';
         SliderModule,
         PaginatorModule,
         InputTextModule,
+        MatNativeDateModule,
         ButtonModule,
         FormsModule,
         TranslateModule,
@@ -80,6 +86,7 @@ import { RouterModule } from '@angular/router';
         InputFieldComponent,
         SelectListComponent,
         WidgetTableComponent,
+        DatePickerInputComponent,
         BaseComponent,
         TranslateModule,
         AutomaticFormValidationModule,

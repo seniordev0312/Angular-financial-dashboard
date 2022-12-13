@@ -1,0 +1,45 @@
+<div class="h-[100%] bg-[#fafafa] w-96 p-9">
+  <div class="h-[100%] w-[100%] flex flex-col justify-between">
+    <div class="w-[100%] flex flex-col pr-10">
+      <div class="pb-5">
+        <span class="font-bold text-[15px]">Filter By :</span>
+      </div>
+      <div class="pb-5">
+        <app-select-list
+          label="Policy Renewal Follow-up Responsiveness:"
+        ></app-select-list>
+      </div>
+      <div class="pb-5">
+        <app-select-list label="From Date Created:"></app-select-list>
+      </div>
+      <div class="pb-5">
+        <app-select-list label="To Date Created: "></app-select-list>
+      </div>
+      <div class="pb-5">
+        <app-select-list label="From Date Modified:"></app-select-list>
+      </div>
+      <div class="pb-5">
+        <app-select-list label="To Date Modified: "></app-select-list>
+      </div>
+      <div class="pb-5">
+        <app-select-list label="Assigned To: "></app-select-list>
+      </div>
+      <div class="pb-5">
+        <app-select-list
+          label="Policy Renewal Follow-up Status:"
+        ></app-select-list>
+      </div>
+    </div>
+    <div class="w-[100%] flex justify-between">
+      <app-button
+        text="Cancel"
+        (click)="policyFilterDrawer.toggle()"
+        classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-28  shadow-lg"
+      ></app-button>
+      <app-button
+        text="Apply"
+        classes="bg-accent h-10 w-28 text-white shadow-lg"
+      ></app-button>
+    </div>
+  </div>
+</div>
