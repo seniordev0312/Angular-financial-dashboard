@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 
 /* eslint-disable @typescript-eslint/ban-types */
 @Injectable({ providedIn: 'root' })
-export class authService {
+export class AuthService {
 
     constructor(
         private oidcSecurityService: OidcSecurityService

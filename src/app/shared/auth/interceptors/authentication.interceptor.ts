@@ -2,12 +2,12 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { authService } from "../auth.service";
+import { AuthService } from "../auth.service";
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
-    constructor(private authService: authService) { }
+    constructor(private authService: AuthService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
         //todo add access token
         this.authService.token.subscribe((token: any) => {

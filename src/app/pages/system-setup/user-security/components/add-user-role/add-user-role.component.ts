@@ -6,6 +6,7 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { MultiSelectFormGroup } from '../../form-groups/multi-select-form-group.service';
 import { SingleSelectFormGroup } from '../../form-groups/single-select-form-group.service';
 import { Module } from '../../../shared/models/module.model';
+import { AddClaim } from '../../models/add-claim.model';
 
 @Component({
   selector: 'app-add-user-role',
@@ -16,7 +17,7 @@ import { Module } from '../../../shared/models/module.model';
 export class AddUserRoleComponent implements OnInit {
 
   fg: FormGroup;
-  formGroup: FormGroup;
+  multiFormGroup: FormGroup;
   singleFormGroup: FormGroup;
 
   moduleList: Module[] = [
@@ -599,6 +600,7 @@ export class AddUserRoleComponent implements OnInit {
     }
   ];
   moduleClaims: any = []
+  addClaimsList: AddClaim[] = [];
 
   selectedOptions: any[] = [];
   claimSelectedOption: any[] = []
@@ -614,12 +616,14 @@ export class AddUserRoleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.formGroup = this.multiSelectFormGroup.getFormGroup();
+    this.multiFormGroup = this.multiSelectFormGroup.getFormGroup();
     this.singleFormGroup = this.singleSelectFormGroup.getFormGroup();
-    this.formGroup.get("options").valueChanges.subscribe(value => {
+    this.multiFormGroup.get("options").valueChanges.subscribe(value => {
       this.chipsList = this.chipsList.concat(value.filter((item: any) => { return !Array.isArray(item) }));
       this.chipsList = this.chipsList.filter((item: any, index: number) => this.chipsList.indexOf(item) === index);
+      console.log(this.chipsList);
     });
+
     this.singleFormGroup.get("option").valueChanges.subscribe(value => {
       this.moduleClaims = value.clientClaims;
     });
@@ -634,7 +638,13 @@ export class AddUserRoleComponent implements OnInit {
 
 
   onSave(): void {
-    console.log(this.chipsList);
+    //Save Role and get RoleId
+
+    //Get add claim list
+    this.addClaimsList = this.chipsList.map((value: any) => {
+      return { claimType: value.type, claimValue: value.value, roleId: '6a322faf-b16a-4b3f-93c0-aea5c66e5d90' }
+    });
+    console.log(this.addClaimsList);
     this.layoutService.closeRightSideNav();
   }
 

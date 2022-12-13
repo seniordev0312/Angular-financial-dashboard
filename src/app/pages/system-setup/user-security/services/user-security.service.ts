@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { AddRole } from "../models/add-role.model";
 import { RoleList } from "../models/role-list.model";
 import { Role } from "../models/role.model";
 import { UserSecurityRepository } from "../store/user-security.repository";
@@ -42,6 +43,24 @@ export class UserSecurityService {
             if (data) {
                 let updatedRole = this.userSecurityRepository.updateRoleClaims(role.id, data);
                 this.userSecurityRepository.updateRole(updatedRole);
+            }
+        });
+    }
+
+    addRole(addRole: AddRole, backendUrl?: string) {
+        let endPointUrl = this.baseUrl;
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        if (backendUrl) {
+            endPointUrl = backendUrl;
+        }
+
+        this.httpClient.post<any>(endPointUrl, addRole, httpOptions).subscribe(data => {
+            if (data) {
+                console.log(data);
+                // this.userSecurityRepository.updateRolesList(data);
             }
         });
     }
