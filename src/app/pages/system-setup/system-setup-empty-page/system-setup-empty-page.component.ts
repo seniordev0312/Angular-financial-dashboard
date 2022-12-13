@@ -15,7 +15,7 @@ export class SystemSetupEmptyPageComponent implements OnInit {
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [{
         route: ApplicationRoutes.SystemSetup,
-        translationKey: 'system-setup.system-setup.system-setup'
+        translationKey: 'system-setup.system-setup'
       }]
     });
   }

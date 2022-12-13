@@ -172,11 +172,11 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       crumbs: [
         {
           route: ApplicationRoutes.SystemSetup,
-          translationKey: 'system-setup.system-setup.system-setup'
+          translationKey: 'system-setup.system-setup'
         },
         {
           route: ApplicationRoutes.GeneralSystemSettings,
-          translationKey: 'system-setup.system-setup.general-system-settings'
+          translationKey: 'system-setup.general-system-settings'
         }
       ],
     });

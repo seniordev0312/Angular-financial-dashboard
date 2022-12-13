@@ -1,0 +1,33 @@
+.filters {
+    width: calc(100% - 96px);
+}
+
+:host ::ng-deep {
+    .mat-button-toggle-group-appearance-standard {
+        border-width: 0px !important;
+    }
+
+    .mat-button-toggle-checked {
+        background-color: var(--accent-color) !important;
+        color: white !important;
+        border: solid 1px var(--accent-color);
+    }
+
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+        line-height: 29px !important;
+    }
+
+    .mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
+        border: solid 1px rgba(0, 0, 0, 0.12);
+    }
+
+    .first-button {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    .last-button {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+}
