@@ -9,7 +9,7 @@ import { AuthModule } from 'angular-auth-oidc-client';
             redirectUrl: window.location.origin,
             postLogoutRedirectUri: window.location.origin,
             clientId: 'aperture-powerhouse',
-            scope: 'openid profile roles email address apertureidentity_api',
+            scope: 'openid profile roles email insurance_powerhouse address apertureidentity_api',
             responseType: 'code',
             silentRenew: true,
             useRefreshToken: true,

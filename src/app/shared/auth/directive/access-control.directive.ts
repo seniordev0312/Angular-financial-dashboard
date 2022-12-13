@@ -6,27 +6,31 @@ import { AuthService } from '../auth.service';
     selector: "[accessControl]",
 })
 export class AccessControlDirective implements OnInit {
-    @Input("accessControl") accessControl: string;
+    @Input("accessControl") accessControl: any;
     @Input("moduleType") moduleType: string;
     @Input("accessType") accessType: string;
+
+
     constructor(
         private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef,
         private auth: AuthService) { }
 
     ngOnInit() {
-        console.log(this.accessType, this.moduleType);
         this.checkAccess();
     }
     checkAccess() {
-        const accessControls: any = this.auth.userData;
-        console.log(accessControls);
-        if (true) {
-            this.viewContainer.createEmbeddedView(this.templateRef);
-        } else {
-            this.viewContainer.clear();
-        }
-        // const module: any = accessControls.find(access => access.module_name === this.moduleType);
-        // this.elementRef.nativeElement.style.display = module[this.accessType] ? "block" : "none";
+        this.auth.userData.subscribe((data: any) => {
+            console.log(this.moduleType);
+
+            if (
+                data.userData[this.accessControl.moduleType].includes(this.accessControl.accessType)
+                || data.userData[this.accessControl.moduleType] === this.accessControl.accessType
+            ) {
+                this.viewContainer.createEmbeddedView(this.templateRef);
+            } else {
+                this.viewContainer.clear();
+            }
+        });
     }
 }
