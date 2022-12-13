@@ -1,0 +1,26 @@
+<form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
+    <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New Chart Account':'Edit Chart Account'}}</h4>
+    <div class="mr-[45px] gap-4 flex flex-col">
+        <app-input-field label="Company Name" [control]="getFormControl('companyName')"></app-input-field>
+        <div *ngIf="!isParentAccountDisabled&&isCreateMode()" class="mb-4">
+            <p class="text-xs mb-2 font-black">New Group?</p>
+            <mat-radio-group formControlName="isNewGroup">
+                <mat-radio-button [value]="true" checked="true" class="text-xxs mr-6">Yes</mat-radio-button>
+                <mat-radio-button [value]="false" class="text-xxs">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <app-select-list [icon]="isParentAccountDisabled?'lock':''" label="Parent Account"
+            [control]="getFormControl('parentAccount')"></app-select-list>
+        <app-input-field label="Ledger No" [control]="getFormControl('ledgerNumber')"></app-input-field>
+        <app-input-field label="Description" [control]="getFormControl('description')"></app-input-field>
+        <app-select-list label="Default Currency" [control]="getFormControl('defaultCurrency')"></app-select-list>
+        <app-select-list label="Account Type" [control]="getFormControl('accountType')"></app-select-list>
+    </div>
+
+
+    <div class="flex items-center mt-7 justify-between w-full">
+        <app-button (trigger)="onClose()" text="cancel"
+            classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
+        <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
+    </div>
+</form>

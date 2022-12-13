@@ -14,8 +14,8 @@
 
 <div mat-dialog-actions class="flex justify-end w-full items-center">
     <button type="button" style="margin-right: 10px;" mat-raised-button [color]="data.actionButtonsColor ?? 'accent'"
-        class="text-white" mat-dialog-close>
-        {{ data.cancelText | translate }}
+        mat-dialog-close>
+        <span class="text-white">{{ data.cancelText | translate }}</span>
     </button>
     <button type="button" mat-stroked-button [color]="data.actionButtonsColor ?? 'accent'" (click)="confirm()">
         {{ data.confirmText | translate }}

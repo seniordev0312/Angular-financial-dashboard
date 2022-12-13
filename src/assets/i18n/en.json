@@ -60,16 +60,17 @@
         "sticky-notes": "Sticky Notes"
     },
     "system-setup": {
-        "system-setup": {
-            "system-setup": "System Setup",
-            "general-system-settings": "General System Settings",
-            "system-claims": "System Claims",
-            "user-security": "User Security",
-            "company-setup": "Company Setup",
-            "company-structure": "Company Structure",
-            "chart-of-accounts": "Chart of Accounts",
-            "reference-tables": "Reference Tables",
-            "please-select-system-setup-component": "Please select System Setup Component"
+        "system-setup": "System Setup",
+        "general-system-settings": "General System Settings",
+        "system-claims": "System Claims",
+        "user-security": "User Security",
+        "company-setup": "Company Setup",
+        "company-structure": "Company Structure",
+        "reference-tables": "Reference Tables",
+        "please-select-system-setup-component": "Please select System Setup Component",
+        "chart-of-accounts": {
+            "view-account": "View Account",
+            "chart-of-accounts": "Chart of Accounts"
         }
     },
     "accounting-add-finance": {

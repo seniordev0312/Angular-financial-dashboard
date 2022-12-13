@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
@@ -8,10 +8,11 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   styleUrls: ['./select-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectListComponent implements OnInit {
+export class SelectListComponent {
   @Input() label: string;
   @Input() control: FormControl;
   @Input() isMultiple = false;
+  @Input() icon: string;
   @Input() isDisabled = false;
   @Input() optionsList: BaseListItem[] = [{
     id: '1',
@@ -19,9 +20,6 @@ export class SelectListComponent implements OnInit {
   }];
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
 }

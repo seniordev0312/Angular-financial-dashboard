@@ -1,0 +1,65 @@
+<div class="p-10">
+    <div mat-dialog-content class="flex items-center px-10 mt-6">
+        <button [routerLink]="chartOfAccountsLink" class="flex" mat-button>
+            <mat-icon class="mr-4" svgIcon="back"></mat-icon>
+            <p class="font-semibold text-xl">Back</p>
+        </button>
+    </div>
+
+    <div class="flex items-stretch lg:items-center my-6 h-max lg:h-[90px] shadow rounded-[14px] justify-between">
+        <div class="grid grid-cols-2 gap-8 filters items-center px-10">
+            <div class="flex items-center">
+                <p class="mr-4 text-sm">From</p>
+                <mat-form-field class="w-full">
+                    <input [formControl]="startDateFormControl" placeholder="xx/xx/2022" matInput
+                        [matDatepicker]="startDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="flex items-center">
+                <p class="mr-4 text-sm">To</p>
+                <mat-form-field class="w-full">
+                    <input [formControl]="endDateFormControl" placeholder="xx/xx/2022" matInput
+                        [matDatepicker]="endDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center items-center w-24 h-full bg-accent text-white rounded-[14px]">
+            <span class="material-icons">
+                search
+            </span>
+            <p class="text-sm font-medium mt-2">Search</p>
+        </div>
+    </div>
+
+    <div class="flex items-center mb-4">
+        <p class="font-bold text-accent text-lg mr-1">Capital > </p>
+        <p class="font-bold text-accent text-lg">Paid-up Capital</p>
+    </div>
+
+    <app-account-view-table class="w-full"></app-account-view-table>
+
+    <div class="grid grid-cols-3 mt-5">
+        <mat-button-toggle-group class="w-max h-[30px]">
+            <mat-button-toggle class="w-[53px] h-[30px] font-semibold first-button" [checked]="true"
+                [value]="20">20</mat-button-toggle>
+            <mat-button-toggle class="w-[53px] h-[30px] font-semibold" [value]="50">50</mat-button-toggle>
+            <mat-button-toggle class="w-[53px] h-[30px] font-semibold last-button"
+                [value]="null">All</mat-button-toggle>
+        </mat-button-toggle-group>
+        <div></div>
+        <div class="flex justify-end items-center">
+            <div class="text-base h-[33px] w-[135px] bg-[#F4F4F4] rounded-lg shadow flex justify-center items-center">
+                2 Records
+            </div>
+        </div>
+    </div>
+    <div class="mt-8 flex items-center justify-end">
+        <button class="rounded-xl bg-accent text-white w-[280px] h-[56px] text-base font-light">
+            Print Statement of Account
+        </button>
+    </div>
+</div>
