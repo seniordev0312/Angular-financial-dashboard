@@ -1,19 +1,20 @@
-<div>
+<div class="overflow-auto">
     <div class="flex items-center justify-between mb-4">
         <div>
             <p class="text-sm">Manage User Roles</p>
         </div>
         <app-button (trigger)="onRoleAdded()" icon="add" text="Add User Role"
-            classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
+            classes="bg-accent text-xs text-white font-light h-8 w-[150px]">
         </app-button>
     </div>
-    <p-table class="main-table" [value]="rolesList" rowGroupMode="subheader" dataKey="id">
+    <p-table class="main-table" [value]="data.roles" rowGroupMode="subheader" dataKey="id"
+        [totalRecords]="data.totalCount" [rows]="4" [paginator]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:5%"></th>
                 <th style="width:10%">
                     <p-columnFilter [showMenu]="false" type="text" placeholder="role" [showClearButton]="false"
-                        field="role">
+                        field="name">
                     </p-columnFilter>
                 </th>
                 <th style="width:20%">
@@ -26,8 +27,9 @@
         </ng-template>
         <ng-template pTemplate="body" let-role let-rowIndex="rowIndex" let-expanded="expanded">
             <tr>
-                <td style="width:5%">
-                    <button type="button" pButton pRipple [pRowToggler]="role" class="mr-2">
+                <td style="width:5%" class="">
+                    <button type="button" pButton pRipple [pRowToggler]="role" class="flex justify-center items-center"
+                        (click)="getRoleClaims(role)">
                         <span class="material-icons">
                             {{expanded?'remove_circle_outline':'add_circle_outline'}}
                         </span>
@@ -37,7 +39,7 @@
                     <span class="font-bold text-xs ml-2">{{role.name}}</span>
                 </td>
                 <td style="width:20%">
-                    <span class="text-xs ml-2">{{role.description}}</span>
+                    <span class="text-xs ml-2">{{role.id}}</span>
                 </td>
                 <td>
                     <div class="flex justify-end">
@@ -59,22 +61,23 @@
             <tr>
                 <td class="sub-table" colspan="7">
                     <div>
-                        <p-table class="sub-table" [value]="role.claims" dataKey="id">
+                        <p-table class="sub-table" [value]="role.claimList.claims"
+                            [totalRecords]="role.claimList.totalCount" dataKey="id" [rows]="4" [paginator]="true">
                             <ng-template pTemplate="header">
             <tr>
                 <th class="sub-table-header">
                 </th>
-                <th class="sub-table-header" pSortableColumn="module">
+                <th class="sub-table-header">
                     <p-columnFilter [showMenu]="false" type="text" placeholder="module" [showClearButton]="false"
-                        field="module">
+                        field="claimType">
                     </p-columnFilter>
                 </th>
-                <th class="sub-table-header" pSortableColumn="claims">
+                <th class="sub-table-header">
                     <p-columnFilter [showMenu]="false" type="text" placeholder="claims" [showClearButton]="false"
-                        field="claims">
+                        field="claimValue">
                     </p-columnFilter>
                 </th>
-                <th class="sub-table-header" pSortableColumn="description">
+                <th class="sub-table-header">
                     <p-columnFilter [showMenu]="false" type="text" placeholder="description" [showClearButton]="false"
                         field="description">
                     </p-columnFilter>
@@ -82,12 +85,12 @@
                 <th class="sub-table-header text-xxs" style="width:10%">Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-module>
+        <ng-template pTemplate="body" let-claim>
             <tr>
                 <td class="sub-table-header"></td>
-                <td class="text-xxs sub-table-header pl-4">{{module.claimType}}</td>
-                <td class="text-xxs sub-table-header pl-4">{{module.claimValue}}</td>
-                <td class="text-xxs sub-table-header pl-4">{{module.roleId}}</td>
+                <td class="text-xxs sub-table-header pl-4">{{claim.claimType}}</td>
+                <td class="text-xxs sub-table-header pl-4">{{claim.claimValue}}</td>
+                <td class="text-xxs sub-table-header pl-4">{{claim.claimId}}</td>
                 <td class="flex justify-end sub-table-header">
                     <button mat-button>
                         <span class="material-icons text-accent">

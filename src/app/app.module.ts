@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +13,7 @@ import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 import { AuthConfigModule } from './auth/auth-config.module';
 import { Actions } from '@ngneat/effects-ng';
 import { devTools } from '@ngneat/elf-devtools';
+import { AuthenticationInterceptor } from './auth/interceptors/authentication.interceptor';
 
 export function initElfDevTools(actions: Actions) {
   return () => {
@@ -51,7 +52,13 @@ export function initElfDevTools(actions: Actions) {
       multi: true,
       useFactory: initElfDevTools,
       deps: [Actions],
-    },],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

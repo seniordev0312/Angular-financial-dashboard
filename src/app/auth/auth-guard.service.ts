@@ -14,12 +14,12 @@ export class AuthGuard implements CanActivate {
             .subscribe(async (isAuthenticated) => {
                 if (isAuthenticated.isAuthenticated) {
                     // getUserClaims
-                    await this.authService.token.subscribe((token: string) => {
-                        console.log(token);
+                    await this.authService.token.subscribe((_token: string) => {
+                        console.log(_token);
                     });
-                    await this.authService.userData.subscribe((userData: any) => {
-                        console.log(userData);
-                    });
+                    // await this.authService.userData.subscribe((_userData: any) => {
+                    //     // console.log(userData);
+                    // });
                 } else {
                     this.authService.doLogin().subscribe((result: any) => {
                         console.log(result);

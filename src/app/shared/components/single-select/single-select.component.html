@@ -1,0 +1,22 @@
+<form [formGroup]="formGroup">
+    <mat-form-field appearance="fill">
+        <mat-label>{{label}}</mat-label>
+        <mat-select formControlName="option">
+            <div class="search-option">
+                <mat-icon class="search-icon" matPrefix aria-label="Search Icon">search</mat-icon>
+                <input class="search-input" tabindex="0" #searchDropdownInput type="text" matInput
+                    [placeholder]="placeholder" formControlName="search" trim="blur" autocomplete="off" />
+                <mat-icon *ngIf="showClearButton" matSuffix class="clear-icon cursor-pointer" aria-label="Clear"
+                    (click)="clear($event)">clear
+                </mat-icon>
+            </div>
+            <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                {{ displayValue(option) }}
+            </mat-option>
+            <span *ngIf="(filteredOptions$ | async)?.length === 0" class="no-results">
+                No results found, please try again.
+            </span>
+
+        </mat-select>
+    </mat-form-field>
+</form>

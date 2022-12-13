@@ -1,22 +1,19 @@
 <div class="w-full flex flex-col pt-8 justify-between">
     <div class="flex flex-col">
         <span class="font-semibold pb-8">Add New User Role</span>
-        <app-input-field label="Role Name:"></app-input-field>
+        <app-input-field label="Role Name:" name="RoleName"></app-input-field>
 
-        <div class="w-full rounded-md border-solid border-2 border-[#186AA5] ">
+        <div class="w-full rounded-md border-solid border-2 border-[#186AA5] pt-4">
 
             <div class="px-4">
-                <app-single-select-search-list [label]="'Module'" [selectPlaceholder]="'Select Module'"
-                    [options]="moduleList" [multiple]=false [extractValue]="'claimType'" [selected]="selectedOptions"
-                    (selectedEvent)="singleSelect($event)">
-                </app-single-select-search-list>
+                <app-single-select extractValue="claimType" label="Modules" [items]="moduleList"
+                    [placeholder]="'Select Modules'" [formGroup]="singleFormGroup">
+                </app-single-select>
             </div>
 
             <div class="px-4">
-                <app-multi-select-list *ngIf="showClaims" [label]="'Claim'" [selectPlaceholder]="'Select Claims'"
-                    [options]="claims" [selected]="claimSelectedOption" [extractValue]="'value'"
-                    (selectedEvent)="claimSingleSelect($event)">
-                </app-multi-select-list>
+                <app-multi-select extractValue="value" label="claims" [items]="moduleClaims" [formGroup]="formGroup">
+                </app-multi-select>
             </div>
 
             <mat-chip-list *ngIf="chipsList.length>0" class="border-t-primary">

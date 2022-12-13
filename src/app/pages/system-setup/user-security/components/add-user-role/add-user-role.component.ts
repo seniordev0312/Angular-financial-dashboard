@@ -3,8 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 
-import { AddUserRoleFormGroup } from '../../form-groups/add-user-role-form-group.service';
-import { ModuleElement } from '../../models/module-element.model';
+import { MultiSelectFormGroup } from '../../form-groups/multi-select-form-group.service';
+import { SingleSelectFormGroup } from '../../form-groups/single-select-form-group.service';
+import { Module } from '../../../shared/models/module.model';
 
 @Component({
   selector: 'app-add-user-role',
@@ -15,9 +16,10 @@ import { ModuleElement } from '../../models/module-element.model';
 export class AddUserRoleComponent implements OnInit {
 
   fg: FormGroup;
-  selectedClaims = new Map<string, any>();
-  chipsList: any[] = [];
-  moduleList: ModuleElement[] = [
+  formGroup: FormGroup;
+  singleFormGroup: FormGroup;
+
+  moduleList: Module[] = [
     {
       claimType: "system_setup",
       value: 'system_setup',
@@ -596,27 +598,40 @@ export class AddUserRoleComponent implements OnInit {
       totalCount: 6
     }
   ];
+  moduleClaims: any = []
+
   selectedOptions: any[] = [];
   claimSelectedOption: any[] = []
-  claims: [];
+  selectedClaims = new Map<string, any>();
+  chipsList: any[] = [];
   showClaims: boolean = false;
 
   constructor(
     private layoutService: LayoutService,
-    private addUserRoleFormGroup: AddUserRoleFormGroup,
+    private multiSelectFormGroup: MultiSelectFormGroup,
+    private singleSelectFormGroup: SingleSelectFormGroup,
     private activeRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.formGroup = this.multiSelectFormGroup.getFormGroup();
+    this.singleFormGroup = this.singleSelectFormGroup.getFormGroup();
+    this.formGroup.get("options").valueChanges.subscribe(value => {
+      this.chipsList = this.chipsList.concat(value.filter((item: any) => { return !Array.isArray(item) }));
+      this.chipsList = this.chipsList.filter((item: any, index: number) => this.chipsList.indexOf(item) === index);
+    });
+    this.singleFormGroup.get("option").valueChanges.subscribe(value => {
+      this.moduleClaims = value.clientClaims;
+    });
+
     this.activeRoute.paramMap.subscribe(params => {
       if (params.get('id')) {
-        this.fg = this.addUserRoleFormGroup.getFormGroup();
       }
       else {
-        this.fg = this.addUserRoleFormGroup.getFormGroup();
       }
     });
   }
+
 
   onSave(): void {
     console.log(this.chipsList);
@@ -627,18 +642,7 @@ export class AddUserRoleComponent implements OnInit {
     this.layoutService.closeRightSideNav();
   }
 
-  singleSelect(data: any): void {
-    this.claims = data.clientClaims;
-    this.showClaims = this.claims.length > 0;
-  }
 
-
-  claimSingleSelect(data: any): void {
-    if (data.length > 0) {
-      this.selectedClaims.set(data[0].type, data)
-    }
-    this.fillChipList()
-  }
   getChipLabel(chip: any) {
     return chip.type + ' - ' + chip.value
   }
@@ -648,9 +652,5 @@ export class AddUserRoleComponent implements OnInit {
     this.chipsList.splice(index, 1)
   }
 
-
-  fillChipList() {
-    this.chipsList = [...this.selectedClaims.values()].reduce((accumulator, value) => accumulator.concat(value), []);
-  }
 }
 

@@ -33,8 +33,8 @@ import { EntityInformationComponent } from '@root/shared/components/entity-infor
 import { MatDividerModule } from '@angular/material/divider';
 import { NotificationModule } from './notifications/notification.module';
 import { RouterModule } from '@angular/router';
-import { SingleSelectSearchListComponent } from './components/single-select-search-list/single-select-search-list.component';
-import { MultiSelectListComponent } from './components/multi-select-list/multi-select-list.component';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
+import { SingleSelectComponent } from './components/single-select/single-select.component';
 
 @NgModule({
     declarations: [
@@ -48,8 +48,8 @@ import { MultiSelectListComponent } from './components/multi-select-list/multi-s
         DialogHeaderComponent,
         SelectListWithChipsComponent,
         EntityInformationComponent,
-        SingleSelectSearchListComponent,
-        MultiSelectListComponent
+        MultiSelectComponent,
+        SingleSelectComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -76,7 +76,7 @@ import { MultiSelectListComponent } from './components/multi-select-list/multi-s
         AutomaticFormValidationModule,
         MatChipsModule,
         NotificationModule,
-        RouterModule
+        RouterModule,
     ],
     exports: [
         CardComponent,
@@ -92,8 +92,8 @@ import { MultiSelectListComponent } from './components/multi-select-list/multi-s
         EntityInformationComponent,
         FormsModule,
         ReactiveFormsModule,
-        SingleSelectSearchListComponent,
-        MultiSelectListComponent
+        MultiSelectComponent,
+        SingleSelectComponent
     ],
     providers: [],
 })

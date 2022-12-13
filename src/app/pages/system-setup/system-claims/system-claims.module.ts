@@ -5,6 +5,7 @@ import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
+import { SystemClaimsService } from './services/system-claims.service';
 
 const routes: Route[] = [
   {
@@ -20,6 +21,7 @@ const routes: Route[] = [
     SharedModule,
     SharedSystemSetupModule,
     RouterModule.forChild(routes)
-  ]
+  ],
+  providers: [SystemClaimsService]
 })
 export class SystemClaimsModule { }

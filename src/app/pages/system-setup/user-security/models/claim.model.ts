@@ -1,5 +1,5 @@
-export interface claim {
-    claimId: string;
+export class Claim {
+    claimId: number;
     roleId: string;
     claimType: string;
     claimValue: string;
