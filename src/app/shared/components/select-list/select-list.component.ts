@@ -10,16 +10,19 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 })
 export class SelectListComponent {
   @Input() label: string;
+  @Input() wfullclass: string;
   @Input() control: FormControl;
   @Input() isMultiple = false;
-  @Input() icon: string;
-  @Input() isDisabled = false;
-  @Input() optionsList: BaseListItem[] = [{
-    id: '1',
-    name: '1111111'
-  }];
+  @Input() icon = ''
 
-  constructor() {
-  }
+  @Input() optionsList: BaseListItem[] = [
+    {
+      id: '1',
+      name: '1111111',
+    },
+  ];
 
+  constructor() { }
+
+  ngOnInit(): void { }
 }

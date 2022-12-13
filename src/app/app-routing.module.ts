@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '@root/layout/components/layout/layout.component';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
 import { EntitiesViewerModule } from '@root/pages/entities/entities-viewer/entities-viewer.module';
+import { CustomerServiceModule } from './pages/customer-service/customer-service/customer-service.module';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   imports: [
     EntitiesViewerModule,
     EntitiesControlModule,
+    CustomerServiceModule,
     RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })

@@ -1,0 +1,162 @@
+<div class="h-full bg-[#ffffff]">
+  <mat-drawer #policyFilterDrawer position="end"
+    ><app-policy-filter
+      [policyFilterDrawer]="policyFilterDrawer"
+    ></app-policy-filter
+  ></mat-drawer>
+
+  <mat-drawer-container class="h-full">
+    <div class="h-[10%] flex justify-end">
+      <div class="flex items-center gap-12">
+        <div
+          class="search flex items-center bloc border-[1px] text-[#676767] border-[#00000029] border-solid rounded-2xl gap-4 text-sm pr-4 pl-4 text-primary"
+        >
+          <mat-icon>search</mat-icon>
+          <input
+            class="h-full text-[#676767] outline-0 w-64"
+            matInput
+            placeholder="Search CST Number or Client Info"
+          />
+          <mat-icon
+            (click)="policyFilterDrawer.toggle()"
+            svgIcon="policy-filter"
+          ></mat-icon>
+          <mat-icon>cancel</mat-icon>
+        </div>
+        <div class="flex gap-2">
+          <button
+            class="py-4 pr-7 pl-3 relative rounded-full flex justify-center items-center bg-white border-2 border-black text-[#000000] w-30 h-8"
+          >
+            <div
+              class="absolute flex justify-center items-center right-1 align-baseline text-xs bg-primary rounded-2xl text-[#FFFFFF] h-5 w-5"
+            >
+              5
+            </div>
+            <span class="items-center flex gap-3 text-[12px]">Personal</span>
+          </button>
+          <button
+            class="py-4 pr-7 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 border-black text-[#FFFFFF] w-30 h-8"
+          >
+            <div
+              class="absolute flex justify-center items-center right-1 align-baseline text-xs bg-white rounded-2xl text-[#005f83] h-5 w-5"
+            >
+              5
+            </div>
+            <span class="items-center flex gap-3 text-[12px]">Show All</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-row w-[100%] h-[90%] overflow-y-auto overflow-x-hidden"
+      cdkDropListGroup
+    >
+      <!-- <mat-drawer-content> -->
+      <div
+        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
+        cdkDropList
+        [cdkDropListData]="followUpCards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-policy-status [step]="steps[0]"></app-policy-status>
+        <app-policy-sort></app-policy-sort>
+        <div class="flex justify-center" *ngFor="let card of followUpCards">
+          <app-policy-card
+            [card]="card"
+            (click)="openDialog()"
+            cdkDrag
+            class="w-[100%]"
+          ></app-policy-card>
+        </div>
+      </div>
+
+      <div
+        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
+        cdkDropList
+        [cdkDropListData]="inProcessCards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-policy-status [step]="steps[1]"></app-policy-status>
+        <app-policy-sort></app-policy-sort>
+        <div class="flex justify-center" *ngFor="let card of inProcessCards">
+          <app-policy-card
+            [card]="card"
+            (click)="openDialog()"
+            cdkDrag
+            class="w-[100%]"
+          ></app-policy-card>
+        </div>
+      </div>
+
+      <div
+        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
+        cdkDropList
+        [cdkDropListData]="processedCards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-policy-status [step]="steps[2]"></app-policy-status>
+        <app-policy-sort></app-policy-sort>
+        <div
+          class="flex justify-center"
+          *ngFor="let card of processedCards"
+          cdkDrag
+        >
+          <app-policy-card
+            class="w-[100%]"
+            [card]="card"
+            (click)="openDialog()"
+          ></app-policy-card>
+        </div>
+      </div>
+
+      <div
+        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
+        cdkDropList
+        [cdkDropListData]="approvedCards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-policy-status [step]="steps[3]"></app-policy-status>
+        <app-policy-sort></app-policy-sort>
+        <div class="flex justify-center" *ngFor="let card of approvedCards">
+          <app-policy-card
+            class="w-[100%]"
+            [card]="card"
+            (click)="openDialog()"
+            cdkDrag
+          ></app-policy-card>
+        </div>
+      </div>
+
+      <div
+        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
+        cdkDropList
+        [cdkDropListData]="closedCards"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-policy-status [step]="steps[4]"></app-policy-status>
+        <app-policy-sort></app-policy-sort>
+        <div class="flex justify-center" *ngFor="let card of closedCards">
+          <app-policy-card
+            class="w-[100%]"
+            (click)="openDialog()"
+            [card]="card"
+            cdkDrag
+          ></app-policy-card>
+        </div>
+      </div>
+      <mat-drawer
+        #drawer
+        class="drawer"
+        fixedInViewport
+        mode="over"
+        opened="false"
+        position="end"
+      >
+        <div class="w-[25%] absolute h-[100%] right-0 top-0">
+          <app-policy-filter></app-policy-filter>
+        </div>
+      </mat-drawer>
+    </div>
+  </mat-drawer-container>
+</div>

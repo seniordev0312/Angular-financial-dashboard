@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
 @Component({
   selector: 'app-input-field',
@@ -9,8 +10,10 @@ import { FormControl } from '@angular/forms';
 })
 export class InputFieldComponent {
   @Input() label: string;
+  @Input() value: string;
   @Input() control: FormControl;
-  @Input() icon: string;
+  @Input() baseListItemsList: BaseListItem[];
+  @Output() onTrigger = new EventEmitter<void>();
 
   constructor() {
   }

@@ -1,76 +1,77 @@
 <div class="relative h-full" [@fadeSlideInOut]="animationState">
-    <div *ngIf="extended" class="h-full pl-4 pr-4 pb-2">
-        <div class="h-[5%] flex items-center gap-2 text-lg text-black">
-            <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold icon" (click)="flipCard()">
-            </mat-icon>
-        </div>
-        <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4 overflow-y-auto gap-2">
-            <div class="flex flex-col items-start gap-1" *ngFor="let item of MainRouteItem.upper; let i = index">
-                <div class="flex flex-row justify-start items-start gap-2">
-                    <div>
-                        <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-                    </div>
-                    <div *ngIf="item.navigateLink" class="flex flex-row justify-start items-start gap-2">
-                        <div class="flex flex-col text-left w-full gap-1">
-                            <div class="text-primary font-bold cursor-pointer" (click)="navigate(item.navigateLink)">
-                                <span translate>{{item.translationKey}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex flex-col text-left w-full gap-1">
-                        <div *ngFor="let subItem of item.subRouteItems; let i = index">
-                            <div *ngIf="!item.navigateLink && i === 0 " class="text-primary font-bold cursor-default">
-                                <span translate>{{item.translationKey}}</span>
-                            </div>
-                            <div class="cursor-pointer hover:font-bold" (click)="navigate(subItem.navigateLink)">
-                                <span translate>{{subItem.translationKey}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <span class="spacer"></span>
-            <div class="flex justify-center flex-col items-start gap-4" *ngFor="let item of MainRouteItem.lower">
-                <div class="flex flex-row justify-start items-center gap-2">
-                    <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-                    <div class="text-primary font-bold items-center justify-center cursor-pointer"
-                        (click)="navigate(item.navigateLink)">
-                        <span translate>{{item.translationKey}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div *ngIf="extended" class="h-full pl-4 pr-4 pb-2">
+    <div class="h-[5%] flex items-center gap-2 text-lg text-black">
+      <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold icon" (click)="flipCard()">
+      </mat-icon>
     </div>
-    <div *ngIf="!extended" class="flex justify-center items-center h-full pl-1 pr-1 pb-2">
-        <div class="h-full flex flex-col content-between text-sm text-black pt-4 pb-4 overflow-y-auto gap-4">
-            <div class="flex flex-col items-start gap-4" *ngFor="let item of MainRouteItem.upper; let i = index">
-                <div *ngIf="item.navigateLink" class="flex flex-row justify-start items-start gap-2 cursor-pointer"
-                    (click)="navigate(item.navigateLink)">
-                    <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-                </div>
-                <div *ngIf="!item.navigateLink" class="flex flex-row justify-start items-start gap-2 cursor-pointer">
-                    <mat-icon svgIcon="{{item.icon}}" [matMenuTriggerFor]="customerServiceMenu">
-                    </mat-icon>
-                    <mat-menu #customerServiceMenu="matMenu">
-                        <div *ngFor="let subItem of item.subRouteItems">
-                            <button mat-menu-item (click)="navigate(subItem.navigateLink)">
-                                <span translate>{{subItem.translationKey}}</span>
-                            </button>
-                        </div>
-                    </mat-menu>
-                </div>
+    <div class="h-[95%] flex flex-col content-between text-sm text-black pl-8 pt-4 pb-4 overflow-y-auto gap-2">
+      <div class="flex flex-col items-start gap-1" *ngFor="let item of MainRouteItem.upper; let i = index">
+        <div class="flex flex-row justify-start items-start gap-2">
+          <div>
+            <mat-icon svgIcon="{{item.icon}}"></mat-icon>
+          </div>
+          <div *ngIf="item.navigateLink" class="flex flex-row justify-start items-start gap-2">
+            <div class="flex flex-col text-left w-full gap-1">
+              <div class="text-primary font-bold cursor-pointer" (click)="navigate(item.navigateLink)">
+                <span translate>{{item.translationKey}}</span>
+              </div>
             </div>
-            <span class="spacer"></span>
-            <div class="flex justify-center flex-col items-start gap-4" *ngFor="let item of MainRouteItem.lower">
-                <div class="flex flex-row justify-start items-center gap-2 cursor-pointer"
-                    (click)="navigate(item.navigateLink)">
-                    <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-                </div>
+          </div>
+          <div class="flex flex-col text-left w-full gap-1">
+            <div *ngFor="let subItem of item.subRouteItems; let i = index">
+              <div *ngIf="!item.navigateLink && i === 0 " class="text-primary font-bold cursor-default">
+                <span translate>{{item.translationKey}}</span>
+              </div>
+              <div class="cursor-pointer hover:font-bold" (click)="navigate(subItem.navigateLink)">
+                <span translate>{{subItem.translationKey}}</span>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <span class="spacer"></span>
+      <div class="flex justify-center flex-col items-start gap-4" *ngFor="let item of MainRouteItem.lower">
+        <div class="flex flex-row justify-start items-center gap-2">
+          <mat-icon svgIcon="{{item.icon}}"></mat-icon>
+          <div class="text-primary font-bold items-center justify-center cursor-pointer"
+            (click)="navigate(item.navigateLink)">
+            <span translate>{{item.translationKey}}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="absolute h-32 w-4 right-0 top-[40%] bg-primary rounded-l-lg flex justify-center items-center text-white font-light cursor-pointer"
-        (click)="toggleSidenav()">
-        <span>{{path}}</span>
+  </div>
+  <div *ngIf="!extended" class="flex justify-center items-center h-full pl-1 pr-1 pb-2">
+    <div class="h-full flex flex-col content-between text-sm text-black pt-4 pb-4 overflow-y-auto gap-4">
+      <div class="flex flex-col items-start gap-4" *ngFor="let item of MainRouteItem.upper; let i = index">
+        <div *ngIf="item.navigateLink" class="flex flex-row justify-start items-start gap-2 cursor-pointer"
+          (click)="navigate(item.navigateLink)">
+          <mat-icon svgIcon="{{item.icon}}"></mat-icon>
+        </div>
+        <div *ngIf="!item.navigateLink" class="flex flex-row justify-start items-start gap-2 cursor-pointer">
+          <mat-icon svgIcon="{{item.icon}}" [matMenuTriggerFor]="customerServiceMenu">
+          </mat-icon>
+          <mat-menu #customerServiceMenu="matMenu">
+            <div *ngFor="let subItem of item.subRouteItems">
+              <button mat-menu-item (click)="navigate(subItem.navigateLink)">
+                <span translate>{{subItem.translationKey}}</span>
+              </button>
+            </div>
+          </mat-menu>
+        </div>
+      </div>
+      <span class="spacer"></span>
+      <div class="flex justify-center flex-col items-start gap-4" *ngFor="let item of MainRouteItem.lower">
+        <div class="flex flex-row justify-start items-center gap-2 cursor-pointer"
+          (click)="navigate(item.navigateLink)">
+          <mat-icon svgIcon="{{item.icon}}"></mat-icon>
+        </div>
+      </div>
     </div>
+  </div>
+  <div
+    class="absolute h-32 w-4 right-0 top-[40%] bg-primary rounded-l-lg flex justify-center items-center text-white font-light cursor-pointer"
+    (click)="toggleSidenav()">
+    <span>{{path}}</span>
+  </div>
 </div>
