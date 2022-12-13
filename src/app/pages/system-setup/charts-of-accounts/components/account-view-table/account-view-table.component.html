@@ -1,0 +1,116 @@
+<p-table class="main-table" [value]="rolesList" rowGroupMode="subheader" dataKey="id" rowExpandMode="single"
+    [expandedRowKeys]="{'22':true}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width:20%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="NO" [showClearButton]="false"
+                        field="number">
+                    </p-columnFilter>
+                    <p-sortIcon field="number" pSortableColumn="number"></p-sortIcon>
+                </div>
+            </th>
+            <th style="width:20%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="Posting Date" [showClearButton]="false"
+                        field="postingDate">
+                    </p-columnFilter>
+                    <p-sortIcon field="postingDate" pSortableColumn="postingDate"></p-sortIcon>
+                </div>
+            </th>
+            <th style="width:10%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="Account No" [showClearButton]="false"
+                        field="accountNumber">
+                    </p-columnFilter>
+                    <p-sortIcon field="accountNumber" pSortableColumn="accountNumber"></p-sortIcon>
+                </div>
+            </th>
+            <th style="width:10%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="Account Name" [showClearButton]="false"
+                        field="accountName">
+                    </p-columnFilter>
+                    <p-sortIcon field="accountName" pSortableColumn="accountName"></p-sortIcon>
+                </div>
+            </th>
+            <th style="width:10%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="Debit" [showClearButton]="false"
+                        field="debit">
+                    </p-columnFilter>
+                    <p-sortIcon field="debit" pSortableColumn="debit"></p-sortIcon>
+                </div>
+            </th>
+            <th style="width:10%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="Credit" [showClearButton]="false"
+                        field="credit">
+                    </p-columnFilter>
+                    <p-sortIcon field="credit" pSortableColumn="credit"></p-sortIcon>
+                </div>
+            </th>
+            <th style="width:20%">
+                <div class="flex items-center">
+                    <p-columnFilter [showMenu]="false" type="text" placeholder="Balance" [showClearButton]="false"
+                        field="balance">
+                    </p-columnFilter>
+                    <p-sortIcon field="balance" pSortableColumn="balance"></p-sortIcon>
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" let-expanded="expanded">
+        <tr>
+            <td style="width:20%">
+                <span class="font-bold text-xs ml-2">{{item.number}}</span>
+            </td>
+            <td style="width:20%">
+                <span class="font-bold text-xs ml-2">{{item.postingDate}}</span>
+            </td>
+            <td style="width:10%">
+            </td>
+            <td style="width:10%">
+            </td>
+            <td style="width:10%">
+            </td>
+            <td style="width:10%">
+            </td>
+            <td style="width:20%">
+                <span class="text-xs font-bold">${{item.balance| number}}</span>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-item>
+        <tr>
+            <td class="sub-table" colspan="7">
+                <div>
+                    <p-table [rows]="pageSize" class="sub-table" [value]="item.items" dataKey="id">
+                        <ng-template pTemplate="body" let-subItem>
+        <tr>
+            <td style="width:20%" class="text-xxs pl-4">{{subItem.number}}</td>
+            <td style="width:20%" class="text-xxs pl-4">{{subItem.postingDate}}</td>
+            <td style="width:10%" class="text-xxs pl-4">{{subItem.accountNumber}}</td>
+            <td style="width:10%" class="text-xxs pl-4">{{subItem.accountName}}</td>
+            <td style="width:10%" class="text-xxs pl-4">${{subItem.debit| number}}</td>
+            <td style="width:10%" class="text-xxs pl-4">${{subItem.credit| number}}</td>
+            <td style="width:20%" class="text-xxs pl-4">${{subItem.balance| number}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+<ng-template pTemplate="footer">
+    <tr>
+        <td class="text-xs font-bold">Closing Balance</td>
+        <td class="text-xs font-bold">December 02, 2022</td>
+        <td></td>
+        <td></td>
+        <td class="text-xs font-bold">$1,500,000.00</td>
+        <td class="text-xs font-bold">$0.00</td>
+        <td class="text-xs font-bold">$3,000,000.00</td>
+    </tr>
+</ng-template>
+</p-table>

@@ -1,7 +1,9 @@
 <app-dialog-header label="Entity Control"></app-dialog-header>
 <mat-dialog-content class="px-12">
     <div class="flex items-center justify-between my-6">
-        <div>
+        <div class="flex items-center">
+            <h5 class="text-base mr-4">Entity Type</h5>
+            <app-select-list></app-select-list>
         </div>
         <app-button (trigger)="onEntityAdded()" text="Add Entity" icon="add"
             classes="bg-accent text-sm h-10 w-32 text-white">
@@ -20,10 +22,10 @@
             <app-select-list [control]="getFormControl('source')" class="mr-8" label="Source"></app-select-list>
         </div>
         <div class="flex flex-col justify-center items-center w-32 h-full bg-accent text-white rounded-[14px]">
-            <p class="text-base font-medium">Search</p>
-            <span class="material-icons mt-2">
+            <span class="material-icons">
                 search
             </span>
+            <p class="text-sm font-medium mt-2">Search</p>
         </div>
     </form>
     <app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>

@@ -26,3 +26,8 @@
     margin: 0px !important;
     max-height: 90% !important;
 }
+
+::ng-deep .mat-tab-label {
+    border-top-width: 1px;
+    border-color: #E2E2E2 !important;
+}

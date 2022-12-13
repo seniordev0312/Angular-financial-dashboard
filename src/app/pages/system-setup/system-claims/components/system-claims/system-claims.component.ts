@@ -105,11 +105,11 @@ export class SystemClaimsComponent extends BaseComponent implements OnInit, Afte
       crumbs: [
         {
           route: ApplicationRoutes.SystemSetup,
-          translationKey: 'system-setup.system-setup.system-setup'
+          translationKey: 'system-setup.system-setup'
         },
         {
           route: ApplicationRoutes.SystemClaims,
-          translationKey: 'system-setup.system-setup.system-claims'
+          translationKey: 'system-setup.system-claims'
         }
       ],
     });

@@ -21,11 +21,11 @@ export class CompanyStructureComponent implements OnInit {
       crumbs: [
         {
           route: ApplicationRoutes.SystemSetup,
-          translationKey: 'system-setup.system-setup.system-setup'
+          translationKey: 'system-setup.system-setup'
         },
         {
           route: ApplicationRoutes.CompanyStructure,
-          translationKey: 'system-setup.system-setup.company-structure'
+          translationKey: 'system-setup.company-structure'
         }
       ],
     });

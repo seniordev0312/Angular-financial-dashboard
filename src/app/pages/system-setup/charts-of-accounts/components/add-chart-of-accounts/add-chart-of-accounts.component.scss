@@ -1,0 +1,13 @@
+:host ::ng-deep {
+    .mat-radio-outer-circle {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    .mat-radio-inner-circle {
+        width: 14px !important;
+        height: 14px !important;
+        margin-left: 0.7px;
+        margin-top: 1px;
+    }
+}

@@ -126,11 +126,11 @@ export class ReferenceTablesComponent implements OnInit, AfterViewInit {
       crumbs: [
         {
           route: ApplicationRoutes.SystemSetup,
-          translationKey: 'system-setup.system-setup.system-setup'
+          translationKey: 'system-setup.system-setup'
         },
         {
           route: ApplicationRoutes.ReferenceTables,
-          translationKey: 'system-setup.system-setup.reference-tables'
+          translationKey: 'system-setup.reference-tables'
         }
       ],
     });

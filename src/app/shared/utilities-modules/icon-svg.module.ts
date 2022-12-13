@@ -97,6 +97,9 @@ export class IconSvgModule {
             ).addSvgIcon(
                 'false',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/false.svg')
+            ).addSvgIcon(
+                'add-grid',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/add-grid.svg')
             );
     }
 }

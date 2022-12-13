@@ -41,11 +41,11 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
       crumbs: [
         {
           route: ApplicationRoutes.SystemSetup,
-          translationKey: 'system-setup.system-setup.system-setup'
+          translationKey: 'system-setup.system-setup'
         },
         {
           route: ApplicationRoutes.UserSecurity,
-          translationKey: 'system-setup.system-setup.user-security'
+          translationKey: 'system-setup.user-security'
         }
       ],
     });
