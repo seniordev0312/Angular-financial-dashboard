@@ -21,7 +21,7 @@ export const mainRoutesList: MainRoute = {
                     translationKey: 'core.left-side-bar-back.customer-service'
                 },
                 {
-                    navigateLink: ApplicationRoutes.InsuranceRenewals,
+                    navigateLink: ApplicationRoutes.PolicyRenewals,
                     translationKey: 'core.left-side-bar-back.insurance-renewals'
                 },
             ],
