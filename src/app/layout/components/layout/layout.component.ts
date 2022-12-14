@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RouteCrumbsList } from '@root/shared/models/bread-crumbs/router-crumbs-list.model';
+import { isSpinning$ } from '@root/shared/store/shared.store';
+import { Observable } from 'rxjs';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
@@ -18,6 +20,7 @@ export class LayoutComponent implements OnInit {
   showBreadcrumb: boolean = false;
   mainContentClass: any = { 'h-full': true };
   ml: string = '384px';
+  isSpinning$: Observable<boolean>;
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -26,6 +29,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isSpinning$ = isSpinning$;
     this.showBreadcrumb = this.router.url !== '/dashboard';
     document.documentElement.style.setProperty('--sidenav-width', '40vh');
     this.router.events.subscribe((val: NavigationEnd) => {

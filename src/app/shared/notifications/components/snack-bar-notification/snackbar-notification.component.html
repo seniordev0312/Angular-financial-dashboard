@@ -1,0 +1,13 @@
+<div class="snackbar-notification">
+    <div class="snackbar-notification-wrapper">
+        <mat-icon [class]="mapStatusToColor[data.status]" class="icon w-14">{{
+            mapStatusToIcon[data.status] || 'info'
+            }}</mat-icon>
+        <div class="message-container">
+            <div [class]="mapStatusToColor[data.status]" class="font-medium text-base capitalize" translate>{{
+                data.status }}</div>
+            <div class="text-sm" translate>{{ data?.message }}</div>
+        </div>
+        <mat-icon class="w-14" (click)="snackBarRef.dismiss()">close</mat-icon>
+    </div>
+</div>

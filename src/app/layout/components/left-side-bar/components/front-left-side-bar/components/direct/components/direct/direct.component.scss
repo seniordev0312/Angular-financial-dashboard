@@ -5,3 +5,7 @@
 ::placeholder {
     color: #9D9D9D;
 }
+
+:host .input {
+    text-align: left !important;
+}

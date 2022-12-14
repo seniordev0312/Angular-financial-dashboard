@@ -22,7 +22,7 @@ export const systemSetupNavigationList: NavListItem[] = [
         route: 'company-structure'
     },
     {
-        transitionKey: 'system-setup.chart-of-accounts',
+        transitionKey: 'system-setup.chart-of-accounts.chart-of-accounts',
         route: 'chart-of-accounts'
     },
     {

@@ -9,7 +9,10 @@
         <div *ngIf="showBreadcrumb" class="h-[5%] pl-5 pt-5 flex items-center">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
-        <div class="pl-5" [ngClass]="mainContentClass">
+        <div class="pl-5 relative" [ngClass]="mainContentClass">
+            <div class="spinner" *ngIf="isSpinning$|async">
+                <mat-spinner></mat-spinner>
+            </div>
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { EntitiesListStore, ENTITIES_LIST_STORE } from './entities-list.store';
 import { SectionDetails } from '../models/section-details.model';
+import { ElementsListItem } from '../models/element-list-item.model';
 
 @Injectable({
     providedIn: 'root',
@@ -17,6 +18,13 @@ export class SectionsListRepository {
         }));
     }
 
+    updateSelectedElement(elementDetails: ElementsListItem): void {
+        this.entitiesListStore.update((state) => ({
+            ...state,
+            elementDetails
+        }));
+    }
+
     addSection(section: SectionDetails) {
         this.entitiesListStore.update((state) => ({
             ...state,
@@ -29,28 +37,9 @@ export class SectionsListRepository {
             ...state,
             entityDetails: {
                 ...state.entityDetails,
-                sections: [...state.entityDetails.sections.filter(section => section.id === sectionId)]
+                sections: [...state.entityDetails.sections.filter(section => section.entitySectionId === sectionId)]
             }
         }));
     }
 
-    updateSection(section: SectionDetails) {
-        this.entitiesListStore.update((state) => ({
-            ...state,
-            entityDetails: {
-                ...state.entityDetails,
-                sections: this.getUpdatedSectionsList(section)
-            }
-        }));
-    }
-
-    getUpdatedSectionsList(section: SectionDetails): SectionDetails[] {
-        const entityDetails = this.entitiesListStore.value.entityDetails;
-        const newList = [...entityDetails.sections];
-        const index = newList.findIndex((e) => e.id === section.id);
-        if (index !== -1) {
-            newList[index] = section;
-        }
-        return newList;
-    }
 }

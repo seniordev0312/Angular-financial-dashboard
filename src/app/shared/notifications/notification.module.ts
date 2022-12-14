@@ -6,17 +6,24 @@ import { ConfirmationDialogService } from './services/dialog-confirmation.servic
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SnackbarNotificationComponent } from './components/snack-bar-notification/snackbar-notification.component';
+import { SnackBarNotificationService } from './services/snackbar-notification.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-    declarations: [ConfirmationDialogComponent],
+    declarations: [
+        SnackbarNotificationComponent,
+        ConfirmationDialogComponent
+    ],
     imports: [
         CommonModule,
         TranslateModule,
         MatIconModule,
+        MatSnackBarModule,
         MatButtonModule,
         MatDialogModule
     ],
     exports: [ConfirmationDialogComponent],
-    providers: [ConfirmationDialogService],
+    providers: [SnackBarNotificationService, ConfirmationDialogService],
 })
 export class NotificationModule { }

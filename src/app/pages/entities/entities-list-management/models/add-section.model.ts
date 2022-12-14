@@ -1,5 +1,7 @@
 export interface AddSection {
     id?: string;
-    template: number;
-    name: string;
+    entitySectionTemplateId: number;
+    sectionName: string;
+    entityName: string;
+    entityCode: string;
 }

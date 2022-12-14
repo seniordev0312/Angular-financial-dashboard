@@ -6,12 +6,8 @@ export class TableSettings {
     cssClasses: string;
     showChangeTableSize: boolean;
     isLocalPaging: boolean;
-    isGropingMode?: boolean;
     enableFilter: boolean;
     hasNextPage?: boolean;
-    groupingProperty?: any;
-    enableGropingActions?: boolean;
-    groupingHeaderProperties?: any;
     haxPreviousPage?: boolean;
     actionsMode?: 'menu' | 'inline';
 

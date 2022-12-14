@@ -1,6 +1,7 @@
 :host ::ng-deep {
     .p-organizationchart .p-organizationchart-node-content {
         border: none !important;
+        border-radius: 16px;
     }
 
     .p-organizationchart .p-organizationchart-line-down {

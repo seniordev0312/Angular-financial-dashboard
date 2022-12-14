@@ -2,14 +2,12 @@
   <p-table #dt [value]="data" [rowHover]="true" responsiveLayout="scroll" [rows]="pageSize"
     (onFilter)="onFilterChanged($event.filters)" [lazy]="!tableConfiguration.settings.isLocalPaging"
     [totalRecords]="totalRecords" [paginator]="
-      (!tableConfiguration.settings.isLocalPaging ||
-        (tableConfiguration.settings.isLocalPaging &&
-          totalRecords > tableConfiguration.settings.pageSize)) &&
-      tableConfiguration.settings.enablePaging
-    " (onLazyLoad)="onLazyLoad($event)" [filterDelay]="0" styleClass="p-datatable-sm p-datatable-gridlines"
-    [showFirstLastIcon]="false" [loading]="isSpinning$ | async" [showPageLinks]="true"
-    loadingIcon="pi pi-spin pi-spinner loading-icon-size" [dataKey]="tableConfiguration.settings.groupingProperty"
-    rowGroupMode="subheader" [groupRowsBy]="tableConfiguration.settings.groupingProperty">
+                    (!tableConfiguration.settings.isLocalPaging ||
+                        (tableConfiguration.settings.isLocalPaging &&
+                            totalRecords > tableConfiguration.settings.pageSize)) &&
+                    tableConfiguration.settings.enablePaging
+                " (onLazyLoad)="onLazyLoad($event)" [filterDelay]="0" styleClass="p-datatable-sm p-datatable-gridlines"
+    [showFirstLastIcon]="false" [showPageLinks]="true" loadingIcon="pi pi-spin pi-spinner loading-icon-size">
     <ng-template pTemplate="header">
       <tr>
         <ng-container *ngFor="let column of tableConfiguration.columns">
@@ -19,9 +17,12 @@
               <ng-container *ngIf="column.hasFilter">
                 <ng-container [ngSwitch]="column.filter?.filterType">
                   <!--text-->
-                  <p-columnFilter *ngSwitchCase="'string'" [showMenu]="false" type="text"
-                    [placeholder]="column.translationKey" [showClearButton]="false"
-                    [field]="column?.filter?.filterProperty ?? column.property">
+                  <p-columnFilter *ngSwitchCase="'string'" [field]="column?.filter?.filterProperty ?? column.property"
+                    matchMode="contains" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                        class="p-inputtext" [placeholder]="column.translationKey">
+                    </ng-template>
                   </p-columnFilter>
                   <!--numeric-->
                   <p-columnFilter *ngSwitchCase="'numeric'" type="numeric" [showMenu]="false"
@@ -40,10 +41,10 @@
                     class="p-ml-auto">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                       <p-multiSelect [optionValue]="
-                          tableConfiguration.settings.isLocalPaging
-                            ? column.filter.selectListViewProperty
-                            : 'id'
-                        " (onChange)="filter($event.value)" [ngModel]="value"
+                                                            tableConfiguration.settings.isLocalPaging
+                                                                ? column.filter.selectListViewProperty
+                                                                : 'id' 
+                                                        " (onChange)="filter($event.value)" [ngModel]="value"
                         [optionLabel]="column.filter?.selectListViewProperty"
                         [options]="column.filter?.selectOptionsList" placeholder="Any">
                         <ng-template let-option pTemplate="item">
@@ -89,49 +90,7 @@
         </th>
       </tr>
     </ng-template>
-    <ng-template *ngIf="tableConfiguration.settings.isGropingMode" pTemplate="groupheader" let-row
-      let-rowIndex="rowIndex" let-expanded="expanded">
-      <tr>
-        <td colspan="999">
-          <div class="flex items-center justify-between w-full">
-            <div class="flex items-center">
-              <button name="expand" type="button" pButton pRipple [pRowToggler]="row"
-                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-                class="p-button-text mr-6 p-button-rounded p-button-plain p-mr-2"></button>
-              <ng-container *ngFor="
-                  let item of tableConfiguration.settings
-                    .groupingHeaderProperties
-                ">
-                <div *ngIf="item.type === 'text'" class="min-w-32">
-                  <div [ngClass]="item.cssClasses(row[item.property])" class="flex">
-                    <span [matTooltipDisabled]="!item?.hasToolTip" [matTooltip]="item?.toolTipText"
-                      [ngClass]="item.iconCssClass" class="mr-2 material-icons" *ngIf="item.icon">
-                      {{ item.icon }}</span>
-                    <span class="text-sm">
-                      {{ item?.toolTipText }} {{ row[item.property] }}
-                    </span>
-                  </div>
-                </div>
-                <div *ngIf="item.type === 'labels'" class="mx-8 my-1">
-                  <div *ngFor="let label of row[item.property]" [ngClass]="item.cssClasses(row[item.property])"
-                    class="rounded mr-2 px-2 font-medium text-sm" fxFlex="none">
-                    {{ label }}
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-            <button *ngIf="tableConfiguration.settings.enableGropingActions" (click)="$event.stopPropagation()"
-              [matMenuTriggerData]="{ row: row }" [matMenuTriggerFor]="actionsMenu" name="menu button" mat-icon-button
-              type="button">
-              <!-- <mat-icon [icIcon]="icMoreHoriz"></mat-icon> -->
-            </button>
-          </div>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template [pTemplate]="
-        tableConfiguration.settings.isGropingMode ? 'rowexpansion' : 'body'
-      " let-row>
+    <ng-template [pTemplate]="'body'" let-row>
       <tr class="p-selectable-row">
         <ng-container *ngFor="let column of tableConfiguration.columns">
           <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
@@ -158,16 +117,14 @@
               </div>
             </div>
             <div class="w-full flex" [ngClass]="column.alignment ?? 'justify-center'" *ngSwitchDefault>
+              <!--svg icon-->
               <mat-icon *ngIf="column?.svgIcon" [ngClass]="column.iconCssClass" [class]="column.showText ? 'mr-2' : ''"
-                [svgIcon]="
-                  row[column.property]
-                    ? row[column.property]
-                    : column?.svgIcon ?? null
-                ">
+                [svgIcon]="column?.svgIcon ?? null">
               </mat-icon>
-              <span class="text-sm" *ngIf="column.showText" [matTooltipDisabled]="!column?.hasToolTip" [matTooltip]="
-                  column?.hasToolTip ? column?.toolTipText(row) : null
-                " [ngClass]="column?.dataCssClasses(row[column.property])">{{ row[column.property] }}</span>
+              <span class="text-sm" *ngIf="column.showText" [matTooltipDisabled]="!column?.hasToolTip"
+                [matTooltip]="column?.hasToolTip ? column?.toolTipText(row) : null"
+                [ngClass]="column?.dataCssClasses(row[column.property])">{{ row[column.property]
+                }}</span>
               <button mat-icon-button name="copy" color="primary" class="text-sm field-icon" *ngIf="column?.canCopyText"
                 (click)="copyText(row[column.property])">
                 <mat-icon>content_copy</mat-icon>
@@ -177,34 +134,28 @@
         </ng-container>
 
         <td *ngIf="tableConfiguration.settings.enableActions">
-          <button (click)="$event.stopPropagation()" *ngIf="
-              (tableConfiguration.settings.enableActions &&
-                tableConfiguration.settings.actionsMode === 'menu') ||
-              (tableConfiguration.settings.enableActions && (isMobile$ | async))
-            " [matMenuTriggerData]="{ row: row }" name="action" [matMenuTriggerFor]="actionsMenu" mat-icon-button
+          <button (click)="$event.stopPropagation()"
+            *ngIf="(tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='menu')||(tableConfiguration.settings.enableActions&&(isMobile$|async))"
+            [matMenuTriggerData]="{ row: row }" name="action" [matMenuTriggerFor]="actionsMenu" mat-icon-button
             type="button">
-            <span class="material-icons"> more_vert </span>
-          </button>
-          <div class="flex justify-center" *ngIf="
-              tableConfiguration.settings.enableActions &&
-              tableConfiguration.settings.actionsMode === 'inline' &&
-              (isMobile$ | async) === false
-            ">
-            <ng-container *ngTemplateOutlet="inlineActions; context: { row: row }">
+            <span class="material-icons">
+              more_vert
+            </span> </button>
+          <div class="flex justify-center"
+            *ngIf="tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='inline'&&(isMobile$|async)===false">
+            <ng-container *ngTemplateOutlet="inlineActions; context:{ row: row}">
             </ng-container>
           </div>
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
+    <ng-template *ngIf="(isSpinning$ | async)===false" pTemplate="emptymessage">
       <tr>
         <td colspan="8">
           <div class="flex flex-col justify-center items-center bg-white py-3">
-            <img class="w-[18rem] h-[18rem]" src="assets/images/no-data-found.svg" />
-            <h3 class="text-3xl text-accent font-semibold mt-5">
-              No Data Found
-            </h3>
-            <h4 class="text-accent text-xl mt-3">Please Try Again Later</h4>
+            <img class="w-[14rem] h-[14rem]" src="assets/images/no-data-found.svg" />
+            <h3 class="text-xl text-accent font-semibold mt-5">No Data Found</h3>
+            <h4 class="text-accent text-sm mt-3">Please Try Again Later</h4>
           </div>
         </td>
       </tr>
@@ -231,10 +182,10 @@
   <ng-container *ngFor="let action of tableConfiguration.tableRowsActionsList">
     <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
       class="text-md mx-2" (click)="action.action(row)" mat-raised-button>
-      <span class="material-icons ltr:mr-2 rtl:mr-0 rtl:ml-2">
-        {{ action.iconName }}
+      <span class="material-icons-outlined ltr:mr-2 rtl:mr-0 rtl:ml-2">
+        {{action.iconName}}
       </span>
-      <span translate>{{ action.translationKey }}</span>
+      <span translate>{{action.translationKey}}</span>
     </button>
   </ng-container>
 </ng-template>
