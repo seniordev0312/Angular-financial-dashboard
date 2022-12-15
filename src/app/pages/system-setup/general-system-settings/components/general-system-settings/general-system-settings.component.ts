@@ -93,8 +93,8 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
   fg: FormGroup;
 
   ofDayTypesList: BaseListItem[] = [
-    { id: '0', name: 'true' },
-    { id: '1', name: 'false' }
+    { id: '0', value: 'true' },
+    { id: '1', value: 'false' }
   ];
 
   editAction: TableRowAction<Holiday> = {
