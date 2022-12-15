@@ -4,7 +4,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-insurance-renewals',
-  templateUrl: './insurance-renewals.component.html',
+  templateUrl: './insurance-renewal.component.html',
   styleUrls: ['./insurance-renewals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
