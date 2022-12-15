@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { of } from 'rxjs';
 
 /* eslint-disable @typescript-eslint/ban-types */
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthenticationService {
 
     constructor(
         private oidcSecurityService: OidcSecurityService
@@ -20,12 +18,15 @@ export class AuthService {
     get userData() {
         return this.oidcSecurityService.userData$;
     }
+
     checkAuth() {
         return this.oidcSecurityService.checkAuth();
     }
-    doLogin() {
-        return of(this.oidcSecurityService.authorize());
+
+    login() {
+        return this.oidcSecurityService.authorize();
     }
+
     signOut() {
         this.oidcSecurityService.logoff();
     }

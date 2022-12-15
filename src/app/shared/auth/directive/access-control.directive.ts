@@ -1,6 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-
-import { AuthService } from '../auth.service';
+import { AuthenticationService } from '../../services/auth.service';
 
 @Directive({
     selector: "[accessControl]",
@@ -14,7 +13,7 @@ export class AccessControlDirective implements OnInit {
     constructor(
         private templateRef: TemplateRef<any>,
         private viewContainer: ViewContainerRef,
-        private auth: AuthService) { }
+        private auth: AuthenticationService) { }
 
     ngOnInit() {
         this.checkAccess();

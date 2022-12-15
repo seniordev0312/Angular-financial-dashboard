@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { AuthConfigModule } from './shared/auth/auth-config.module';
-import { AuthenticationInterceptor } from './shared/auth/interceptors/authentication.interceptor';
+import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor';
 import { TranslationService } from './shared/services/translation.service';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
 

@@ -34,12 +34,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService
         }
       ],
       backgroundColor: '#186AA5'
@@ -64,22 +64,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService
         },
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService
         }
       ],
       backgroundColor: '#469CD9'
@@ -104,12 +104,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService
         }
       ],
       backgroundColor: '#7BC8FF'

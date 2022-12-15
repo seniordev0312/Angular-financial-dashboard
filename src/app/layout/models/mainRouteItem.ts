@@ -6,4 +6,5 @@ export class MainRouteItem {
     translationKey: string;
     subRouteItems?: SubRouteItem[];
     upperRoute: boolean;
+    sidenavLink?: string;
 }

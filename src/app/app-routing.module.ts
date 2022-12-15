@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '@root/layout/components/layout/layout.component';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
 import { EntitiesViewerModule } from '@root/pages/entities/entities-viewer/entities-viewer.module';
-import { AuthGuard } from './shared/auth/auth-guard.service';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Routes = [
   {
@@ -16,9 +16,10 @@ const routes: Routes = [
           import('./pages/pages.module').then(
             (m) => m.PagesModule
           ),
+        canLoad: [AutoLoginAllRoutesGuard]
       }
     ],
-    canActivate: [AuthGuard]
+    canActivate: [AutoLoginAllRoutesGuard]
   },
 ];
 

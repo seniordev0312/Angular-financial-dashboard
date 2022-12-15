@@ -6,21 +6,25 @@ import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddDocumentTypeComponent } from './components/add-document-type/add-document-type.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: EntitiesKycDocumentTypesManagementComponent
+    component: EntitiesKycDocumentTypesManagementComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddDocumentTypeComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddDocumentTypeComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
 ];
 
