@@ -36,7 +36,7 @@ import { NotificationModule } from './notifications/notification.module';
 import { RouterModule } from '@angular/router';
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { SingleSelectComponent } from './components/single-select/single-select.component';
-import { AccessControlDirective } from './auth/directive/access-control.directive';
+import { CanAccessFeatureDirective } from './directives/access-control.directive';
 
 import { DatePickerInputComponent } from './components/date-picker-input/date-picker-input.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -54,8 +54,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         EntityInformationComponent,
         MultiSelectComponent,
         SingleSelectComponent,
-        AccessControlDirective,
-        DatePickerInputComponent
+        DatePickerInputComponent,
+        CanAccessFeatureDirective
     ],
     imports: [
         MatAutocompleteModule,
@@ -103,7 +103,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         ReactiveFormsModule,
         MultiSelectComponent,
         SingleSelectComponent,
-        AccessControlDirective
+        CanAccessFeatureDirective
     ],
     providers: [],
 })
