@@ -1,5 +1,5 @@
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { mainRoutesList } from '@root/layout/statics/main-routes';
 
@@ -42,29 +42,29 @@ import { mainRoutesList } from '@root/layout/statics/main-routes';
     ])
   ],
 })
-export class BackLeftSideBarComponent implements OnInit {
+export class BackLeftSideBarComponent {
 
-  @Output() flip: EventEmitter<any> =
-    new EventEmitter<any>();
-
+  @Output() flip: EventEmitter<any> = new EventEmitter<any>();
   @Output() toggleSidenavCollapsedEvent: EventEmitter<any> = new EventEmitter<boolean>();
   MainRouteItem = mainRoutesList;
-
   animationState: string = 'out';
   extended: boolean = true;
-  path: string = '<'
-  constructor(private route: Router) { }
+  path: string = '<';
 
-  ngOnInit(): void {
-  }
+  constructor(private router: Router) { }
+
 
   flipCard(): void {
     this.flip.emit();
     this.animationState = 'out';
   }
 
-  navigate(url: string) {
-    this.route.navigate([url]);
+  navigate(url: string, sidenavLink: string = null) {
+    this.router.navigate([url, {
+      outlets: {
+        sidenav: sidenavLink
+      },
+    }], { skipLocationChange: true });
   }
 
   toggleSidenav() {

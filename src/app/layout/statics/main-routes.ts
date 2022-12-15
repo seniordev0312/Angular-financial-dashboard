@@ -9,7 +9,8 @@ export const mainRoutesList: MainRoute = {
             navigateLink: ApplicationRoutes.Dashboard,
             translationKey: 'core.left-side-bar-back.dashboard',
             subRouteItems: [],
-            upperRoute: true
+            upperRoute: true,
+            sidenavLink: ApplicationRoutes.Email
         },
         {
             icon: 'customer-service',

@@ -12,7 +12,8 @@
                     </div>
                     <div *ngIf="item.navigateLink" class="flex flex-row justify-start items-start gap-2">
                         <div class="flex flex-col text-left w-full gap-1">
-                            <div class="text-primary font-bold cursor-pointer" (click)="navigate(item.navigateLink)">
+                            <div class="text-primary font-bold cursor-pointer"
+                                (click)="navigate(item.navigateLink,item.sidenavLink)">
                                 <span translate>{{item.translationKey}}</span>
                             </div>
                         </div>
