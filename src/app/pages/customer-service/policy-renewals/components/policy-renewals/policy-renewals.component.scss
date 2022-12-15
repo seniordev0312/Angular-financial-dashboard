@@ -1,0 +1,61 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.search {
+  width: 385px;
+  height: 40px;
+}
+
+.customIconSize {
+  height: 140px;
+  width: 140px;
+}
+
+::ng-deep .mat-form-field-infix {
+  border-top: 0px !important;
+}
+
+::ng-deep .mat-toolbar-row {
+  background-color: none !important;
+}
+
+.example-box {
+  width: 200px;
+  height: 200px;
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.example-box:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+::ng-deep .mat-form-field-wrapper {
+  width: 100% !important;
+}
+
+mat-drawer-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+::ng-deep .mat-drawer-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+}

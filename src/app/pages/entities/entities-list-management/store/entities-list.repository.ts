@@ -11,6 +11,10 @@ export class EntitiesListRepository {
         @Inject(ENTITIES_LIST_STORE) private entitiesListStore: EntitiesListStore,
     ) { }
 
+    get values() {
+        return this.entitiesListStore.value;
+    }
+
     updateEntitiesList(entitiesList: EntitiesListItem[]): void {
         this.entitiesListStore.update((state) => ({
             ...state,
@@ -28,26 +32,18 @@ export class EntitiesListRepository {
     deleteEntity(entityId: string): void {
         this.entitiesListStore.update((state) => ({
             ...state,
-            entitiesList: state.entitiesList.filter(e => e.id !== entityId)
+            entitiesList: state.entitiesList.filter(e => e.entityDefinitionId !== entityId)
         }));
     }
 
 
-    updateEntity(updatedEntity: EntitiesListItem): void {
+    updateIsCreateEntityValid(isCreateEntityValid: boolean): void {
         this.entitiesListStore.update((state) => ({
             ...state,
-            entitiesList: this.getUpdatedEntitiesList(updatedEntity, state.entitiesList)
+            isCreateEntityValid
         }));
     }
 
-    getUpdatedEntitiesList(updatedEntity: EntitiesListItem, entitiesList: EntitiesListItem[]): EntitiesListItem[] {
-        const newList = [...entitiesList];
-        const index = newList.findIndex((e) => e.id === updatedEntity.id);
-        if (index !== -1) {
-            newList[index] = updatedEntity;
-        }
-        return newList;
-    }
 
     updateEntityDetails(entityDetails: EntityDetails) {
         this.entitiesListStore.update((state) => ({

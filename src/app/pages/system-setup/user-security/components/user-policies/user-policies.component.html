@@ -1,6 +1,8 @@
-<div class="h-[25%] flex flex-col gap-2">
-    <div class="w-full h-1/3 flex flex-row gap-2 items-center">
-        <span>User Policies</span>
+<div class="px-10 py-5">
+    <h1 class="text-base font-medium mb-5">User Policies</h1>
+    <div class="grid grid-cols-4 gap-10 mb-3">
+        <app-select-list label="Force Complex Passwords:" [control]="getFormControl('isComplexPasswordForced')">
+        </app-select-list>
     </div>
     <div class="w-full h-1/3 flex flex-row gap-2">
         <div class="w-1/3">

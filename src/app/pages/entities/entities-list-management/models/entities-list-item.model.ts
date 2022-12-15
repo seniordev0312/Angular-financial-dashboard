@@ -1,5 +1,5 @@
 export interface EntitiesListItem {
-    id: string;
+    entityDefinitionId: string;
     code: string;
     name: string;
     description: string;

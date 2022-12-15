@@ -2,8 +2,8 @@
     <div class="h-[5%] flex items-center">
         <span>Company Structure :</span>
     </div>
-    <div class="h-[95%] flex justify-center items-start gap-2">
-        <p-organizationChart [value]="data" selectionMode="single">
+    <div class="h-[95%] w-full overflow-auto">
+        <p-organizationChart [value]="treeNode" selectionMode="single">
             <ng-template let-node pTemplate="company">
                 <app-company-card [data]="node.data"></app-company-card>
             </ng-template>

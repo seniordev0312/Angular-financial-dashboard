@@ -1,8 +1,8 @@
 import { SectionDetails } from "./section-details.model";
 
 export interface EntityDetails {
-    id: string;
-    name: string;
-    code: string;
+    entityDefinitionId: string;
+    entityName: string;
+    entityCode: string;
     sections: SectionDetails[];
 }

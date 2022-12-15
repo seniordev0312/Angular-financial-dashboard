@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -13,6 +13,8 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
 import { EntityTemplatesListItem } from '../../models/entity-templates-list-item.model';
+import { EntitiesTemplatesListService } from '../../services/entities-templates-list.service';
+import { templatesList$ } from '../../store/entities-templates.store';
 
 @Component({
   selector: 'app-entities-templates-management',
@@ -20,41 +22,18 @@ import { EntityTemplatesListItem } from '../../models/entity-templates-list-item
   styleUrls: ['./entities-templates-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntitiesTemplatesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class EntitiesTemplatesManagementComponent extends BaseComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<EntityTemplatesListItem>;
-  pageSize = 50;
-  pageIndex = 1;
   filter: Filter[];
-  templatesList: EntityTemplatesListItem[] = [
-    {
-      id: 1,
-      name: '222',
-      description: 'oooooo'
-    },
-    {
-      id: 1,
-      name: 'Address Template',
-      description: 'All fields and verification for address input with map integration'
-    },
-    {
-      id: 1,
-      name: 'Address Template',
-      description: 'All fields and verification for address input with map integration'
-    },
-    {
-      id: 1,
-      name: 'Address Template',
-      description: 'oooooo'
-    }
-  ]
+  templatesList: EntityTemplatesListItem[] = [];
   tableColumns: TableColumn[] = [
     {
       translationKey: 'Entity Section Templates ID',
-      property: 'id',
+      property: 'entitySectionTemplateId',
       type: 'text',
       svgIcon: '',
-      cssClasses: () => (window.innerWidth <= 740 ? 'w-[120px]' : 'w-1/5'),
+      cssClasses: () => (''),
       dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
@@ -70,7 +49,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
       translationKey: 'Section Template Name',
       property: 'name',
       type: 'text',
-      cssClasses: () => (window.innerWidth <= 740 ? 'w-[120px]' : 'w-1/5'),
+      cssClasses: () => (''),
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
       enableSort: true,
       hasFilter: true,
@@ -86,7 +65,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
       translationKey: 'Section Description',
       property: 'description',
       type: 'text',
-      cssClasses: () => (window.innerWidth <= 740 ? 'w-[240px]' : 'w-2/5'),
+      cssClasses: () => (''),
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
       enableSort: false,
       hasFilter: true,
@@ -136,18 +115,27 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
     tableRowsActionsList: [this.viewAction, this.editAction, this.deleteAction],
     columns: this.tableColumns,
     data: [],
-    dataCount: 3,//todo replace after api
+    dataCount: 0,
     settings: this.tableSettings,
   };
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
+    private entitiesTemplatesListService: EntitiesTemplatesListService,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
-    this.tableConfiguration.data = this.templatesList;
+    this.entitiesTemplatesListService.getEntitiesTemplatesList();
+    this.subscriptions.add(templatesList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.templatesList = data;
+        this.tableConfiguration.data = data;
+        this.tableConfiguration.dataCount = data.length;
+        this.table.refresh();
+      }
+    }));
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -162,10 +150,6 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
     });
   }
 
-  ngAfterViewInit(): void {
-    this.table.refresh();
-  }
-
   onTemplateAdded() {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`, {
       outlets: { sidenav: ApplicationRoutes.Add },
@@ -177,13 +161,13 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
 
   onTemplateEdited(template: EntityTemplatesListItem) {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.id}` },
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.entitySectionTemplateId}` },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onTemplateDeleted(_template: EntityTemplatesListItem) {
+  onTemplateDeleted(template: EntityTemplatesListItem) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to delete this template?',
       title: 'Delete Template',
@@ -196,10 +180,17 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
 
     this.subscriptions.add(
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
-        if (isConfirmed) { }
+        if (isConfirmed) {
+          this.entitiesTemplatesListService.deleteTemplate(template.entitySectionTemplateId);
+        }
       }));
   }
 
-  onTemplateViewed(_template: EntityTemplatesListItem) {
+  onTemplateViewed(template: EntityTemplatesListItem) {
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`, {
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.entitySectionTemplateId}` },
+    }], { skipLocationChange: true, queryParams: { isViewMode: true } });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
   }
 }

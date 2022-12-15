@@ -12,3 +12,8 @@
     height: 12px;
     width: 12px;
 }
+
+:host ::ng-deep .mat-tab-label {
+    height: 40px !important;
+    min-width: 120px !important;
+}

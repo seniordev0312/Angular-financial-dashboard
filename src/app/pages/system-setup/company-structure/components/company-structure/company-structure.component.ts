@@ -3,7 +3,7 @@ import { BaseComponent } from '@root/shared/components/base-component/base-compo
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { TreeNode } from 'primeng/api';
-import { treeNode$ } from '../../store/company-structure.store';
+import { CompanyStructureService } from '../../services/company-structure.service';
 @Component({
   selector: 'app-company-structure',
   templateUrl: './company-structure.component.html',
@@ -11,14 +11,63 @@ import { treeNode$ } from '../../store/company-structure.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanyStructureComponent extends BaseComponent implements OnInit {
-  data: TreeNode[];
+  treeNode: TreeNode[];
   constructor(
     private layoutService: LayoutService,
+    private companyStructureService: CompanyStructureService,
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.companyStructureService.addBranch$.subscribe((data) => {
+        if (data) {
+          if (data.level === 2) {
+            this.treeNode[0].children.push({
+              type: 'branch',
+              expanded: true,
+              data: { name: data.name, level: data.level, parentId: data.parentId, id: data.id },
+              children: [],
+            })
+          } else {
+            this.addNodeToTreeNode(
+              this.treeNode[0],
+              {
+                type: 'branch',
+                expanded: true,
+                data: { name: data.name, level: data.level++, parentId: data.parentId },
+                children: [],
+              })
+          }
+        }
+      })
+    );
+
+    this.subscriptions.add(
+      this.companyStructureService.addDepartment$.subscribe((data) => {
+        if (data) {
+          if (data.level === 2) {
+            this.treeNode[0].children.push({
+              type: 'department',
+              expanded: true,
+              data: { name: data.name, level: data.level, parentId: data.parentId, id: data.id },
+              children: [],
+            })
+          } else {
+            this.addNodeToTreeNode(
+              this.treeNode[0],
+              {
+                type: 'department',
+                expanded: true,
+                data: { name: data.name, level: data.level++, parentId: data.parentId },
+                children: [],
+              })
+          }
+        }
+      })
+    );
+
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -32,48 +81,33 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
       ],
     });
 
-    this.subscriptions.add(
-      treeNode$.subscribe((data) => {
-        if (data) {
-          console.log('treeNode$', this.data);
-          this.data = data;
-        }
-      })
-    );
+    // this.subscriptions.add(
+    //   treeNode$.subscribe((data) => {
+    //     if (data) {
+    //       console.log('treeNode$', this.treeNode);
+    //       this.treeNode = data;
+    //     }
+    //   })
+    // );
 
-    this.data = [
+    this.treeNode = [
       {
         type: 'company',
         expanded: true,
-        key: '1',
-        data: { name: 'Company Name', level: 1 },
-        children: [
-          // {
-          //   type: 'branch',
-          //   expanded: true,
-          //   data: { name: 'branch A' },
-          //   children: [
-          //     {
-          //       type: 'group',
-          //       expanded: true,
-          //       data: { name: 'Group 1' },
-          //     },
-          //     {
-          //       type: 'group',
-          //       expanded: true,
-          //       data: { name: 'Group 2' },
-          //     }
-          //   ]
-          // },
-          // {
-          //   type: 'department',
-          //   expanded: true,
-          //   data: { name: 'Department 1' },
-          // },
-        ]
+        data: { name: 'Company Name', level: 1, id: 3, parentId: 0 },
+        children: []
       }
     ];
   }
-
+  addNodeToTreeNode(nodes: TreeNode, node: TreeNode) {
+    nodes.children.forEach((item) => {
+      if (item.data.id === node.data.parentId) {
+        item.children.push(node);
+      } else {
+        this.addNodeToTreeNode(item, node)
+      }
+    })
+    // return this.addNodeToTreeNode()
+  }
 
 }

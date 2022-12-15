@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -13,6 +13,10 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
 import { EntitiesListItem } from '../../models/entities-list-item.model';
+import { EntityDetails } from '../../models/entity-details.model';
+import { EntitiesListService } from '../../services/entities-list.service';
+import { EntitiesListRepository } from '../../store/entities-list.repository';
+import { entitiesList$ } from '../../store/entities-list.store';
 
 @Component({
   selector: 'app-entities-list-management',
@@ -20,45 +24,12 @@ import { EntitiesListItem } from '../../models/entities-list-item.model';
   styleUrls: ['./entities-list-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesListManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class EntitiesListManagementComponent extends BaseComponent implements OnInit {
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<EntitiesListItem>;
-  pageSize = 50;
-  pageIndex = 1;
   filter: Filter[];
-  templatesList: EntitiesListItem[] = [
-    {
-      id: '1',
-      code: '1',
-      name: 'FirstName',
-      description: 'An entity representing a potential client, current client, previous client, or third'
-    },
-    {
-      id: '1',
-      code: '1',
-      name: 'FirstName',
-      description: 'An entity representing a potential client, current client, previous client, or third'
-    },
-    {
-      id: '1',
-      code: '1',
-      name: 'FirstName',
-      description: 'An entity representing a potential client, current client, previous client, or third'
-    },
-    {
-      id: '1',
-      code: '1',
-      name: 'FirstName',
-      description: 'An entity representing a potential client, current client, previous client, or third'
-    },
-    {
-      id: '1',
-      code: '1',
-      name: 'FirstName',
-      description: 'An entity representing a potential client, current client, previous client, or third'
-    },
-  ]
+  entitiesList: EntitiesListItem[] = [];
   tableColumns: TableColumn[] = [
     {
       translationKey: 'Entity Code',
@@ -138,18 +109,28 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
     tableRowsActionsList: [this.editAction, this.deleteAction],
     columns: this.tableColumns,
     data: [],
-    dataCount: 3,//todo replace after api
+    dataCount: 0,
     settings: this.tableSettings,
   };
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
+    private entitiesListService: EntitiesListService,
+    private entitiesListRepository: EntitiesListRepository,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
-    this.tableConfiguration.data = this.templatesList;
+    this.entitiesListService.getEntitiesList();
+    this.subscriptions.add(entitiesList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.entitiesList = data;
+        this.tableConfiguration.data = data;
+        this.tableConfiguration.dataCount = data.length;
+        this.table.refresh();
+      }
+    }))
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -157,24 +138,22 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
           translationKey: 'Entity Management'
         },
         {
-          route: ApplicationRoutes.EntitiesListManagement,
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`,
           translationKey: 'Manage Entity'
         }
       ],
     });
   }
 
-  ngAfterViewInit(): void {
-    this.table.refresh();
-  }
 
   onEntityAdded() {
+    this.entitiesListRepository.updateEntityDetails({} as EntityDetails);
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}/${ApplicationRoutes.Add}`]);
   }
 
-
   onEntityEdited(template: EntitiesListItem) {
-    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}/${ApplicationRoutes.Add}/${template.id}`]);
+    this.entitiesListRepository.updateEntityDetails({} as EntityDetails);
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}/${template.code}`]);
   }
 
   onEntityDeleted(_template: EntitiesListItem) {

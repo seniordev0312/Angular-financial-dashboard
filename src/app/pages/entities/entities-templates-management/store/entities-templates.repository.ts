@@ -14,7 +14,7 @@ export class EntitiesTemplatesRepository {
     updateSelectedTemplate(template: AddTemplate): void {
         this.entitiesTemplatesStore.update((state) => ({
             ...state,
-            TemplateDetails: template
+            templateDetails: template
         }));
     }
 
@@ -28,15 +28,15 @@ export class EntitiesTemplatesRepository {
     addTemplate(addedTemplate: EntityTemplatesListItem) {
         this.entitiesTemplatesStore.update((state) => ({
             ...state,
-            templatesList: { ...addedTemplate, ...this.entitiesTemplatesStore.value.templatesList }
+            templatesList: [addedTemplate, ...this.entitiesTemplatesStore.value.templatesList]
         }));
     }
 
-    deleteTemplate(templateId: number) {
+    deleteTemplate(templateId: string) {
         const templatesList = this.entitiesTemplatesStore.value.templatesList;
         this.entitiesTemplatesStore.update((state) => ({
             ...state,
-            templatesList: [...templatesList.filter(element => element.id === templateId)]
+            templatesList: [...templatesList.filter(element => element.entitySectionTemplateId !== templateId)]
         }));
     }
 
@@ -49,7 +49,7 @@ export class EntitiesTemplatesRepository {
 
     getUpdatedTemplatesList(template: EntityTemplatesListItem): EntityTemplatesListItem[] {
         const newList = [...this.entitiesTemplatesStore.value.templatesList];
-        const index = newList.findIndex((e) => e.id === template.id);
+        const index = newList.findIndex((e) => e.entitySectionTemplateId === template.entitySectionTemplateId);
         if (index !== -1) {
             newList[index] = template;
         }

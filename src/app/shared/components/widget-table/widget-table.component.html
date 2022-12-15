@@ -1,194 +1,191 @@
 <div class="card overflow-auto shared-table" [ngClass]="tableConfiguration.settings.cssClasses">
-    <p-table #dt [value]="data" [rowHover]="true" responsiveLayout="scroll" [rows]="pageSize"
-        (onFilter)="onFilterChanged($event.filters)" [lazy]="!tableConfiguration.settings.isLocalPaging"
-        [totalRecords]="totalRecords" [paginator]="
+  <p-table #dt [value]="data" [rowHover]="true" responsiveLayout="scroll" [rows]="pageSize"
+    (onFilter)="onFilterChanged($event.filters)" [lazy]="!tableConfiguration.settings.isLocalPaging"
+    [totalRecords]="totalRecords" [paginator]="
                     (!tableConfiguration.settings.isLocalPaging ||
                         (tableConfiguration.settings.isLocalPaging &&
                             totalRecords > tableConfiguration.settings.pageSize)) &&
                     tableConfiguration.settings.enablePaging
                 " (onLazyLoad)="onLazyLoad($event)" [filterDelay]="0" styleClass="p-datatable-sm p-datatable-gridlines"
-        [showFirstLastIcon]="false" [loading]="isSpinning$ | async" [showPageLinks]="true"
-        loadingIcon="pi pi-spin pi-spinner loading-icon-size">
-        <ng-template pTemplate="header">
-            <tr>
-                <ng-container *ngFor="let column of tableConfiguration.columns">
-                    <th *ngIf="column.visible" [ngClass]="column.cssClasses(column.property)" scope="cols">
-                        <!--check-->
-                        <div class="flex justify-center text-sm items-center">
-                            <ng-container *ngIf="column.hasFilter">
-                                <ng-container [ngSwitch]="column.filter?.filterType">
-                                    <!--text-->
-                                    <p-columnFilter *ngSwitchCase="'string'" [showMenu]="false" type="text"
-                                        [placeholder]="column.translationKey" [showClearButton]="false"
-                                        [field]="column?.filter?.filterProperty ?? column.property">
-                                    </p-columnFilter>
-                                    <!--numeric-->
-                                    <p-columnFilter *ngSwitchCase="'numeric'" type="numeric" [showMenu]="false"
-                                        [placeholder]="column.translationKey" [showClearButton]="false"
-                                        [field]="column?.filter?.filterProperty ?? column.property">
-                                    </p-columnFilter>
-                                    <!--data-->
-                                    <p-columnFilter *ngSwitchCase="'date'" type="date" [showAddButton]="false"
-                                        [placeholder]="column.translationKey" [showMenu]="false"
-                                        [showClearButton]="false"
-                                        [field]="column?.filter?.filterProperty ?? column.property">
-                                    </p-columnFilter>
-                                    <!--multiselect-->
-                                    <p-columnFilter *ngSwitchCase="'multipleChoices'" [showMenu]="false"
-                                        [showMatchModes]="false" [showMatchModes]="false"
-                                        [placeholder]="column.translationKey" [showClearButton]="false"
-                                        [field]="column?.filter?.filterProperty ?? column.property" matchMode="in"
-                                        [showAddButton]="false" class="p-ml-auto">
-                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multiSelect [optionValue]="
+    [showFirstLastIcon]="false" [showPageLinks]="true" loadingIcon="pi pi-spin pi-spinner loading-icon-size">
+    <ng-template pTemplate="header">
+      <tr>
+        <ng-container *ngFor="let column of tableConfiguration.columns">
+          <th *ngIf="column.visible" [ngClass]="column.cssClasses(column.property)" scope="cols">
+            <!--check-->
+            <div class="flex justify-center text-sm items-center">
+              <ng-container *ngIf="column.hasFilter">
+                <ng-container [ngSwitch]="column.filter?.filterType">
+                  <!--text-->
+                  <p-columnFilter *ngSwitchCase="'string'" [field]="column?.filter?.filterProperty ?? column.property"
+                    matchMode="contains" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                        class="p-inputtext" [placeholder]="column.translationKey">
+                    </ng-template>
+                  </p-columnFilter>
+                  <!--numeric-->
+                  <p-columnFilter *ngSwitchCase="'numeric'" type="numeric" [showMenu]="false"
+                    [placeholder]="column.translationKey" [showClearButton]="false"
+                    [field]="column?.filter?.filterProperty ?? column.property">
+                  </p-columnFilter>
+                  <!--data-->
+                  <p-columnFilter *ngSwitchCase="'date'" type="date" [showAddButton]="false"
+                    [placeholder]="column.translationKey" [showMenu]="false" [showClearButton]="false"
+                    [field]="column?.filter?.filterProperty ?? column.property">
+                  </p-columnFilter>
+                  <!--multiselect-->
+                  <p-columnFilter *ngSwitchCase="'multipleChoices'" [showMenu]="false" [showMatchModes]="false"
+                    [showMatchModes]="false" [placeholder]="column.translationKey" [showClearButton]="false"
+                    [field]="column?.filter?.filterProperty ?? column.property" matchMode="in" [showAddButton]="false"
+                    class="p-ml-auto">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect [optionValue]="
                                                             tableConfiguration.settings.isLocalPaging
                                                                 ? column.filter.selectListViewProperty
                                                                 : 'id' 
                                                         " (onChange)="filter($event.value)" [ngModel]="value"
-                                                [optionLabel]="column.filter?.selectListViewProperty"
-                                                [options]="column.filter?.selectOptionsList" placeholder="Any">
-                                                <ng-template let-option pTemplate="item">
-                                                    <div class="p-multiselect-representative-option">
-                                                        <span class="p-ml-1">{{
-                                                            option[column.filter?.selectListViewProperty]
-                                                            }}</span>
-                                                    </div>
-                                                </ng-template>
-                                            </p-multiSelect>
-                                        </ng-template>
-                                    </p-columnFilter>
-                                    <!--dropdown-->
-                                    <p-columnFilter *ngSwitchCase="'dropDown'" [showMenu]="false"
-                                        [field]="column?.filter?.filterProperty ?? column.property"
-                                        [placeholder]="column.translationKey" [showAddButton]="false"
-                                        [showClearButton]="false" [showMatchModes]="false" matchMode="equals">
-                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown [ngModel]="value" [options]="column.filter?.selectOptionsList"
-                                                placeholder="Select" name="drop down filter"
-                                                [optionLabel]="column.filter?.selectListViewProperty"
-                                                [optionValue]="'name'" (onChange)="filter($event.value)">
-                                                <ng-template let-option pTemplate="item">
-                                                    <span>{{
-                                                        option[column.filter?.selectListViewProperty]
-                                                        }}</span>
-                                                </ng-template>
-                                            </p-dropdown>
-                                        </ng-template>
-                                    </p-columnFilter>
-                                    <!--boolean-->
-                                    <p-columnFilter *ngSwitchCase="'boolean'" type="boolean" [showMenu]="false"
-                                        [field]="column?.filter?.filterProperty ?? column.property"
-                                        [placeholder]="column.translationKey" [showClearButton]="false">
-                                    </p-columnFilter>
-                                </ng-container>
-                            </ng-container>
-                            <p-sortIcon [field]="column.property" [pSortableColumn]="column.property"
-                                *ngIf="column.enableSort"></p-sortIcon>
-                        </div>
-                    </th>
+                        [optionLabel]="column.filter?.selectListViewProperty"
+                        [options]="column.filter?.selectOptionsList" placeholder="Any">
+                        <ng-template let-option pTemplate="item">
+                          <div class="p-multiselect-representative-option">
+                            <span class="p-ml-1">{{
+                              option[column.filter?.selectListViewProperty]
+                              }}</span>
+                          </div>
+                        </ng-template>
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                  <!--dropdown-->
+                  <p-columnFilter *ngSwitchCase="'dropDown'" [showMenu]="false"
+                    [field]="column?.filter?.filterProperty ?? column.property" [placeholder]="column.translationKey"
+                    [showAddButton]="false" [showClearButton]="false" [showMatchModes]="false" matchMode="equals">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-dropdown [ngModel]="value" [options]="column.filter?.selectOptionsList" placeholder="Select"
+                        name="drop down filter" [optionLabel]="column.filter?.selectListViewProperty"
+                        [optionValue]="'name'" (onChange)="filter($event.value)">
+                        <ng-template let-option pTemplate="item">
+                          <span>{{
+                            option[column.filter?.selectListViewProperty]
+                            }}</span>
+                        </ng-template>
+                      </p-dropdown>
+                    </ng-template>
+                  </p-columnFilter>
+                  <!--boolean-->
+                  <p-columnFilter *ngSwitchCase="'boolean'" type="boolean" [showMenu]="false"
+                    [field]="column?.filter?.filterProperty ?? column.property" [placeholder]="column.translationKey"
+                    [showClearButton]="false">
+                  </p-columnFilter>
                 </ng-container>
-                <th *ngIf="tableConfiguration.settings.enableActions">
-                    <span class="font-light">Actions</span>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template [pTemplate]="'body'" let-row>
-            <tr class="p-selectable-row">
-                <ng-container *ngFor="let column of tableConfiguration.columns">
-                    <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
-                        <div class="flex justify-center">
-                            <mat-icon *ngSwitchCase="'bool'" class="cursor-pointer"
-                                [svgIcon]="row[column.property] ? 'true' :'false'">
-                            </mat-icon>
-                        </div>
-                        <div class="w-full" *ngSwitchCase="'dropDown'">
-                            <mat-form-field class="text-sm w-32" appearance="outline">
-                                <mat-select [value]="row[column.property]"
-                                    (valueChange)="column.action({ data: row, value: $event })">
-                                    <mat-option class="text-sm" [value]="option.name"
-                                        *ngFor="let option of column.selectOptionsList">{{ option.name }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div *ngSwitchCase="'array'" class="flex items-center w-max-content justify-center">
-                            <div *ngFor="let item of row[column.property]" [ngClass]="item.cssClasses"
-                                class="mr-2 flex items-center justify-center text-sm" fxFlex="none">
-                                <span [ngClass]="item.iconCssClass" class="mr-2 material-icons" *ngIf="item.icon">
-                                    {{ item.icon }}</span>
-                                <span class="text-xs">{{ item.label }}</span>
-                            </div>
-                        </div>
-                        <div class="w-full flex" [ngClass]="column.alignment ?? 'justify-center'" *ngSwitchDefault>
-                            <!--svg icon-->
-                            <mat-icon *ngIf="column?.svgIcon" [ngClass]="column.iconCssClass"
-                                [class]="column.showText ? 'mr-2' : ''" [svgIcon]="column?.svgIcon ?? null">
-                            </mat-icon>
-                            <span class="text-sm" *ngIf="column.showText" [matTooltipDisabled]="!column?.hasToolTip"
-                                [matTooltip]="column?.hasToolTip ? column?.toolTipText(row) : null"
-                                [ngClass]="column?.dataCssClasses(row[column.property])">{{ row[column.property]
-                                }}</span>
-                            <button mat-icon-button name="copy" color="primary" class="text-sm field-icon"
-                                *ngIf="column?.canCopyText" (click)="copyText(row[column.property])">
-                                <mat-icon>content_copy</mat-icon>
-                            </button>
-                        </div>
-                    </td>
-                </ng-container>
+              </ng-container>
+              <p-sortIcon [field]="column.property" [pSortableColumn]="column.property"
+                *ngIf="column.enableSort"></p-sortIcon>
+            </div>
+          </th>
+        </ng-container>
+        <th *ngIf="tableConfiguration.settings.enableActions">
+          <span class="font-light">Actions</span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template [pTemplate]="'body'" let-row>
+      <tr class="p-selectable-row">
+        <ng-container *ngFor="let column of tableConfiguration.columns">
+          <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
+            <div class="flex justify-center">
+              <mat-slide-toggle color="primary" *ngSwitchCase="'bool'" [checked]="row[column.property]"
+                (change)="column.action({ data: row, value: $event.checked })">
+              </mat-slide-toggle>
+            </div>
+            <div class="w-full" *ngSwitchCase="'dropDown'">
+              <mat-form-field class="text-sm w-32" appearance="outline">
+                <mat-select [value]="row[column.property]" (valueChange)="column.action({ data: row, value: $event })">
+                  <mat-option class="text-sm" [value]="option.name" *ngFor="let option of column.selectOptionsList">{{
+                    option.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'array'" class="flex items-center w-max-content justify-center">
+              <div *ngFor="let item of row[column.property]" [ngClass]="item.cssClasses"
+                class="mr-2 flex items-center justify-center text-sm" fxFlex="none">
+                <span [ngClass]="item.iconCssClass" class="mr-2 material-icons" *ngIf="item.icon">
+                  {{ item.icon }}</span>
+                <span class="text-xs">{{ item.label }}</span>
+              </div>
+            </div>
+            <div class="w-full flex" [ngClass]="column.alignment ?? 'justify-center'" *ngSwitchDefault>
+              <!--svg icon-->
+              <mat-icon *ngIf="column?.svgIcon" [ngClass]="column.iconCssClass" [class]="column.showText ? 'mr-2' : ''"
+                [svgIcon]="column?.svgIcon ?? null">
+              </mat-icon>
+              <span class="text-sm" *ngIf="column.showText" [matTooltipDisabled]="!column?.hasToolTip"
+                [matTooltip]="column?.hasToolTip ? column?.toolTipText(row) : null"
+                [ngClass]="column?.dataCssClasses(row[column.property])">{{ row[column.property]
+                }}</span>
+              <button mat-icon-button name="copy" color="primary" class="text-sm field-icon" *ngIf="column?.canCopyText"
+                (click)="copyText(row[column.property])">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-                <td *ngIf="tableConfiguration.settings.enableActions">
-                    <button (click)="$event.stopPropagation()"
-                        *ngIf="(tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='menu')||(tableConfiguration.settings.enableActions&&(isMobile$|async))"
-                        [matMenuTriggerData]="{ row: row }" name="action" [matMenuTriggerFor]="actionsMenu"
-                        mat-icon-button type="button">
-                        <span class="material-icons">
-                            more_vert
-                        </span> </button>
-                    <div class="flex justify-center"
-                        *ngIf="tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='inline'&&(isMobile$|async)===false">
-                        <ng-container *ngTemplateOutlet="inlineActions; context:{ row: row}">
-                        </ng-container>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="8">
-                    <div class="flex flex-col justify-center items-center bg-white py-3">
-                        <img class="w-[18rem] h-[18rem]" src="assets/images/no-data-found.svg" />
-                        <h3 class="text-3xl text-accent font-semibold mt-5">No Data Found</h3>
-                        <h4 class="text-accent text-xl mt-3">Please Try Again Later</h4>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+        <td *ngIf="tableConfiguration.settings.enableActions">
+          <button (click)="$event.stopPropagation()"
+            *ngIf="(tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='menu')||(tableConfiguration.settings.enableActions&&(isMobile$|async))"
+            [matMenuTriggerData]="{ row: row }" name="action" [matMenuTriggerFor]="actionsMenu" mat-icon-button
+            type="button">
+            <span class="material-icons">
+              more_vert
+            </span> </button>
+          <div class="flex justify-center"
+            *ngIf="tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='inline'&&(isMobile$|async)===false">
+            <ng-container *ngTemplateOutlet="inlineActions; context:{ row: row}">
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template *ngIf="(isSpinning$ | async)===false" pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">
+          <div class="flex flex-col justify-center items-center bg-white py-3">
+            <img class="w-[14rem] h-[14rem]" src="assets/images/no-data-found.svg" />
+            <h3 class="text-xl text-accent font-semibold mt-5">No Data Found</h3>
+            <h4 class="text-accent text-sm mt-3">Please Try Again Later</h4>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
 <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
-    <ng-template let-row="row" matMenuContent>
-        <div [ngClass]="containerClass(action, row)" class="actions-menu flex flex-row items-center"
-            *ngFor="let action of tableConfiguration.tableRowsActionsList">
-            <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
-                class="text-md w-full" name="condition button" (click)="action.action(row)" mat-raised-button>
-                <span class="material-icons mr-2">
-                    {{ action.iconName }}
-                </span>
-                <span class="text-sm" translate>{{ action.translationKey }}</span>
-            </button>
-        </div>
-    </ng-template>
+  <ng-template let-row="row" matMenuContent>
+    <div [ngClass]="containerClass(action, row)" class="actions-menu flex flex-row items-center"
+      *ngFor="let action of tableConfiguration.tableRowsActionsList">
+      <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
+        class="text-md w-full" name="condition button" (click)="action.action(row)" mat-raised-button>
+        <span class="material-icons mr-2">
+          {{ action.iconName }}
+        </span>
+        <span class="text-sm" translate>{{ action.translationKey }}</span>
+      </button>
+    </div>
+  </ng-template>
 </mat-menu>
 
 <ng-template #inlineActions let-row="row">
-    <ng-container *ngFor="let action of tableConfiguration.tableRowsActionsList">
-        <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
-            class="text-md mx-2" (click)="action.action(row)" mat-raised-button>
-            <span class="material-icons-outlined ltr:mr-2 rtl:mr-0 rtl:ml-2">
-                {{action.iconName}}
-            </span>
-            <span translate>{{action.translationKey}}</span>
-        </button>
-    </ng-container>
+  <ng-container *ngFor="let action of tableConfiguration.tableRowsActionsList">
+    <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
+      class="text-md mx-2" (click)="action.action(row)" mat-raised-button>
+      <span class="material-icons-outlined ltr:mr-2 rtl:mr-0 rtl:ml-2">
+        {{action.iconName}}
+      </span>
+      <span translate>{{action.translationKey}}</span>
+    </button>
+  </ng-container>
 </ng-template>

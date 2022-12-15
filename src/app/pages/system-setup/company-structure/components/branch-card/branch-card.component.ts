@@ -17,6 +17,7 @@ export class BranchCardComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+
   }
 
   onGroupAdded(): void {
@@ -24,7 +25,13 @@ export class BranchCardComponent implements OnInit {
       outlets: {
         sidenav: ApplicationRoutes.AddGroup
       },
-    }], { skipLocationChange: true });
+    }], {
+      queryParams: {
+        level: this.data.level,
+        parentId: this.data.id
+      },
+      skipLocationChange: true,
+    });
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
@@ -35,7 +42,13 @@ export class BranchCardComponent implements OnInit {
       outlets: {
         sidenav: ApplicationRoutes.AddDepartment
       },
-    }], { skipLocationChange: true });
+    }], {
+      queryParams: {
+        level: this.data.level,
+        parentId: this.data.id
+      },
+      skipLocationChange: true,
+    });
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');

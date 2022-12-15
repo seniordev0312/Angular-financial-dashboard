@@ -19,6 +19,7 @@ import { CardComponent } from '@root/shared/components/card/card.component';
 import { CardItemComponent } from '@root/shared/components/card-item/card-item.component';
 import { ButtonComponent } from '@root/shared/components/button/button.component';
 import { InputFieldComponent } from '@root/shared/components/input-field/input-field.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +38,8 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 import { SingleSelectComponent } from './components/single-select/single-select.component';
 import { CanAccessFeatureDirective } from './directives/access-control.directive';
 
+import { DatePickerInputComponent } from './components/date-picker-input/date-picker-input.component';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
     declarations: [
         CardItemComponent,
@@ -51,6 +54,7 @@ import { CanAccessFeatureDirective } from './directives/access-control.directive
         EntityInformationComponent,
         MultiSelectComponent,
         SingleSelectComponent,
+        DatePickerInputComponent
         CanAccessFeatureDirective
     ],
     imports: [
@@ -62,6 +66,7 @@ import { CanAccessFeatureDirective } from './directives/access-control.directive
         MatMenuModule,
         MatIconModule,
         MatTooltipModule,
+        MatDatepickerModule,
         IconSvgModule,
         CommonModule,
         TableModule,
@@ -70,6 +75,7 @@ import { CanAccessFeatureDirective } from './directives/access-control.directive
         SliderModule,
         PaginatorModule,
         InputTextModule,
+        MatNativeDateModule,
         ButtonModule,
         FormsModule,
         TranslateModule,
@@ -86,6 +92,7 @@ import { CanAccessFeatureDirective } from './directives/access-control.directive
         InputFieldComponent,
         SelectListComponent,
         WidgetTableComponent,
+        DatePickerInputComponent,
         BaseComponent,
         TranslateModule,
         AutomaticFormValidationModule,

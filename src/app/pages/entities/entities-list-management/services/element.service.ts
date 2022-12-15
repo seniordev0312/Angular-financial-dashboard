@@ -1,42 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { AddSection } from '../models/add-section.model';
-import { ElementsListItem } from '../models/element.model';
-import { ElementsListRepository } from '../store/elements-list.repository';
+import { AddElement } from '../models/add-element-list-item.model';
+import { EntityDetails } from '../models/entity-details.model';
+import { EntitiesListRepository } from '../store/entities-list.repository';
+import { LayoutService } from '@root/shared/services/layout.service';
 
 @Injectable({ providedIn: 'root' })
 export class ElementService {
-    private baseUrl = `${environment.apiUrl}/v1.0/`;
 
     constructor(private httpClient: HttpClient,
-        private elementsListRepository: ElementsListRepository) { }
+        private layoutService: LayoutService,
+        private entitiesListRepository: EntitiesListRepository) { }
 
 
-    addElement(section: AddSection, sectionId: string): void {
-        const endPointUrl = `${this.baseUrl}/${sectionId}`
+    addElement(element: AddElement): void {
+        const endPointUrl = `${environment.apiUrl}/EntityDefinition/AddEntityDefinitionSectionField`
 
-        this.httpClient.post<ElementsListItem>(endPointUrl, section).subscribe(data => {
-            if (!data) {
-                this.elementsListRepository.addElement(data, sectionId);
+        this.httpClient.put<EntityDetails>(endPointUrl, element).subscribe(data => {
+            if (data) {
+                this.entitiesListRepository.updateEntityDetails(data);
             }
         });
     }
 
-    editElement(section: AddSection, sectionId: string): void {
-        const endPointUrl = `${this.baseUrl}/${sectionId}`
+    editElement(element: AddElement): void {
+        const endPointUrl = `${environment.apiUrl}/EntityDefinition/UpdateEntityDefinitionSectionField`
 
-        this.httpClient.put<ElementsListItem>(endPointUrl, section).subscribe(data => {
-            if (!data) {
-                this.elementsListRepository.updateElement(data, sectionId);
+        this.httpClient.put<EntityDetails>(endPointUrl, element).subscribe(data => {
+            if (data) {
+                this.entitiesListRepository.updateEntityDetails(data);
             }
         });
     }
 
-    deleteElement(elementId: string, sectionId: string): void {
-        const endPointUrl = `${this.baseUrl}/${sectionId}/${elementId}`
-        this.httpClient.delete<void>(endPointUrl).subscribe(() => {
-            this.elementsListRepository.deleteElement(elementId, sectionId);
+    deleteElement(entityDefinitionId: string, entityDefinitionSectionId: string, fieldName: string): void {
+        const endPointUrl = `${environment.apiUrl}/EntityDefinition/DeleteEntityDefinitionSectionField/${entityDefinitionId}/${entityDefinitionSectionId}/${fieldName}`
+        this.httpClient.delete<EntityDetails>(endPointUrl).subscribe(data => {
+            if (data) {
+                this.entitiesListRepository.updateEntityDetails(data);
+                this.layoutService.closeRightSideNav();
+            }
         });
     }
 }

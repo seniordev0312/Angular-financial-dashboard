@@ -1,36 +1,43 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add Element in Empty Section':'View Element'}}</h4>
     <div class="mr-[45px]">
-        <app-input-field label="Element Name:" [control]="getFormControl('name')"></app-input-field>
-        <app-select-list label="Element Template:" [control]="getFormControl('template')"></app-select-list>
+        <app-input-field label="Element Name:" [control]="getFormControl('elementName')"></app-input-field>
+        <app-select-list label="Element Type:" [control]="getFormControl('elementType')"
+            [optionsList]="elementTypesReferenceList"></app-select-list>
         <app-input-field *ngIf="isCreateMode()" label="Element Description:" [control]="getFormControl('description')">
         </app-input-field>
 
         <div *ngIf="isCreateMode()" class="flex items-center justify-between mb-3">
             <p class="text-xs font-bold">Validation</p>
-            <mat-slide-toggle formControlName="hasValidation"></mat-slide-toggle>
+            <mat-slide-toggle formControlName="validation"></mat-slide-toggle>
         </div>
-        <app-input-field *ngIf="isCreateMode()" label="Regex" [control]="getFormControl('regex')"></app-input-field>
+        <app-input-field *ngIf="isCreateMode()" label="Regex"
+            [control]="getFormControl('regularExpression')"></app-input-field>
         <div class="flex items-center justify-between mt-3">
             <p class="text-xs font-bold">Mandatory</p>
-            <mat-slide-toggle formControlName="isMandatory"></mat-slide-toggle>
+            <mat-slide-toggle formControlName="mandatory"></mat-slide-toggle>
         </div>
         <div class="flex items-center justify-between mt-3">
             <p class="text-xs font-bold">Searchable</p>
-            <mat-slide-toggle></mat-slide-toggle>
+            <mat-slide-toggle formControlName="searchable"></mat-slide-toggle>
         </div>
         <div class="flex items-center justify-between mt-3">
             <p class="text-xs font-bold">Indexable</p>
-            <mat-slide-toggle formControlName="isIndexable"></mat-slide-toggle>
+            <mat-slide-toggle formControlName="indexable"></mat-slide-toggle>
         </div>
         <div *ngIf="isCreateMode()" class="flex items-center justify-between mt-3">
             <p class="text-xs font-bold">Lock Modifications</p>
-            <mat-slide-toggle formControlName="isNotificationsLocked"></mat-slide-toggle>
+            <mat-slide-toggle formControlName="lockModifications"></mat-slide-toggle>
         </div>
     </div>
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"
             classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
         <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
+    </div>
+    <div *ngIf="isUpdateMode()" class="flex items-center mt-3 justify-between w-full">
+        <app-button (trigger)="onElementDeleted()" text="Delete"
+            classes="h-9 w-[95px] bg-white border border-warn text-warn">
+        </app-button>
     </div>
 </form>

@@ -11,15 +11,27 @@ export class AddBranchFormGroup {
     getFormGroup(item?: AddBranch): FormGroup {
         this.fg = this.fb.group({
             name: new FormControl(item?.name || null, [Validators.required]),
+            parentId: new FormControl(item?.parentId || null, [Validators.required]),
             level: new FormControl(item?.level || null, [Validators.required]),
+            id: new FormControl(item?.id || null),
         });
         return this.fg;
     }
-
+    setLevel(level: number) {
+        this.fg.controls.level.setValue(level);
+    }
+    setParentId(parentId: number) {
+        this.fg.controls.parentId.setValue(parentId);
+    }
+    setId(id: number) {
+        this.fg.controls.id.setValue(id);
+    }
     getValueFromFormGroup(fg: FormGroup): AddBranch {
         return {
             name: fg.controls.name.value,
+            parentId: fg.controls.parentId.value,
             level: fg.controls.level.value,
+            id: fg.controls.id.value
         };
     }
 }
