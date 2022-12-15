@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LayoutService } from '@root/shared/services/layout.service';
 
 @Component({
   selector: 'app-calendar',
@@ -6,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
 
   calenders: any[] = [
     {
@@ -16,6 +17,11 @@ export class CalendarComponent {
       meetings: [{}, {}, {}]
     }
   ];
-  constructor() { }
+  constructor(
+    private layoutService: LayoutService
+  ) { }
+  ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({});
+  }
 
 }

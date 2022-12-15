@@ -1,11 +1,11 @@
 <div class="w-full flex flex-col pt-8 justify-between">
     <div class="flex flex-col">
         <span class="font-semibold pb-8">Add New User Role</span>
-        <app-input-field label="Role Name:" name="RoleName"></app-input-field>
+        <app-input-field label="Role Name:" name="RoleName" [control]="getFormControl('name')"></app-input-field>
         <div class="w-full rounded-md border-solid border-2 border-[#186AA5] pt-4">
             <div class="px-4">
-                <app-single-select extractValue="claimType" label="Modules" [items]="moduleList"
-                    [placeholder]="'Select Modules'" [formGroup]="singleFormGroup">
+                <app-single-select *ngIf="moduleList.length > 0" extractValue="claimType" label="Modules"
+                    [items]="moduleList" [placeholder]="'Select Modules'" [formGroup]="singleFormGroup">
                 </app-single-select>
             </div>
             <div class="px-4">
@@ -13,17 +13,21 @@
                     [formGroup]="multiFormGroup">
                 </app-multi-select>
             </div>
-            <mat-chip-list *ngIf="chipsList.length>0" class="border-t-primary">
-                <mat-chip class="relative" *ngFor="let chip of chipsList" color="primary">
-                    <span>{{getChipLabel(chip)}}</span>
-                    <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
-                        aria-label="'remove ' + chip">
-                        <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
-                            close
-                        </span>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
+
+            <form [formGroup]="claimsFormGroup">
+                <mat-chip-list *ngIf="claimsList.length > 0" class="border-t-primary" formControlName="claims">
+                    <mat-chip class="relative" *ngFor="let chip of claimsList" color="primary">
+                        <span>{{getChipLabel(chip)}}</span>
+                        <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
+                            aria-label="'remove ' + chip">
+                            <span
+                                class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
+                                close
+                            </span>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+            </form>
         </div>
     </div>
     <div class="flex items-center justify-between w-full mt-8">

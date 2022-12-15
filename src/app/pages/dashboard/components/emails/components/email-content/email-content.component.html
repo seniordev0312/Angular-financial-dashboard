@@ -1,0 +1,21 @@
+<div
+    class="flex flex-col h-20 w-full rounded-lg text-black bg-[#F5F5F5] mb-1 hover:bg-[#30313B] hover:text-white cursor-pointer">
+    <div class="flex flex-row h-full justify-center items-center w-full p-2 gap-1">
+        <div class="h-full w-2/12 flex justify-center items-center">
+            <img class="rounded-full w-full"
+                [src]="emailContent.profilePictureUrl ? emailContent.profilePictureUrl :'../../../../../../../../../../assets/images/profile.svg'"
+                alt="profile">
+        </div>
+        <div class="flex flex-col w-8/12 justify-start">
+            <div class="flex justify-start  text-xs">{{emailContent.from}}</div>
+            <div class="text-xxs flex justify-start font-bold">
+                {{ (emailContent.subject) | slice:0:30 }}...
+            </div>
+        </div>
+        <div class="relative w-2/12 h-full">
+            <div class="text-xxs">
+                {{emailContent.dateCreated | date:'shortTime'}}
+            </div>
+        </div>
+    </div>
+</div>

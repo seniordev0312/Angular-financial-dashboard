@@ -5,13 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
-import { MatMenuModule } from '@angular/material/menu';
 
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LayoutComponent } from './components/layout/layout.component';

@@ -9,7 +9,10 @@ import { StickyNotesCardComponent } from '@root/pages/dashboard/components/stick
 import { AssignedTasksItemComponent } from '@root/pages/dashboard/components/assigned-tasks-item/assigned-tasks-item.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { CalendarComponent } from '@root/pages/dashboard/components/calendar/calendar.component';
-import { EmailsComponent } from '@root/pages/dashboard/components/emails/emails.component';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { EmailContentComponent } from './components/emails/components/email-content/email-content.component';
+import { EmailChatComponent } from './components/emails/components/email-chat/email-chat.component';
+import { EmailsComponent } from './components/emails/components/email/emails.component';
 
 const routes: Route[] = [
   {
@@ -17,12 +20,12 @@ const routes: Route[] = [
     component: DashboardComponent,
   },
   {
-    path: '',
+    path: ApplicationRoutes.Calender,
     component: CalendarComponent,
     outlet: 'sidenav',
   },
   {
-    path: 'email',
+    path: ApplicationRoutes.Email,
     component: EmailsComponent,
     outlet: 'sidenav',
   },
@@ -35,7 +38,9 @@ const routes: Route[] = [
     StickyNotesCardComponent,
     AssignedTasksItemComponent,
     CalendarComponent,
-    EmailsComponent
+    EmailsComponent,
+    EmailContentComponent,
+    EmailChatComponent
   ],
   imports: [
     CommonModule,

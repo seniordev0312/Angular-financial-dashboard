@@ -1,3 +1,8 @@
-<div class="h-full w-full px-8">
-    <router-outlet name="sidenav"></router-outlet>
+<div class="relative h-full w-full px-4">
+  <router-outlet name="sidenav"></router-outlet>
+  <div *ngIf="canToggle" class="absolute h-32 w-4 left-0 top-[40%] 
+      bg-primary rounded-r-lg flex justify-center items-center text-white font-light cursor-pointer"
+    (click)="toggleRightSidenav()">
+    <span>{{path}}</span>
+  </div>
 </div>

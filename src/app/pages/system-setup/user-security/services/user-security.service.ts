@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
+import { AddClaim } from "../models/add-claim.model";
 import { AddRole } from "../models/add-role.model";
 import { RoleList } from "../models/role-list.model";
 import { Role } from "../models/role.model";
@@ -9,6 +11,9 @@ import { UserSecurityRepository } from "../store/user-security.repository";
 @Injectable({ providedIn: 'root' })
 export class UserSecurityService {
     private baseUrl = `${environment.identityServerURL}/Roles`;
+
+    addRoleSubject = new BehaviorSubject<AddRole>(null);
+    addRole$ = this.addRoleSubject.asObservable();
 
     constructor(
         private httpClient: HttpClient,
@@ -37,6 +42,22 @@ export class UserSecurityService {
         });
     }
 
+    getClaims(backendUrl?: string): void {
+        let endPointUrl = this.baseUrl;
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        if (backendUrl) {
+            endPointUrl = backendUrl;
+        }
+        this.httpClient.get<any>(endPointUrl, httpOptions).subscribe(data => {
+            if (data) {
+                this.userSecurityRepository.updateClaims(data);
+            }
+        });
+    }
+
     getClaimsByRole(role: Role): void {
         const endPointUrl = `${this.baseUrl}/${role.id}/Claims`
         this.httpClient.get<any>(endPointUrl).subscribe(data => {
@@ -57,36 +78,27 @@ export class UserSecurityService {
             endPointUrl = backendUrl;
         }
 
-        this.httpClient.post<any>(endPointUrl, addRole, httpOptions).subscribe(data => {
+        this.httpClient.post<AddRole>(endPointUrl, addRole, httpOptions).subscribe(data => {
             if (data) {
-                console.log(data);
-                // this.userSecurityRepository.updateRolesList(data);
+                this.addRoleSubject.next(data)
+                this.userSecurityRepository.addRole({ id: data.id, name: addRole.name })
             }
         });
     }
 
-    // addRole(role: any): void {
-    //     console.log(role);
-    //     this.httpClient.post<any>(this.baseUrl, document).subscribe(data => {
-    //         if (!data) {
-    //             this.userSecurityRepository.addDocument(data);
-    //         }
-    //     });
-    // }
+    addClaimToRole(addClaim: AddClaim, backendUrl?: string) {
+        let endPointUrl = this.baseUrl + '/Claims';
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        if (backendUrl) {
+            endPointUrl = backendUrl;
+        }
 
-    // editRole(role: any): void {
-    //     console.log(role);
-    //     this.httpClient.put<any>(this.baseUrl, document).subscribe(data => {
-    //         if (!data) {
-    //             this.userSecurityRepository.updateDocument(data);
-    //         }
-    //     });
-    // }
-
-    // deleteRole(roleId: string): void {
-    //     const endPointUrl = `${this.baseUrl}/${roleId}`
-    //     this.httpClient.delete<void>(endPointUrl).subscribe(() => {
-    //         this.userSecurityRepository.deleteDocument(roleId);
-    //     });
-    // }
+        this.httpClient.post<any>(endPointUrl, addClaim, httpOptions).subscribe(data => {
+            if (data) {
+            }
+        });
+    }
 }

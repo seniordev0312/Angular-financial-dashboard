@@ -19,7 +19,12 @@ export class UserSecurityRepository {
             roleList: RoleList
         }));
     }
-
+    updateClaims(claims: any): void {
+        this.userSecurityDocumentsStore.update((state) => ({
+            ...state,
+            claims: claims
+        }));
+    }
 
     updateRoleClaims(roleId: string, claims: ClaimList[]) {
         const newList = [...this.userSecurityDocumentsStore.value.roleList.roles];

@@ -40,4 +40,6 @@ export const enum ApplicationRoutes {
   EntitiesListManagement = 'list',
   EntitiesSection = 'section',
   EntitiesElement = 'element',
+  Email = 'email',
+  Calender = 'calender'
 }

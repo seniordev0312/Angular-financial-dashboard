@@ -8,6 +8,7 @@ import { RoleList } from '../models/role-list.model';
 
 export interface UserSecurityModel {
     roleList: RoleList;
+    claims: any;
 }
 
 const store = createStore(
@@ -16,6 +17,7 @@ const store = createStore(
     },
     withProps<UserSecurityModel>({
         roleList: null,
+        claims: null,
     })
 );
 
@@ -24,6 +26,7 @@ persistState(store, {
 });
 
 export const roleList$ = store.pipe(select(({ roleList }) => roleList));
+export const claims$ = store.pipe(select(({ claims }) => claims));
 
 export type UserSecurityDocumentsStore = typeof store;
 export const USER_SECURITY_STORE = new InjectionToken<

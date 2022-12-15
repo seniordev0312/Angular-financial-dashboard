@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RouteCrumbsList } from '@root/shared/models/bread-crumbs/router-crumbs-list.model';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class LayoutComponent implements OnInit {
   isRightSidenavOpened$ = this.layoutService.isRightSidenavOpened$;
   showBreadcrumb: boolean = false;
   mainContentClass: any = { 'h-full': true };
-  ml: string = '384px';
+  ml: string = '320px';
+  mr: string = '320px';
   constructor(
     private layoutService: LayoutService,
     private router: Router,
@@ -30,16 +32,16 @@ export class LayoutComponent implements OnInit {
       this.handleCrumb(true);
     else
       this.handleCrumb(false);
-
-    document.documentElement.style.setProperty('--sidenav-width', '40vh');
+    document.documentElement.style.setProperty('--left-sidenav-width', '320px');
+    document.documentElement.style.setProperty('--right-sidenav-width', '320px');
     this.router.events.subscribe((val: NavigationEnd) => {
-      if (val.url !== '/dashboard')
+      if (!val.url?.includes(`/${ApplicationRoutes.Dashboard}`))
         this.handleCrumb(true);
-      else
+      else {
         this.handleCrumb(false);
+      }
     });
   }
-
   handleCrumb(show: boolean) {
     if (show) {
       this.showBreadcrumb = true;
@@ -49,24 +51,30 @@ export class LayoutComponent implements OnInit {
       this.mainContentClass = { 'h-full': true };
     }
   }
-
   LSideBarToggle() {
     throw new Error('Method not implemented.');
   }
-
   updateBreadCrumbsRouter(): void {
     this.layoutService.breadcrumbsRoutes$.subscribe((routeCrumbsList: RouteCrumbsList) => {
       this.routeCrumbsList = routeCrumbsList;
     });
   }
-
   toggleSidenav(extended: any): void {
-    const size = extended ? '384px' : '50px';
-    document.documentElement.style.setProperty('--sidenav-width', size);
+    const size = extended ? '320px' : '50px';
+    document.documentElement.style.setProperty('--left-sidenav-width', size);
     if (extended) {
-      this.ml = '384px'
+      this.ml = '320px'
     } else {
       this.ml = '50px'
+    }
+  }
+  toggleRightSidenav(extended: any) {
+    const size = extended ? '320px' : '18px';
+    document.documentElement.style.setProperty('--right-sidenav-width', size);
+    if (extended) {
+      this.mr = '320px'
+    } else {
+      this.mr = '20px'
     }
   }
 }

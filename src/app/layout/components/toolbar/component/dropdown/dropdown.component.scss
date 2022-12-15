@@ -13,6 +13,7 @@
 
 
 
+
      .mat-form-field-appearance-legacy .mat-form-field-wrapper {
          padding: 0px;
      }
@@ -33,6 +34,10 @@
 
      .matOption {
          height: 3rem;
+     }
+
+     .mat-form-field-appearance-legacy .mat-form-field-infix {
+         border-top: 1.8em solid transparent !important
      }
 
      .mat-select-panel .mat-optgroup-label,

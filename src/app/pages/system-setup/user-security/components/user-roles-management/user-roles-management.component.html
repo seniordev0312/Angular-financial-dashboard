@@ -8,8 +8,8 @@
             classes="bg-accent text-xs text-white font-light h-8 w-[150px]">
         </app-button>
     </div>
-    <p-table class="main-table" [value]="data.roles" rowGroupMode="subheader" dataKey="id"
-        [totalRecords]="data.totalCount" [rows]="4" [paginator]="true">
+    <p-table class="main-table" [value]="data?.roles" rowGroupMode="subheader" dataKey="id"
+        [totalRecords]="data?.totalCount" [rows]="4" [paginator]="true">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:5%"></th>
@@ -62,8 +62,8 @@
             <tr>
                 <td class="sub-table" colspan="7">
                     <div>
-                        <p-table class="sub-table" [value]="role.claimList.claims"
-                            [totalRecords]="role.claimList.totalCount" dataKey="id" [rows]="4" [paginator]="true">
+                        <p-table class="sub-table" [value]="role.claimList?.claims"
+                            [totalRecords]="role.claimList?.totalCount" dataKey="id" [rows]="4" [paginator]="true">
                             <ng-template pTemplate="header">
             <tr>
                 <th class="sub-table-header">

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 import { card } from '../../../../shared/models/card/card.model';
 
@@ -9,7 +11,7 @@ import { card } from '../../../../shared/models/card/card.model';
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   cards: card[] = [
     {
@@ -113,11 +115,24 @@ export class DashboardComponent implements OnInit {
       backgroundColor: '#7BC8FF'
     }
   ]
-  constructor(private layoutService: LayoutService) {
+  constructor(
+    private router: Router,
+    private layoutService: LayoutService) {
 
   }
 
+  ngOnDestroy(): void {
+    this.layoutService.closeRightSideNav();
+  }
+
   ngOnInit(): void {
-    this.layoutService.updateBreadCrumbsRouter({})
+    this.layoutService.updateBreadCrumbsRouter({});
+    this.router.navigate([`${ApplicationRoutes.Dashboard}`, {
+      outlets: {
+        sidenav: ApplicationRoutes.Email
+      },
+    }], { skipLocationChange: true });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('side');
   }
 }

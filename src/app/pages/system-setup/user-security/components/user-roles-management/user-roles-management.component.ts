@@ -22,7 +22,7 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
 
   data: RoleList;
   pageIndex: number = 0;
-  pageSize: number = 4;
+  pageSize: number = 100;
 
   constructor(
     private userSecurityService: UserSecurityService,
@@ -35,7 +35,12 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
       roleList$.subscribe((data) => {
         this.data = data;
       })
-    )
+    );
+    this.subscriptions.add(
+      this.userSecurityService.addRole$.subscribe((_data) => {
+        this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
+      })
+    );
     this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [

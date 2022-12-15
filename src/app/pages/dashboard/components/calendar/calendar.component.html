@@ -18,15 +18,17 @@
                         <mat-icon>more_horiz</mat-icon>
                     </div>
                 </div>
-                <div *ngFor="let item of item.meetings" class="pt-1 pb-1">
-                    <div class="grid grid-cols-3 gap-1 divide-x">
-                        <div>
-                            <span class="font-bold">10:000</span>
-                        </div>
-                        <div>
-                            <span class="font-bold col-span-2 text-sm">Customer Service</span>
-                        </div>
+                <div *ngFor="let item of item.meetings"
+                    class="flex flex-row divide-x-2  divide-[#186AA5] items-center py-2 h-14">
+                    <!-- <div class="grid grid-cols-3 gap-1 divide-x"> -->
+                    <div class="flex h-full w-1/4">
+                        <span class="font-bold">10:000</span>
                     </div>
+                    <div class="flex flex-col h-full w-3/4 px-4">
+                        <span class="text-xxs opacity-40">Customer Service</span>
+                        <span class="text-sm font-bold ">Customer Service</span>
+                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>

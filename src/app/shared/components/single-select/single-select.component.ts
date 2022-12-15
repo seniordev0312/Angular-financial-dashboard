@@ -35,9 +35,9 @@ export class SingleSelectComponent implements OnInit {
   }
   filter(value: any): string[] {
     this._filterValue = value ? value.toLowerCase() : '';
-    this._filteredList = this.items.filter((option: any) => {
+    this._filteredList = this.items?.filter((option: any) => {
       const optionValue = this.displayValue(option.value);
-      return optionValue.toLowerCase().indexOf(this._filterValue) !== -1;
+      return optionValue?.toLowerCase().indexOf(this._filterValue) !== -1;
     });
     return this._filteredList;
   }

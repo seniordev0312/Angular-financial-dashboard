@@ -2,17 +2,20 @@
     <div class="h-[5%] flex items-center">
         <span>Company Structure :</span>
     </div>
-    <div class="h-[95%] flex justify-center gap-2">
-        <app-button (trigger)="onGroupAdded()" text="Add New Group" icon="add"
-            classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
-        </app-button>
-
-        <app-button (trigger)="onDepartmentAdded()" text="Add New Department" icon="add"
-            classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
-        </app-button>
-
-        <app-button (trigger)="onBranchAdded()" text="Add New Branch" icon="add"
-            classes="h-8 w-[120px] font-thin text-xxs bg-accent text-white">
-        </app-button>
+    <div class="h-[95%] flex justify-center items-start gap-2">
+        <p-organizationChart [value]="data" selectionMode="single">
+            <ng-template let-node pTemplate="company">
+                <app-company-card [data]="node.data"></app-company-card>
+            </ng-template>
+            <ng-template let-node pTemplate="branch">
+                <app-branch-card [data]="node.data"></app-branch-card>
+            </ng-template>
+            <ng-template let-node pTemplate="department">
+                <app-department-card [data]="node.data"></app-department-card>
+            </ng-template>
+            <ng-template let-node pTemplate="group">
+                <app-group-card [data]="node.data"></app-group-card>
+            </ng-template>
+        </p-organizationChart>
     </div>
 </app-system-setup>

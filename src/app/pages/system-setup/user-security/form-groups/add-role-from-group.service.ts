@@ -9,7 +9,7 @@ export class AddRoleFormGroup {
     fg: FormGroup;
     constructor(public fb: FormBuilder) { }
 
-    getFormGroup(item: AddRole): FormGroup {
+    getFormGroup(item?: AddRole): FormGroup {
         this.fg = this.fb.group({
             name: new FormControl(item?.name || null, [Validators.required]),
         });

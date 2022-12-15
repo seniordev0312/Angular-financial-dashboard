@@ -9,6 +9,11 @@ import { CompanyStructureComponent } from './components/company-structure/compan
 import { AddGroupComponent } from './components/add-group/add-group.component';
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
 import { AddDepartmentComponent } from './components/add-department/add-department.component';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+import { CompanyCardComponent } from './components/company-card/company-card.component';
+import { GroupCardComponent } from './components/group-card/group-card.component';
+import { BranchCardComponent } from './components/branch-card/branch-card.component';
+import { DepartmentCardComponent } from './components/department-card/department-card.component';
 
 const routes: Route[] = [
   {
@@ -52,11 +57,16 @@ const routes: Route[] = [
     CompanyStructureComponent,
     AddGroupComponent,
     AddBranchComponent,
-    AddDepartmentComponent
+    AddDepartmentComponent,
+    CompanyCardComponent,
+    GroupCardComponent,
+    BranchCardComponent,
+    DepartmentCardComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    OrganizationChartModule,
     SharedSystemSetupModule,
     RouterModule.forChild(routes)
   ]
