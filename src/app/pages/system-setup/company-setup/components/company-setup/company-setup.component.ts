@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { CompanySetupFormGroup } from '../../form-groups/company-setup-form-group.service';
 
 @Component({
   selector: 'app-company-setup',
@@ -9,10 +11,12 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanySetupComponent implements OnInit {
-
-  constructor(private layoutService: LayoutService) { }
+  fg: FormGroup;
+  constructor(private layoutService: LayoutService,
+    private companySetupFormGroup: CompanySetupFormGroup) { }
 
   ngOnInit(): void {
+    this.fg = this.companySetupFormGroup.getFormGroup();
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -27,8 +31,10 @@ export class CompanySetupComponent implements OnInit {
     });
   }
 
-  onSave(): void {
+  onSave(): void { }
 
+  getFormControl(key: string): FormControl {
+    return this.fg.controls[key] as FormControl;
   }
 
 }

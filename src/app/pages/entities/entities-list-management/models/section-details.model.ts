@@ -1,7 +1,10 @@
-import { BaseListItem } from "@root/shared/models/base-list-item.model";
+import { ElementsListItem } from "./element-list-item.model";
 
 export interface SectionDetails {
-    id: string;
-    name: string;
-    elements: BaseListItem[];
+    entitySectionTemplateId: string;
+    entityDefinitionId: string;
+    entitySectionId: string;
+    sectionName: string;
+    description: string;
+    fields: ElementsListItem[];
 }

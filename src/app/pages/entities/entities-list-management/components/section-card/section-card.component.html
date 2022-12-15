@@ -2,7 +2,7 @@
     class="flex flex-col justify-center items-center relative rounded-2xl  w-[203px]">
     <div [ngClass]="{'rounded-2xl': !showElementsList,'title':showElementsList}"
         class="flex flex-col items-center justify-center relative h-[96px] bg-accent w-full border-accent border-2">
-        <p class="text-white text-sm font-medium">Common</p>
+        <p class="text-white text-sm font-medium">{{data.sectionName}}</p>
         <p class="text-black text-xxs font-bold mt-2">section</p>
         <div class="absolute right-1 bottom-1  px-2 ">
             <span (click)="toggleElementsListVisibility()" class="material-icons text-white cursor-pointer">
@@ -12,11 +12,7 @@
     </div>
     <div *ngIf="showElementsList"
         class="flex py-2 gap-1 items-center justify-center flex-wrap min-h-[64px] bg-[#C0C6CC] elements w-full border-accent border-2">
-        <app-element-chip></app-element-chip>
-        <app-element-chip></app-element-chip>
-        <app-element-chip></app-element-chip>
-        <app-element-chip></app-element-chip>
-
+        <app-element-chip [element]="item" *ngFor="let item of data.fields"></app-element-chip>
     </div>
     <button (click)="onSectionEdited()"
         class="flex border-2 border-accent rounded-full absolute -top-[2px] -right-1 bg-white">

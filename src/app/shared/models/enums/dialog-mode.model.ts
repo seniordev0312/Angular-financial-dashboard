@@ -1,4 +1,5 @@
 export const enum DialogMode {
     Add = 'add',
-    Edit = 'edit'
+    Edit = 'edit',
+    View = 'view'
 }

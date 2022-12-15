@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { EntitiesReferenceListsService } from '@root/pages/entities/services/reference-lists.service';
+import { elementTypesReferenceList$ } from '@root/pages/entities/store/shared-entities.store';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { DialogMode } from '@root/shared/models/enums/dialog-mode.model';
+import { FormArrayService } from '@root/shared/services/form-array.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { AddTemplateFormGroup } from '../../form-groups/add-template-form-group.service';
+import { TemplateElementFormGroup } from '../../form-groups/template-element-form-group.service';
+import { EntityTemplatesListItem } from '../../models/entity-templates-list-item.model';
+import { TemplateElement } from '../../models/template-elements-list-item.model';
+import { EntitiesTemplatesListService } from '../../services/entities-templates-list.service';
+import { EntitiesTemplatesRepository } from '../../store/entities-templates.repository';
+import { templateDetails$ } from '../../store/entities-templates.store';
 
 @Component({
   selector: 'app-add-entity-template',
@@ -11,28 +22,99 @@ import { AddTemplateFormGroup } from '../../form-groups/add-template-form-group.
   styleUrls: ['./add-entity-template.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddEntityTemplateComponent implements OnInit {
+export class AddEntityTemplateComponent extends BaseComponent implements OnInit {
   fg: FormGroup;
+  templateFg: FormGroup;
   mode: DialogMode = DialogMode.Add;
+  elementTypesReferenceList: BaseListItem[];
+
   constructor(private addTemplateFormGroup: AddTemplateFormGroup,
     private activeRoute: ActivatedRoute,
-    private layoutService: LayoutService) { }
+    private entitiesTemplatesListService: EntitiesTemplatesListService,
+    private entitiesTemplatesRepository: EntitiesTemplatesRepository,
+    private formArrayService: FormArrayService,
+    private templateElementFormGroup: TemplateElementFormGroup,
+    private entitiesReferenceListsService: EntitiesReferenceListsService,
+    private cdr: ChangeDetectorRef,
+    private layoutService: LayoutService) { super(); }
+
+  get isCreateMode() {
+    return this.mode === DialogMode.Add;
+  }
+
+  get isUpdateMode() {
+    return this.mode === DialogMode.Edit;
+  }
+
+  get isViewMode() {
+    return this.mode === DialogMode.View;
+  }
+
+  get title() {
+    if (this.mode === DialogMode.View) {
+      return 'View Entity Template';
+    }
+    else if (this.mode === DialogMode.Add) {
+      return 'Add Entity Template';
+    }
+    return 'Edit Entity Template';
+  }
+
 
   ngOnInit(): void {
-    this.activeRoute.paramMap.subscribe(params => {
+    this.entitiesReferenceListsService.getElementTypesReferenceList();
+    this.entitiesTemplatesRepository.updateSelectedTemplate({} as EntityTemplatesListItem);
+
+    this.templateFg = this.templateElementFormGroup.getFormGroup();
+    this.subscriptions.add(this.activeRoute.paramMap.subscribe(params => {
       if (params.get('id')) {
         this.mode = DialogMode.Edit;
-        //todo wait fetch api
-        this.fg = this.addTemplateFormGroup.getFormGroup();
+        this.entitiesTemplatesListService.getEntitiesTemplateDetails(params.get('id'));
       }
       else {
         this.fg = this.addTemplateFormGroup.getFormGroup();
       }
-    });
+    }));
+
+    this.subscriptions.add(this.activeRoute.queryParamMap.subscribe(params => {
+      if (params.get('isViewMode') === 'true') {
+        this.mode = DialogMode.View;
+      }
+    }));
+
+    this.subscriptions.add(templateDetails$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.fg = this.addTemplateFormGroup.getFormGroup(data);
+        if (this.mode == DialogMode.View) {
+          Object.values(this.fg.controls).forEach(control => {
+            control.disable();
+          });
+        }
+        this.cdr.detectChanges();
+      }
+    }));
+
+    this.subscriptions.add(elementTypesReferenceList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.elementTypesReferenceList = data;
+      }
+    }));
   }
 
   onSave(): void {
-    this.layoutService.closeRightSideNav();
+    if (this.fg.valid) {
+      const data = this.addTemplateFormGroup.getValueFromFormGroup(this.fg);
+      if (this.isCreateMode) {
+        delete data.entitySectionTemplateId;
+        this.entitiesTemplatesListService.addTemplate(data);
+      }
+      else {
+        this.entitiesTemplatesListService.editTemplate(data);
+      }
+      this.fg.reset();
+      this.templateFg.reset();
+      this.layoutService.closeRightSideNav();
+    }
   }
 
 
@@ -40,15 +122,13 @@ export class AddEntityTemplateComponent implements OnInit {
     this.layoutService.closeRightSideNav();
   }
 
-  getFormControl(key: string): FormControl {
-    return this.fg.controls[key] as FormControl;
+  getFormControl(key: string, fg: FormGroup): FormControl {
+    return fg.controls[key] as FormControl;
   }
 
-  isCreateMode() {
-    return this.mode === DialogMode.Add;
-  }
-
-  isUpdateMode() {
-    return this.mode === DialogMode.Edit;
+  onNewElementAdded(): void {
+    const data: TemplateElement = this.templateElementFormGroup.getValueFromFormGroup(this.templateFg);
+    this.formArrayService.getFormArrayItems('fields', this.fg).push(this.templateElementFormGroup.getFormGroup(data));
+    this.templateFg.reset();
   }
 }

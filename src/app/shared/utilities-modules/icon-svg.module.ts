@@ -100,6 +100,67 @@ export class IconSvgModule {
             ).addSvgIcon(
                 'add-grid',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/add-grid.svg')
+            ).addSvgIcon(
+                'customer-contact-form-paperclip',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/paperclip.svg')
+            ).addSvgIcon(
+                'customer-contact-form-mail',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/mail.svg')
+            ).addSvgIcon(
+                'customer-contact-form-call',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/call.svg')
+            ).addSvgIcon(
+                'customer-contact-form-audio',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/audio.svg')
+            ).addSvgIcon(
+                'customer-service-happy-icon',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/happy-svgrepo-c.svg')
+            ).addSvgIcon(
+                'customer-service-sad-nocolor-icon',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/sad-nocolor.svg')
+            ).addSvgIcon(
+                'customer-service-sad-nocolor-1-icon',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/sad-nocolor-1.svg')
+            ).addSvgIcon(
+                'customer-service-arrow-down-notes',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/arrow-down(notes).svg')
+            ).addSvgIcon(
+                'customer-service-select-down',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/select-down.svg')
+            ).addSvgIcon(
+                'customer-service-full-sad',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/sad-svgrepo-com (1).svg')
+            ).addSvgIcon(
+                'customer-service-delete-history',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/delete.svg')
+            ).addSvgIcon(
+                'customer-service-lock-history',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/customer-service-icons/lock-svgrepo-co.svg')
+            ).addSvgIcon(
+                'policy-filter',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/policy-svg-icons/filter.svg'
+                )
+            ).addSvgIcon(
+                'policy-box',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/policy-svg-icons/box.svg'
+                )
+            ).addSvgIcon(
+                'policy-phone',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/policy-svg-icons/phone.svg'
+                )
+            ).addSvgIcon(
+                'policy-alert',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/policy-svg-icons/alert.svg'
+                )
+            ).addSvgIcon(
+                'policy-calculator',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/policy-svg-icons/calculator.svg'
+                )
             );
     }
 }

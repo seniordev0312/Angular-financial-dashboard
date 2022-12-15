@@ -1,5 +1,8 @@
+import { TemplateElement } from "./template-elements-list-item.model";
+
 export interface EntityTemplatesListItem {
-    id: number;
+    entitySectionTemplateId: string;
     name: string;
     description: string;
+    fields: TemplateElement[];
 }
