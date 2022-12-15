@@ -54,7 +54,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         EntityInformationComponent,
         MultiSelectComponent,
         SingleSelectComponent,
-        DatePickerInputComponent
+        DatePickerInputComponent,
         CanAccessFeatureDirective
     ],
     imports: [
