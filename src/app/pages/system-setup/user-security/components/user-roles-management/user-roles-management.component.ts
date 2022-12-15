@@ -17,9 +17,8 @@ import { roleList$ } from '../../store/user-security.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserRolesManagementComponent extends BaseComponent implements OnInit {
-
-
-
+  CanAccessCustomerServicePermission = 'CanAccessCustomerService'; //todo replace with enum
+  CanEditCustomerService = 'CanEditCustomerService';
   data: RoleList;
   pageIndex: number = 0;
   pageSize: number = 100;

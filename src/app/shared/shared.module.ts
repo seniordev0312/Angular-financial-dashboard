@@ -35,7 +35,7 @@ import { NotificationModule } from './notifications/notification.module';
 import { RouterModule } from '@angular/router';
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { SingleSelectComponent } from './components/single-select/single-select.component';
-import { AccessControlDirective } from './auth/directive/access-control.directive';
+import { CanAccessFeatureDirective } from './directives/access-control.directive';
 
 @NgModule({
     declarations: [
@@ -51,7 +51,7 @@ import { AccessControlDirective } from './auth/directive/access-control.directiv
         EntityInformationComponent,
         MultiSelectComponent,
         SingleSelectComponent,
-        AccessControlDirective
+        CanAccessFeatureDirective
     ],
     imports: [
         MatAutocompleteModule,
@@ -96,7 +96,7 @@ import { AccessControlDirective } from './auth/directive/access-control.directiv
         ReactiveFormsModule,
         MultiSelectComponent,
         SingleSelectComponent,
-        AccessControlDirective
+        CanAccessFeatureDirective
     ],
     providers: [],
 })
