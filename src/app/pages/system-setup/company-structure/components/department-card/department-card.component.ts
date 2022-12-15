@@ -18,7 +18,6 @@ export class DepartmentCardComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log('Department', this.data);
 
   }
 

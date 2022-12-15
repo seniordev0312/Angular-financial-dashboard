@@ -18,7 +18,6 @@ export class CompanyCardComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.data);
 
   }
 
@@ -27,14 +26,19 @@ export class CompanyCardComponent implements OnInit {
       outlets: {
         sidenav: ApplicationRoutes.AddGroup
       },
-    }], { skipLocationChange: true });
+    }], {
+      queryParams: {
+        level: this.data.level,
+        parentId: this.data.id
+      },
+      skipLocationChange: true,
+    });
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
   onBranchAdded(): void {
-    console.log();
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.CompanyStructure}`, {
       outlets: {
         sidenav: ApplicationRoutes.AddBranch
@@ -42,6 +46,7 @@ export class CompanyCardComponent implements OnInit {
     }], {
       queryParams: {
         level: this.data.level,
+        parentId: this.data.id
       },
       skipLocationChange: true,
     });
@@ -58,7 +63,7 @@ export class CompanyCardComponent implements OnInit {
     }], {
       queryParams: {
         level: this.data.level,
-        id: 12,
+        parentId: this.data.id
       },
       skipLocationChange: true,
     });

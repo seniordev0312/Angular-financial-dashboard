@@ -16,7 +16,6 @@ export class CompanyStructureService {
     addGroupSubject = new BehaviorSubject<AddGroup>(null);
     addGroup$ = this.addGroupSubject.asObservable();
 
-
     constructor() {
 
     }
@@ -24,10 +23,10 @@ export class CompanyStructureService {
     addGroup() {
 
     }
-    addDepartment() {
-
+    addDepartment(addDepartment: AddDepartment) {
+        this.addDepartmentSubject.next(addDepartment);
     }
-    addBranch() {
-
+    addBranch(addBranch: AddBranch) {
+        this.addBranchSubject.next(addBranch);
     }
 }
