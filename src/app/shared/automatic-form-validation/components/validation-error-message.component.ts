@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@a
 
 @Component({
     selector: 'app-validation-message',
-    template: '<mat-error class="text-xs leading-none mt-1" [class.hidden]="hide">{{textMessage}}</mat-error>',
+    template: '<mat-error class="text-xs leading-none mb-2" [class.hidden]="hide">{{textMessage}}</mat-error>',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ValidationMessageComponent {

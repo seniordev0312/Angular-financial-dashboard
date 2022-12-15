@@ -125,5 +125,12 @@
     },
     "settings": {
         "settings": "Settings"
+    },
+    "validation": {
+        "required": "This field is required",
+        "minlength": "The minimum allowed input length is {{requiredLength}}",
+        "maxlength": "The maximum allowed input length is {{requiredLength}}",
+        "max": "The maximum allowed input value is {{max}}",
+        "min": "The minimum allowed input value is {{min}}"
     }
 }

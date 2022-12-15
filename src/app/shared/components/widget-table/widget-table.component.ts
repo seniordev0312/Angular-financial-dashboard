@@ -26,6 +26,7 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { SortItem } from '@root/shared/models/table/table-sort.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ObjectDataCompareTransformer } from '@root/shared/transformers/object-data-transformer.service';
+import { isSpinning$ } from '@root/shared/store/shared.store';
 
 @Component({
     selector: 'app-widget-table',
@@ -74,6 +75,7 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     ngOnInit() {
         this.pageSize = this.tableConfiguration.settings.pageSize;
         this.primengConfig.ripple = true;
+        this.isSpinning$ = isSpinning$;
     }
 
     refresh(): void {

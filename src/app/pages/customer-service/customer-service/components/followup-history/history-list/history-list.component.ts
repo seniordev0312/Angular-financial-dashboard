@@ -28,8 +28,8 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
   pageIndex = 1;
   filter: Filter[];
   entityTypesList: BaseListItem[] = [
-    { id: '1', name: 'type1' },
-    { id: '1', name: 'type2' }
+    { id: '1', value: 'type1' },
+    { id: '1', value: 'type2' }
   ];
   happyIcon: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
@@ -114,10 +114,10 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
         filterType: TableColumnFilterDataType.Text
       },
     },
-    
+
   ];
 
- 
+
   editAction: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
     cssClasses: 'text-primary',
@@ -193,7 +193,7 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
   }
 
   onTicketLocked(_category: TicketHistoryListItem) {
-  
+
   }
 
 }

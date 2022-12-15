@@ -94,7 +94,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         SelectListWithChipsComponent,
         EntityInformationComponent,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     providers: [],
 })

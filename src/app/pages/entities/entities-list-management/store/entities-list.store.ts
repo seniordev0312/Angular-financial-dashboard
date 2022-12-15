@@ -1,10 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, select, withProps } from '@ngneat/elf';
-import {
-    persistState,
-    sessionStorageStrategy,
-} from '@ngneat/elf-persist-state';
-import { ElementsListItem } from '../models/element.model';
+import { ElementsListItem } from '../models/element-list-item.model';
 import { EntitiesListItem } from '../models/entities-list-item.model';
 import { EntityDetails } from '../models/entity-details.model';
 import { SectionDetails } from '../models/section-details.model';
@@ -14,6 +10,7 @@ export interface EntitiesListModel {
     entityDetails: EntityDetails;
     sectionDetails: SectionDetails;
     elementDetails: ElementsListItem;
+    isCreateEntityValid: boolean;
 }
 
 const store = createStore(
@@ -25,17 +22,15 @@ const store = createStore(
         entityDetails: {} as EntityDetails,
         sectionDetails: {} as SectionDetails,
         elementDetails: {} as ElementsListItem,
+        isCreateEntityValid: null
     })
 );
-
-persistState(store, {
-    storage: sessionStorageStrategy,
-});
 
 export const entitiesList$ = store.pipe(select(({ entitiesList }) => entitiesList));
 export const entityDetails$ = store.pipe(select(({ entityDetails }) => entityDetails));
 export const sectionDetails$ = store.pipe(select(({ sectionDetails }) => sectionDetails));
 export const elementDetails$ = store.pipe(select(({ elementDetails }) => elementDetails));
+export const isCreateEntityValid$ = store.pipe(select(({ isCreateEntityValid }) => isCreateEntityValid));
 
 
 export type EntitiesListStore = typeof store;

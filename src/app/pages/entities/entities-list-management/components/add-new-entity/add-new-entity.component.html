@@ -1,10 +1,10 @@
 <div class="flex flex-col mt-5 py-6 px-14 shadow-md rounded bg-white box">
-    <p-organizationChart [value]="data1" selectionMode="single">
+    <p-organizationChart [value]="data" selectionMode="single">
         <ng-template let-node pTemplate="entity">
-            <app-entity-card></app-entity-card>
+            <app-entity-card [isEditMode]="isUpdateMode()" [fg]="entityCardFg"></app-entity-card>
         </ng-template>
         <ng-template let-node pTemplate="section">
-            <app-section-card></app-section-card>
+            <app-section-card [data]="node.data"></app-section-card>
         </ng-template>
     </p-organizationChart>
 

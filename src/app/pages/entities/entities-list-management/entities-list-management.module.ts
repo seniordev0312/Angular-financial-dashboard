@@ -23,26 +23,26 @@ const routes: Route[] = [
     component: AddNewEntityComponent,
   },
   {
-    path: `${ApplicationRoutes.Add}/:id`,
+    path: `:code`,
     component: AddNewEntityComponent,
   },
   {
-    path: ApplicationRoutes.EntitiesSection,
+    path: `${ApplicationRoutes.EntitiesSection}/${ApplicationRoutes.Add}`,
     component: AddSectionComponent,
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.EntitiesSection}/:id`,
+    path: `${ApplicationRoutes.EntitiesSection}/${ApplicationRoutes.Edit}`,
     component: AddSectionComponent,
     outlet: 'sidenav',
   },
   {
-    path: ApplicationRoutes.EntitiesElement,
+    path: `${ApplicationRoutes.EntitiesElement}/${ApplicationRoutes.Add}`,
     component: AddElementComponent,
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.EntitiesElement}/:id`,
+    path: `${ApplicationRoutes.EntitiesElement}/${ApplicationRoutes.Edit}`,
     component: AddElementComponent,
     outlet: 'sidenav',
   }

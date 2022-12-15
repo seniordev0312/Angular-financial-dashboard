@@ -1,6 +1,6 @@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { ElementsListItem } from '../models/element.model';
+import { ElementsListItem } from '../models/element-list-item.model';
 
 @Injectable({
     providedIn: 'root',
@@ -11,32 +11,30 @@ export class ElementFormGroup {
 
     getFormGroup(item?: ElementsListItem): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null, [Validators.required]),
-            template: new FormControl(item?.template || null, [Validators.required]),
-            name: new FormControl(item?.name || null, [Validators.required]),
+            elementType: new FormControl(item?.elementType || null, [Validators.required]),
+            elementName: new FormControl(item?.elementName || null, [Validators.required]),
             description: new FormControl(item?.description || null, [Validators.required]),
-            regex: new FormControl(item?.regex || null, [Validators.required]),
-            isIndexable: new FormControl(item?.isIndexable || null, [Validators.required]),
-            isMandatory: new FormControl(item?.isMandatory || null, [Validators.required]),
-            isNotificationsLocked: new FormControl(item?.isNotificationsLocked || null, [Validators.required]),
-            isSearchable: new FormControl(item?.isSearchable || null, [Validators.required]),
-            hasValidation: new FormControl(item?.hasValidation || null, [Validators.required]),
+            regularExpression: new FormControl(item?.regularExpression || null, [Validators.required]),
+            indexable: new FormControl(item?.indexable || false, [Validators.required]),
+            mandatory: new FormControl(item?.mandatory || false, [Validators.required]),
+            lockModifications: new FormControl(item?.lockModifications || false, [Validators.required]),
+            searchable: new FormControl(item?.searchable || false, [Validators.required]),
+            validation: new FormControl(item?.validation || false, [Validators.required]),
         });
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): ElementsListItem {
         return {
-            id: fg.controls.id.value,
-            template: fg.controls.template.value,
-            name: fg.controls.name.value,
+            elementType: fg.controls.elementType.value,
+            elementName: fg.controls.elementName.value,
             description: fg.controls.description.value,
-            regex: fg.controls.regex.value,
-            isSearchable: fg.controls.isSearchable.value,
-            isIndexable: fg.controls.isIndexable.value,
-            isMandatory: fg.controls.isMandatory.value,
-            isNotificationsLocked: fg.controls.isNotificationsLocked.value,
-            hasValidation: fg.controls.hasValidation.value,
+            regularExpression: fg.controls.regularExpression.value,
+            indexable: fg.controls.indexable.value,
+            searchable: fg.controls.searchable.value,
+            mandatory: fg.controls.mandatory.value,
+            lockModifications: fg.controls.lockModifications.value,
+            validation: fg.controls.validation.value,
         };
     }
 }

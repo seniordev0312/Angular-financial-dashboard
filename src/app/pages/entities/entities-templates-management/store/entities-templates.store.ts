@@ -1,9 +1,5 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, select, withProps } from '@ngneat/elf';
-import {
-    persistState,
-    sessionStorageStrategy,
-} from '@ngneat/elf-persist-state';
 import { AddTemplate } from '../models/add-template.model';
 import { EntityTemplatesListItem } from '../models/entity-templates-list-item.model';
 
@@ -22,9 +18,6 @@ const store = createStore(
     })
 );
 
-persistState(store, {
-    storage: sessionStorageStrategy,
-});
 
 export const templatesList$ = store.pipe(select(({ templatesList }) => templatesList));
 export const templateDetails$ = store.pipe(select(({ templateDetails }) => templateDetails));

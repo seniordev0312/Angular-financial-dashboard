@@ -5,6 +5,10 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddEntityTemplateComponent } from './components/add-entity-template/add-entity-template.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 
 const routes: Route[] = [
@@ -32,7 +36,11 @@ const routes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    MatChipsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
   ]
 })
 export class EntitiesTemplatesManagementModule { }

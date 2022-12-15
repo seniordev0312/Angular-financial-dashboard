@@ -13,16 +13,10 @@ export class SelectListComponent {
   @Input() wfullclass: string;
   @Input() control: FormControl;
   @Input() isMultiple = false;
-  @Input() icon = ''
-
-  @Input() optionsList: BaseListItem[] = [
-    {
-      id: '1',
-      name: '1111111',
-    },
-  ];
+  @Input() icon: string;
+  @Input() isDisabled = false;
+  @Input() optionsList: BaseListItem[] = [];
 
   constructor() { }
 
-  ngOnInit(): void { }
 }

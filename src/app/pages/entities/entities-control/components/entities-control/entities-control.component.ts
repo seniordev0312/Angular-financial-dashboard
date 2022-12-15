@@ -29,8 +29,8 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   pageIndex = 1;
   filter: Filter[];
   entityTypesList: BaseListItem[] = [
-    { id: '1', name: 'type1' },
-    { id: '1', name: 'type2' }
+    { id: '1', value: 'type1' },
+    { id: '1', value: 'type2' }
   ];
   entitiesList: EntitiesControlListItem[] = [
     {

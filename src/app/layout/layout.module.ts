@@ -12,7 +12,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { BackLeftSideBarComponent } from './components/left-side-bar/components/back-left-side-bar/back-left-side-bar.component';
@@ -50,6 +50,7 @@ import { ToolbarModule } from './components/toolbar/toolbar.module';
     MatSidenavModule,
     MatSelectModule,
     MatTreeModule,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
