@@ -13,6 +13,7 @@ import { take } from 'rxjs';
 import { SectionFormGroup } from '../../form-groups/section-form-group.service';
 import { SectionDetails } from '../../models/section-details.model';
 import { SectionService } from '../../services/section.service';
+import { EntitiesListRepository } from '../../store/entities-list.repository';
 import { sectionDetails$ } from '../../store/entities-list.store';
 
 @Component({
@@ -32,6 +33,7 @@ export class AddSectionComponent extends BaseComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private entitiesTemplatesListService: EntitiesTemplatesListService,
     private sectionService: SectionService,
+    private entitiesListRepository: EntitiesListRepository,
     private activeRoute: ActivatedRoute) { super(); }
 
   ngOnInit(): void {
@@ -64,10 +66,14 @@ export class AddSectionComponent extends BaseComponent implements OnInit {
   onSave(): void {
     if (this.fg.valid) {
       const data = this.sectionFormGroup.getValueFromFormGroup(this.fg);
-      if (this.isCreateMode) {
+      if (this.isCreateMode()) {
         delete data.id;
+        this.sectionService.addSection(data);
       }
-      this.sectionService.addOrUpdateSection(data);
+      else {
+        const sectionDetails = this.entitiesListRepository.values.sectionDetails;
+        this.sectionService.updateSection(data.sectionName, sectionDetails.entityDefinitionId, sectionDetails.entitySectionId);
+      }
       this.layoutService.closeRightSideNav();
     }
   }
