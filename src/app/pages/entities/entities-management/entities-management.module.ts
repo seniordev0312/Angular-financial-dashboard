@@ -4,11 +4,13 @@ import { EntitiesManagementComponent } from './components/entities-management/en
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Routes = [
   {
     path: ApplicationRoutes.Empty,
-    component: EntitiesManagementComponent
+    component: EntitiesManagementComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   }
 ];
 

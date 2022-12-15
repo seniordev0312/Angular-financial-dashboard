@@ -5,21 +5,25 @@ import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
 import { AddEntitySourceComponent } from './components/add-entity-source/add-entity-source.component';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: EntitiesSourcesManagementComponent
+    component: EntitiesSourcesManagementComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddEntitySourceComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddEntitySourceComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   }
 ];
 

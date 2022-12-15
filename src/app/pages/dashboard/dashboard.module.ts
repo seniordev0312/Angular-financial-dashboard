@@ -13,21 +13,25 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { EmailContentComponent } from './components/emails/components/email-content/email-content.component';
 import { EmailChatComponent } from './components/emails/components/email-chat/email-chat.component';
 import { EmailsComponent } from './components/emails/components/email/emails.component';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
-    path: '',
+    path: ApplicationRoutes.Empty,
     component: DashboardComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.Calender,
     component: CalendarComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.Email,
     component: EmailsComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
 ];
 @NgModule({

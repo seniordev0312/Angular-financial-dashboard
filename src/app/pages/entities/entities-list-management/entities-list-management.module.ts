@@ -12,39 +12,47 @@ import { ElementChipComponent } from './components/element-chip/element-chip.com
 import { AddSectionComponent } from './components/add-section/add-section.component';
 import { AddElementComponent } from './components/add-element/add-element.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: EntitiesListManagementComponent
+    component: EntitiesListManagementComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddNewEntityComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddNewEntityComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.EntitiesSection,
     component: AddSectionComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: `${ApplicationRoutes.EntitiesSection}/:id`,
     component: AddSectionComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: ApplicationRoutes.EntitiesElement,
     component: AddElementComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
     path: `${ApplicationRoutes.EntitiesElement}/:id`,
     component: AddElementComponent,
     outlet: 'sidenav',
+    canActivate: [AutoLoginAllRoutesGuard]
   }
 ];
 
