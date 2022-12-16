@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AddBranch } from '../models/add-branch.model';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AddGroup } from '../models/add-group.model';
+
 @Injectable({
     providedIn: 'root',
 })
-export class AddBranchFormGroup {
+export class AddGroupFormGroup {
     fg: FormGroup;
     constructor(public fb: FormBuilder) { }
 
-    getFormGroup(item?: AddBranch): FormGroup {
+    getFormGroup(item?: AddGroup): FormGroup {
         this.fg = this.fb.group({
             name: new FormControl(item?.name || null, [Validators.required]),
             parentId: new FormControl(item?.parentId || null, [Validators.required]),
@@ -22,7 +23,7 @@ export class AddBranchFormGroup {
     setId(id: number) {
         this.fg.controls.id.setValue(id);
     }
-    getValueFromFormGroup(fg: FormGroup): AddBranch {
+    getValueFromFormGroup(fg: FormGroup): AddGroup {
         return {
             name: fg.controls.name.value,
             parentId: fg.controls.parentId.value,

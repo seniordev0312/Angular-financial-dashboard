@@ -20,8 +20,8 @@ export class CompanyStructureService {
 
     }
 
-    addGroup() {
-
+    addGroup(addGroup: AddGroup) {
+        this.addGroupSubject.next(addGroup);
     }
     addDepartment(addDepartment: AddDepartment) {
         this.addDepartmentSubject.next(addDepartment);

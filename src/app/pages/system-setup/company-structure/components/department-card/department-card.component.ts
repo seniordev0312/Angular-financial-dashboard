@@ -10,25 +10,33 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentCardComponent implements OnInit {
-
   @Input() data: any;
+  showElementsList = false;
 
   constructor(
     private layoutService: LayoutService,
     private router: Router) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   onGroupAdded(): void {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.CompanyStructure}`, {
       outlets: {
         sidenav: ApplicationRoutes.AddGroup
       },
-    }], { skipLocationChange: true });
+    }], {
+      queryParams: {
+        level: this.data.level,
+        parentId: this.data.id
+      },
+      skipLocationChange: true,
+    });
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
+  }
+  toggleElementsListVisibility() {
+    // this.sectionsListRepository.updateSelectedSection(this.data);
+    this.showElementsList = !this.showElementsList;
   }
 }

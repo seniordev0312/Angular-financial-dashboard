@@ -11,13 +11,13 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 })
 export class BranchCardComponent implements OnInit {
   @Input() data: any;
+  showElementsList = false;
 
   constructor(
     private layoutService: LayoutService,
     private router: Router) { }
 
   ngOnInit(): void {
-
   }
 
   onGroupAdded(): void {
@@ -35,6 +35,11 @@ export class BranchCardComponent implements OnInit {
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
+  }
+
+  toggleElementsListVisibility() {
+    // this.sectionsListRepository.updateSelectedSection(this.data);
+    this.showElementsList = !this.showElementsList;
   }
 
   onDepartmentAdded(): void {

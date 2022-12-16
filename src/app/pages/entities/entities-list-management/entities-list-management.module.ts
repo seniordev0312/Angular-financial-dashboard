@@ -64,7 +64,7 @@ const routes: Route[] = [
     SectionCardComponent,
     ElementChipComponent,
     AddSectionComponent,
-    AddElementComponent
+    AddElementComponent,
   ],
   imports: [
     CommonModule,

@@ -12,13 +12,13 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 export class CompanyCardComponent implements OnInit {
 
   @Input() data: any;
+  showElementsList = false;
 
   constructor(
     private layoutService: LayoutService,
     private router: Router) { }
 
   ngOnInit(): void {
-
   }
 
   onGroupAdded(): void {
@@ -28,7 +28,6 @@ export class CompanyCardComponent implements OnInit {
       },
     }], {
       queryParams: {
-        level: this.data.level,
         parentId: this.data.id
       },
       skipLocationChange: true,
@@ -45,7 +44,6 @@ export class CompanyCardComponent implements OnInit {
       },
     }], {
       queryParams: {
-        level: this.data.level,
         parentId: this.data.id
       },
       skipLocationChange: true,
@@ -55,6 +53,10 @@ export class CompanyCardComponent implements OnInit {
     this.layoutService.changeRightSideNavMode('over');
   }
 
+  toggleElementsListVisibility() {
+    // this.sectionsListRepository.updateSelectedSection(this.data);
+    this.showElementsList = !this.showElementsList;
+  }
   onDepartmentAdded(): void {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.CompanyStructure}`, {
       outlets: {
@@ -62,7 +64,6 @@ export class CompanyCardComponent implements OnInit {
       },
     }], {
       queryParams: {
-        level: this.data.level,
         parentId: this.data.id
       },
       skipLocationChange: true,

@@ -20,9 +20,9 @@ export class SecurityCheckerService {
         };
     }
 
-    doesUserHasPermission(_permission: string) {
-        // return this.userClaims?.permissions?.includes(permission);
-        return false;
+    doesUserHasPermission(permission: string) {
+        return this.userClaims?.permissions?.includes(permission);
+        // return false;
     }
 
 }

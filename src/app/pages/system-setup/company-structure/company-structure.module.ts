@@ -14,6 +14,7 @@ import { CompanyCardComponent } from './components/company-card/company-card.com
 import { GroupCardComponent } from './components/group-card/group-card.component';
 import { BranchCardComponent } from './components/branch-card/branch-card.component';
 import { DepartmentCardComponent } from './components/department-card/department-card.component';
+import { GroupChipComponent } from './components/group-chip/group-chip.component';
 
 const routes: Route[] = [
   {
@@ -61,7 +62,8 @@ const routes: Route[] = [
     CompanyCardComponent,
     GroupCardComponent,
     BranchCardComponent,
-    DepartmentCardComponent
+    DepartmentCardComponent,
+    GroupChipComponent,
   ],
   imports: [
     CommonModule,
