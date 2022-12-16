@@ -1,125 +1,165 @@
 <app-system-setup>
     <div>
-        <div>
-            <p class="text-sm font-medium">Chart of Accounts for:<span class="text-accent ml-2">Medgulf</span></p>
+        <p class="text-sm font-medium">Chart of Accounts for:<span class="text-accent ml-2">Medgulf</span></p>
+    </div>
+    <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center">
+            <p class="text-sm mr-2">Search</p>
+            <app-input-field icon="search" [control]="searchFormControl"></app-input-field>
         </div>
-        <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center">
-                <p class="text-sm mr-2">Search</p>
-                <app-input-field icon="search" [control]="searchFormControl"></app-input-field>
-            </div>
-            <app-button (trigger)="onChartOfAccountAdded(false)" icon="add" text="Add New Chart Account"
-                classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
-            </app-button>
-        </div>
-        <p-table [rows]="pageSize" [paginator]="true" class="main-table" [value]="chartOfAccountsList"
-            rowGroupMode="subheader" rowExpandMode="single" dataKey="id">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="width:7%">
-                    </th>
-                    <th style="width:15%">
-                        <div class="flex items-center">
-                            <p-columnFilter [showMenu]="false" type="text" placeholder="Ledger NO"
-                                [showClearButton]="false" field="ledgerNumber">
-                            </p-columnFilter>
-                            <p-sortIcon field="ledgerNumber" pSortableColumn="ledgerNumber"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th style="width:18%">
-                        <div class="flex items-center">
-                            <p-columnFilter [showMenu]="false" type="text" placeholder="Description"
-                                [showClearButton]="false" field="description">
-                            </p-columnFilter>
-                            <p-sortIcon field="description" pSortableColumn="description"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th style="width:10%">
-                        <div class="flex items-center">
-                            <p-columnFilter [showMenu]="false" type="text" placeholder="Type" [showClearButton]="false"
-                                field="type">
-                            </p-columnFilter>
-                            <p-sortIcon field="type" pSortableColumn="type"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th style="width:10%">
-                        <div class="flex items-center">
-                            <p-columnFilter [showMenu]="false" type="text" placeholder="DC/CR" [showClearButton]="false"
-                                field="isCredit">
-                            </p-columnFilter>
-                            <p-sortIcon field="isCredit" pSortableColumn="isCredit"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th style="width:10%">
-                        <div class="flex items-center">
-                            <p-columnFilter [showMenu]="false" type="text" placeholder="Currency"
-                                [showClearButton]="false" field="currency">
-                            </p-columnFilter>
-                            <p-sortIcon field="currency" pSortableColumn="currency"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th style="width:20%">
-                        <div class="flex items-center">
-                            <p-columnFilter [showMenu]="false" type="text" placeholder="Balance"
-                                [showClearButton]="false" field="balance">
-                            </p-columnFilter>
-                            <p-sortIcon field="balance" pSortableColumn="balance"></p-sortIcon>
-                        </div>
-                    </th>
-                    <th class="text-xs" style="width:10%">Action</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" let-expanded="expanded">
-                <tr>
-                    <td style="width:7%">
-                        <button *ngIf="item.items.length>0" type="button" pButton pRipple [pRowToggler]="item"
-                            class="mx-2 py-1">
+        <app-button (trigger)="onChartOfAccountAdded(false)" icon="add" text="Add New Chart Account"
+            classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
+        </app-button>
+    </div>
+    <p-table [rows]="pageSize" [paginator]="true" class="main-table" [value]="chartOfAccountsList"
+        rowGroupMode="subheader" rowExpandMode="single" dataKey="id">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:7%">
+                </th>
+                <th style="width:15%">
+                    <div class="flex items-center">
+                        <p-columnFilter [showMenu]="false" type="text" placeholder="Ledger NO" [showClearButton]="false"
+                            field="accountNo">
+                        </p-columnFilter>
+                        <p-sortIcon field="accountNo" pSortableColumn="accountNo"></p-sortIcon>
+                    </div>
+                </th>
+                <th style="width:18%">
+                    <div class="flex items-center">
+                        <p-columnFilter [showMenu]="false" type="text" placeholder="Description"
+                            [showClearButton]="false" field="decription">
+                        </p-columnFilter>
+                        <p-sortIcon field="decription" pSortableColumn="decription"></p-sortIcon>
+                    </div>
+                </th>
+                <th style="width:10%">
+                    <div class="flex items-center">
+                        <p-columnFilter [showMenu]="false" type="text" placeholder="Type" [showClearButton]="false"
+                            field="type">
+                        </p-columnFilter>
+                        <p-sortIcon field="type" pSortableColumn="type"></p-sortIcon>
+                    </div>
+                </th>
+                <th style="width:10%">
+                    <div class="flex items-center">
+                        <p-columnFilter [showMenu]="false" type="text" placeholder="DC/CR" [showClearButton]="false"
+                            field="toIncrease">
+                        </p-columnFilter>
+                        <p-sortIcon field="toIncrease" pSortableColumn="toIncrease"></p-sortIcon>
+                    </div>
+                </th>
+                <th style="width:10%">
+                    <div class="flex items-center">
+                        <p-columnFilter [showMenu]="false" type="text" placeholder="Currency" [showClearButton]="false"
+                            field="currency">
+                        </p-columnFilter>
+                        <p-sortIcon field="currency" pSortableColumn="currency"></p-sortIcon>
+                    </div>
+                </th>
+                <th style="width:20%">
+                    <div class="flex items-center">
+                        <p-columnFilter [showMenu]="false" type="text" placeholder="Balance" [showClearButton]="false"
+                            field="balance">
+                        </p-columnFilter>
+                        <p-sortIcon field="balance" pSortableColumn="balance"></p-sortIcon>
+                    </div>
+                </th>
+                <th class="text-xs" style="width:10%">Action</th>
+            </tr>
+        </ng-template>
+
+        <ng-template let-data="data" #tableBody>
+            <td style="width:15%">
+                <span class="font-bold" class="text-xs py-1">{{data.item.accountNo}}</span>
+            </td>
+            <td style="width:18%">
+                <div class="font-bold" class="text-xs text-ellipsis overflow-hidden whitespace-nowrap w-[200px] py-1">
+                    {{data.item.decription}}
+                </div>
+            </td>
+            <td style="width:10%" class="text-center">
+                <span class="font-bold" class="text-xs py-1">{{data.item.type}}</span>
+            </td>
+            <td style="width:10%" class="text-center">
+                <span class="font-bold" class="text-xs py-1">{{data.item.toIncrease}}</span>
+            </td>
+            <td style="width:10%" class="text-center">
+                <span class="font-bold" class="text-xs py-1">{{data.item.currency}}</span>
+            </td>
+            <td style="width:20%" class="text-center">
+                <span class="font-bold" class="text-xs py-1">{{data.item.balance}}</span>
+            </td>
+            <td style="width:10%">
+                <div class="flex justify-end pr-4 py-1">
+                    <button [routerLink]="[viewAccountLink,{outlets:{sidenav:null}}]" mat-button>
+                        <span class="material-icons-outlined text-accent">
+                            visibility
+                        </span>
+                    </button>
+                    <button (click)="onChartOfAccountAdded(true)" *ngIf="!data.isLeafItem" mat-button class="ml-4">
+                        <mat-icon svgIcon="add-grid" class="text-accent"></mat-icon>
+                    </button>
+                    <button (click)="onChartOfAccountEdited(data.item,data.isLeafItem)" mat-button class="ml-4">
+                        <span class="material-icons-outlined text-accent">
+                            border_color
+                        </span>
+                    </button>
+                    <mat-slide-toggle (change)="onChartOfAccountDeactivated(data.item)" class="ml-4"></mat-slide-toggle>
+                </div>
+            </td>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr>
+                <td style="width:7%">
+                    <button *ngIf="!item.lastLevelFlag" type="button" pButton pRipple [pRowToggler]="item"
+                        class="mx-2 py-1">
+                        <span class="material-icons-outlined">
+                            {{expanded?'remove_circle_outline':'add_circle_outline'}}
+                        </span>
+                    </button>
+                </td>
+                <ng-container
+                    *ngTemplateOutlet="tableBody; context:{data:{item:items(item.accountId,item.accountTypeId),isLeafItem:false,isMainParent:true,isSubParent:false}}"></ng-container>
+            </tr>
+        </ng-template>
+        <!-- <ng-template pTemplate="rowexpansion" let-item>    
+            <tr>
+                <td class="sub-table" colspan="8">
+                    <div>
+                        <p-table class="main-table" [value]="item.items" rowExpandMode="single" rowGroupMode="subheader"
+                            dataKey="id">
+                            <ng-template pTemplate="body" let-subItem let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr>
+                <td style="width:7%">
+                    <div class="flex justify-end">
+                        <button *ngIf="subItem.items.length>0" type="button" pButton pRipple [pRowToggler]="subItem"
+                            class="mr-2 py-2">
                             <span class="material-icons-outlined">
                                 {{expanded?'remove_circle_outline':'add_circle_outline'}}
                             </span>
                         </button>
-                    </td>
-                    <ng-container
-                        *ngTemplateOutlet="tableBody; context:{data:{item:item,isLeafItem:false,isMainParent:true,isSubParent:false}}"></ng-container>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="rowexpansion" let-item>
-                <tr>
-                    <td class="sub-table" colspan="8">
-                        <div>
-                            <p-table class="main-table" [value]="item.items" rowExpandMode="single"
-                                rowGroupMode="subheader" dataKey="id">
-                                <ng-template pTemplate="body" let-subItem let-rowIndex="rowIndex"
-                                    let-expanded="expanded">
-                <tr>
-                    <td style="width:7%">
-                        <div class="flex justify-end">
-                            <button *ngIf="subItem.items.length>0" type="button" pButton pRipple [pRowToggler]="subItem"
-                                class="mr-2 py-2">
-                                <span class="material-icons-outlined">
-                                    {{expanded?'remove_circle_outline':'add_circle_outline'}}
-                                </span>
-                            </button>
-                        </div>
-                    </td>
-                    <ng-container
-                        *ngTemplateOutlet="tableBody; context:{data:{item:subItem,isLeafItem:false,isMainParent:false,isSubParent:true}}"></ng-container>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="rowexpansion" let-subItem>
-                <tr>
-                    <td class="sub-table" colspan="8">
-                        <div>
-                            <p-table class="sub-table" [value]="subItem.items" dataKey="id">
-                                <ng-template pTemplate="body" let-childItem>
-                <tr>
-                    <td style="width:7%">
-                    </td>
-                    <ng-container
-                        *ngTemplateOutlet="tableBody;  context:{data:{item:childItem,isLeafItem:true,isMainParent:false,isSubParent:false}}"></ng-container>
-                </tr>
-            </ng-template>
-        </p-table>
+                    </div>
+                </td>
+                <ng-container
+                    *ngTemplateOutlet="tableBody; context:{data:{item:subItem,isLeafItem:false,isMainParent:false,isSubParent:true}}"></ng-container>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-subItem>
+            <tr>
+                <td class="sub-table" colspan="8">
+                    <div>
+                        <p-table class="sub-table" [value]="subItem.items" dataKey="id">
+                            <ng-template pTemplate="body" let-childItem>
+            <tr>
+                <td style="width:7%">
+                </td>
+                <ng-container
+                    *ngTemplateOutlet="tableBody;  context:{data:{item:childItem,isLeafItem:true,isMainParent:false,isSubParent:false}}"></ng-container>
+            </tr>
+        </ng-template>
+    </p-table>
     </div>
     </td>
     </tr>
@@ -128,54 +168,6 @@
     </div>
     </td>
     </tr>
-    </ng-template>
+        </ng-template> -->
     </p-table>
-    </div>
 </app-system-setup>
-
-<ng-template let-data="data" #tableBody>
-    <td style="width:15%">
-        <span [ngClass]="{'font-bold': data.isMainParent,'font-medium text-accent':data.isSubParent}"
-            class="text-xs py-1">{{data.item.ledgerNumber}}</span>
-    </td>
-    <td style="width:18%">
-        <div [ngClass]="{'font-bold': data.isMainParent,'font-medium text-accent':data.isSubParent}"
-            class="text-xs text-ellipsis overflow-hidden whitespace-nowrap w-[200px] py-1">
-            {{data.item.description}}
-        </div>
-    </td>
-    <td style="width:10%" class="text-center">
-        <span [ngClass]="{'font-bold': data.isMainParent,'font-medium text-accent':data.isSubParent}"
-            class="text-xs py-1">{{data.item.type}}</span>
-    </td>
-    <td style="width:10%" class="text-center">
-        <span [ngClass]="{'font-bold': data.isMainParent,'font-medium text-accent':data.isSubParent}"
-            class="text-xs py-1">{{data.item.isCredit}}</span>
-    </td>
-    <td style="width:10%" class="text-center">
-        <span [ngClass]="{'font-bold': data.isMainParent,'font-medium text-accent':data.isSubParent}"
-            class="text-xs py-1">{{data.item.currency}}</span>
-    </td>
-    <td style="width:20%" class="text-center">
-        <span [ngClass]="{'font-bold': data.isMainParent,'font-medium text-accent':data.isSubParent}"
-            class="text-xs py-1">{{data.item.balance}}</span>
-    </td>
-    <td style="width:10%">
-        <div class="flex justify-end pr-4 py-1">
-            <button [routerLink]="[viewAccountLink,{outlets:{sidenav:null}}]" mat-button>
-                <span class="material-icons-outlined text-accent">
-                    visibility
-                </span>
-            </button>
-            <button (click)="onChartOfAccountAdded(true)" *ngIf="!data.isLeafItem" mat-button class="ml-4">
-                <mat-icon svgIcon="add-grid" class="text-accent"></mat-icon>
-            </button>
-            <button (click)="onChartOfAccountEdited(data.item,data.isLeafItem)" mat-button class="ml-4">
-                <span class="material-icons-outlined text-accent">
-                    border_color
-                </span>
-            </button>
-            <mat-slide-toggle (change)="onChartOfAccountDeactivated(data.item)" class="ml-4"></mat-slide-toggle>
-        </div>
-    </td>
-</ng-template>

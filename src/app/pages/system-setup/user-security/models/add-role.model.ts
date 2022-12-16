@@ -1,7 +1,7 @@
 import { Claim } from "./claim.model";
 
 export interface AddRole {
-    id?: string;
-    name: string;
+    roleId?: string;
+    roleName: string;
     claims: Claim[];
 }

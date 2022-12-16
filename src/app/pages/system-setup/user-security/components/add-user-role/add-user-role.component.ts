@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-// import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { environment } from 'src/environments/environment';
 
-import { MultiSelectFormGroup } from '../../form-groups/multi-select-form-group.service';
-import { SingleSelectFormGroup } from '../../form-groups/single-select-form-group.service';
 import { Module } from '../../../shared/models/module.model';
-import { AddClaim } from '../../models/add-claim.model';
 import { AddRoleFormGroup } from '../../form-groups/add-role-from-group.service';
 import { ClaimsFormGroup } from '../../form-groups/claims-form-group.service';
+import { MultiSelectFormGroup } from '../../form-groups/multi-select-form-group.service';
+import { SingleSelectFormGroup } from '../../form-groups/single-select-form-group.service';
+import { AddRole } from '../../models/add-role.model';
 import { UserSecurityService } from '../../services/user-security.service';
-import { BaseComponent } from '@root/shared/components/base-component/base-component';
-import { environment } from 'src/environments/environment';
 import { claims$ } from '../../store/user-security.store';
 
 @Component({
@@ -36,6 +37,7 @@ export class AddUserRoleComponent extends BaseComponent implements OnInit {
   selectedClaims = new Map<string, any>();
   claimsList: any[] = [];
   showClaims: boolean = false;
+  id: string;
 
   constructor(
     private layoutService: LayoutService,
@@ -44,60 +46,71 @@ export class AddUserRoleComponent extends BaseComponent implements OnInit {
     private addRoleFormGroup: AddRoleFormGroup,
     private addClaimsFormGroup: ClaimsFormGroup,
     private userSecurityService: UserSecurityService,
-    // private activeRoute: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
   ) {
     super();
   }
 
   ngOnInit(): void {
-    // this.activeRoute.paramMap.subscribe(params => {
-    //   if (params.get('id')) {
-    //     //get the Role item and claimsList
-    //     this.addFormGroup = this.addRoleFormGroup.getFormGroup();
-    //   }
-    //   else {
-    //     this.addFormGroup = this.addRoleFormGroup.getFormGroup();
-    //     this.multiFormGroup = this.multiSelectFormGroup.getFormGroup();
-    //     this.singleFormGroup = this.singleSelectFormGroup.getFormGroup();
-    //     this.claimsFormGroup = this.addClaimsFormGroup.getFormGroup();
-    //   }
-    // });
+    this.subscriptions.add(
+      claims$.subscribe((data) => {
+        if (!this.id) {
+          this.moduleList = data;
+        }
+      })
+    );
+    this.subscriptions.add(
+      this.userSecurityService.getClaims$.subscribe((data) => {
+        if (data) {
+          this.claimsList = [];
+          data.map((item: any) => {
+            this.claimsList.push({ id: item.claimId, type: item.claimType, value: item.claimValue })
+          })
+        }
+      })
+    );
+
+    this.activeRoute.paramMap.subscribe(params => {
+      if (params.get('id')) {
+        this.id = params.get('id');
+        const roleName = params.get('id');
+        this.userSecurityService.getClaimsByRole({ id: this.id, name: roleName });
+        this.addFormGroup = this.addRoleFormGroup.getFormGroup({ claims: [], roleName: params.get('name') });
+        this.multiFormGroup = this.multiSelectFormGroup.getFormGroup();
+        this.singleFormGroup = this.singleSelectFormGroup.getFormGroup();
+        this.claimsFormGroup = this.addClaimsFormGroup.getFormGroup([]);
+      }
+      else {
+        this.claimsList = [];
+        this.addFormGroup = this.addRoleFormGroup.getFormGroup();
+        this.multiFormGroup = this.multiSelectFormGroup.getFormGroup();
+        this.singleFormGroup = this.singleSelectFormGroup.getFormGroup();
+        this.claimsFormGroup = this.addClaimsFormGroup.getFormGroup([]);
+      }
+    });
 
     this.userSecurityService.getClaims(`${environment.identityServerURL}/Clients/3/ClaimGroups`)
 
-    this.addFormGroup = this.addRoleFormGroup.getFormGroup();
-    this.multiFormGroup = this.multiSelectFormGroup.getFormGroup();
-    this.singleFormGroup = this.singleSelectFormGroup.getFormGroup();
-    this.claimsFormGroup = this.addClaimsFormGroup.getFormGroup([]);
+
     this.multiFormGroup.get("options").valueChanges.subscribe(value => {
+      console.log(value);
+      const newestClaimList = new Set();
       this.claimsList = this.claimsList.concat(value.filter((item: any) => { return !Array.isArray(item) }));
-      this.claimsList = this.claimsList.filter((item: any, index: number) => this.claimsList.indexOf(item) === index);
+      this.claimsList = this.claimsList.filter((item: any) => {
+        const isDuplicated = newestClaimList.has(item.value);
+        newestClaimList.add(item.value)
+        if (!isDuplicated) {
+          return true
+        }
+        return false
+      });
+
+      console.log(this.claimsList);
     });
     this.singleFormGroup.get("option").valueChanges.subscribe(value => {
       this.moduleClaims = value.clientClaims;
     });
-
-    this.subscriptions.add(
-      this.userSecurityService.addRole$.subscribe((data) => {
-        this.saveUserClaims(data?.id);
-      })
-    );
-
-    this.subscriptions.add(
-      claims$.subscribe((data) => {
-        console.log(data);
-        this.moduleList = data;
-      })
-    );
-  }
-
-  async saveUserClaims(roleId: string) {
-    if (roleId) {
-      this.claimsFormGroup.value.claims.forEach((claim: AddClaim) => {
-        const addClaim: AddClaim = { claimType: claim.claimType, claimValue: claim.claimValue, roleId: roleId };
-        console.log(addClaim);
-      });
-    }
   }
 
   getFormControl(key: string): FormControl {
@@ -111,17 +124,32 @@ export class AddUserRoleComponent extends BaseComponent implements OnInit {
 
   onSave(): void {
     if (this.addFormGroup.valid) {
-      //Save Role and get RoleId
       this.claimsList.map((value: any) => {
-        this.addClaimsFormGroup.addClaim({ claimType: value.type, claimValue: value.value, roleId: '' })
+        this.addClaimsFormGroup.addClaim({ claimType: value.type, claimValue: value.value, claimId: value.id })
       });
       if (this.claimsFormGroup.valid) {
-        this.userSecurityService.addRole(this.addFormGroup.value);
+        let addRole: AddRole = {
+          claims: this.addClaimsFormGroup.getValueFromFormGroup(this.claimsFormGroup).claims,
+          roleName: this.addFormGroup.value.name,
+        }
+        if (this.id) {
+          console.log(this.id);
+
+          addRole.roleId = this.id
+        }
+        this.userSecurityService.addRole(addRole);
+        this.navigate();
+        this.layoutService.closeRightSideNav();
       }
     }
   }
 
+  navigate() {
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.UserSecurity}`]);
+  }
+
   onCancel(): void {
+    this.navigate();
     this.layoutService.closeRightSideNav();
   }
 

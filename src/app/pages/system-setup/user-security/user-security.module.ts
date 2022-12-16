@@ -23,7 +23,7 @@ const routes: Route[] = [
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.Add}/:id`,
+    path: `${ApplicationRoutes.Add}/:id/:name`,
     component: AddUserRoleComponent,
     outlet: 'sidenav',
   },

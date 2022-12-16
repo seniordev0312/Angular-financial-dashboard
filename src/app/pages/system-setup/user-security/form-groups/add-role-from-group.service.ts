@@ -17,7 +17,7 @@ export class AddRoleFormGroup {
 
     getFormGroup(item?: AddRole): FormGroup {
         this.fg = this.fb.group({
-            name: new FormControl(item?.name || null, [Validators.required]),
+            name: new FormControl(item?.roleName || null, [Validators.required]),
             claims: this.fb.array([]),
         });
         if (item?.claims) {
@@ -28,10 +28,14 @@ export class AddRoleFormGroup {
         return this.fg;
     }
 
+    setClaims(claims: Claim[]) {
+        this.formArrayService.getFormArrayItems('claims', this.fg).push(claims)
+    }
+
     getValueFromFormGroup(fg: FormGroup): AddRole {
         const role: AddRole = {
-            id: fg.controls.id.value,
-            name: fg.controls.name.value,
+            roleId: fg.controls.id.value,
+            roleName: fg.controls.name.value,
             claims: []
         };
         this.formArrayService.getFormArrayItems('claims', fg).controls.forEach((item: FormGroup) => {
