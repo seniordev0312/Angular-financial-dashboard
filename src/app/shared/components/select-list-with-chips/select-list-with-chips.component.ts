@@ -10,12 +10,14 @@ import { FormArrayService } from '@root/shared/services/form-array.service';
 })
 export class SelectListWithChipsComponent {
   @Output() addNewItem = new EventEmitter<void>();
+  @Input() isFirstFieldSelectList = false;
 
   @Input() fg: FormGroup;
   @Input() arrayControlName: string;
   @Input() firstFieldFormControlName: string;
   @Input() secondFieldFormControlName: string;
   @Input() secondSelectListOptionsList: BaseListItem[] = [];
+  @Input() firstSelectListOptionsList: BaseListItem[] = [];
 
   constructor(private formArrayService: FormArrayService) {
   }
@@ -40,8 +42,15 @@ export class SelectListWithChipsComponent {
     return this.secondSelectListOptionsList.find(e => e.id === id).value;
   }
 
+  getFirstLabel(id: string) {
+    return this.firstSelectListOptionsList.find(e => e.id === id).value;
+  }
+
   getChipLabel(index: number) {
     const data = this.items.controls[index].value;
+    if (this.isFirstFieldSelectList) {
+      return this.getFirstLabel(data[this.firstFieldFormControlName]) + ' - ' + this.getSecondLabel(data[this.secondFieldFormControlName]);
+    }
     return data[this.firstFieldFormControlName] + ' - ' + this.getSecondLabel(data[this.secondFieldFormControlName]);
   }
 }
