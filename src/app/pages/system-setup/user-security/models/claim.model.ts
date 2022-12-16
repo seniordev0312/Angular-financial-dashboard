@@ -1,6 +1,5 @@
-export class Claim {
+export interface Claim {
     claimId: number;
-    roleId: string;
     claimType: string;
-    claimValue: string;
+    claimValue: string | string[];
 }
