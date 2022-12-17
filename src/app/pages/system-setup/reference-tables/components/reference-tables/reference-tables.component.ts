@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
@@ -18,7 +19,7 @@ export class ReferenceTablesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<ReferenceTables>;
-
+  canAddRelationshipTypePermission = Permission.CanAddRelationshipType;
   templatesList: ReferenceTables[] = [
     {
       referenceType: 'Country',

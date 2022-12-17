@@ -1,20 +1,26 @@
 import { NgModule } from '@angular/core';
-import { AuthModule } from 'angular-auth-oidc-client';
+import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { environment } from 'src/environments/environment';
+import { ApplicationRoutes } from './shared/settings/common.settings';
 
 
 @NgModule({
     imports: [
         AuthModule.forRoot({
             config: {
-                authority: 'https://dev.identity.sts.aperatureuk.com',
+                authority: environment.identityServerURL,
                 redirectUrl: window.location.origin,
-                postLogoutRedirectUri: window.location.origin,
+                postLogoutRedirectUri: 'http://localhost:4200',
                 clientId: 'aperture-powerhouse',
                 scope: 'openid profile roles email insurance_powerhouse address apertureidentity_api',
                 responseType: 'code',
                 silentRenew: true,
                 useRefreshToken: true,
-                renewTimeBeforeTokenExpiresInSeconds: 30
+                tokenRefreshInSeconds: 20,
+                logLevel: LogLevel.Debug,
+                renewUserInfoAfterTokenRenew: true,
+                renewTimeBeforeTokenExpiresInSeconds: 30,
+                postLoginRoute: `/${ApplicationRoutes.Dashboard}`
             }
         })],
     exports: [AuthModule],

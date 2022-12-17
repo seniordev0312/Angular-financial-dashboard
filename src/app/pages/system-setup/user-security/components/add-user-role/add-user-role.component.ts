@@ -5,7 +5,7 @@ import { LayoutService } from '@root/shared/services/layout.service';
 
 import { MultiSelectFormGroup } from '../../form-groups/multi-select-form-group.service';
 import { SingleSelectFormGroup } from '../../form-groups/single-select-form-group.service';
-import { Module } from '../../../shared/models/module.model';
+import { Module } from '../../../shared-system-setup/models/module.model';
 import { AddClaim } from '../../models/add-claim.model';
 import { AddRoleFormGroup } from '../../form-groups/add-role-from-group.service';
 import { ClaimsFormGroup } from '../../form-groups/claims-form-group.service';

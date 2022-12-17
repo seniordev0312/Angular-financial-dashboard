@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: ApplicationRoutes.Empty,
     redirectTo: ApplicationRoutes.Dashboard,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: ApplicationRoutes.Dashboard,
@@ -116,6 +116,7 @@ const routes: Routes = [
       import('./customer-service/policy-renewals/policy-renewals.module').then(
         (m) => m.PolicyRenewalsModule
       ),
+    canLoad: [AutoLoginAllRoutesGuard]
   }
 ];
 

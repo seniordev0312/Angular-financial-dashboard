@@ -10,25 +10,45 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: EntitiesTemplatesManagementComponent,
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAccessEntityTemplate
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAddEntityTemplate
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanEditEntityTemplate
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   }
 ];
 

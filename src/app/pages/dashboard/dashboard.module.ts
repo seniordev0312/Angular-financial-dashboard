@@ -14,6 +14,8 @@ import { EmailContentComponent } from './components/emails/components/email-cont
 import { EmailChatComponent } from './components/emails/components/email-chat/email-chat.component';
 import { EmailsComponent } from './components/emails/components/email/emails.component';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
   {
@@ -25,13 +27,25 @@ const routes: Route[] = [
     path: ApplicationRoutes.Calender,
     component: CalendarComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAccessCalander
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.Email,
     component: EmailsComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAccessEmail
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
 ];
 @NgModule({

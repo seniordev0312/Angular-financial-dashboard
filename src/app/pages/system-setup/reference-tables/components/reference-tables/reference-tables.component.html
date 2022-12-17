@@ -2,9 +2,11 @@
     <div class="h-full w-full flex flex-col">
         <div class="h-[10%] flex items-center justify-between">
             <span>Manage Reference Types</span>
-            <app-button icon="add" text="Add New Relationship Type"
-                classes="bg-accent text-xxs text-white font-light h-8 w-[200px]">
-            </app-button>
+            <ng-template [appCanAccessFeature]="canAddRelationshipTypePermission">
+                <app-button icon="add" text="Add New Relationship Type"
+                    classes="bg-accent text-xxs text-white font-light h-8 w-[200px]">
+                </app-button>
+            </ng-template>
         </div>
         <div class="h-[85%] flex flex-row w-full">
             <app-widget-table class="w-full" [tableConfiguration]="tableConfiguration"></app-widget-table>

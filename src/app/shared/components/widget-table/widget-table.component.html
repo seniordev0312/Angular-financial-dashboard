@@ -179,6 +179,11 @@
 </mat-menu>
 
 <ng-template #inlineActions let-row="row">
+  <span *ngIf="tableConfiguration.tableRowsActionsList.length===0">
+    <span class="material-icons-outlined">
+      lock
+    </span>
+  </span>
   <ng-container *ngFor="let action of tableConfiguration.tableRowsActionsList">
     <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
       class="text-md mx-2" (click)="action.action(row)" mat-raised-button>
