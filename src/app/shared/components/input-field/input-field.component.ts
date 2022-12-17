@@ -10,6 +10,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 })
 export class InputFieldComponent {
   @Input() label: string;
+  @Input() name: string;
   @Input() value: string;
   @Input() control: FormControl;
   @Input() baseListItemsList: BaseListItem[];

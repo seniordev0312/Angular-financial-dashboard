@@ -1,12 +1,12 @@
 <app-toolbar (ToggleSideBarForLeftMenu)="LSideBarToggle()" class="shadow-2xl poppins-font"></app-toolbar>
 
 <mat-sidenav-container class="poppins-font" [dir]="(isRTLDirection$|async) ? 'rtl': 'ltr'">
-    <mat-sidenav #sidenav mode="side" position="start" opened="true">
+    <mat-sidenav #sidenav mode="side" position="start" opened="true" class="left-mat-sidenav">
         <app-left-side-bar (toggleSidenavCollapsedEvent)="toggleSidenav($event)"></app-left-side-bar>
     </mat-sidenav>
 
-    <mat-sidenav-content class="p-2 pt-0 h-full bg-white" [ngStyle]="{'margin-left': ml}">
-        <div *ngIf="showBreadcrumb" class="h-[5%] pl-5 pt-5 flex items-center">
+    <mat-sidenav-content class="p-2 pt-0 h-full bg-white" [ngStyle]="{'margin-left': ml,'margin-right': mr}">
+        <div *ngIf="showBreadcrumb" class="h-[5%] pl-5 pt-5 flex items-center left-mat-sidenav">
             <app-breadcrumbs></app-breadcrumbs>
         </div>
         <div class="pl-5 relative" [ngClass]="mainContentClass">
@@ -18,7 +18,7 @@
     </mat-sidenav-content>
 
     <mat-sidenav #sidenav [disableClose]="true" [mode]="rightSidenavMode$|async" position="end"
-        [opened]="isRightSidenavOpened$|async" class="bg-white">
-        <app-right-side-bar></app-right-side-bar>
+        [opened]="isRightSidenavOpened$|async" class="bg-white right-mat-sidenav">
+        <app-right-side-bar (toggleRightSidenavCollapsedEvent)="toggleRightSidenav($event)"></app-right-side-bar>
     </mat-sidenav>
 </mat-sidenav-container>

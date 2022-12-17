@@ -34,6 +34,9 @@ import { EntityInformationComponent } from '@root/shared/components/entity-infor
 import { MatDividerModule } from '@angular/material/divider';
 import { NotificationModule } from './notifications/notification.module';
 import { RouterModule } from '@angular/router';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
+import { SingleSelectComponent } from './components/single-select/single-select.component';
+import { CanAccessFeatureDirective } from './directives/access-control.directive';
 
 import { DatePickerInputComponent } from './components/date-picker-input/date-picker-input.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -49,7 +52,10 @@ import { MatNativeDateModule } from '@angular/material/core';
         DialogHeaderComponent,
         SelectListWithChipsComponent,
         EntityInformationComponent,
-        DatePickerInputComponent
+        MultiSelectComponent,
+        SingleSelectComponent,
+        DatePickerInputComponent,
+        CanAccessFeatureDirective
     ],
     imports: [
         MatAutocompleteModule,
@@ -78,7 +84,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         AutomaticFormValidationModule,
         MatChipsModule,
         NotificationModule,
-        RouterModule
+        RouterModule,
     ],
     exports: [
         CardComponent,
@@ -95,6 +101,9 @@ import { MatNativeDateModule } from '@angular/material/core';
         EntityInformationComponent,
         FormsModule,
         ReactiveFormsModule,
+        MultiSelectComponent,
+        SingleSelectComponent,
+        CanAccessFeatureDirective
     ],
     providers: [],
 })

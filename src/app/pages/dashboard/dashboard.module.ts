@@ -9,22 +9,43 @@ import { StickyNotesCardComponent } from '@root/pages/dashboard/components/stick
 import { AssignedTasksItemComponent } from '@root/pages/dashboard/components/assigned-tasks-item/assigned-tasks-item.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { CalendarComponent } from '@root/pages/dashboard/components/calendar/calendar.component';
-import { EmailsComponent } from '@root/pages/dashboard/components/emails/emails.component';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { EmailContentComponent } from './components/emails/components/email-content/email-content.component';
+import { EmailChatComponent } from './components/emails/components/email-chat/email-chat.component';
+import { EmailsComponent } from './components/emails/components/email/emails.component';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
   {
-    path: '',
+    path: ApplicationRoutes.Empty,
     component: DashboardComponent,
+    canActivate: [AutoLoginAllRoutesGuard]
   },
   {
-    path: '',
+    path: ApplicationRoutes.Calender,
     component: CalendarComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAccessCalander
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
-    path: 'email',
+    path: ApplicationRoutes.Email,
     component: EmailsComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAccessEmail
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
 ];
 @NgModule({
@@ -35,7 +56,9 @@ const routes: Route[] = [
     StickyNotesCardComponent,
     AssignedTasksItemComponent,
     CalendarComponent,
-    EmailsComponent
+    EmailsComponent,
+    EmailContentComponent,
+    EmailChatComponent
   ],
   imports: [
     CommonModule,

@@ -5,8 +5,8 @@
     }
 
     .p-inputtext {
-        font-size: 0.7rem !important;
-        padding: 0.5rem 0.5rem !important;
+        font-size: 0.5rem !important;
+        padding: 0.4rem 0.4rem !important;
     }
 
     .pi {
@@ -26,6 +26,7 @@
             margin-left: auto;
         }
 
+        padding: 0.01rem 0.01rem;
         vertical-align: center !important;
     }
 
@@ -93,6 +94,7 @@
     .p-datatable .p-datatable-tbody>tr>td {
         cursor: auto;
         word-break: break-word;
+        padding: 0.2rem 0.2rem;
     }
 
     .p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
@@ -101,6 +103,7 @@
 
     .p-datatable .p-datatable-thead>tr>th {
         text-align: center !important;
+        padding: 0.2rem 0.2rem;
     }
 
     /* Responsive */

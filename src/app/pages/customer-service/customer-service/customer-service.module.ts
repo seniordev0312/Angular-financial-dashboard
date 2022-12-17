@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { CustomerServiceComponent } from './components/customer-service/customer-service.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { ContactViewComponent } from './components/contact-view/contact-view.component';
@@ -19,8 +20,21 @@ import { SalesFlowComponent } from './components/sales-flow/sales-flow.component
 import { HistoryListComponent } from './components/followup-history/history-list/history-list.component';
 import { EditHistoryComponent } from './components/followup-history/edit-history/edit-history.component';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
+  {
+    path: ApplicationRoutes.Empty,
+    component: CustomerServiceComponent,
+    data: {
+      permission: Permission.CanAccessCustomerService
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
+  },
   {
     path: ApplicationRoutes.CustomerService,
     component: SalesFlowComponent,

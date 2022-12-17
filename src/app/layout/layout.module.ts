@@ -5,13 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -25,6 +25,7 @@ import { FrontLeftSideBarComponent } from './components/left-side-bar/components
 import { LeftSideBarComponent } from './components/left-side-bar/components/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './components/right-side-bar/components/right-side-bar/right-side-bar.component';
 import { ToolbarModule } from './components/toolbar/toolbar.module';
+import { NavigationItemComponent } from './components/left-side-bar/components/navigation-item/navigation-item.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ToolbarModule } from './components/toolbar/toolbar.module';
     ContactCardComponent,
     ChatCardComponent,
     MessageCardComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    NavigationItemComponent
   ],
   imports: [
     SharedModule,

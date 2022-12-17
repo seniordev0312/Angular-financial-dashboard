@@ -34,6 +34,9 @@ export const enum ApplicationRoutes {
   Entities = 'entities',
   EntitiesManagement = 'management',
   Add = 'add',
+  AddGroup = 'add-group',
+  AddDepartment = 'add-department',
+  AddBranch = 'add-branch',
   Edit = 'edit',
   EntitiesRelationshipTypesManagement = 'relationship-types',
   EntitiesKYCDocumentTypesManagement = 'kyc-document-types',
@@ -42,6 +45,8 @@ export const enum ApplicationRoutes {
   EntitiesListManagement = 'list',
   EntitiesSection = 'section',
   EntitiesElement = 'element',
+  Email = 'email',
+  Calender = 'calender',
   PolicyRenewals = 'policy-renewals',
   EntitiesControl = 'entities-control',
   InsuranceRenewals = "insurance-renewals"

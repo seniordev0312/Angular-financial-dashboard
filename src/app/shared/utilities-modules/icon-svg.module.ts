@@ -92,6 +92,12 @@ export class IconSvgModule {
                 'back',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/back.svg')
             ).addSvgIcon(
+                'true',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/true.svg')
+            ).addSvgIcon(
+                'false',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/false.svg')
+            ).addSvgIcon(
                 'add-grid',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/add-grid.svg')
             ).addSvgIcon(

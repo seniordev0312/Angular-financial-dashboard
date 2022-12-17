@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
-import { UserRolesListItem } from '../../models/user-roles-list-item.model';
+import { RoleList } from '../../models/role-list.model';
+import { Role } from '../../models/role.model';
+import { UserSecurityService } from '../../services/user-security.service';
+import { roleList$ } from '../../store/user-security.store';
 
 @Component({
   selector: 'app-user-roles-management',
@@ -14,53 +18,30 @@ import { UserRolesListItem } from '../../models/user-roles-list-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserRolesManagementComponent extends BaseComponent implements OnInit {
+  canAddRolePermission = Permission.CanAddRole;
+  canEditRolePermission = Permission.CanEditRole;
+  data: RoleList;
+  pageIndex: number = 0;
+  pageSize: number = 100;
 
-  rolesList: UserRolesListItem[] = [
-    {
-      id: '1',
-      role: 'Accountting Header',
-      description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-      modules: [
-        {
-          id: '2',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
-        },
-        {
-          id: '7',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
-        }
-      ]
-    },
-    {
-      id: '2',
-      role: 'Accountting Header',
-      description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-      modules: [
-        {
-          id: '3',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
-        },
-        {
-          id: '4',
-          description: 'bnnn sbnnnnnnnnnn bnnnn nbbbbb nbsbn snms nmmnms mnnmnms',
-          module: 'Entity Management',
-          claims: 'Allow add entity'
-        }
-      ]
-    },
-  ];
-
-  constructor(private layoutService: LayoutService,
+  constructor(
+    private userSecurityService: UserSecurityService,
+    private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
     private router: Router) { super(); }
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      roleList$.subscribe((data) => {
+        this.data = data;
+      })
+    );
+    this.subscriptions.add(
+      this.userSecurityService.addRole$.subscribe((_data) => {
+        this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
+      })
+    );
+    this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -86,7 +67,7 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onRoleEdited(userRolesListItem: UserRolesListItem) {
+  onRoleEdited(userRolesListItem: any) {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.UserSecurity}`, {
       outlets: {
         sidenav: `${ApplicationRoutes.Add}/${userRolesListItem.id}`
@@ -97,7 +78,7 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onRoleDeleted(_userRolesListItem: UserRolesListItem) {
+  onRoleDeleted(_userRolesListItem: any) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to delete this template?',
       title: 'Delete Template',
@@ -112,6 +93,10 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
         if (isConfirmed) { }
       }));
+  }
+
+  getRoleClaims(role: Role) {
+    this.userSecurityService.getClaimsByRole(role)
   }
 
 }

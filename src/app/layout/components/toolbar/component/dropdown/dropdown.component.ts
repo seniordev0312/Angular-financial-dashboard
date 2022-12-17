@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '@root/shared/services/auth.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -20,12 +21,20 @@ export class DropdownComponent implements OnInit {
     label: 'Sign out',
     icon: 'logout',
     value: 'SignOut',
-  }]
-  constructor() { }
+  }];
+
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
 
-  onChange(_event: any): void {
+  onChange(event: string): void {
+    if (event === 'SignOut') {
+      this.onLogout();
+    }
+  }
+
+  onLogout() {
+    this.authenticationService.signOut();
   }
 }
