@@ -121,9 +121,12 @@
                     </button>
                 </td>
                 <ng-container
-                    *ngTemplateOutlet="tableBody; context:{data:{item:items(item.accountId,item.accountTypeId),isLeafItem:false,isMainParent:true,isSubParent:false}}"></ng-container>
+                    *ngTemplateOutlet="tableBody; context:{data:{item:items(item.accountId,item.accountTypeId),isLeafItem:false,isMainParent:true,isSubParent:false}}">
+                </ng-container>
             </tr>
         </ng-template>
+
+
         <!-- <ng-template pTemplate="rowexpansion" let-item>    
             <tr>
                 <td class="sub-table" colspan="8">

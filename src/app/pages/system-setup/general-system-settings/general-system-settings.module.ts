@@ -7,6 +7,9 @@ import { SharedModule } from '@root/shared/shared.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
 import { AddHolidayComponent } from './components/add-holiday/add-holiday.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const routes: Route[] = [
   {
@@ -19,7 +22,7 @@ const routes: Route[] = [
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.Add}/:id`,
+    path: `${ApplicationRoutes.Add}/:id/:name/:startDate/:endDate/:offDay`,
     component: AddHolidayComponent,
     outlet: 'sidenav',
   },
@@ -32,9 +35,12 @@ const routes: Route[] = [
   ],
   imports: [
     CommonModule,
+    MatFormFieldModule,
     SharedModule,
     MatSlideToggleModule,
     SharedSystemSetupModule,
+    FormsModule,
+    MatDatepickerModule,
     RouterModule.forChild(routes)
   ]
 })

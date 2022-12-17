@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
@@ -12,6 +12,8 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 export class BranchCardComponent implements OnInit {
   @Input() data: any;
   showElementsList = false;
+
+  @Output() onCopyBranch: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private layoutService: LayoutService,
@@ -27,7 +29,6 @@ export class BranchCardComponent implements OnInit {
       },
     }], {
       queryParams: {
-        level: this.data.level,
         parentId: this.data.id
       },
       skipLocationChange: true,
@@ -40,6 +41,10 @@ export class BranchCardComponent implements OnInit {
   toggleElementsListVisibility() {
     // this.sectionsListRepository.updateSelectedSection(this.data);
     this.showElementsList = !this.showElementsList;
+  }
+
+  copyBranch(): void {
+    // this.onCopyBranch.emit({ parentId })
   }
 
   onDepartmentAdded(): void {

@@ -12,6 +12,7 @@
     </div>
     <div *ngIf="showElementsList"
         class="flex py-2 gap-1 rounded-b-2xl items-center justify-center flex-wrap min-h-[64px] bg-[#C0C6CC] elements w-full border-accent border-2 border-t-0">
+        <div *ngIf="data.groups.length === 0">No Groups</div>
         <app-group-chip [item]="item" *ngFor="let item of data.groups"></app-group-chip>
     </div>
 

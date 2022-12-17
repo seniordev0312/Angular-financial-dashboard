@@ -11,8 +11,8 @@ export class UserPolicyFormGroup {
 
     getFormGroup(item?: UserPolicy): FormGroup {
         this.fg = this.fb.group({
-            isComplexPasswordForced: new FormControl(item?.isComplexPasswordForced || null, [Validators.required]),
-            isChangePasswordForced: new FormControl(item?.isChangePasswordForced || null, [Validators.required]),
+            isComplexPasswordForced: new FormControl(item?.isComplexPasswordForced || false, [Validators.required]),
+            isChangePasswordForced: new FormControl(item?.isChangePasswordForced || false, [Validators.required]),
             minPasswordLength: new FormControl(item?.minPasswordLength || null, [Validators.required]),
             maxTrialsBeforeLockingLength: new FormControl(item?.maxTrialsBeforeLockingLength || null, [Validators.required]),
             numberOfDays: new FormControl(item?.numberOfDays || null, [Validators.required]),

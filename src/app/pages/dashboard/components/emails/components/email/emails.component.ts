@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { EmailItem } from '../../models/email-item.model';
+import { EmailsService } from '../../services/emails.service';
+import { emails$ } from '../../store/emails.store';
 
 @Component({
   selector: 'app-emails',
@@ -7,93 +11,26 @@ import { LayoutService } from '@root/shared/services/layout.service';
   styleUrls: ['./emails.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmailsComponent implements OnInit {
+export class EmailsComponent extends BaseComponent implements OnInit {
 
-  emails: any[] = [
-    {
-      key: "2022-12-02T00:00:00",
-      value: [
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-        },
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-        }
-      ]
-    },
-    {
-      key: "2022-12-02T00:00:00",
-      value: [
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: ""
-        },
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-        },
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-        }
-      ]
-    },
-    {
-      key: "2022-12-02T00:00:00",
-      value: [
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-        },
-        {
-          id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-          from: "Azure DevOps",
-          fromEmail: "azuredevops@microsoft.com",
-          subject: "You have been invited to a Azure DevOps Project!",
-          body: "<html>...HTML BODY...</html>",
-          dateCreated: "2022-12-02T07:35:57",
-          profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-        }
-      ]
-    }
-  ];
+  emails: any[] = [];
 
   constructor(
-    private layoutService: LayoutService
-  ) { }
+    private layoutService: LayoutService,
+    private emailsService: EmailsService
+  ) {
+    super();
+  }
   ngOnInit(): void {
+
+    this.subscriptions.add(
+      emails$.subscribe((data: EmailItem[]) => {
+        console.log(data);
+        this.emails = data;
+      })
+    )
     this.layoutService.updateBreadCrumbsRouter({});
+    this.emailsService.getEmails(0, 100);
+
   }
 }

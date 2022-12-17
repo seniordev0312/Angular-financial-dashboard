@@ -116,7 +116,6 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
 
   getRoleClaims(role: Role) {
     this.userSecurityService.getClaimsByRole(role);
-    this.data.roles = [...this.data.roles];
   }
 
   removeClaimFromRole(claim: any) {

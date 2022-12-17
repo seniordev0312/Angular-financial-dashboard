@@ -1,6 +1,6 @@
 <mat-form-field class="w-full" appearance="fill">
   <mat-label class="font-xl">{{ label }}</mat-label>
-  <input class="font-xl" [matAutocomplete]="auto" [formControl]="control" value="{{ value }}" matInput />
+  <input class="font-xl" [matAutocomplete]="auto" [formControl]="control" value="{{ value }}" matInput [type]="type" />
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of baseListItemsList" [value]="option.id">
       {{ option.value }}

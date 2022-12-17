@@ -31,7 +31,10 @@ export class CompanySetupComponent implements OnInit {
     });
   }
 
-  onSave(): void { }
+  onSave(): void {
+    console.log(this.fg.valid, this.fg.value);
+
+  }
 
   getFormControl(key: string): FormControl {
     return this.fg.controls[key] as FormControl;

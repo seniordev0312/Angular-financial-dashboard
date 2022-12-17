@@ -57,7 +57,7 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
               expanded: true,
               data: { name: data.name, parentId: data.parentId, id: data.id, groups: [] },
               children: [],
-            })
+            });
         }
         this.cdr.detectChanges();
       })
@@ -90,13 +90,12 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
   addGroup(nodes: TreeNode, data: AddGroup) {
     if (Number(data.parentId) === nodes.data.id) {
       let index = nodes.data.groups.findIndex((e: any) => Number(e.id) === Number(data.id));
-      console.log(data.id);
-      console.log(nodes.data.groups);
-      console.log(index);
       if (index === -1) {
         nodes.data.groups.push({ name: data.name, id: data.id, parentId: data.parentId });
+        return
       } else {
         nodes.data.groups[index] = data;
+        return
       }
     }
     nodes.children.forEach((item) => {
@@ -104,27 +103,32 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
         let index = item.data.groups.findIndex((e: any) => Number(e.id) === Number(data.id));
         if (index === -1) {
           item.data.groups.push({ name: data.name, id: data.id, parentId: data.parentId });
+          return
         } else {
           nodes.data.groups[index] = data;
+          return
         }
-
       } else {
-        this.addGroup(item, data)
+        return this.addGroup(item, data)
       }
     });
+    this.cdr.detectChanges();
   }
 
   addNodeToTreeNode(nodes: TreeNode, node: TreeNode) {
     if (Number(node.data.parentId) === nodes.data.id) {
       nodes.children.push(node);
+      return
     }
     nodes.children.forEach((item) => {
       if (item.data.id === node.data.parentId) {
         item.children.push(node);
+        return
       } else {
-        this.addNodeToTreeNode(item, node)
+        return this.addNodeToTreeNode(item, node)
       }
     });
+    this.cdr.detectChanges();
   }
 
 }

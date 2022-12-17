@@ -30,7 +30,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
       "debit": "",
       "credit": "",
       "balance": "",
-      "lastLevelFlag": false,
+      "lastLevelFlag": true,
 
     },
     {
