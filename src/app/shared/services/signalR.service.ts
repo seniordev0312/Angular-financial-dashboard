@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -23,31 +24,32 @@ export class SignalRService {
         return this.SignalRStatus.asObservable();
     }
 
-    constructor() {
+    constructor(private authenticationService: AuthenticationService) {
         this.hubUrl = environment.signalRHub;
     }
 
-    public async initiateEmailSignalRConnection(_action: string): Promise<void> {
+    public async initiateEmailSignalRConnection(): Promise<void> {
         try {
-            this.connection = new signalR.HubConnectionBuilder()
-                .withUrl(`${this.hubUrl}/extract-face`)
-                .withAutomaticReconnect()
-                .build();
+            this.authenticationService.token.subscribe(async (token: any) => {
+                this.connection = new signalR.HubConnectionBuilder()
+                    .withUrl(`${this.hubUrl}/Hub/Email`, { headers: { Authorization: `Bearer ${token}` } })
+                    .withAutomaticReconnect()
+                    .build();
 
-            this.connection.on("onError", (data: any) => {
-                this.toggleSignalRStatus({ event: 'onError', data });
-            });
+                this.connection.on("onError", (data: any) => {
+                    this.toggleSignalRStatus({ event: 'onError', data });
+                });
 
-            this.connection.on("onStatusUpdated", (data: any) => {
-                this.toggleSignalRStatus({ event: 'onStatusUpdated', data });
-            });
+                this.connection.on("onStatusUpdated", (data: any) => {
+                    this.toggleSignalRStatus({ event: 'onStatusUpdated', data });
+                });
 
-            this.connection.on("onComplete", (data: any) => {
-                this.toggleSignalRStatus({ event: 'onComplete', data });
-            });
+                this.connection.on("onComplete", (data: any) => {
+                    this.toggleSignalRStatus({ event: 'onComplete', data });
+                });
 
-            await this.connection.start();
-
+                await this.connection.start();
+            })
         }
         catch (error) {
             console.log(`SignalR connection error: ${error}`);

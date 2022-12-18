@@ -22,6 +22,9 @@ export class LayoutService {
     rightSidenavModeSubject = new BehaviorSubject<MatDrawerMode>('side');
     rightSidenavMode$ = this.rightSidenavModeSubject.asObservable();
 
+    canToggleRightSideNavSubject = new BehaviorSubject<boolean>(true);
+    canToggleRightSideNav$ = this.canToggleRightSideNavSubject.asObservable();
+
     isDesktop$ = this.breakpointObserver.observe('(min-width: 1280px)').pipe(map((state) => state.matches));
 
     ltLg$ = this.breakpointObserver.observe('(max-width: 1500px)').pipe(map((state) => state.matches));
@@ -49,6 +52,13 @@ export class LayoutService {
 
     closeRightSideNav(): void {
         this.isRightSidenavOpenedSubject.next(false);
+    }
+
+    showToggleInRightSideNav(): void {
+        this.canToggleRightSideNavSubject.next(true);
+    }
+    hideToggleInRightSideNav(): void {
+        this.canToggleRightSideNavSubject.next(false);
     }
 
 

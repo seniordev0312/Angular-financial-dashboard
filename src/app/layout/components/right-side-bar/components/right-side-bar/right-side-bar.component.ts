@@ -4,6 +4,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { isSidenavSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
+import { LayoutService } from '@root/shared/services/layout.service';
 
 @Component({
   selector: 'app-right-side-bar',
@@ -19,7 +20,7 @@ export class RightSideBarComponent extends BaseComponent implements OnInit {
   @Output() toggleRightSidenavCollapsedEvent: EventEmitter<any> = new EventEmitter<boolean>();
   isSpinning$: Observable<boolean>;
 
-  constructor(private router: Router) { super(); }
+  constructor(private router: Router, private layoutService: LayoutService) { super(); }
 
   ngOnInit(): void {
     this.isSpinning$ = isSidenavSpinning$;
@@ -29,6 +30,11 @@ export class RightSideBarComponent extends BaseComponent implements OnInit {
         this.outlet.deactivate();
       }
     }));
+    this.subscriptions.add(
+      this.layoutService.canToggleRightSideNav$.subscribe(data => {
+        this.canToggle = data;
+      })
+    )
     this.router.events.subscribe((val: NavigationEnd) => {
       if (val.url?.includes(`/${ApplicationRoutes.Dashboard}`))
         this.canToggle = true;

@@ -8,6 +8,7 @@ import { EmailItem } from '../models/email-item.model';
 
 export interface EmailsModel {
     emails: EmailItem[];
+    emailsMessages: any
 }
 
 const store = createStore(
@@ -16,6 +17,7 @@ const store = createStore(
     },
     withProps<EmailsModel>({
         emails: null,
+        emailsMessages: null
     })
 );
 
@@ -24,6 +26,7 @@ persistState(store, {
 });
 
 export const emails$ = store.pipe(select(({ emails }) => emails));
+export const emailsMessages$ = store.pipe(select(({ emailsMessages }) => emailsMessages));
 
 export type EmailsStore = typeof store;
 export const EMAILS_STORE = new InjectionToken<

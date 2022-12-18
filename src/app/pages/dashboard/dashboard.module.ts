@@ -14,6 +14,7 @@ import { EmailContentComponent } from './components/emails/components/email-cont
 import { EmailChatComponent } from './components/emails/components/email-chat/email-chat.component';
 import { EmailsComponent } from './components/emails/components/email/emails.component';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { SafeHtmlPipe } from './components/emails/pipe/safe-html.pipe';
 
 const routes: Route[] = [
   {
@@ -44,13 +45,16 @@ const routes: Route[] = [
     CalendarComponent,
     EmailsComponent,
     EmailContentComponent,
-    EmailChatComponent
+    EmailChatComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,
     MatIconModule,
     SharedModule,
     RouterModule.forChild(routes)
+  ],
+  providers: [
   ]
 })
 export class DashboardModule { }
