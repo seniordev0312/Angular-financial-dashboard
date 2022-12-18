@@ -1,7 +1,8 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { Filter } from '@root/shared/models/table/filter.model';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -9,6 +10,7 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { KYCDocumentListItem } from '../../models/kyc-document-types-list-item.model';
 
@@ -18,10 +20,11 @@ import { KYCDocumentListItem } from '../../models/kyc-document-types-list-item.m
   styleUrls: ['./entities-kyc-document-types-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
-
+export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<KYCDocumentListItem>;
+  addEntityKYCDocumentPermission = Permission.CanAddEntityKYCDocument;
+
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];
@@ -112,22 +115,6 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
         filterType: TableColumnFilterDataType.Text
       }
     },
-    {
-      translationKey: 'Process',
-      property: 'process',
-      type: 'bool',
-      cssClasses: () => '',
-      dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
-      enableSort: false,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
-    },
   ];
 
   editAction: TableRowAction<KYCDocumentListItem> = {
@@ -145,7 +132,7 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
   tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<KYCDocumentListItem> = {
-    tableRowsActionsList: [this.editAction],
+    tableRowsActionsList: [],
     columns: this.tableColumns,
     data: [],
     dataCount: 3,//todo replace after api
@@ -153,11 +140,13 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
   };
 
   constructor(private layoutService: LayoutService,
+    private securityCheckerService: SecurityCheckerService,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
+    this.getActionsList();
     this.tableConfiguration.data = this.templatesList;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
@@ -173,8 +162,30 @@ export class EntitiesKycDocumentTypesManagementComponent extends BaseComponent i
     });
   }
 
-  ngAfterViewInit(): void {
-    this.table.refresh();
+  getActionsList() {
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanEditEntityKYCDocument)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.editAction);
+    }
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteEntityManagement)) {
+      this.tableConfiguration.columns.push(
+        {
+          translationKey: 'Process',
+          property: 'process',
+          type: 'bool',
+          cssClasses: () => '',
+          dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
+          enableSort: false,
+          hasFilter: true,
+          visible: true,
+          displayInFilterList: true,
+          hasToolTip: false,
+          showText: true,
+          filter: {
+            filterType: TableColumnFilterDataType.Text
+          }
+        },
+      );
+    }
   }
 
   onDocumentTypeAdded() {

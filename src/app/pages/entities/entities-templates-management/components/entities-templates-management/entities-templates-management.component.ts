@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { Filter } from '@root/shared/models/table/filter.model';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -10,6 +11,7 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
 import { EntityTemplatesListItem } from '../../models/entity-templates-list-item.model';
@@ -25,6 +27,8 @@ import { templatesList$ } from '../../store/entities-templates.store';
 export class EntitiesTemplatesManagementComponent extends BaseComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<EntityTemplatesListItem>;
+  addEntityTemplatePermission = Permission.CanAddEntityTemplate;
+
   filter: Filter[];
   templatesList: EntityTemplatesListItem[] = [];
   tableColumns: TableColumn[] = [
@@ -112,7 +116,7 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
   tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntityTemplatesListItem> = {
-    tableRowsActionsList: [this.viewAction, this.editAction, this.deleteAction],
+    tableRowsActionsList: [this.viewAction],
     columns: this.tableColumns,
     data: [],
     dataCount: 0,
@@ -122,11 +126,13 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
     private entitiesTemplatesListService: EntitiesTemplatesListService,
+    private securityCheckerService: SecurityCheckerService,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
+    this.getActionsList();
     this.entitiesTemplatesListService.getEntitiesTemplatesList();
     this.subscriptions.add(templatesList$.subscribe(data => {
       if (!this.isEmpty(data)) {
@@ -148,6 +154,15 @@ export class EntitiesTemplatesManagementComponent extends BaseComponent implemen
         }
       ],
     });
+  }
+
+  getActionsList() {
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanEditEntityTemplate)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.editAction);
+    }
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteEntityTemplate)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
+    }
   }
 
   onTemplateAdded() {

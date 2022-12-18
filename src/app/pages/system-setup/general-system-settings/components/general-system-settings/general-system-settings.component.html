@@ -39,11 +39,11 @@
                             <span>Holiday List Definition for: <span class="text-primary">2023</span></span>
                         </div>
                         <div class="w-1/2 flex justify-end">
-                            <div class="w-full flex justify-end ">
-                                <app-button (trigger)="onHolidayAdded()" icon="add" text="Add New Holiday"
-                                    classes="bg-accent text-xs text-white font-light h-8 w-[150px]">
+                            <ng-template [appCanAccessFeature]="addGeneralSystemSetupPermission">
+                                <app-button (trigger)="onHolidayAdded()" text="Add New Holiday" icon="add"
+                                    classes="h-8 w-[130px] font-thin text-xxs bg-accent text-white">
                                 </app-button>
-                            </div>
+                            </ng-template>
                         </div>
                     </div>
                     <app-widget-table class="w-full" [tableConfiguration]="tableConfiguration"></app-widget-table>

@@ -19,6 +19,7 @@ import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { SignalRService } from './shared/signalR/signalR.service';
 import { AbstractSignalRService } from './shared/signalR/abstract-signalR.service';
+import { SecurityGuard } from './shared/guards/security.guard';
 
 export function initElfDevTools(actions: Actions) {
   return () => {
@@ -53,6 +54,7 @@ export function initElfDevTools(actions: Actions) {
   ],
   providers: [
     TranslationService,
+    SecurityGuard,
     {
       provide: AbstractSignalRService,
       useClass: SignalRService

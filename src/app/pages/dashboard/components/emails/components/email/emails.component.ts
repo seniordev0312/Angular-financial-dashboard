@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { SignalRService } from '@root/shared/services/signalR.service';
 
@@ -14,6 +15,7 @@ import { emails$ } from '../../store/emails.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmailsComponent extends BaseComponent implements OnInit, OnDestroy {
+  accessCalenderPermission = Permission.CanAccessCalender;
 
   emails: any[] = [];
   email: any;

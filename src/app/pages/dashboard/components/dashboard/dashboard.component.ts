@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
@@ -34,12 +35,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ApplicationRoutes.InsuranceRenewals
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ApplicationRoutes.CustomerService
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         }
       ],
       backgroundColor: '#186AA5'
@@ -64,22 +67,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ApplicationRoutes.InsuranceRenewals
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ApplicationRoutes.CustomerService
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         },
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ApplicationRoutes.InsuranceRenewals
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ApplicationRoutes.CustomerService
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         }
       ],
       backgroundColor: '#469CD9'
@@ -104,12 +111,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ApplicationRoutes.InsuranceRenewals
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ApplicationRoutes.CustomerService
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         }
       ],
       backgroundColor: '#7BC8FF'

@@ -13,46 +13,74 @@ import { AddSectionComponent } from './components/add-section/add-section.compon
 import { AddElementComponent } from './components/add-element/add-element.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: EntitiesListManagementComponent,
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAccessEntityManagement
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddNewEntityComponent,
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAddEntityManagement
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `:code`,
     component: AddNewEntityComponent,
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanEditEntityManagement
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `${ApplicationRoutes.EntitiesSection}/${ApplicationRoutes.Add}`,
     component: AddSectionComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+    ]
   },
   {
     path: `${ApplicationRoutes.EntitiesSection}/${ApplicationRoutes.Edit}`,
     component: AddSectionComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+    ]
   },
   {
     path: `${ApplicationRoutes.EntitiesElement}/${ApplicationRoutes.Add}`,
     component: AddElementComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+    ]
   },
   {
     path: `${ApplicationRoutes.EntitiesElement}/${ApplicationRoutes.Edit}`,
     component: AddElementComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+    ]
   }
 ];
 

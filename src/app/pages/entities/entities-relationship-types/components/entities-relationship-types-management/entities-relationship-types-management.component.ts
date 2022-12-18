@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } 
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { Filter } from '@root/shared/models/table/filter.model';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -22,6 +23,8 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<RelationshipTypesListItem>;
+  addEntityRelationshipTypePermission = Permission.CanAddEntityRelationshipType;
+
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];

@@ -7,24 +7,44 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddDocumentTypeComponent } from './components/add-document-type/add-document-type.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: EntitiesKycDocumentTypesManagementComponent,
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAccessEntityKYCDocument
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddDocumentTypeComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanAddEntityKYCDocument
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddDocumentTypeComponent,
     outlet: 'sidenav',
-    canActivate: [AutoLoginAllRoutesGuard]
+    data: {
+      permission: Permission.CanEditEntityKYCDocument
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
 ];
 

@@ -9,13 +9,13 @@ export class AuthenticationService {
         private oidcSecurityService: OidcSecurityService
     ) { }
 
-    get isLoggedIn() {
+    get isAuthenticated() {
         return this.oidcSecurityService.isAuthenticated$;
     }
     get token() {
         return this.oidcSecurityService.getAccessToken();
     }
-    get userData() {
+    get userData$() {
         return this.oidcSecurityService.userData$;
     }
 

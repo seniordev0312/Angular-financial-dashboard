@@ -6,11 +6,21 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
 import { SystemClaimsService } from './services/system-claims.service';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: SystemClaimsComponent
+    component: SystemClaimsComponent,
+    data: {
+      permission: Permission.CanAccessSystemClaims
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   }
 ];
 

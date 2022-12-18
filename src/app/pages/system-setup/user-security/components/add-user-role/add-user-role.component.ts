@@ -6,11 +6,11 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { environment } from 'src/environments/environment';
 
-import { Module } from '../../../shared/models/module.model';
-import { AddRoleFormGroup } from '../../form-groups/add-role-from-group.service';
-import { ClaimsFormGroup } from '../../form-groups/claims-form-group.service';
 import { MultiSelectFormGroup } from '../../form-groups/multi-select-form-group.service';
 import { SingleSelectFormGroup } from '../../form-groups/single-select-form-group.service';
+import { Module } from '../../../shared-system-setup/models/module.model';
+import { AddRoleFormGroup } from '../../form-groups/add-role-from-group.service';
+import { ClaimsFormGroup } from '../../form-groups/claims-form-group.service';
 import { AddRole } from '../../models/add-role.model';
 import { UserSecurityService } from '../../services/user-security.service';
 import { claims$ } from '../../store/user-security.store';
