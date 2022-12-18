@@ -96,8 +96,10 @@ export class SystemClaimsComponent extends BaseComponent implements OnInit, Afte
   ngOnInit(): void {
     this.subscriptions.add(
       systemClaimsList$.subscribe((data: ClientClaim[]) => {
-        this.tableConfiguration.data = data;
-        this.tableConfiguration.dataCount = data.length;
+        if (data) {
+          this.tableConfiguration.data = data;
+          this.tableConfiguration.dataCount = data.length;
+        }
       })
     )
     this.systemClaimsService.getSystemClaims(0, 100);

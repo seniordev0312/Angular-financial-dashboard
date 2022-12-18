@@ -90,7 +90,7 @@ export class AddUserRoleComponent extends BaseComponent implements OnInit {
       }
     });
 
-    this.userSecurityService.getClaims(`${environment.identityServerURL}/Clients/3/ClaimGroups`)
+    this.userSecurityService.getClaims(`${environment.identityAPIServerURL}/Clients/3/ClaimGroups`)
 
 
     this.multiFormGroup.get("options").valueChanges.subscribe(value => {

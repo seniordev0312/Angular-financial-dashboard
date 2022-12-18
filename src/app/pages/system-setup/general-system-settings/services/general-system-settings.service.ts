@@ -10,7 +10,7 @@ import { GeneralSystemSettingsRepository } from '../store/general-system-setting
 })
 export class GeneralSystemSettingsService {
 
-    private baseUrl = `${environment.identityServerURL}`;
+    private baseUrl = `${environment.identityAPIServerURL}`;
     constructor(
         private httpClient: HttpClient,
         private generalSystemSettingsRepository: GeneralSystemSettingsRepository

@@ -29,7 +29,7 @@ const routes: Route[] = [
     component: CalendarComponent,
     outlet: 'sidenav',
     data: {
-      permission: Permission.CanAccessCalander
+      permission: Permission.CanAccessCalender
     },
     canActivate: [
       AutoLoginAllRoutesGuard,
