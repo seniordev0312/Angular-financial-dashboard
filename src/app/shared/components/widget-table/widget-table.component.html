@@ -193,4 +193,8 @@
       <span translate>{{action.translationKey}}</span>
     </button>
   </ng-container>
+  <mat-slide-toggle [checked]="row[tableConfiguration.settings.slideActionProperty]"
+    *ngIf="tableConfiguration.settings.hasSlideAction" (change)="onSlideToggleChanged(row,$event.checked)"
+    class="ltr:mr-2 rtl:mr-0 rtl:ml-2"></mat-slide-toggle>
+
 </ng-template>

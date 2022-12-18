@@ -62,5 +62,4 @@ export class EmailsComponent extends BaseComponent implements OnInit, OnDestroy 
     document.documentElement.style.setProperty('--right-sidenav-width', '320px');
     this.layoutService.showToggleInRightSideNav();
   }
-
 }

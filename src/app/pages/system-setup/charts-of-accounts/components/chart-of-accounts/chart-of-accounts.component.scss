@@ -35,9 +35,6 @@
         border-color: #E8E8E8 !important;
     }
 
-    .main-table .p-datatable-wrapper {
-        border-radius: 12px;
-    }
 
     .sub-table .p-datatable-wrapper {
         border-radius: 0px;
@@ -95,6 +92,7 @@
         cursor: auto;
         word-break: break-word;
         padding: 0.2rem 0.2rem;
+        text-align: center !important;
     }
 
     .p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
@@ -136,7 +134,6 @@
                     border-bottom: 1px solid var(--layer-2);
 
                     >td {
-                        text-align: left;
                         display: block;
                         border: 0 none !important;
                         float: left;

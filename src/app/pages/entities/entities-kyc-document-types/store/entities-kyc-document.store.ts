@@ -1,9 +1,5 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, select, withProps } from '@ngneat/elf';
-import {
-    persistState,
-    sessionStorageStrategy,
-} from '@ngneat/elf-persist-state';
 import { AddDocumentType } from '../models/add-document-type.model';
 import { KYCDocumentListItem } from '../models/kyc-document-types-list-item.model';
 
@@ -21,10 +17,6 @@ const store = createStore(
         documentDetails: {} as AddDocumentType,
     })
 );
-
-persistState(store, {
-    storage: sessionStorageStrategy,
-});
 
 export const documentsList$ = store.pipe(select(({ documentsList }) => documentsList));
 export const documentDetails$ = store.pipe(select(({ documentDetails }) => documentDetails));

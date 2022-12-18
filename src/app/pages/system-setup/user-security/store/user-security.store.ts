@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, select, withProps } from '@ngneat/elf';
-import {
-    persistState,
-    sessionStorageStrategy,
-} from '@ngneat/elf-persist-state';
+// import {
+//     persistState,
+//     sessionStorageStrategy,
+// } from '@ngneat/elf-persist-state';
 import { RoleList } from '../models/role-list.model';
 
 export interface UserSecurityModel {
@@ -21,9 +21,9 @@ const store = createStore(
     })
 );
 
-persistState(store, {
-    storage: sessionStorageStrategy,
-});
+// persistState(store, {
+//     storage: sessionStorageStrategy,
+// });
 
 export const roleList$ = store.pipe(select(({ roleList }) => roleList));
 export const claims$ = store.pipe(select(({ claims }) => claims));

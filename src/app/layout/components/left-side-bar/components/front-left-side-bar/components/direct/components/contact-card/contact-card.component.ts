@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ContactCard } from '../../models/contact-card.model';
+import { ContactCard } from '../../../chat/models/contact-card.model';
+import { MessageType } from '../../../chat/models/enums/message-type';
 
 @Component({
   selector: 'app-contact-card',
@@ -16,4 +17,7 @@ export class ContactCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get isTextMessage() {
+    return this.contact.messages[this.contact.messages.length - 1].messageType === MessageType.Text
+  };
 }

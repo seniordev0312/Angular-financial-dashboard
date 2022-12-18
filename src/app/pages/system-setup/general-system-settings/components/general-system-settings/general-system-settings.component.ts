@@ -219,7 +219,7 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
   }
 
   ngOnInit(): void {
-
+    this.getActionsList();
     this.subscriptions.add(
       holidays$.subscribe(data => {
         if (!this.isEmpty(data)) {

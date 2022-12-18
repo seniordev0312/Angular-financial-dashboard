@@ -2,7 +2,7 @@ import { Message } from "./message.model";
 
 export class ContactCard {
     photoURL!: string;
-    Name!: string;
-    Messages!: Message[];
-    NewMessages!: number;
+    title!: string;
+    messages!: Message[];
+    newMessages!: number;
 }   

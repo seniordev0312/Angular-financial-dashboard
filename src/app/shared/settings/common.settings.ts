@@ -1,3 +1,5 @@
+export const DEFAULT_AUDIO_FORMAT = 'audio/mp3';
+
 export const enum ApplicationRoutes {
   Empty = '',
   Index = 'index',

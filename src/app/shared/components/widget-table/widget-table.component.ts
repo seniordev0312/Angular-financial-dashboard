@@ -37,6 +37,7 @@ import { isSpinning$ } from '@root/shared/store/shared.store';
 export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     @Input() tableConfiguration: TableConfiguration<T>;
     @Output() onPaging = new EventEmitter<PagingConfig>();
+    @Output() onSlideToggle = new EventEmitter<{ value: boolean, item: T }>();
     @Output() onSort = new EventEmitter<SortItem>();
     @Output() onFilter = new EventEmitter<Filter[]>();
     @Output() onFilterCleared = new EventEmitter<any>();
@@ -153,6 +154,10 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
                 this.filterData = filters;
             }
         }
+    }
+
+    onSlideToggleChanged(item: T, checked: boolean) {
+        this.onSlideToggle.emit({ value: checked, item });
     }
 
 }
