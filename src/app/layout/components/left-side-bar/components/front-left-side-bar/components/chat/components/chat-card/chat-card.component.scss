@@ -17,3 +17,8 @@ textarea {
     resize: none;
     /*remove the resize handle on the bottom right*/
 }
+
+:host .mat-icon {
+    width: 20px !important;
+    height: 20px !important;
+}

@@ -8,8 +8,8 @@
         </app-button>
     </ng-template>
 </div>
-<p-table class="main-table" [value]="data?.roles" rowGroupMode="subheader" dataKey="id"
-    [totalRecords]="data?.totalCount" [rows]="4" [paginator]="true">
+<p-table #dt class="main-table" (onPage)="paginate($event)" [value]="data?.roles" rowGroupMode="subheader" dataKey="id"
+    [totalRecords]="data?.totalCount" [rows]="4" [paginator]="true" [(first)]="first">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:5%"></th>
@@ -30,7 +30,7 @@
         <tr>
             <td style="width:5%" class="">
                 <button type="button" pButton pRipple [pRowToggler]="role" class="flex justify-center items-center"
-                    (click)="getRoleClaims(role)">
+                    (click)="getRoleClaims(role,expanded)">
                     <span class="material-icons">
                         {{expanded?'remove_circle_outline':'add_circle_outline'}}
                     </span>
@@ -40,7 +40,7 @@
                 <span class="font-bold text-xs ml-2">{{role.name}}</span>
             </td>
             <td style="width:20%">
-                <span class="text-xs ml-2">{{role.id}}</span>
+                <span class="text-xs ml-2">{{role.description}}</span>
             </td>
             <td>
                 <div class="flex justify-end">
@@ -93,9 +93,9 @@
             <td class="sub-table-header"></td>
             <td class="text-xxs sub-table-header pl-4">{{claim.claimType}}</td>
             <td class="text-xxs sub-table-header pl-4">{{claim.claimValue}}</td>
-            <td class="text-xxs sub-table-header pl-4">{{claim.claimId}}</td>
+            <td class="text-xxs sub-table-header pl-4">{{claim.description}}</td>
             <td class="flex justify-end sub-table-header">
-                <button mat-button>
+                <button mat-button (click)="removeClaimFromRole(claim)">
                     <span class="material-icons text-accent">
                         highlight_off
                     </span>

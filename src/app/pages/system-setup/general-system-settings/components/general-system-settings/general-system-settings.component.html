@@ -4,28 +4,30 @@
             <div class="w-1/3 flex flex-col gap-2">
                 <app-input-field label="Company Name:" [control]="getFormControl('companyName')"></app-input-field>
                 <div class="flex items-center">
-                    <app-select-list label="Default Language:" class="w-full"
+                    <app-select-list label="Default Language:" class="w-full" [optionsList]="ofDayTypesList"
                         [control]="getFormControl('defaultLanguage')">
                     </app-select-list>
                 </div>
                 <div class="flex items-center">
-                    <app-select-list label="Country:" class="w-full" [control]="getFormControl('country')">
+                    <app-select-list label="Country:" [optionsList]="ofDayTypesList" class="w-full"
+                        [control]="getFormControl('country')">
                     </app-select-list>
                 </div>
                 <div class="flex items-center">
-                    <app-select-list label="Default Currency:" class="w-full"
+                    <app-select-list label="Default Currency:" class="w-full" [optionsList]="ofDayTypesList"
                         [control]="getFormControl('defaultCurrency')">
                     </app-select-list>
                 </div>
                 <div class="flex items-center">
-                    <app-select-list label="Fiscal Year:" class="w-full" [control]="getFormControl('fiscalYear')">
+                    <app-select-list label="Fiscal Year:" class="w-full" [optionsList]="ofDayTypesList"
+                        [control]="getFormControl('fiscalYear')">
                     </app-select-list>
                 </div>
                 <app-input-field label="Underwriting Year:" class="w-full"
                     [control]="getFormControl('underwritingYear')">
                 </app-input-field>
                 <div class="flex items-center">
-                    <app-select-list label="Accounting Style:" class="w-full"
+                    <app-select-list label="Accounting Style:" class="w-full" [optionsList]="ofDayTypesList"
                         [control]="getFormControl('accountingStyle')">
                     </app-select-list>
                 </div>

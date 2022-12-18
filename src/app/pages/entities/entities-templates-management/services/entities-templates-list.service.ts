@@ -12,7 +12,7 @@ export class EntitiesTemplatesListService {
         private entitiesTemplatesRepository: EntitiesTemplatesRepository) { }
 
     getEntitiesTemplatesList(): void {
-        const endPointUrl = `${environment.apiUrl}/EntitySectionTemplate/GetEntitySectionTemplates`;
+        const endPointUrl = `${environment.entityApiUrl}/EntitySectionTemplate/GetEntitySectionTemplates`;
         this.httpClient.get<EntityTemplatesListItem[]>(endPointUrl).subscribe(data => {
             if (data) {
                 this.entitiesTemplatesRepository.updateTemplatesList(data);
@@ -28,7 +28,7 @@ export class EntitiesTemplatesListService {
             }),
         };
 
-        const endPointUrl = `${environment.apiUrl}/EntitySectionTemplate/GetEntitySectionTemplate/${templateId}`;
+        const endPointUrl = `${environment.entityApiUrl}/EntitySectionTemplate/GetEntitySectionTemplate/${templateId}`;
         this.httpClient.get<EntityTemplatesListItem>(endPointUrl, httpOptions).subscribe(data => {
             if (data) {
                 this.entitiesTemplatesRepository.updateSelectedTemplate(data);
@@ -37,7 +37,7 @@ export class EntitiesTemplatesListService {
     }
 
     addTemplate(Template: AddTemplate): void {
-        const endPointUrl = `${environment.apiUrl}/EntitySectionTemplate/CreateEntitySectionTemplate`
+        const endPointUrl = `${environment.entityApiUrl}/EntitySectionTemplate/CreateEntitySectionTemplate`
         this.httpClient.post<EntityTemplatesListItem>(endPointUrl, Template).subscribe(data => {
             if (data) {
                 this.entitiesTemplatesRepository.addTemplate(data);
@@ -49,7 +49,7 @@ export class EntitiesTemplatesListService {
         const httpOptions = {
             params: new HttpParams().set('entitySectionTemplateId', template.entitySectionTemplateId)
         };
-        const endPointUrl = `${environment.apiUrl}/EntitySectionTemplate/UpdateSectionTemplate`;
+        const endPointUrl = `${environment.entityApiUrl}/EntitySectionTemplate/UpdateSectionTemplate`;
         this.httpClient.put<EntityTemplatesListItem>(endPointUrl, template, httpOptions).subscribe(data => {
             if (data) {
                 this.entitiesTemplatesRepository.updateTemplate(data);
@@ -58,7 +58,7 @@ export class EntitiesTemplatesListService {
     }
 
     deleteTemplate(templateId: string): void {
-        const endPointUrl = `${environment.apiUrl}/EntitySectionTemplate/DeleteSectionTemplate/${templateId}`
+        const endPointUrl = `${environment.entityApiUrl}/EntitySectionTemplate/DeleteSectionTemplate/${templateId}`
         this.httpClient.delete<void>(endPointUrl).subscribe(() => {
             this.entitiesTemplatesRepository.deleteTemplate(templateId);
         });

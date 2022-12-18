@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
@@ -9,11 +10,15 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { take } from 'rxjs';
 import { GeneralSystemSettingsFormGroup } from '../../form-groups/general-system-settings-from-group.service';
 import { Holiday } from '../../models/holiday.model';
+import { GeneralSystemSettingsService } from '../../services/general-system-settings.service';
+import { holidays$ } from '../../store/general-system-settings.store';
 
 @Component({
   selector: 'app-general-system-settings',
@@ -21,13 +26,14 @@ import { Holiday } from '../../models/holiday.model';
   styleUrls: ['./general-system-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
+export class GeneralSystemSettingsComponent extends BaseComponent implements OnInit, AfterViewInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<Holiday>;
   addGeneralSystemSetupPermission = Permission.CanAddGeneralSystemSetup;
 
   templatesList: Holiday[] = [
     {
+      id: 1,
       endDate: '10/11/2023',
       name: 'Eid El Adha',
       offDay: true,
@@ -93,12 +99,12 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       offDay: false,
       startDate: '29/12/2023'
     }
-  ]
+  ];
   fg: FormGroup;
 
   ofDayTypesList: BaseListItem[] = [
-    { id: '0', value: 'true' },
-    { id: '1', value: 'false' }
+    { id: '0', value: 'one' },
+    { id: '1', value: 'tow' }
   ];
 
   editAction: TableRowAction<Holiday> = {
@@ -205,11 +211,23 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
     private layoutService: LayoutService,
     private router: Router,
     private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup,
+    private confirmationDialogService: ConfirmationDialogService,
+    private generalSystemSettingsService: GeneralSystemSettingsService,
     private securityCheckerService: SecurityCheckerService,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getActionsList();
+    this.subscriptions.add(
+      holidays$.subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.templatesList = data;
+        }
+      }));
+
+    this.generalSystemSettingsService.getHolidays(0, 1000)
     this.tableConfiguration.data = this.templatesList;
     this.tableConfiguration.dataCount = this.templatesList.length;
     this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
@@ -245,7 +263,6 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
   }
 
   onHolidayAdded() {
-
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
       outlets: {
         sidenav: ApplicationRoutes.Add
@@ -257,13 +274,46 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
   }
 
   onHolidayDeleted(data: Holiday) {
-    console.log(data);
+    this.confirmationDialogService.open({
+      description: 'Are you sure you want to delete this template?',
+      title: 'Delete Template',
+      icon: 'error_outline',
+      cancelText: 'Cancel',
+      confirmText: 'Confirm',
+      actionButtonsColor: 'warn',
+      iconCssClasses: 'text-warn',
+    });
+
+    this.subscriptions.add(
+      this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.generalSystemSettingsService.deleteHoliday(data)
+        }
+      }));
   }
 
   onHolidayEdited(data: Holiday) {
     console.log(data);
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
+      outlets: {
+        sidenav: `${ApplicationRoutes.Add}`
+      },
+    }], {
+      skipLocationChange: true,
+      // queryParams: {
+      //   id: data.id,
+      //   name: data.name,
+      //   startDate: data.name,
+      //   endDate: data.name,
+      //   offDay: data.offDay
+      // }
+    });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+
   }
   onSave() {
+    console.log(this.fg.value, this.fg.valid);
 
   }
 

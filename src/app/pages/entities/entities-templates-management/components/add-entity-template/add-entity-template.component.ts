@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EntitiesReferenceListsService } from '@root/pages/entities/services/reference-lists.service';
 import { elementTypesReferenceList$ } from '@root/pages/entities/store/shared-entities.store';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -8,6 +8,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { DialogMode } from '@root/shared/models/enums/dialog-mode.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddTemplateFormGroup } from '../../form-groups/add-template-form-group.service';
 import { TemplateElementFormGroup } from '../../form-groups/template-element-form-group.service';
 import { EntityTemplatesListItem } from '../../models/entity-templates-list-item.model';
@@ -35,6 +36,7 @@ export class AddEntityTemplateComponent extends BaseComponent implements OnInit 
     private formArrayService: FormArrayService,
     private templateElementFormGroup: TemplateElementFormGroup,
     private entitiesReferenceListsService: EntitiesReferenceListsService,
+    private router: Router,
     private cdr: ChangeDetectorRef,
     private layoutService: LayoutService) { super(); }
 
@@ -119,6 +121,9 @@ export class AddEntityTemplateComponent extends BaseComponent implements OnInit 
 
 
   onClose(): void {
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`, {
+      outlets: { sidenav: null },
+    }], { skipLocationChange: true });
     this.layoutService.closeRightSideNav();
   }
 

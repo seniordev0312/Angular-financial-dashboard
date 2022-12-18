@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { take } from 'rxjs';
+import { debounceTime, take } from 'rxjs';
 import { ChartOfAccountsListItem } from '../../models/chart-of-accounts-list-item.model';
+import { ChartOfAccountsListService } from '../../services/chart-of-accounts-list.service';
+import { chartOfAccountsList$ } from '../../store/chart-of-accounts.store';
 
 @Component({
   selector: 'app-chart-of-accounts',
@@ -17,67 +19,36 @@ import { ChartOfAccountsListItem } from '../../models/chart-of-accounts-list-ite
 export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
   searchFormControl = new FormControl();
   viewAccountLink = ApplicationRoutes.ViewAccount;
-  pageSize = 20;
-  chartOfAccountsList: ChartOfAccountsListItem[] = [
-    {
-      id: '1',
-      currency: 'USD',
-      description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-      ledgerNumber: '10-000-26733',
-      balance: 1000000000000,
-      isCredit: 'Credit',
-      type: 'Assets',
-      items: [
-        {
-          id: '2',
-          currency: 'USD',
-          description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-          ledgerNumber: '10-000-2387783',
-          balance: 1000000000000,
-          isCredit: 'Credit',
-          type: 'Assets',
-          items: [
-            {
-              id: '39',
-              currency: 'iii',
-              description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-              ledgerNumber: '10-000-2233',
-              balance: 1000000000000,
-              isCredit: 'Credit',
-              type: 'Assets',
-              items: []
-            },
-            {
-              id: '88',
-              currency: 'klkl',
-              description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-              ledgerNumber: '10-000-243',
-              balance: 1000000000000,
-              isCredit: 'Credit',
-              type: 'Assets',
-              items: []
-            },
-          ]
-        },
-        {
-          id: '3',
-          currency: 'USD',
-          description: 'Account jkdk dnmn dnmnmd ndm mndm mndsm mdnm mnmnm n mndnmmn',
-          ledgerNumber: '10-000-2363',
-          balance: 1000000000000,
-          isCredit: 'Credit',
-          type: 'Assets',
-          items: []
-        }
-      ]
-    },
-  ];
+  pageSize = 10;
+  childrenPageSize = 10;
+
+  chartOfAccountsList: ChartOfAccountsListItem[] = [];
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
+    private chartOfAccountsListService: ChartOfAccountsListService,
+    private cdr: ChangeDetectorRef,
     private router: Router) { super(); }
 
+
   ngOnInit(): void {
+    this.chartOfAccountsListService.getChartOfAccountsList(this.pageSize, this.childrenPageSize);
+
+    this.subscriptions.add(chartOfAccountsList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.chartOfAccountsList = data;
+        this.cdr.detectChanges();
+      }
+    }));
+
+    this.subscriptions.add(
+      this.searchFormControl.valueChanges.pipe(debounceTime(400)).subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.chartOfAccountsListService.searchChartOfAccountsList(data);
+        }
+      })
+    );
+
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -92,6 +63,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
     });
   }
 
+
   onChartOfAccountAdded(showParentInput: boolean) {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.ChartOfAccounts}`, {
       outlets: { sidenav: `${ApplicationRoutes.Add}` },
@@ -102,7 +74,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
 
   onChartOfAccountEdited(item: ChartOfAccountsListItem, isLeafItem: boolean) {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.ChartOfAccounts}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${item.id}` },
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${item.accountTypeId}` },
     }], { skipLocationChange: true, queryParams: { isLeafItem } });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');

@@ -5,14 +5,13 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { DialogMode } from '@root/shared/models/enums/dialog-mode.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { AddRoleFormGroup } from '../../form-groups/add-role-form-group.service';
+import { AddRoleFormGroup } from '../../form-groups/add-role-from-group.service';
 import { ClaimFormGroup } from '../../form-groups/claim-form-group.service';
 import { Claim } from '../../models/claim.model';
 
 @Component({
   selector: 'app-add-role',
   templateUrl: './add-role.component.html',
-  styleUrls: ['./add-role.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddRoleComponent implements OnInit {

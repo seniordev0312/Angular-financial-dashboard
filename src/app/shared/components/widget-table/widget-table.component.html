@@ -95,9 +95,9 @@
         <ng-container *ngFor="let column of tableConfiguration.columns">
           <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
             <div class="flex justify-center">
-              <mat-slide-toggle color="primary" *ngSwitchCase="'bool'" [checked]="row[column.property]"
-                (change)="column.action({ data: row, value: $event.checked })">
-              </mat-slide-toggle>
+              <mat-icon *ngSwitchCase="'bool'" class="cursor-pointer"
+                [svgIcon]="row[column.property] ? 'true' :'false'">
+              </mat-icon>
             </div>
             <div class="w-full" *ngSwitchCase="'dropDown'">
               <mat-form-field class="text-sm w-32" appearance="outline">
@@ -193,4 +193,8 @@
       <span translate>{{action.translationKey}}</span>
     </button>
   </ng-container>
+  <mat-slide-toggle [checked]="row[tableConfiguration.settings.slideActionProperty]"
+    *ngIf="tableConfiguration.settings.hasSlideAction" (change)="onSlideToggleChanged(row,$event.checked)"
+    class="ltr:mr-2 rtl:mr-0 rtl:ml-2"></mat-slide-toggle>
+
 </ng-template>

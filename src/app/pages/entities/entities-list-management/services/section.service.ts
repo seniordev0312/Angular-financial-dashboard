@@ -15,7 +15,7 @@ export class SectionService {
 
 
     addSection(section: AddSection): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/CreateOrUpdateEntityDefinition`;
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/CreateOrUpdateEntityDefinition`;
         this.httpClient.post<EntityDetails>(endPointUrl, section).subscribe(data => {
             if (data) {
                 this.entitiesListRepository.updateEntityDetails(data);
@@ -29,7 +29,7 @@ export class SectionService {
                 .set('entityDefinitionSectionId', entityDefinitionSectionId)
                 .set('entityDefinitionId', entityDefinitionId)
         };
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/UpdateEntityDefinitionSection`;
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/UpdateEntityDefinitionSection`;
         this.httpClient.put<EntityDetails>(endPointUrl, null, httpOptions).subscribe(data => {
             if (data) {
                 this.entitiesListRepository.updateEntityDetails(data);
@@ -38,7 +38,7 @@ export class SectionService {
     }
 
     deleteSection(entityDefinitionId: string, entityDefinitionSectionId: string): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/DeleteEntityDefinitionSection/${entityDefinitionId}/${entityDefinitionSectionId}`
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/DeleteEntityDefinitionSection/${entityDefinitionId}/${entityDefinitionSectionId}`
         this.httpClient.delete<EntityDetails>(endPointUrl).subscribe((data) => {
             if (data) {
                 this.entitiesListRepository.updateEntityDetails(data);

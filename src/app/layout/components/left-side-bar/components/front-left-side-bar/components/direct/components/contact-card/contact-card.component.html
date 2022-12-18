@@ -2,22 +2,21 @@
     class="flex flex-col h-20 w-full rounded-lg text-black bg-[#F5F5F5] mb-1 hover:bg-[#30313B] hover:text-white cursor-pointer">
     <div class="flex flex-row h-full justify-center items-center w-full p-2 gap-2">
         <div class="h-full w-2/12 flex justify-center items-center">
-            <img class="rounded-full w-full" src="../../../../../../../../../../assets/images/profile.svg"
-                alt="profile">
+            <img class="rounded-full w-full" src="assets/images/profile.svg" alt="profile">
         </div>
         <div class="flex flex-col w-9/12 justify-start">
-            <div class="flex justify-start font-bold text-sm">{{contact.Name}}</div>
-            <div class="text-xs flex justify-start">
-                {{ (contact.Messages[contact.Messages.length -1 ].message) | slice:0:36 }}...
+            <div class="flex justify-start font-bold text-sm">{{contact.title}}</div>
+            <div *ngIf="isTextMessage" class="text-xs text-left">
+                {{ (contact.messages[contact.messages.length -1 ].message).toString() | slice:0:36 }}...
             </div>
         </div>
         <div class="relative w-1/12 h-full pr-2">
             <div class="text-xs">
-                {{contact.Messages[contact.Messages.length -1 ].time}}
+                {{contact.messages[contact.messages.length -1 ].time}}
             </div>
             <div
-                class="absolute flex justify-center items-center bottom-[10px] align-baseline text-xs bg-primary rounded-2xl text-[#FFFFFF] h-5 w-5">
-                {{contact.NewMessages}}
+                class="absolute flex justify-center items-center bottom-[10px] align-baseline text-xs bg-primary rounded-2xl text-white h-5 w-5">
+                {{contact.newMessages}}
             </div>
         </div>
     </div>

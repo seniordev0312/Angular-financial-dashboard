@@ -7,8 +7,6 @@ import {
   EntitiesViewerComponent,
 } from './pages/entities/entities-viewer/components/entities-viewer/entities-viewer.component';
 import { BaseComponent } from './shared/components/base-component/base-component';
-import { AuthenticationService } from './shared/services/auth.service';
-import { SecurityCheckerService } from './shared/services/security-checker.service';
 import { TranslationService } from './shared/services/translation.service';
 
 @Component({
@@ -38,15 +36,8 @@ export class AppComponent extends BaseComponent {
   constructor(
     private dialog: MatDialog,
     translationService: TranslationService,
-    public authenticationService: AuthenticationService,
-    private securityCheckerService: SecurityCheckerService
   ) {
     super();
     translationService.setDefaultLanguage();
-    this.subscriptions.add(this.authenticationService.userData$.subscribe((userDataResult) => {
-      if (userDataResult?.userData) {
-        this.securityCheckerService.setUserClaims(userDataResult?.userData);
-      }
-    }));
   }
 }

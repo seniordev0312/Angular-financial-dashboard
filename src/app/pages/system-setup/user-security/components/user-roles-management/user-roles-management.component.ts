@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { Table } from 'primeng/table';
 import { take } from 'rxjs';
 import { RoleList } from '../../models/role-list.model';
 import { Role } from '../../models/role.model';
@@ -18,29 +19,52 @@ import { roleList$ } from '../../store/user-security.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserRolesManagementComponent extends BaseComponent implements OnInit {
+  @ViewChild('dt', { static: false }) dataTable: Table;
+
+  CanAccessCustomerServicePermission = 'CanAccessCustomerService'; //todo replace with enum
+  CanEditCustomerService = 'CanEditCustomerService';
   canAddRolePermission = Permission.CanAddRole;
   canEditRolePermission = Permission.CanEditRole;
   data: RoleList;
   pageIndex: number = 0;
   pageSize: number = 100;
-
+  first = 0;
   constructor(
     private userSecurityService: UserSecurityService,
     private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
+    private cdr: ChangeDetectorRef,
     private router: Router) { super(); }
 
   ngOnInit(): void {
     this.subscriptions.add(
+      this.userSecurityService.deleteRole$.subscribe((data) => {
+        if (data) {
+          this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
+        }
+      })
+    )
+
+    this.subscriptions.add(
       roleList$.subscribe((data) => {
-        this.data = data;
+        if (data) {
+          console.log(data);
+          this.data = data;
+          this.cdr.detectChanges();
+          this.dataTable.first = this.pageIndex;
+          this.first = this.pageIndex;
+          this.cdr.detectChanges();
+        }
       })
     );
+
+
     this.subscriptions.add(
       this.userSecurityService.addRole$.subscribe((_data) => {
         this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
       })
     );
+
     this.userSecurityService.getRoles(this.pageIndex, this.pageSize);
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
@@ -54,6 +78,7 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
         }
       ],
     });
+
   }
 
   onRoleAdded() {
@@ -70,15 +95,22 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
   onRoleEdited(userRolesListItem: any) {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.UserSecurity}`, {
       outlets: {
-        sidenav: `${ApplicationRoutes.Add}/${userRolesListItem.id}`
+        sidenav: `${ApplicationRoutes.Add}/${userRolesListItem.id}/${userRolesListItem.name}`
       },
-    }], { skipLocationChange: true });
+    }], {
+      skipLocationChange: true,
+      queryParams: {
+        id: userRolesListItem.id,
+        name: userRolesListItem.name,
+      }
+    },
+    );
 
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onRoleDeleted(_userRolesListItem: any) {
+  onRoleDeleted(userRolesListItem: any) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to delete this template?',
       title: 'Delete Template',
@@ -91,12 +123,23 @@ export class UserRolesManagementComponent extends BaseComponent implements OnIni
 
     this.subscriptions.add(
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
-        if (isConfirmed) { }
+        if (isConfirmed) {
+          this.userSecurityService.deleteRole(userRolesListItem.id)
+        }
       }));
   }
 
-  getRoleClaims(role: Role) {
-    this.userSecurityService.getClaimsByRole(role)
+  getRoleClaims(role: Role, isExpanded: boolean) {
+    if (!isExpanded) {
+      this.userSecurityService.getClaimsByRole(role);
+    }
   }
 
+  removeClaimFromRole(claim: any) {
+    this.userSecurityService.deleteClaimFromRole({ claimId: claim.claimId, roleId: claim.roleId })
+  }
+
+  paginate(event: any) {
+    this.pageIndex = event.first;
+  }
 }

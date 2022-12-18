@@ -11,22 +11,18 @@ export class DocumentTypeFormGroup {
 
     getFormGroup(item?: AddDocumentType): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null, [Validators.required]),
-            code: new FormControl(item?.code || null, [Validators.required]),
-            type: new FormControl(item?.type || null, [Validators.required]),
-            process: new FormControl(item?.process || null, [Validators.required]),
-            processingKey: new FormControl(item?.processingKey || null, [Validators.required]),
+            kycDocumentType: new FormControl(item?.kycDocumentType || null, [Validators.required]),
+            isActive: new FormControl(item?.isActive || false, [Validators.required]),
+            templateProcessingKeyInformation: new FormControl(item?.templateProcessingKeyInformation || null, [Validators.required]),
         });
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): AddDocumentType {
         return {
-            id: fg.controls.id.value,
-            code: fg.controls.code.value,
-            type: fg.controls.type.value,
-            process: fg.controls.process.value,
-            processingKey: fg.controls.processingKey.value,
+            kycDocumentType: fg.controls.kycDocumentType.value,
+            isActive: fg.controls.isActive.value,
+            templateProcessingKeyInformation: fg.controls.templateProcessingKeyInformation.value,
         };
     }
 }

@@ -1,5 +1,5 @@
 export class AddClaim {
-    roleId: string;
+    claimId: string;
     claimType: string;
     claimValue: string;
 }
