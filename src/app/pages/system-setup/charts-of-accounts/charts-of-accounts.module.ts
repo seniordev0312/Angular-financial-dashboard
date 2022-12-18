@@ -17,25 +17,56 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { AccountViewTableComponent } from './components/account-view-table/account-view-table.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: ChartOfAccountsComponent
+    component: ChartOfAccountsComponent,
+    data: {
+      permission: Permission.CanAccessChartOfAccounts
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddChartOfAccountsComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAddChartOfAccounts
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddChartOfAccountsComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanEditChartOfAccounts
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.ViewAccount,
     component: AccountViewComponent,
+    data: {
+      permission: Permission.CanAddChartOfAccounts
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   }
 ];
 

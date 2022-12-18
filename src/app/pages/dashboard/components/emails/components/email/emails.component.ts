@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { EmailItem } from '../../models/email-item.model';
@@ -12,6 +13,7 @@ import { emails$ } from '../../store/emails.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EmailsComponent extends BaseComponent implements OnInit {
+  accessCalenderPermission = Permission.CanAccessCalander;
 
   emails: any[] = [];
 

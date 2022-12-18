@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
@@ -18,8 +19,8 @@ import { roleList$ } from '../../store/user-security.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserRolesManagementComponent extends BaseComponent implements OnInit {
-  CanAccessCustomerServicePermission = 'CanAccessCustomerService'; //todo replace with enum
-  CanEditCustomerService = 'CanEditCustomerService';
+  canAddRolePermission = Permission.CanAddRole;
+  canEditRolePermission = Permission.CanEditRole;
   data: RoleList;
   pageIndex: number = 0;
   pageSize: number = 100;

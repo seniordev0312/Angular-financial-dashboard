@@ -15,21 +15,45 @@ import { GroupCardComponent } from './components/group-card/group-card.component
 import { BranchCardComponent } from './components/branch-card/branch-card.component';
 import { DepartmentCardComponent } from './components/department-card/department-card.component';
 import { GroupChipComponent } from './components/group-chip/group-chip.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: CompanyStructureComponent
+    component: CompanyStructureComponent,
+    data: {
+      permission: Permission.CanAccessCompanyStructure
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.AddGroup,
     component: AddGroupComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAddCompanyStructure
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `${ApplicationRoutes.AddGroup}/:id`,
     component: AddGroupComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanEditCompanyStructure
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.AddDepartment,

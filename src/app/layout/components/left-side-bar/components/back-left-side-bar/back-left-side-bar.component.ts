@@ -1,7 +1,7 @@
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { mainRoutesList } from '@root/layout/statics/main-routes';
+import { navigationList } from '@root/layout/statics/main-routes';
 
 @Component({
   selector: 'app-back-left-side-bar',
@@ -46,7 +46,7 @@ export class BackLeftSideBarComponent {
 
   @Output() flip: EventEmitter<any> = new EventEmitter<any>();
   @Output() toggleSidenavCollapsedEvent: EventEmitter<any> = new EventEmitter<boolean>();
-  MainRouteItem = mainRoutesList;
+  navigationList = navigationList;
   animationState: string = 'out';
   extended: boolean = true;
   path: string = '<';

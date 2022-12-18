@@ -17,6 +17,7 @@ import { devTools } from '@ngneat/elf-devtools';
 import { SuccessMessageInterceptor } from './shared/interceptors/success-notification-interceptor';
 import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { SecurityGuard } from './shared/guards/security.guard';
 
 export function initElfDevTools(actions: Actions) {
   return () => {
@@ -51,6 +52,7 @@ export function initElfDevTools(actions: Actions) {
   ],
   providers: [
     TranslationService,
+    SecurityGuard,
     {
       provide: APP_INITIALIZER,
       multi: true,

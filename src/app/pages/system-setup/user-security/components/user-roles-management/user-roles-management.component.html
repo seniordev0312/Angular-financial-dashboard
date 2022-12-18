@@ -2,7 +2,7 @@
     <div>
         <p class="text-sm">Manage User Roles</p>
     </div>
-    <ng-template [appCanAccessFeature]="CanAccessCustomerServicePermission">
+    <ng-template [appCanAccessFeature]="canAddRolePermission">
         <app-button (trigger)="onRoleAdded()" icon="add" text="Add User Role"
             classes="bg-accent text-xs text-white font-light h-8 w-[150px]">
         </app-button>
@@ -49,7 +49,7 @@
                             delete_outline
                         </span>
                     </button>
-                    <ng-template [appCanAccessFeature]="CanEditCustomerService">
+                    <ng-template [appCanAccessFeature]="canEditRolePermission">
                         <button (click)="onRoleEdited(role)" mat-button class="ml-4">
                             <span class="material-icons text-accent">
                                 edit

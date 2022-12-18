@@ -25,6 +25,7 @@ import { FrontLeftSideBarComponent } from './components/left-side-bar/components
 import { LeftSideBarComponent } from './components/left-side-bar/components/left-side-bar/left-side-bar.component';
 import { RightSideBarComponent } from './components/right-side-bar/components/right-side-bar/right-side-bar.component';
 import { ToolbarModule } from './components/toolbar/toolbar.module';
+import { NavigationItemComponent } from './components/left-side-bar/components/navigation-item/navigation-item.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ToolbarModule } from './components/toolbar/toolbar.module';
     ContactCardComponent,
     ChatCardComponent,
     MessageCardComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    NavigationItemComponent
   ],
   imports: [
     SharedModule,

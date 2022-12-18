@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { Module } from "../../shared/models/module.model";
+import { Module } from "../../shared-system-setup/models/module.model";
 import { SystemClaimsRepository } from "../store/system-claims.repository";
 
 @Injectable({ providedIn: 'root' })

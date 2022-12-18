@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } 
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { Filter } from '@root/shared/models/table/filter.model';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -10,6 +11,7 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
 import { EntitiesSourcesListItem } from '../../models/entities-sources-list-item.model';
@@ -23,6 +25,8 @@ import { EntitiesSourcesListItem } from '../../models/entities-sources-list-item
 export class EntitiesSourcesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<EntitiesSourcesListItem>;
+  addEntitySourcesPermission = Permission.CanAddEntitySources;
+
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];
@@ -117,7 +121,7 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
     isIconButton: true,
   };
 
-  sharedAction: TableRowAction<EntitiesSourcesListItem> = {
+  shareAction: TableRowAction<EntitiesSourcesListItem> = {
     action: (data) => this.onTemplateShared(data),
     cssClasses: 'text-accent',
     iconName: 'share',
@@ -130,7 +134,7 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
   tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntitiesSourcesListItem> = {
-    tableRowsActionsList: [this.sharedAction, this.editAction, this.deleteAction],
+    tableRowsActionsList: [],
     columns: this.tableColumns,
     data: [],
     dataCount: 3,//todo replace after api
@@ -139,11 +143,13 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
+    private securityCheckerService: SecurityCheckerService,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
+    this.getActionsList();
     this.tableConfiguration.data = this.templatesList;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
@@ -162,6 +168,19 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
   ngAfterViewInit(): void {
     this.table.refresh();
   }
+
+  getActionsList() {
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanEditEntitySources)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.editAction);
+    }
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteEntitySources)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
+    }
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanShareEntitySources)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.shareAction);
+    }
+  }
+
 
   onEntitySourceAdded() {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`, {
