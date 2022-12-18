@@ -7,5 +7,6 @@
             </app-button>
         </ng-template>
     </div>
-    <app-widget-table class="w-full mt-5" [tableConfiguration]="tableConfiguration"></app-widget-table>
+    <app-widget-table (onSlideToggle)="onItemActivated($event)" class="w-full mt-5"
+        [tableConfiguration]="tableConfiguration"></app-widget-table>
 </div>

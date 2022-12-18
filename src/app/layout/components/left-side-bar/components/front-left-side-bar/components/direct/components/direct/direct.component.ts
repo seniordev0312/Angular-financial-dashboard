@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ContactCard } from '../../models/contact-card.model';
+import { ContactCard } from '../../../chat/models/contact-card.model';
+import { MessageType } from '../../../chat/models/enums/message-type';
 
 @Component({
   selector: 'app-direct',
@@ -11,442 +12,506 @@ export class DirectComponent implements OnInit {
 
   contacts: ContactCard[] = [
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:31',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:31',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:31',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
           received: true,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:31',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 2,
+      title: 'Andrea Ismail',
+      newMessages: 2,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 1,
+      title: 'Andrea Ismail',
+      newMessages: 1,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 5,
+      title: 'Andrea Ismail',
+      newMessages: 5,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 4,
+      title: 'Andrea Ismail',
+      newMessages: 4,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 3,
+      title: 'Andrea Ismail',
+      newMessages: 3,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 1,
+      title: 'Andrea Ismail',
+      newMessages: 1,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 5,
+      title: 'Andrea Ismail',
+      newMessages: 5,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 4,
+      title: 'Andrea Ismail',
+      newMessages: 4,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 3,
+      title: 'Andrea Ismail',
+      newMessages: 3,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 1,
+      title: 'Andrea Ismail',
+      newMessages: 1,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 5,
+      title: 'Andrea Ismail',
+      newMessages: 5,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 4,
+      title: 'Andrea Ismail',
+      newMessages: 4,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 3,
+      title: 'Andrea Ismail',
+      newMessages: 3,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 1,
+      title: 'Andrea Ismail',
+      newMessages: 1,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 5,
+      title: 'Andrea Ismail',
+      newMessages: 5,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 4,
+      title: 'Andrea Ismail',
+      newMessages: 4,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
     {
-      Messages: [
+      messages: [
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         },
         {
           message: 'Are we Meeting Today? Waiting for your response',
           time: '2:30',
-          received: false
+          received: false,
+          messageType: MessageType.Text
         }
       ],
-      Name: 'Andrea Ismail',
-      NewMessages: 3,
+      title: 'Andrea Ismail',
+      newMessages: 3,
       photoURL: 'https://source.unsplash.com/7YVZYZeITc8/30x30'
     },
   ];

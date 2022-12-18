@@ -32,14 +32,6 @@ export class EntitiesDocumentsRepository {
         }));
     }
 
-    deleteDocument(documentId: string) {
-        const documentsList = this.entitiesKYCDocumentsStore.value.documentsList;
-        this.entitiesKYCDocumentsStore.update((state) => ({
-            ...state,
-            documentsList: [...documentsList.filter(element => element.id === documentId)]
-        }));
-    }
-
     updateDocument(document: KYCDocumentListItem) {
         this.entitiesKYCDocumentsStore.update((state) => ({
             ...state,
@@ -49,7 +41,7 @@ export class EntitiesDocumentsRepository {
 
     getUpdatedDocumentsList(document: KYCDocumentListItem): KYCDocumentListItem[] {
         const newList = [...this.entitiesKYCDocumentsStore.value.documentsList];
-        const index = newList.findIndex((e) => e.id === document.id);
+        const index = newList.findIndex((e) => e.templateProcessingKeyInformation === document.templateProcessingKeyInformation);
         if (index !== -1) {
             newList[index] = document;
         }

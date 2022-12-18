@@ -8,8 +8,8 @@
         </app-button>
     </ng-template>
 </div>
-<p-table class="main-table" [value]="data?.roles" rowGroupMode="subheader" dataKey="id"
-    [totalRecords]="data?.totalCount" [rows]="4" [paginator]="true">
+<p-table #dt class="main-table" (onPage)="paginate($event)" [value]="data?.roles" rowGroupMode="subheader" dataKey="id"
+    [totalRecords]="data?.totalCount" [rows]="4" [paginator]="true" [(first)]="first">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:5%"></th>
@@ -30,7 +30,7 @@
         <tr>
             <td style="width:5%" class="">
                 <button type="button" pButton pRipple [pRowToggler]="role" class="flex justify-center items-center"
-                    (click)="getRoleClaims(role)">
+                    (click)="getRoleClaims(role,expanded)">
                     <span class="material-icons">
                         {{expanded?'remove_circle_outline':'add_circle_outline'}}
                     </span>

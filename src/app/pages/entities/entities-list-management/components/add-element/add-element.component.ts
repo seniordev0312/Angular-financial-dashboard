@@ -54,6 +54,7 @@ export class AddElementComponent extends BaseComponent implements OnInit {
       if (!this.isEmpty(data)) {
         this.elementsListItem = data;
         this.fg = this.elementFormGroup.getFormGroup(data);
+        this.fg.get('elementName').disable();
         if (this.isUpdateMode() && data.lockModifications) {
           Object.values(this.fg.controls).forEach(control => {
             control.disable();
@@ -79,7 +80,7 @@ export class AddElementComponent extends BaseComponent implements OnInit {
         entityDefinitionSectionId: this.entitiesListRepository.values.sectionDetails.entitySectionId,
       };
 
-      if (this.isCreateMode) {
+      if (this.isCreateMode()) {
         this.elementService.addElement(data);
       }
       else {

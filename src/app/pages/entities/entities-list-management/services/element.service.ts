@@ -15,7 +15,7 @@ export class ElementService {
 
 
     addElement(element: AddElement): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/AddEntityDefinitionSectionField`
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/AddEntityDefinitionSectionField`
 
         this.httpClient.put<EntityDetails>(endPointUrl, element).subscribe(data => {
             if (data) {
@@ -25,7 +25,7 @@ export class ElementService {
     }
 
     editElement(element: AddElement): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/UpdateEntityDefinitionSectionField`
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/UpdateEntityDefinitionSectionField`
 
         this.httpClient.put<EntityDetails>(endPointUrl, element).subscribe(data => {
             if (data) {
@@ -35,7 +35,7 @@ export class ElementService {
     }
 
     deleteElement(entityDefinitionId: string, entityDefinitionSectionId: string, fieldName: string): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/DeleteEntityDefinitionSectionField/${entityDefinitionId}/${entityDefinitionSectionId}/${fieldName}`
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/DeleteEntityDefinitionSectionField/${entityDefinitionId}/${entityDefinitionSectionId}/${fieldName}`
         this.httpClient.delete<EntityDetails>(endPointUrl).subscribe(data => {
             if (data) {
                 this.entitiesListRepository.updateEntityDetails(data);

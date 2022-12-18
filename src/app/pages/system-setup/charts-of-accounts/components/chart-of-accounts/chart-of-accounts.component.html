@@ -11,9 +11,56 @@
             classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
         </app-button>
     </div>
-    <p-table [rows]="pageSize" [paginator]="true" class="main-table" [value]="chartOfAccountsList"
-        rowGroupMode="subheader" rowExpandMode="single" dataKey="id">
-        <ng-template pTemplate="header">
+    <ng-container
+        *ngTemplateOutlet="table; context:{data:{items:chartOfAccountsList,showHeader:true,pageSize,class:'main-table'}}"></ng-container>
+
+</app-system-setup>
+
+<ng-template let-data="data" #tableBody>
+    <td style="width:15%">
+        <span class="font-bold" class="text-xs py-1">{{data.item.accountNo}}</span>
+    </td>
+    <td style="width:18%">
+        <div class="font-bold" class="text-xs text-ellipsis overflow-hidden whitespace-nowrap w-[200px] py-1">
+            {{data.item.decription}}
+        </div>
+    </td>
+    <td style="width:10%" class="text-center">
+        <span class="font-bold" class="text-xs py-1">{{data.item.type}}</span>
+    </td>
+    <td style="width:10%" class="text-center">
+        <span class="font-bold" class="text-xs py-1">{{data.item.toIncrease}}</span>
+    </td>
+    <td style="width:10%" class="text-center">
+        <span class="font-bold" class="text-xs py-1">{{data.item.currency}}</span>
+    </td>
+    <td style="width:20%" class="text-center">
+        <span class="font-bold" class="text-xs py-1">{{data.item.balance| number}}</span>
+    </td>
+    <td style="width:10%">
+        <div class="flex justify-end pr-4 py-1">
+            <button [routerLink]="[viewAccountLink,{outlets:{sidenav:null}}]" mat-button>
+                <span class="material-icons-outlined text-accent">
+                    visibility
+                </span>
+            </button>
+            <button (click)="onChartOfAccountAdded(true)" *ngIf="!data.isLeafItem" mat-button class="ml-4">
+                <mat-icon svgIcon="add-grid" class="text-accent"></mat-icon>
+            </button>
+            <button (click)="onChartOfAccountEdited(data.item,data.isLeafItem)" mat-button class="ml-4">
+                <span class="material-icons-outlined text-accent">
+                    border_color
+                </span>
+            </button>
+            <mat-slide-toggle (change)="onChartOfAccountDeactivated(data.item)" class="ml-4"></mat-slide-toggle>
+        </div>
+    </td>
+</ng-template>
+
+<ng-template let-data="data" #table>
+    <p-table [rows]="data.pageSize" [paginator]="data.items.length>data.pageSize" [class]="data.class"
+        [value]="data.items" rowGroupMode="subheader" rowExpandMode="single" dataKey="accountNo">
+        <ng-template *ngIf="data.showHeader" pTemplate="header">
             <tr>
                 <th style="width:7%">
                 </th>
@@ -69,108 +116,31 @@
             </tr>
         </ng-template>
 
-        <ng-template let-data="data" #tableBody>
-            <td style="width:15%">
-                <span class="font-bold" class="text-xs py-1">{{data.item.accountNo}}</span>
-            </td>
-            <td style="width:18%">
-                <div class="font-bold" class="text-xs text-ellipsis overflow-hidden whitespace-nowrap w-[200px] py-1">
-                    {{data.item.decription}}
-                </div>
-            </td>
-            <td style="width:10%" class="text-center">
-                <span class="font-bold" class="text-xs py-1">{{data.item.type}}</span>
-            </td>
-            <td style="width:10%" class="text-center">
-                <span class="font-bold" class="text-xs py-1">{{data.item.toIncrease}}</span>
-            </td>
-            <td style="width:10%" class="text-center">
-                <span class="font-bold" class="text-xs py-1">{{data.item.currency}}</span>
-            </td>
-            <td style="width:20%" class="text-center">
-                <span class="font-bold" class="text-xs py-1">{{data.item.balance}}</span>
-            </td>
-            <td style="width:10%">
-                <div class="flex justify-end pr-4 py-1">
-                    <button [routerLink]="[viewAccountLink,{outlets:{sidenav:null}}]" mat-button>
-                        <span class="material-icons-outlined text-accent">
-                            visibility
-                        </span>
-                    </button>
-                    <button (click)="onChartOfAccountAdded(true)" *ngIf="!data.isLeafItem" mat-button class="ml-4">
-                        <mat-icon svgIcon="add-grid" class="text-accent"></mat-icon>
-                    </button>
-                    <button (click)="onChartOfAccountEdited(data.item,data.isLeafItem)" mat-button class="ml-4">
-                        <span class="material-icons-outlined text-accent">
-                            border_color
-                        </span>
-                    </button>
-                    <mat-slide-toggle (change)="onChartOfAccountDeactivated(data.item)" class="ml-4"></mat-slide-toggle>
-                </div>
-            </td>
-        </ng-template>
-
         <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" let-expanded="expanded">
             <tr>
                 <td style="width:7%">
-                    <button *ngIf="!item.lastLevelFlag" type="button" pButton pRipple [pRowToggler]="item"
-                        class="mx-2 py-1">
-                        <span class="material-icons-outlined">
-                            {{expanded?'remove_circle_outline':'add_circle_outline'}}
-                        </span>
-                    </button>
-                </td>
-                <ng-container
-                    *ngTemplateOutlet="tableBody; context:{data:{item:items(item.accountId,item.accountTypeId),isLeafItem:false,isMainParent:true,isSubParent:false}}">
-                </ng-container>
-            </tr>
-        </ng-template>
-
-
-        <!-- <ng-template pTemplate="rowexpansion" let-item>    
-            <tr>
-                <td class="sub-table" colspan="8">
-                    <div>
-                        <p-table class="main-table" [value]="item.items" rowExpandMode="single" rowGroupMode="subheader"
-                            dataKey="id">
-                            <ng-template pTemplate="body" let-subItem let-rowIndex="rowIndex" let-expanded="expanded">
-            <tr>
-                <td style="width:7%">
-                    <div class="flex justify-end">
-                        <button *ngIf="subItem.items.length>0" type="button" pButton pRipple [pRowToggler]="subItem"
-                            class="mr-2 py-2">
+                    <div [ngClass]="{'justify-end': item?.parentAccountTypeId}" class="flex items-center">
+                        <button *ngIf="item.children?.length>0" type="button" pButton pRipple [pRowToggler]="item"
+                            class="py-1">
                             <span class="material-icons-outlined">
                                 {{expanded?'remove_circle_outline':'add_circle_outline'}}
                             </span>
                         </button>
                     </div>
                 </td>
-                <ng-container
-                    *ngTemplateOutlet="tableBody; context:{data:{item:subItem,isLeafItem:false,isMainParent:false,isSubParent:true}}"></ng-container>
+                <ng-container *ngTemplateOutlet="tableBody; context:{data:{item}}">
+                </ng-container>
             </tr>
         </ng-template>
-        <ng-template pTemplate="rowexpansion" let-subItem>
+
+        <ng-template pTemplate="rowexpansion" let-item>
             <tr>
                 <td class="sub-table" colspan="8">
-                    <div>
-                        <p-table class="sub-table" [value]="subItem.items" dataKey="id">
-                            <ng-template pTemplate="body" let-childItem>
-            <tr>
-                <td style="width:7%">
+                    <ng-container
+                        *ngTemplateOutlet="table; context:{data:{items:item.children,showHeader:false,pageSize:childrenPageSize,class:'main-table'}}">
+                    </ng-container>
                 </td>
-                <ng-container
-                    *ngTemplateOutlet="tableBody;  context:{data:{item:childItem,isLeafItem:true,isMainParent:false,isSubParent:false}}"></ng-container>
             </tr>
         </ng-template>
     </p-table>
-    </div>
-    </td>
-    </tr>
-    </ng-template>
-    </p-table>
-    </div>
-    </td>
-    </tr>
-        </ng-template> -->
-    </p-table>
-</app-system-setup>
+</ng-template>

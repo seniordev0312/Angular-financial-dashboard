@@ -1,13 +1,15 @@
 export interface ChartOfAccountsListItem {
-    accountId: number;
-    accountTypeId: number;
+    accountId: string;
+    accountTypeId: string;
+    parentAccountTypeId: string;
     accountNo: string;
     decription: string;
     type: string;
     toIncrease: string;
     currency: string;
-    debit: string;
-    credit: string;
-    balance: string;
+    debit: number;
+    credit: number;
+    balance: number;
     lastLevelFlag: boolean;
+    children?: ChartOfAccountsListItem[];
 }

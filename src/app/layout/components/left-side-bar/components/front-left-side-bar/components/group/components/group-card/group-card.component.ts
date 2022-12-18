@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
-  styleUrls: ['./group.component.scss'],
+  selector: 'app-group-card',
+  templateUrl: './group-card.component.html',
+  styleUrls: ['./group-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GroupComponent implements OnInit {
+export class GroupCardComponent implements OnInit {
 
   constructor() { }
 

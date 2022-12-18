@@ -38,7 +38,9 @@
     "primeng": "^14.1.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "ngx-plyr": "^4.0.1",
+    "plyr": "^3.7.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.6",
