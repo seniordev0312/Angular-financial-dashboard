@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+
   apiUrl: 'https://dev.api.entity.aperatureuk.com/api',
   identityAPIServerURL: 'https://dev.api.identity.aperatureuk.com/api',
   signalRHub: 'https://dev.customerservice.aperatureuk.com',
