@@ -1,5 +1,5 @@
 export interface EntitiesMappingListItem {
-    id: string;
+    fieldId: string;
     externalField: string;
     systemField: string;
 }

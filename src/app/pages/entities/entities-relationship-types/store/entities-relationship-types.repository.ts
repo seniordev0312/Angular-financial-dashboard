@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { AddRelationshipType } from '../models/add-relationship-type.model';
+import { EntityTypesListItem } from '../models/entity-types-list-item.model';
 import { RelationshipTypesListItem } from '../models/relationship-types-list-item.model';
 import { EntitiesRelationshipTypesStore, ENTITIES_Relationship_Types_LIST_STORE } from './entities-relationship-types.store';
 
@@ -25,18 +26,17 @@ export class EntitiesRelationshipTypesRepository {
         }));
     }
 
-    addRelationshipType(addedRelationshipType: RelationshipTypesListItem) {
+    updateTypesList(entitiesTypesList: EntityTypesListItem[]): void {
         this.entitiesRelationshipTypesStore.update((state) => ({
             ...state,
-            relationshipTypesList: { ...addedRelationshipType, ...this.entitiesRelationshipTypesStore.value.relationshipTypesList }
+            entityTypesList: entitiesTypesList
         }));
     }
 
-    deleteRelationshipType(mappingId: string) {
-        const relationshipTypesList = this.entitiesRelationshipTypesStore.value.relationshipTypesList;
+    addRelationshipType(addedRelationshipType: RelationshipTypesListItem) {
         this.entitiesRelationshipTypesStore.update((state) => ({
             ...state,
-            relationshipTypesList: [...relationshipTypesList.filter(element => element.id === mappingId)]
+            relationshipTypesList: [addedRelationshipType, ...this.entitiesRelationshipTypesStore.value.relationshipTypesList]
         }));
     }
 
@@ -49,7 +49,7 @@ export class EntitiesRelationshipTypesRepository {
 
     getUpdatedRelationshipTypesList(relationshipType: RelationshipTypesListItem): RelationshipTypesListItem[] {
         const newList = [...this.entitiesRelationshipTypesStore.value.relationshipTypesList];
-        const index = newList.findIndex((e) => e.id === relationshipType.id);
+        const index = newList.findIndex((e) => e.entityTypeRelationshipId === relationshipType.entityTypeRelationshipId);
         if (index !== -1) {
             newList[index] = relationshipType;
         }

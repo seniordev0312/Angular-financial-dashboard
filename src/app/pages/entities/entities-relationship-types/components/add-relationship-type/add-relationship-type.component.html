@@ -1,19 +1,36 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">Add New Entity Relationship Type</h4>
     <div class="mr-[45px] gap-4 flex flex-col">
-
-        <app-input-field label="Entity Relationship Type Code:" [control]="getFormControl('code')"></app-input-field>
-        <app-select-list label="Relationship Type Forward:" [control]="getFormControl('forward')"></app-select-list>
-        <app-select-list label="Relationship Type Backward:" [control]="getFormControl('back')"></app-select-list>
+        <app-input-field label="Relationship Type Forward:" [control]="getFormControl('forward')"></app-input-field>
+        <app-input-field label="Relationship Type Backward:" [control]="getFormControl('backward')"></app-input-field>
         <app-input-field label="Relationship Type Description:"
             [control]="getFormControl('description')"></app-input-field>
+        <div class="w-full">
+            <div class="flex flex-col border border-accent container relative pt-5 w-full px-4">
+                <app-select-list label="Allowed Entities:" [control]="allowedEntitiesFormControl"
+                    [optionsList]="entityTypesList"></app-select-list>
 
-        <!-- <app-select-list-with-chips [fg]="fg" [showFirstField]="false" secondSelectListFormControlName="allowedEntities"
-            secondSelectListLabel="Allowed Entities">
-        </app-select-list-with-chips> -->
-        <div class="flex items-center mt-4">
-            <p class="text-xs font-bold mr-[45px]">Lock Entity Type</p>
-            <mat-slide-toggle></mat-slide-toggle>
+                <button (click)="onAddClicked()" class="absolute top-[50%] -right-[0.79rem] ">
+                    <span class="material-icons text-accent">
+                        add_circle_outline
+                    </span>
+                </button>
+            </div>
+            <mat-chip-list class="border-t-primary">
+                <mat-chip class=" relative" *ngFor="let chip of allowedEntities;  let i = index" color="primary">
+                    <span>{{getAllowedEntityLabel(chip)}}</span>
+                    <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
+                        aria-label="'remove ' + chip">
+                        <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
+                            close
+                        </span>
+                    </button>
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <div class="flex items-center justify-between mt-4">
+            <p class="text-xs font-bold">Lock Entity Type</p>
+            <mat-slide-toggle formControlName="lock"></mat-slide-toggle>
         </div>
     </div>
     <div class="flex items-center mt-7 justify-between w-full">

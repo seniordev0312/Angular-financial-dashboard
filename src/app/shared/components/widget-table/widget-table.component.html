@@ -141,7 +141,7 @@
             <span class="material-icons">
               more_vert
             </span> </button>
-          <div class="flex justify-center"
+          <div class="flex justify-end"
             *ngIf="tableConfiguration.settings.enableActions&&tableConfiguration.settings.actionsMode==='inline'&&(isMobile$|async)===false">
             <ng-container *ngTemplateOutlet="inlineActions; context:{ row: row}">
             </ng-container>
@@ -179,11 +179,11 @@
 </mat-menu>
 
 <ng-template #inlineActions let-row="row">
-  <span *ngIf="tableConfiguration.tableRowsActionsList.length===0">
+  <!-- <span *ngIf="tableConfiguration.tableRowsActionsList.length===0">
     <span class="material-icons-outlined">
       lock
     </span>
-  </span>
+  </span> -->
   <ng-container *ngFor="let action of tableConfiguration.tableRowsActionsList">
     <button *ngIf="action.alwaysShow || row[action.showConditionProperty]" [ngClass]="action?.cssClasses"
       class="text-md mx-2" (click)="action.action(row)" mat-raised-button>

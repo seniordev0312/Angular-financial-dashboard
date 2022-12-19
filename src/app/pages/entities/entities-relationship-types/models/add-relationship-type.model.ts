@@ -1,8 +1,8 @@
 export interface AddRelationshipType {
-    id?: string;
-    code: string;
-    back: string;
+    entityTypeRelationshipId?: string;
+    backward: string;
     forward: string
     description: string;
     allowedEntities: string[];
+    lock: boolean;
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -15,6 +15,8 @@ import { SecurityCheckerService } from '@root/shared/services/security-checker.s
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
 import { EntitiesSourcesListItem } from '../../models/entities-sources-list-item.model';
+import { EntitiesSourcesListService } from '../../services/entities-sources-list.service';
+import { entitiesSourcesList$ } from '../../store/entities-sources.store';
 
 @Component({
   selector: 'app-entities-sources-management',
@@ -22,7 +24,7 @@ import { EntitiesSourcesListItem } from '../../models/entities-sources-list-item
   styleUrls: ['./entities-sources-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesSourcesManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class EntitiesSourcesManagementComponent extends BaseComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<EntitiesSourcesListItem>;
   addEntitySourcesPermission = Permission.CanAddEntitySources;
@@ -30,35 +32,14 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];
-  templatesList: EntitiesSourcesListItem[] = [
-    {
-      id: '1',
-      name: 'Internal (Data Entry)',
-    },
-    {
-      id: '1',
-      name: 'Internal (Data Entry)',
-    }, {
-      id: '1',
-      name: 'Internal (Data Entry)',
-    }, {
-      id: '1',
-      name: 'Internal (Data Entry)',
-    }, {
-      id: '1',
-      name: 'Internal (Data Entry)',
-    }, {
-      id: '1',
-      name: 'Internal (Data Entry)',
-    },
-  ]
+  sourcesList: EntitiesSourcesListItem[] = [];
   tableColumns: TableColumn[] = [
     {
       translationKey: 'Entity Source ID',
-      property: 'id',
+      property: 'entitySourceId',
       type: 'text',
       svgIcon: '',
-      cssClasses: () => 'w-[20%]',
+      cssClasses: () => 'w-[30%]',
       dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
@@ -72,7 +53,7 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
     },
     {
       translationKey: 'Source Name',
-      property: 'name',
+      property: 'sourceName',
       type: 'text',
       cssClasses: () => 'w-[30%]',
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
@@ -106,8 +87,8 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
     cssClasses: 'text-primary',
     iconName: 'border_color',
     translationKey: '',
-    alwaysShow: true,
-    showConditionProperty: null,
+    alwaysShow: false,
+    showConditionProperty: 'isNotLockModification',
     isIconButton: true,
   };
 
@@ -134,23 +115,24 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
   tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
 
   tableConfiguration: TableConfiguration<EntitiesSourcesListItem> = {
-    tableRowsActionsList: [],
+    tableRowsActionsList: [this.shareAction],
     columns: this.tableColumns,
     data: [],
-    dataCount: 3,//todo replace after api
+    dataCount: 0,
     settings: this.tableSettings,
   };
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
     private securityCheckerService: SecurityCheckerService,
+    private entitiesSourcesListService: EntitiesSourcesListService,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
+    this.entitiesSourcesListService.getEntitiesSourcesList();
     this.getActionsList();
-    this.tableConfiguration.data = this.templatesList;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -163,11 +145,21 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
         }
       ],
     });
+
+    this.subscriptions.add(entitiesSourcesList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.sourcesList = data;
+        this.tableConfiguration.data = data.map(e => {
+          return {
+            ...e, isNotLockModification: !e.isLockModification
+          }
+        });
+        this.tableConfiguration.dataCount = data.length;
+        this.table.refresh();
+      }
+    }))
   }
 
-  ngAfterViewInit(): void {
-    this.table.refresh();
-  }
 
   getActionsList() {
     if (this.securityCheckerService.doesUserHasPermission(Permission.CanEditEntitySources)) {
@@ -175,9 +167,6 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
     }
     if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteEntitySources)) {
       this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
-    }
-    if (this.securityCheckerService.doesUserHasPermission(Permission.CanShareEntitySources)) {
-      this.tableConfiguration.tableRowsActionsList.push(this.shareAction);
     }
   }
 
@@ -193,13 +182,13 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
 
   onEntitySourceEdited(template: EntitiesSourcesListItem) {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.id}` },
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.entitySourceId}` },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onEntitySourceDeleted(_template: EntitiesSourcesListItem) {
+  onEntitySourceDeleted(source: EntitiesSourcesListItem) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to delete this entity source?',
       title: 'Delete Entity Source',
@@ -212,10 +201,13 @@ export class EntitiesSourcesManagementComponent extends BaseComponent implements
 
     this.subscriptions.add(
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
-        if (isConfirmed) { }
+        if (isConfirmed) {
+          this.entitiesSourcesListService.deleteSource(source.entitySourceId)
+        }
       }));
   }
 
-  onTemplateShared(_template: EntitiesSourcesListItem) {
+  onTemplateShared(source: EntitiesSourcesListItem) {
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesMappingManagement}/${source.entitySourceId}`]);
   }
 }

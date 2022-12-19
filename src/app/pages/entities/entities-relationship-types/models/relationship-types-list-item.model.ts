@@ -1,8 +1,11 @@
 export interface RelationshipTypesListItem {
-    id: string;
-    code: string;
-    back: string;
+    entityTypeRelationshipId: string;
+    lock: boolean;
+    backward: string;
     forward: string
     description: string;
     allowedEntities: string[];
+
+    //helper 
+    canEdit: boolean;
 }
