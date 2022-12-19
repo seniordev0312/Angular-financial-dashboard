@@ -1,0 +1,18 @@
+<div class="flex flex-col pt-4 h-full">
+    <div *ngIf="!showChat" class="search flex items-center bg-white rounded-xl gap-4 text-sm mx-1 px-4 shadow-md">
+        <mat-icon svgIcon="search-gray"></mat-icon>
+        <input class="h-full input text-sm" matInput placeholder="Search…">
+    </div>
+    <div *ngIf="showChat" class="h-full">
+        <app-chat-card [message]="message" [photoURL]="photoURL" (backEvent)="back()"></app-chat-card>
+    </div>
+    <div *ngIf="!showChat" class="h-[90%] overflow-auto">
+        <div class="flex flex-col gap-4 mt-4">
+            <app-group-card (click)="ShowChat()"></app-group-card>
+            <app-group-card></app-group-card>
+            <app-group-card></app-group-card>
+            <app-group-card></app-group-card>
+            <app-group-card></app-group-card>
+        </div>
+    </div>
+</div>

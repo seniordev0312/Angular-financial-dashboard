@@ -1,9 +1,11 @@
 <div class="flex flex-col mt-5 py-6 px-14 shadow-md rounded bg-white box">
     <div class="flex items-center justify-between">
         <div></div>
-        <app-button (trigger)="onEntitySourceAdded()" icon="add" text="Add New Mapping"
-            classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
-        </app-button>
+        <ng-template [appCanAccessFeature]="addEntityMappingPermission">
+            <app-button (trigger)="onEntityMappingAdded()" icon="add" text="Add New Mapping"
+                classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
+            </app-button>
+        </ng-template>
     </div>
     <app-widget-table class="w-full mt-5" [tableConfiguration]="tableConfiguration"></app-widget-table>
 </div>

@@ -1,11 +1,15 @@
 export interface AccountViewListItem {
-    id: string;
-    number: string;
-    postingDate: string;
-    accountNumber: string;
-    accountName: string;
+    accountId: string;
+    accountTypeId: string;
+    parentAccountTypeId: string;
+    accountNo: string;
+    decription: string;
+    type: string;
+    toIncrease: string;
+    currency: string;
     debit: number;
     credit: number;
     balance: number;
-    items?: AccountViewListItem[];
+    lastLevelFlag: boolean;
+    children?: AccountViewListItem[];
 }

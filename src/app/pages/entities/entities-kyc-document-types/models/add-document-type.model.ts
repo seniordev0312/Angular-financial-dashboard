@@ -1,7 +1,5 @@
 export interface AddDocumentType {
-    id: string;
-    code: string;
-    type: string;
-    process: boolean;
-    processingKey: string;
+    kycDocumentType: string;
+    isActive: boolean;
+    templateProcessingKeyInformation: string;
 }

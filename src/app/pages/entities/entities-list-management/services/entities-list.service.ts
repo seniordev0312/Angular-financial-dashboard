@@ -12,7 +12,7 @@ export class EntitiesListService {
         private entitiesListRepository: EntitiesListRepository) { }
 
     getEntitiesList(): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/GetEntityDefinitions`;
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinitions`;
 
         this.httpClient.get<EntitiesListItem[]>(endPointUrl).subscribe(data => {
             if (data) {
@@ -22,7 +22,7 @@ export class EntitiesListService {
     }
 
     getEntityDetails(entityCode: string): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/GetEntityDefinition/${entityCode}`
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinition/${entityCode}`
         this.httpClient.get<EntityDetails>(endPointUrl).subscribe(data => {
             if (data) {
                 this.entitiesListRepository.updateEntityDetails(data);
@@ -32,14 +32,14 @@ export class EntitiesListService {
 
 
     deleteEntity(entityId: string): void {
-        const endPointUrl = `${environment.apiUrl}/EntityDefinition/GetEntityDefinition/${entityId}`
+        const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinition/${entityId}`
         this.httpClient.delete<void>(endPointUrl).subscribe(() => {
             this.entitiesListRepository.deleteEntity(entityId);
         });
     }
 
     checkCreateEntityValidation(entityName: string, entityCode: string) {
-        const endPointUrl = `${environment.apiUrl}/EntityType/ValidateNewEntityCreation/${entityCode}/${entityName}`
+        const endPointUrl = `${environment.entityApiUrl}/EntityType/ValidateNewEntityCreation/${entityCode}/${entityName}`
         this.httpClient.get<{ canCreateEntity: boolean }>(endPointUrl).subscribe((data) => {
             this.entitiesListRepository.updateEntityDetails({ ...this.entitiesListRepository.values.entityDetails, entityName, entityCode } as EntityDetails);
             this.entitiesListRepository.updateIsCreateEntityValid(data.canCreateEntity);

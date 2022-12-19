@@ -3,11 +3,12 @@
         <mat-icon svgIcon="search-gray"></mat-icon>
         <input class="h-full input text-sm" matInput placeholder="Search…">
     </div>
+
     <div *ngIf="showChat" class="h-full">
         <app-chat-card [message]="message" [photoURL]="photoURL" (backEvent)="back()"></app-chat-card>
     </div>
-    <div *ngIf="!showChat" class="h-[90%] overflow-auto">
-        <div class="p-1 pt-4 overflow-hidden" *ngFor="let contact of contacts">
+    <div *ngIf="!showChat" class="mt-4 h-[90%] overflow-auto">
+        <div class="overflow-hidden p-1 pt-0" *ngFor="let contact of contacts">
             <app-contact-card [contact]="contact" (click)="ShowChat(contact)"></app-contact-card>
         </div>
     </div>

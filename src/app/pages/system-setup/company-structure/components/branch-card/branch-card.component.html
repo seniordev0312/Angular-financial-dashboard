@@ -1,0 +1,46 @@
+<div [ngClass]="{'min-h-[160px]': showElementsList}"
+    class="flex flex-col justify-center items-center relative rounded-2xl bg-primary  w-[203px]">
+    <div [ngClass]="{'rounded-2xl': !showElementsList,'rounded-t-2xl':showElementsList}"
+        class="flex flex-col rounded-2xl items-center justify-center relative h-[110px] w-full border-accent border-2">
+        <p class="text-white text-sm font-medium">{{data.name}}</p>
+        <p class="text-xxs font-bold mt-2 text-black">Branch</p>
+        <div class="absolute right-1 bottom-[2px]  px-2 ">
+            <span (click)="toggleElementsListVisibility()" class="material-icons text-white cursor-pointer">
+                {{showElementsList?'expand_less':'expand_more'}}
+            </span>
+        </div>
+    </div>
+    <div *ngIf="showElementsList"
+        class="flex py-2 gap-1 rounded-b-2xl items-center justify-center flex-wrap min-h-[64px] bg-[#C0C6CC] elements w-full border-accent border-2 border-t-0">
+        <div *ngIf="data.groups.length === 0">No Groups</div>
+        <app-group-chip [item]="item" *ngFor="let item of data.groups"></app-group-chip>
+
+    </div>
+
+    <div class="absolute left-1 top-1  px-2 ">
+        <span (click)="copyBranch()" class="material-icons text-white cursor-pointer">
+            copy_all
+        </span>
+    </div>
+
+    <button mat-button (click)="EditBranch()"
+        class="flex border-2 border-accent rounded-full absolute -top-2 right-0 bg-white">
+        <span class="material-icons right-icon text-accent">
+            chevron_right
+        </span>
+    </button>
+
+
+    <button mat-button (click)="onGroupAdded()"
+        class="flex justify-center items-center cursor-pointer rounded-sm absolute top-[12px] -right-[5.7rem] bg-primary h-[25px] w-[92px]">
+        <span class="text-xxs font-medium text-white">
+            Add Group
+        </span>
+    </button>
+    <button mat-button (click)="onDepartmentAdded()"
+        class="flex justify-center items-center cursor-pointer rounded-sm absolute top-[40px] -right-[5.7rem] bg-primary h-[25px] w-[92px]">
+        <span class="text-xxs font-medium text-white">
+            Add Department
+        </span>
+    </button>
+</div>

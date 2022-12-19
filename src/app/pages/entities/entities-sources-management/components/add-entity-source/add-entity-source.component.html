@@ -1,8 +1,12 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add New Entity Source':'Edit New Entity Source'}}</h4>
     <div class="mr-[45px] gap-4 flex flex-col">
-        <app-input-field label="Entity Source ID:" [control]="getFormControl('id')"></app-input-field>
-        <app-input-field label="Source Name:" [control]="getFormControl('name')"></app-input-field>
+        <!-- <app-input-field label="Entity Source ID:" [control]="getFormControl('id')"></app-input-field> -->
+        <app-input-field label="Source Name:" [control]="getFormControl('sourceName')"></app-input-field>
+        <div *ngIf="isCreateMode()" class="flex items-center justify-between mt-3">
+            <p class="text-xs font-bold">Lock Modifications</p>
+            <mat-slide-toggle formControlName="isLockModification"></mat-slide-toggle>
+        </div>
     </div>
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"

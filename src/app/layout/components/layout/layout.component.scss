@@ -4,8 +4,12 @@
     height: 100%;
 }
 
-mat-sidenav {
-    width: var(--sidenav-width);
+.left-mat-sidenav {
+    width: var(--left-sidenav-width);
+}
+
+.right-mat-sidenav {
+    width: var(--right-sidenav-width);
 }
 
 mat-sidenav-container {

@@ -10,11 +10,15 @@ export class TableSettings {
     hasNextPage?: boolean;
     haxPreviousPage?: boolean;
     actionsMode?: 'menu' | 'inline';
+    hasSlideAction?: boolean;
+    slideActionProperty?: string;
 
     constructor(data: any) {
         if (!data) {
             return;
         }
+        this.slideActionProperty = data.slideActionProperty;
+        this.hasSlideAction = data.hasSlideAction ?? false;
         this.enableActions = data?.enableActions ?? true;
         this.enablePaging = data?.enablePaging ?? true;
         this.enableExport = data?.enableExport ?? true;

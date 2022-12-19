@@ -1,0 +1,35 @@
+<div class="flex justify-start items-center h-[5%] gap-4">
+    <mat-icon (click)="back()" class="cursor-pointer"> keyboard_arrow_left</mat-icon>
+    <span class="text-base">{{message.title}}</span>
+</div>
+<div class="h-[75%] overflow-auto">
+    <div class="flex-col" *ngFor="let item of message.messages">
+        <app-message-card [message]="item"></app-message-card>
+    </div>
+</div>
+<div class="flex flex-col h-[20%] upperShadow pb-2">
+    <div class="h-[70%] pt-2">
+        <textarea class="w-full h-full text-xs" id="text" name="text" placeholder="Enter your message here"></textarea>
+    </div>
+    <div class="flex flex-row h-[30%]">
+        <div class="w-[65%] grid grid-cols-4 divide-x mb-2 overflow-hidden">
+            <div>
+                <mat-icon class="cursor-pointer" svgIcon="attach"></mat-icon>
+            </div>
+            <div>
+                <!-- <mat-icon class="cursor-pointer" svgIcon="gallery"></mat-icon> -->
+            </div>
+            <div>
+                <mat-icon class="cursor-pointer" svgIcon="microphone"></mat-icon>
+            </div>
+            <div>
+                <!-- <mat-icon class="cursor-pointer" svgIcon="call-out"></mat-icon> -->
+            </div>
+        </div>
+        <div class="flex justify-end items-center w-[35%]">
+            <button class="bg-primary rounded-md text-white p-2 text-xxs">
+                Send
+            </button>
+        </div>
+    </div>
+</div>

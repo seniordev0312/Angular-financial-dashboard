@@ -1,0 +1,23 @@
+<div class="flex w-full p-2" [ngStyle]="{'justify-content': message.received ? 'flex-start' :'flex-end' }">
+    <div class="flex flex-col w-[75%] shadow-xl rounded-lg p-2 ">
+        <div class="flex justify-between items-center font-medium text-xs mb-1">
+            <div class="text-accent">
+                {{message.senderName}}
+            </div>
+            <div class="text-right">
+                {{message.time}}
+            </div>
+        </div>
+        <div class="text-left text-xs">
+            <ng-container *ngIf="isTextMessage(message)">
+                {{ message.message }}
+            </ng-container>
+
+            <ng-container class="m-1 mr-0 py-2 px-4 shadow-1 rounded-lg" *ngIf="isPhoto(message)">
+                <img class="cursor-pointer w-16 md:w-32 lg:w-48" [src]="message.message" />
+            </ng-container>
+            <app-audio-message *ngIf="isAudio(message)" [message]="message"></app-audio-message>
+
+        </div>
+    </div>
+</div>

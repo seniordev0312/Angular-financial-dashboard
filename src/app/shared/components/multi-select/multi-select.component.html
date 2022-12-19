@@ -1,0 +1,14 @@
+<form [formGroup]="formGroup">
+    <mat-form-field appearance="fill">
+        <mat-label>{{label}}</mat-label>
+        <mat-select multiple formControlName="options">
+            <mat-option *ngIf="items?.length > 1" [value]="items" (click)="toggleSelectAll()"
+                (keyup.enter)="toggleSelectAll()" (keyup.space)="toggleSelectAll()" #multiAllOption>
+                All
+            </mat-option>
+            <mat-option *ngFor="let item of items; let index = index" [value]="item"
+                (keyup.enter)="recalculateCheckedBoxes()" (keyup.space)="recalculateCheckedBoxes()"
+                (click)="recalculateCheckedBoxes()">{{displayValue(item)}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

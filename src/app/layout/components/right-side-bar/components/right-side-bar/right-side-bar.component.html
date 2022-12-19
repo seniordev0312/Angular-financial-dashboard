@@ -1,6 +1,11 @@
-<div class="h-full w-full px-10">
-    <div class="spinner" *ngIf="isSpinning$|async">
-        <mat-spinner></mat-spinner>
-    </div>
-    <router-outlet name="sidenav"></router-outlet>
+<div class="h-full w-full px-4">
+  <div class="spinner" *ngIf="isSpinning$|async">
+    <mat-spinner></mat-spinner>
+  </div>
+  <router-outlet name="sidenav"></router-outlet>
+  <div *ngIf="canToggle" class="absolute h-32 w-4 left-0 top-[40%] 
+          bg-primary rounded-r-lg flex justify-center items-center text-white font-light cursor-pointer"
+    (click)="toggleRightSidenav()">
+    <span>{{path}}</span>
+  </div>
 </div>

@@ -1,13 +1,13 @@
 <form [formGroup]="fg" *ngIf="fg" class="flex flex-col py-9">
     <h4 class="font-bold text-sm mb-7">{{isCreateMode()?'Add KYC Document Type':'Edit KYC Document Type'}}</h4>
     <div class="mr-[45px] gap-4 flex flex-col">
-        <app-input-field label="KYC Document Type Code:" [control]="getFormControl('code')"></app-input-field>
-        <app-select-list label="KYC Document Type:" [control]="getFormControl('type')"></app-select-list>
+        <app-input-field label="KYC Document Type:" [control]="getFormControl('kycDocumentType')"></app-input-field>
         <div class="flex items-center mb-4 w-full justify-between">
             <p class="text-xs font-bold">Process</p>
-            <mat-slide-toggle></mat-slide-toggle>
+            <mat-slide-toggle formControlName="isActive"></mat-slide-toggle>
         </div>
-        <app-input-field label="Template Processing Key" [control]="getFormControl('processingKey')"></app-input-field>
+        <app-input-field label="Template Processing Key"
+            [control]="getFormControl('templateProcessingKeyInformation')"></app-input-field>
     </div>
 
 

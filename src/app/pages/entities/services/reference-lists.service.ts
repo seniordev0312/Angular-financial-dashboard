@@ -18,7 +18,7 @@ export class EntitiesReferenceListsService {
                 }),
             };
 
-            const endPointUrl = `${environment.apiUrl}/Reference/GetElementTypes`
+            const endPointUrl = `${environment.entityApiUrl}/Reference/GetElementTypes`
             this.httpClient.get<BaseListItem[]>(endPointUrl, httpOptions).subscribe((data) => {
                 this.sharedEntitiesRepository.updateElementTypesReferenceList(data);
             });

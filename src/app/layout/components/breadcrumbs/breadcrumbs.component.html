@@ -1,4 +1,4 @@
-<div class="flex flex-row justify-start items-center gap-2">
+<div class="flex flex-row justify-start items-center gap-2 w-max">
     <div *ngFor="let crumb of routeCrumbsList?.crumbs; let i = index"
         class="flex flex-row items-center text-xs lg:text-base">
         <div [routerLink]="crumb.route" *ngIf="i !== routeCrumbsList?.crumbs.length -1"

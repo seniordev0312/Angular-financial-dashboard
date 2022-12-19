@@ -1,42 +1,59 @@
 <app-system-setup>
-    <form [formGroup]="fg" class="flex flex-col gap-2 px-10 py-5">
+    <form class="flex flex-col gap-2">
         <div class="flex items-center text-sm font-medium mb-8">
             <h1 class="mr-10">Company Setup for:</h1>
             <h2 class="text-accent">MedGulf</h2>
         </div>
-        <app-input-field label="Address:" [control]="getFormControl('address')"></app-input-field>
-        <app-input-field label="Website:" [control]="getFormControl('website')"></app-input-field>
-        <app-input-field label="Email:" [control]="getFormControl('email')"></app-input-field>
-        <app-input-field label="Phone Number:" [control]="getFormControl('phoneNumber')"></app-input-field>
+        <div class="grid grid-cols-3 gap-10">
+            <app-input-field label="Address:" [control]="getFormControl('address')"></app-input-field>
+        </div>
+        <div class="grid grid-cols-3 gap-10">
+            <app-input-field label="Website:" [control]="getFormControl('website')"></app-input-field>
+        </div>
+        <div class="grid grid-cols-3 gap-10">
+            <app-input-field label="Email:" [control]="getFormControl('email')"></app-input-field>
+        </div>
+        <div class="grid grid-cols-3 gap-10">
+            <app-input-field label="Phone Number:" [control]="getFormControl('phoneNumber')"></app-input-field>
+        </div>
         <h3 class="text-sm font-medium mt-2 mb-4">Extensions</h3>
         <div class="flex flex-col gap-4">
-            <div class="grid grid-cols-4 gap-10">
+            <div class="grid grid-cols-3 gap-10">
                 <div class="flex items-center justify-between">
                     <p class="text-xs">Avaya Central</p>
-                    <mat-slide-toggle formControlName="avayaCentral"></mat-slide-toggle>
+                    <mat-slide-toggle [formControl]="getFormControl('avayaCentral')"></mat-slide-toggle>
                 </div>
             </div>
-            <div class="grid grid-cols-4 gap-10">
+            <div class="grid grid-cols-3 gap-10">
                 <div class="flex items-center justify-between">
                     <p class="text-xs">Twilio Send Grid</p>
-                    <mat-slide-toggle formControlName="twilioSendGrid"></mat-slide-toggle>
+                    <mat-slide-toggle [formControl]="getFormControl('twilioSendGrid')"></mat-slide-toggle>
                 </div>
             </div>
-            <div class="grid grid-cols-4 gap-10">
+            <div class="grid grid-cols-3 gap-10">
                 <div class="flex items-center justify-between">
                     <p class="text-xs">Twilio WhatsApp</p>
-                    <mat-slide-toggle formControlName="twilioWhatsApp"></mat-slide-toggle>
+                    <mat-slide-toggle [formControl]="getFormControl('twilioWhatsApp')"></mat-slide-toggle>
                 </div>
             </div>
-            <div class="grid grid-cols-4 gap-10">
+            <div class="grid grid-cols-3 gap-10">
                 <div class="flex items-center justify-between">
                     <p class="text-xs">SMS Proxireach</p>
-                    <mat-slide-toggle formControlName="sMSProxireach"></mat-slide-toggle>
+                    <mat-slide-toggle [formControl]="getFormControl('sMSProxireach')"></mat-slide-toggle>
                 </div>
                 <app-input-field label="API Key Information:"
                     [control]="getFormControl('aPIKeyInformation')"></app-input-field>
                 <app-input-field label="API Secret Key:" [control]="getFormControl('aPISecretKey')"></app-input-field>
 
+            </div>
+            <div class="grid grid-cols-3 gap-10">
+                <div></div>
+                <div></div>
+                <div class="flex flex-row justify-end">
+                    <app-button (trigger)="onSave()" text="Save"
+                        classes="h-8 w-[80px] font-thin text-xs bg-accent text-white">
+                    </app-button>
+                </div>
             </div>
         </div>
     </form>

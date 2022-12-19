@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+
 import { card } from '../../../../shared/models/card/card.model';
 
 @Component({
@@ -8,7 +12,7 @@ import { card } from '../../../../shared/models/card/card.model';
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   cards: card[] = [
     {
@@ -31,12 +35,14 @@ export class DashboardComponent implements OnInit {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         }
       ],
       backgroundColor: '#186AA5'
@@ -61,22 +67,26 @@ export class DashboardComponent implements OnInit {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         },
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         }
       ],
       backgroundColor: '#469CD9'
@@ -101,20 +111,37 @@ export class DashboardComponent implements OnInit {
         {
           title: 'Insurance Renewals',
           number: 4,
-          route: ''
+          route: ApplicationRoutes.InsuranceRenewals,
+          permission: Permission.CanAccessInsuranceRenewals
         },
         {
           title: 'Customer Service',
           number: 21,
-          route: ''
+          route: ApplicationRoutes.CustomerService,
+          permission: Permission.CanAccessCustomerService
         }
       ],
       backgroundColor: '#7BC8FF'
     }
   ]
-  constructor(private layoutService: LayoutService) { }
+  constructor(
+    private router: Router,
+    private layoutService: LayoutService) {
+
+  }
+
+  ngOnDestroy(): void {
+    this.layoutService.closeRightSideNav();
+  }
 
   ngOnInit(): void {
-    this.layoutService.updateBreadCrumbsRouter({})
+    this.layoutService.updateBreadCrumbsRouter({});
+    this.router.navigate([`${ApplicationRoutes.Dashboard}`, {
+      outlets: {
+        sidenav: ApplicationRoutes.Email
+      },
+    }], { skipLocationChange: true });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('side');
   }
 }

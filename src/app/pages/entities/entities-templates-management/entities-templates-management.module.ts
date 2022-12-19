@@ -5,26 +5,50 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddEntityTemplateComponent } from './components/add-entity-template/add-entity-template.component';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    component: EntitiesTemplatesManagementComponent
+    component: EntitiesTemplatesManagementComponent,
+    data: {
+      permission: Permission.CanAccessEntityTemplate
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: ApplicationRoutes.Add,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAddEntityTemplate
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   },
   {
     path: `${ApplicationRoutes.Add}/:id`,
     component: AddEntityTemplateComponent,
     outlet: 'sidenav',
+    data: {
+      permission: Permission.CanEditEntityTemplate
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
   }
 ];
 

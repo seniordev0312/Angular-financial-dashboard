@@ -8,13 +8,16 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
-import { Actions } from '@ngneat/effects-ng';
-import { devTools } from '@ngneat/elf-devtools';
-import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
-import { SuccessMessageInterceptor } from './shared/interceptors/success-notification-interceptor';
+import { AuthConfigModule } from './auth-config.module';
+import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor';
 import { TranslationService } from './shared/services/translation.service';
 import { IconSvgModule } from './shared/utilities-modules/icon-svg.module';
+import { Actions } from '@ngneat/effects-ng';
+import { devTools } from '@ngneat/elf-devtools';
+import { SuccessMessageInterceptor } from './shared/interceptors/success-notification-interceptor';
+import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { SecurityGuard } from './shared/guards/security.guard';
 
 export function initElfDevTools(actions: Actions) {
   return () => {
@@ -45,14 +48,21 @@ export function initElfDevTools(actions: Actions) {
         deps: [HttpClient],
       },
     }),
+    AuthConfigModule
   ],
   providers: [
     TranslationService,
+    SecurityGuard,
     {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: initElfDevTools,
       deps: [Actions],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
@@ -72,4 +82,5 @@ export function initElfDevTools(actions: Actions) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

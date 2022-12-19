@@ -11,16 +11,18 @@ export class EntitySourceTypeFormGroup {
 
     getFormGroup(item?: AddEntitiesSource): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null, [Validators.required]),
-            name: new FormControl(item?.name || null, [Validators.required]),
+            entitySourceId: new FormControl(item?.entitySourceId || null),
+            sourceName: new FormControl(item?.sourceName || null, [Validators.required]),
+            isLockModification: new FormControl(item?.isLockModification || false, [Validators.required]),
         });
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): AddEntitiesSource {
         return {
-            id: fg.controls.id.value,
-            name: fg.controls.name.value,
+            entitySourceId: fg.controls.entitySourceId.value,
+            sourceName: fg.controls.sourceName.value,
+            isLockModification: fg.controls.isLockModification.value
         };
     }
 }

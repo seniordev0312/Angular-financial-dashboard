@@ -3,21 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '@root/layout/components/layout/layout.component';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
 import { EntitiesViewerModule } from '@root/pages/entities/entities-viewer/entities-viewer.module';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { CustomerServiceModule } from './pages/customer-service/customer-service/customer-service.module';
+import { ApplicationRoutes } from './shared/settings/common.settings';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ApplicationRoutes.Empty,
     component: LayoutComponent,
     children: [
       {
-        path: '',
+        path: ApplicationRoutes.Empty,
         loadChildren: () =>
           import('./pages/pages.module').then(
             (m) => m.PagesModule
           ),
+        canLoad: [AutoLoginAllRoutesGuard]
       }
-    ]
+    ],
+    canActivate: [AutoLoginAllRoutesGuard]
   },
 ];
 

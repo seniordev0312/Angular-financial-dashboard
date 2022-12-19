@@ -1,1 +1,36 @@
-<p>add-holiday works!</p>
+<div class="w-full flex flex-col pt-8 justify-between">
+    <div class="flex flex-col">
+        <span class="font-semibold pb-8">Add New Holiday</span>
+        <app-input-field label="Holiday Name:" [control]="getFormControl('name')"></app-input-field>
+
+        <div class="flex w-full py-2">
+            <mat-form-field appearance="fill" class="w-full">
+                <span class="font-semibold pb-8">Enter a date range</span>
+                <div class="flex w-full items-center ">
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Start date" name="start"
+                            [formControl]="getFormControl('startDate')" class="w-full">
+                        <input matEndDate placeholder="End date" name="end" [formControl]="getFormControl('endDate')"
+                            class="w-full">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                </div>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+
+        <div class="flex items-center justify-between py-3">
+            <p class="text-xs font-bold">off Day</p>
+            <mat-slide-toggle [formControl]="getFormControl('offDay')">
+            </mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between w-full mt-8">
+        <app-button (trigger)="onCancel()" text="cancel"
+            classes="h-9 w-[95px] bg-white border border-accent text-accent">
+        </app-button>
+        <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
+    </div>
+</div>

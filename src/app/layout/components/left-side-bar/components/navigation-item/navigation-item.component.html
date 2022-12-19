@@ -1,0 +1,29 @@
+<div *ngIf="isLink(item)&&doesNavigationLinkHasPermission(item)" class="flex justify-center flex-col items-start gap-4">
+    <div class="flex flex-row justify-start items-center gap-2">
+        <mat-icon class="cursor-pointer" svgIcon="{{item.icon}}"></mat-icon>
+        <div *ngIf="extended" [ngClass]="{'text-primary font-bold text-sm': !isSubItem,
+            'font-medium text-xs': isSubItem}" class="items-center justify-center cursor-pointer"
+            (click)="navigate(item.navigateLink)">
+            <span translate>{{item.translationKey}}</span>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="isDropDown(item)&&doesChildrenHasPermission(item)" class="flex flex-col items-start gap-1">
+    <div class="flex flex-row justify-start items-start gap-2">
+        <mat-icon class="cursor-pointer" svgIcon="{{item.icon}}" [matMenuTriggerFor]="customerServiceMenu"></mat-icon>
+        <span *ngIf="extended" class="text-primary font-bold text-sm" translate>{{item.translationKey}}</span>
+    </div>
+    <div *ngIf="extended" class="flex flex-col text-left w-full gap-1">
+        <app-navigation-item [item]="subItem" [isSubItem]="true" [extended]="extended"
+            *ngFor="let subItem of item.subRouteItems; let i = index"></app-navigation-item>
+    </div>
+    <mat-menu #customerServiceMenu="matMenu">
+        <div *ngFor="let subItem of item.subRouteItems">
+            <button mat-menu-item (click)="navigate(subItem.navigateLink)">
+                <span translate>{{subItem.translationKey}}</span>
+            </button>
+        </div>
+    </mat-menu>
+</div>

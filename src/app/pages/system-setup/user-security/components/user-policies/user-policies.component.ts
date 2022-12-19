@@ -20,4 +20,9 @@ export class UserPoliciesComponent implements OnInit {
     return this.fg.controls[key] as FormControl;
   }
 
+  onSave() {
+    console.log(this.fg.value, this.fg.valid);
+
+  }
+
 }

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { card } from '@root/shared/models/card/card.model';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
@@ -16,15 +18,18 @@ export class EntitiesManagementComponent implements OnInit {
       items: [
         {
           title: 'Manage Entity Section Templates',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesTemplates}`,
+          permission: Permission.CanAccessEntityTemplate
         },
         {
           title: 'Manage Entity Relationship Types',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesRelationshipTypesManagement}`
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesRelationshipTypesManagement}`,
+          permission: Permission.CanAccessEntityRelationshipType
         },
         {
           title: 'Manage KYC Document Types',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesKYCDocumentTypesManagement}`
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesKYCDocumentTypesManagement}`,
+          permission: Permission.CanAccessEntityKYCDocument
         }
       ],
       backgroundColor: '#186AA5'
@@ -34,11 +39,8 @@ export class EntitiesManagementComponent implements OnInit {
       items: [
         {
           title: 'Manage Entity Sources',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`
-        },
-        {
-          title: 'Manage Entity Mapping',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesMappingManagement}`
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`,
+          permission: Permission.CanAccessEntitySources
         },
       ],
       backgroundColor: '#469CD9'
@@ -48,13 +50,16 @@ export class EntitiesManagementComponent implements OnInit {
       items: [
         {
           title: 'Manage Entities',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`,
+          permission: Permission.CanAccessEntityManagement
         },
       ],
       backgroundColor: '#7BC8FF'
     }
   ];
-  constructor(private layoutService: LayoutService) { }
+
+  constructor(private layoutService: LayoutService,
+    private securityCheckerService: SecurityCheckerService) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -67,4 +72,13 @@ export class EntitiesManagementComponent implements OnInit {
     });
   }
 
+  showCard(card: card) {
+    let showCard = true;
+    card.items.forEach(item => {
+      if (!this.securityCheckerService.doesUserHasPermission(item.permission)) {
+        showCard = false;
+      }
+    });
+    return showCard;
+  }
 }

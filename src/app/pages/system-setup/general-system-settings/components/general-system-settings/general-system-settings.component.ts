@@ -1,16 +1,24 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { ConfirmationDialogService } from '@root/shared/notifications/services/dialog-confirmation.service';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { take } from 'rxjs';
 import { GeneralSystemSettingsFormGroup } from '../../form-groups/general-system-settings-from-group.service';
 import { Holiday } from '../../models/holiday.model';
+import { GeneralSystemSettingsService } from '../../services/general-system-settings.service';
+import { holidays$ } from '../../store/general-system-settings.store';
 
 @Component({
   selector: 'app-general-system-settings',
@@ -18,11 +26,14 @@ import { Holiday } from '../../models/holiday.model';
   styleUrls: ['./general-system-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
+export class GeneralSystemSettingsComponent extends BaseComponent implements OnInit, AfterViewInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<Holiday>;
+  addGeneralSystemSetupPermission = Permission.CanAddGeneralSystemSetup;
+
   templatesList: Holiday[] = [
     {
+      id: 1,
       endDate: '10/11/2023',
       name: 'Eid El Adha',
       offDay: true,
@@ -57,9 +68,44 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       name: 'New Year',
       offDay: false,
       startDate: '29/12/2023'
+    },
+    {
+      endDate: '05/7/2023',
+      name: 'Eid El Saydeh',
+      offDay: true,
+      startDate: '05/7/2023'
+    },
+    {
+      endDate: '11/11/2023',
+      name: 'Independence Day',
+      offDay: true,
+      startDate: '11/11/2023'
+    },
+    {
+      endDate: '05/06/2023',
+      name: 'Eid Marmaroun',
+      offDay: false,
+      startDate: '04/06/2023'
+    },
+    {
+      endDate: '26/12/2023',
+      name: 'Christmas',
+      offDay: true,
+      startDate: '23/12/2023'
+    },
+    {
+      endDate: '31/12/2023',
+      name: 'New Year',
+      offDay: false,
+      startDate: '29/12/2023'
     }
-  ]
+  ];
   fg: FormGroup;
+
+  ofDayTypesList: BaseListItem[] = [
+    { id: '0', value: 'one' },
+    { id: '1', value: 'tow' }
+  ];
 
   editAction: TableRowAction<Holiday> = {
     action: (data) => this.onHolidayEdited(data),
@@ -81,7 +127,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline' });
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: 10 });
 
   tableColumns: TableColumn[] = [
     {
@@ -122,7 +168,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       property: 'endDate',
       type: 'text',
       cssClasses: () => 'w-[25%]',
-      dataCssClasses: () => 'flex w-full',
+      dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -134,7 +180,7 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       }
     },
     {
-      translationKey: 'offDay',
+      translationKey: '',
       property: 'offDay',
       type: 'bool',
       cssClasses: () => 'w-[25%]',
@@ -146,27 +192,45 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
+        filterType: TableColumnFilterDataType.DropDown,
+        selectListViewProperty: 'name',
+        selectOptionsList: this.ofDayTypesList
       }
     },
   ];
 
   tableConfiguration: TableConfiguration<Holiday> = {
-    tableRowsActionsList: [this.editAction, this.deleteAction],
+    tableRowsActionsList: [],
     columns: this.tableColumns,
     data: [],
-    dataCount: 3,//todo replace after api
+    dataCount: 0,//todo replace after api
     settings: this.tableSettings,
   };
 
   constructor(
     private layoutService: LayoutService,
     private router: Router,
-    private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup
-  ) { }
+    private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup,
+    private securityCheckerService: SecurityCheckerService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private generalSystemSettingsService: GeneralSystemSettingsService,
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
+    this.getActionsList();
+    this.subscriptions.add(
+      holidays$.subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.templatesList = data;
+        }
+      }));
+
+    this.generalSystemSettingsService.getHolidays(0, 1000)
+    this.getActionsList();
     this.tableConfiguration.data = this.templatesList;
+    this.tableConfiguration.dataCount = this.templatesList.length;
     this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
@@ -182,6 +246,15 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getActionsList() {
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanEditGeneralSystemSetup)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.editAction);
+    }
+    if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteGeneralSystemSetup)) {
+      this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
+    }
+  }
+
   ngAfterViewInit(): void {
     this.table.refresh();
   }
@@ -192,18 +265,59 @@ export class GeneralSystemSettingsComponent implements OnInit, AfterViewInit {
 
   onHolidayAdded() {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
-      outlets: { sidenav: ApplicationRoutes.Add },
+      outlets: {
+        sidenav: ApplicationRoutes.Add
+      },
     }], { skipLocationChange: true });
+
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
   onHolidayDeleted(data: Holiday) {
-    console.log(data);
+    this.confirmationDialogService.open({
+      description: 'Are you sure you want to delete this template?',
+      title: 'Delete Template',
+      icon: 'error_outline',
+      cancelText: 'Cancel',
+      confirmText: 'Confirm',
+      actionButtonsColor: 'warn',
+      iconCssClasses: 'text-warn',
+    });
+
+    this.subscriptions.add(
+      this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
+        if (isConfirmed) {
+          this.generalSystemSettingsService.deleteHoliday(data)
+        }
+      }));
   }
 
   onHolidayEdited(data: Holiday) {
     console.log(data);
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
+      outlets: {
+        sidenav: `${ApplicationRoutes.Add}`
+      },
+    }], {
+      skipLocationChange: true,
+      // queryParams: {
+      //   id: data.id,
+      //   name: data.name,
+      //   startDate: data.name,
+      //   endDate: data.name,
+      //   offDay: data.offDay
+      // }
+    });
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+
   }
+  onSave() {
+    console.log(this.fg.value, this.fg.valid);
+
+  }
+
+
 }
 

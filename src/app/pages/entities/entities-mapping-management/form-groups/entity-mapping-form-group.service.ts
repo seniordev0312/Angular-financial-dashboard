@@ -11,20 +11,18 @@ export class EntityMappingFormGroup {
 
     getFormGroup(item?: AddEntityMapping): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null, [Validators.required]),
+            fieldId: new FormControl(item?.fieldId || null),
             externalField: new FormControl(item?.externalField || null, [Validators.required]),
             systemField: new FormControl(item?.systemField || null, [Validators.required]),
-            entityType: new FormControl(item?.entityType || null, [Validators.required]),
         });
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): AddEntityMapping {
         return {
-            id: fg.controls.id.value,
+            fieldId: fg.controls.fieldId.value,
             externalField: fg.controls.externalField.value,
             systemField: fg.controls.systemField.value,
-            entityType: fg.controls.entityType.value,
         };
     }
 }
