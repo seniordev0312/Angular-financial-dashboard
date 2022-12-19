@@ -10,7 +10,7 @@ import { ApplicationRoutes } from './shared/settings/common.settings';
             config: {
                 authority: environment.identityServerURL,
                 redirectUrl: window.location.origin,
-                postLogoutRedirectUri: 'http://localhost:4200',
+                postLogoutRedirectUri: environment.postLogoutRedirectUri,
                 clientId: 'aperture-powerhouse',
                 scope: 'openid profile roles email insurance_powerhouse address apertureidentity_api',
                 responseType: 'code',
