@@ -20,6 +20,9 @@ export const enum ApplicationRoutes {
   Cashier = 'cashier',
   FinanceAndReporting = 'finance-and-reporting',
   GeneralAccounting = 'general-accounting',
+  AddJournal = 'add-journal',
+  Accounts = 'accounts',
+  CurrencyEditor = 'currency-editor',
   ActivityLog = 'activity-log',
   CorrespondenceManagement = 'correspondence-management',
   GeneralSystemSettings = 'general-system-settings',
@@ -45,4 +48,5 @@ export const enum ApplicationRoutes {
   PolicyRenewals = 'policy-renewals',
   EntitiesControl = 'entities-control',
   InsuranceRenewals = "insurance-renewals"
+
 }

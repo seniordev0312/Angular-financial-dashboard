@@ -27,7 +27,7 @@ export function initElfDevTools(actions: Actions) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

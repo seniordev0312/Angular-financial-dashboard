@@ -1,0 +1,26 @@
+<app-dialog-header label="Currency Exchange"></app-dialog-header>
+<mat-dialog-content>
+    <div class="flex flex-col justify-center  items-center">
+        <div class="flex items-stretch  mt-6 py-3 px-5 shadow rounded-t-lg  justify-between bg-primary w-full">
+            <p class="mr-4 text-lg font-bold text-white">USD</p>
+        </div>
+        <div class="flex flex-row justify-start items-center pt-8">
+            <p class="mr-4 text-sm font-medium">Exchange </p>
+            <div class="flex flex-col w-full">
+                <div class="flex  flex-row w-full">
+                    <input (keyup)="onTextChange($event)" class="h-full 
+                                bg-transparent	 flex justify-center items-center outline-none w-full
+                                 px-1 text-sm xl:text-base font-light" type="number" />
+                </div>
+                <div class="pt-2">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="pt-10 flex flex-row justify-end items-end w-ful">
+            <app-button (click)="update()" classes="px-12 py-4 text-[12px] leading-none text-center flex
+                 justify-center items-center  bg-primary text-white  color-white" text="Update"></app-button>
+        </div>
+    </div>
+
+</mat-dialog-content>

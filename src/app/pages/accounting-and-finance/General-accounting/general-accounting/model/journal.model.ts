@@ -1,0 +1,20 @@
+export interface JournalModel {
+    journalId: number,
+    journalName: string,
+    accountName: string,
+    documentNumber: string,
+    reference: string,
+    postingDate: string,
+    journalItemId: number,
+    journalEntryId: number,
+    accountId: number,
+    name: string,
+    sequence: number,
+    dueDate: string,
+    debit: number,
+    credit: number,
+    amountCurrency: number,
+    amountResidual: number,
+    amountResidualCurrency: number,
+    balance: number
+}
