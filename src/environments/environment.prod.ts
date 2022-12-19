@@ -7,4 +7,5 @@ export const environment = {
   identityServerURL: 'https://dev.identity.sts.aperatureuk.com',
   systemSetupApiUrl: 'http://20.120.63.24/v1',
   entityApiUrl: 'https://dev.api.entity.aperatureuk.com/api',
+  postLogoutRedirectUri: 'https://dev.insurance-powerhouse.aperatureuk.com/dashboard'
 };
