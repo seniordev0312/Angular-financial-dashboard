@@ -1,37 +1,44 @@
-<div class="w-full h-[90%]">
-    <div class="h-[14%] w-full flex flex-col items-center justify-start gap-4">
-        <div class="flex w-full text-left justify-start items-center font-bold pt-4 pl-4">
-            Inbox
+<div class="h-full" *ngIf="showEmails">
+    <div class="w-full h-[90%]">
+        <div class="h-[14%] w-full flex flex-col items-center justify-start gap-4">
+            <div class="flex w-full text-left justify-start items-center font-bold pt-4 pl-4">
+                Inbox
+            </div>
+            <div
+                class="search flex justify-start w-full items-center bg-[#FFFFFF] rounded-xl gap-4 text-sm shadow-lg pr-2 pl-2">
+                <mat-icon svgIcon="search-gray"></mat-icon>
+                <input class="h-full w-full text-left text-sm" style="outline: none;" matInput placeholder="Search…">
+            </div>
         </div>
-        <div
-            class="search flex justify-start w-full items-center bg-[#FFFFFF] rounded-xl gap-4 text-sm shadow-lg pr-2 pl-2">
-            <mat-icon svgIcon="search-gray"></mat-icon>
-            <input class="h-full w-full text-left text-sm" style="outline: none;" matInput placeholder="Search…">
-        </div>
-    </div>
-    <div class="h-[1%]"></div>
-    <div class="h-[85%] overflow-auto">
-        <div class="h-fit flex flex-col items-center w-full">
-            <div *ngFor="let item of emails" class="pt-1 pb-1 w-full">
-                <div class="flex justify-between items-center w-full">
-                    <div>
-                        <span class="font-bold pl-4"> {{item.key | date}}</span>
+        <div class="h-[1%]"></div>
+        <div class="h-[85%] overflow-auto">
+            <div class="h-fit flex flex-col items-center w-full">
+                <div *ngFor="let item of emails" class="pt-1 pb-1 w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold pl-4"> {{item.key | date}}</span>
+                        </div>
+                        <div>
+                            <mat-icon>more_horiz</mat-icon>
+                        </div>
                     </div>
-                    <div>
-                        <mat-icon>more_horiz</mat-icon>
+                    <div *ngFor="let item of item.value" class="p-1">
+                        <app-email-content [emailContent]="item"
+                            (click)="onEmailContentClick(item)"></app-email-content>
                     </div>
-                </div>
-                <div *ngFor="let item of item.value" class="p-1">
-                    <app-email-content [emailContent]="item"></app-email-content>
                 </div>
             </div>
         </div>
     </div>
+    <ng-template [appCanAccessFeature]="accessCalenderPermission">
+        <div class="h-[10%] flex justify-center items-center">
+            <app-button class="w-full" classes="bg-accent h-12 text-white w-full" [skipLocationChange]='true'
+                [routerLink]="['/dashboard',{ outlets: {sidenav: ['calender'] } }]" text="View Calender">
+            </app-button>
+        </div>
+    </ng-template>
+
 </div>
-<ng-template [appCanAccessFeature]="accessCalenderPermission">
-    <div class="h-[10%] flex justify-center items-center">
-        <app-button class="w-full" classes="bg-accent h-12 text-white w-full" [skipLocationChange]='true'
-            [routerLink]="['/dashboard',{ outlets: {sidenav: ['calender'] } }]" text="View Calender">
-        </app-button>
-    </div>
-</ng-template>
+<div class="h-full" *ngIf="!showEmails">
+    <app-email-chat (closeEmailChatEvent)="onEmailContentClick()" [email]="email"></app-email-chat>
+</div>

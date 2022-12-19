@@ -63,7 +63,8 @@ export function initElfDevTools(actions: Actions) {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
       multi: true,
-    }, {
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: SuccessMessageInterceptor,
       multi: true,
@@ -81,4 +82,5 @@ export function initElfDevTools(actions: Actions) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

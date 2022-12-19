@@ -16,7 +16,9 @@ export class EmailsService {
     getEmails(pageIndex: number, pageSize: number, backendUrl?: string): void {
         let endPointUrl = this.baseUrl;
         let httpOptions = {
-            headers: new HttpHeaders(),
+            headers: new HttpHeaders({
+                'InterceptorHideSpinner': '',
+            }),
             params: new HttpParams(),
         };
         if (backendUrl) {
@@ -30,89 +32,38 @@ export class EmailsService {
         }
         this.httpClient.get<EmailItem[]>(endPointUrl, httpOptions).subscribe(data => {
             if (data) {
-                if (data.length === 0)
-                    data = [
-                        {
-                            key: "2022-12-02T00:00:00",
-                            value: [
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-                                },
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-                                }
-                            ]
-                        },
-                        {
-                            key: "2022-12-02T00:00:00",
-                            value: [
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: ""
-                                },
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-                                },
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-                                }
-                            ]
-                        },
-                        {
-                            key: "2022-12-02T00:00:00",
-                            value: [
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-                                },
-                                {
-                                    id: "AAMkAGMzZmI2NzJkLTRkNDAtNGRmYS04Y2YwLTZkYjIxZGU1YmQwMgBGAAAAAACbMaMIxduMTaRM6Ij7hWGXBwAJhAw6jQVgT7LZGv2nSh9nAAAAAAEMAAAJhAw6jQVgT7LZGv2nSh9nAAA7_6SqAAA=",
-                                    from: "Azure DevOps",
-                                    fromEmail: "azuredevops@microsoft.com",
-                                    subject: "You have been invited to a Azure DevOps Project!",
-                                    body: "<html>...HTML BODY...</html>",
-                                    dateCreated: "2022-12-02T07:35:57",
-                                    profilePictureUrl: "https://cdn.pixabay.com/photo/2014/04/03/11/47/avatar-312160__340.png"
-                                }
-                            ]
-                        }
-                    ];
                 this.emailsRepository.updateEmails(data);
             }
         });
+    }
+
+    getEmailMessage(messageId: any, backendUrl?: string) {
+        let endPointUrl = `${this.baseUrl}/${messageId}`;
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'InterceptorHideSpinner': '',
+            }),
+            params: new HttpParams(),
+        };
+
+        if (backendUrl) {
+            endPointUrl = backendUrl;
+        }
+        else {
+            httpOptions = {
+                ...httpOptions
+            }
+        }
+
+        this.httpClient.get<any>(endPointUrl, httpOptions).subscribe(data => {
+            console.log(data);
+            if (data) {
+                this.emailsRepository.updateEmailMessages(messageId, data);
+            }
+        });
+    }
+
+    AddCustomServerTicketFromEmail() {
+
     }
 }

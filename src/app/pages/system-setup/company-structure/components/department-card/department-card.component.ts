@@ -35,6 +35,9 @@ export class DepartmentCardComponent implements OnInit {
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
+  EditDepartment(): void {
+    console.log('BATATA');
+  }
   toggleElementsListVisibility() {
     // this.sectionsListRepository.updateSelectedSection(this.data);
     this.showElementsList = !this.showElementsList;

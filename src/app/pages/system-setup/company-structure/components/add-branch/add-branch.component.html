@@ -10,4 +10,9 @@
         </app-button>
         <app-button (trigger)="onSave()" text="save" classes="h-9 w-[95px] bg-accent text-white"></app-button>
     </div>
+    <div class="flex items-center justify-between w-full mt-4" *ngIf="id">
+        <app-button (trigger)="delete()" text="Delete"
+            classes="h-9 w-[95px] bg-white border border-[#EF2424] text-[#EF2424]">
+        </app-button>
+    </div>
 </div>
