@@ -8,5 +8,3 @@ export const environment = {
   systemSetupApiUrl: 'http://20.120.63.24/v1',
   entityApiUrl: 'https://dev.api.entity.aperatureuk.com/api',
 };
-
-
