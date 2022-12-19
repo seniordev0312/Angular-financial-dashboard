@@ -1,6 +1,5 @@
 export interface AddEntityMapping {
-    id?: string;
+    fieldId?: string;
     externalField: string;
     systemField: string;
-    entityType: number;
 }

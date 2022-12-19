@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
@@ -15,6 +15,8 @@ import { SecurityCheckerService } from '@root/shared/services/security-checker.s
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { take } from 'rxjs';
 import { EntitiesMappingListItem } from '../../models/entities-mapping-list-item.model';
+import { EntitiesMappingsListService } from '../../services/entities-mappings-list.service';
+import { entitiesMappingList$ } from '../../store/entities-mapping.store';
 
 @Component({
   selector: 'app-entities-mapping-management',
@@ -22,46 +24,20 @@ import { EntitiesMappingListItem } from '../../models/entities-mapping-list-item
   styleUrls: ['./entities-mapping-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesMappingManagementComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class EntitiesMappingManagementComponent extends BaseComponent implements OnInit {
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<EntitiesMappingListItem>;
   addEntityMappingPermission = Permission.CanAddEntityMapping;
-
+  sourceId: string;
   pageSize = 50;
   pageIndex = 1;
   filter: Filter[];
-  templatesList: EntitiesMappingListItem[] = [
-    {
-      id: '1',
-      externalField: 'FirstName',
-      systemField: 'First_Name'
-    },
-    {
-      id: '1',
-      externalField: 'FirstName',
-      systemField: 'First_Name'
-    },
-    {
-      id: '1',
-      externalField: 'FirstName',
-      systemField: 'First_Name'
-    },
-    {
-      id: '1',
-      externalField: 'FirstName',
-      systemField: 'First_Name'
-    },
-    {
-      id: '1',
-      externalField: 'FirstName',
-      systemField: 'First_Name'
-    },
-  ]
+  mappingsList: EntitiesMappingListItem[] = [];
   tableColumns: TableColumn[] = [
     {
       translationKey: 'Mapping ID',
-      property: 'id',
+      property: 'fieldId',
       type: 'text',
       svgIcon: '',
       cssClasses: () => '',
@@ -111,7 +87,7 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
   ];
 
   editAction: TableRowAction<EntitiesMappingListItem> = {
-    action: (data) => this.onEntitySourceEdited(data),
+    action: (data) => this.onEntityMappingEdited(data),
     cssClasses: 'text-primary',
     iconName: 'border_color',
     translationKey: '',
@@ -137,20 +113,36 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
     tableRowsActionsList: [],
     columns: this.tableColumns,
     data: [],
-    dataCount: 3,//todo replace after api
+    dataCount: 3,
     settings: this.tableSettings,
   };
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
     private securityCheckerService: SecurityCheckerService,
+    private activeRoute: ActivatedRoute,
+    private entitiesMappingsListService: EntitiesMappingsListService,
     private router: Router) {
     super();
   }
 
   ngOnInit(): void {
+    this.subscriptions.add(this.activeRoute.params.subscribe(params => {
+      if (params.id) {
+        this.sourceId = params.id;
+        this.entitiesMappingsListService.getEntitiesMappingsList(params.id);
+      }
+    }));
+
+    this.subscriptions.add(entitiesMappingList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.mappingsList = data;
+        this.tableConfiguration.data = data;
+        this.tableConfiguration.dataCount = data.length;
+        this.table?.refresh();
+      }
+    }))
     this.getActionsList();
-    this.tableConfiguration.data = this.templatesList;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -158,15 +150,11 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
           translationKey: 'Entity Management'
         },
         {
-          route: ApplicationRoutes.EntitiesSourcesManagement,
+          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`,
           translationKey: 'Manage Entity Sources & Mappings'
         }
       ],
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.table.refresh();
   }
 
   getActionsList() {
@@ -178,24 +166,24 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
     }
   }
 
-  onEntitySourceAdded() {
+  onEntityMappingAdded() {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesMappingManagement}`, {
-      outlets: { sidenav: ApplicationRoutes.Add },
-    }], { skipLocationChange: true });
+      outlets: { sidenav: `${ApplicationRoutes.Add}` },
+    }], { skipLocationChange: true, queryParams: { sourceId: this.sourceId } });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
 
-  onEntitySourceEdited(template: EntitiesMappingListItem) {
+  onEntityMappingEdited(template: EntitiesMappingListItem) {
     this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesMappingManagement}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${template.id}` },
-    }], { skipLocationChange: true });
+      outlets: { sidenav: `${ApplicationRoutes.Add}` },
+    }], { skipLocationChange: true, queryParams: { id: template.fieldId, sourceId: this.sourceId } });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onEntitySourceDeleted(_template: EntitiesMappingListItem) {
+  onEntitySourceDeleted(source: EntitiesMappingListItem) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to delete this entity mapping?',
       title: 'Delete Entity Mapping',
@@ -208,7 +196,9 @@ export class EntitiesMappingManagementComponent extends BaseComponent implements
 
     this.subscriptions.add(
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
-        if (isConfirmed) { }
+        if (isConfirmed) {
+          this.entitiesMappingsListService.deleteMapping(source.fieldId, this.sourceId);
+        }
       }));
   }
 }

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NavigationEnd, Router } from '@angular/router';
 import {
   EntitiesControlComponent,
 } from './pages/entities/entities-control/components/entities-control/entities-control.component';
@@ -8,6 +9,7 @@ import {
 } from './pages/entities/entities-viewer/components/entities-viewer/entities-viewer.component';
 import { BaseComponent } from './shared/components/base-component/base-component';
 import { TranslationService } from './shared/services/translation.service';
+import { ApplicationRoutes } from './shared/settings/common.settings';
 
 @Component({
   selector: 'app-root',
@@ -35,9 +37,15 @@ export class AppComponent extends BaseComponent {
 
   constructor(
     private dialog: MatDialog,
+    private router: Router,
     translationService: TranslationService,
   ) {
     super();
     translationService.setDefaultLanguage();
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd && e.url === '/') {
+        this.router.navigate([`${ApplicationRoutes.Dashboard}`]);
+      }
+    });
   }
 }

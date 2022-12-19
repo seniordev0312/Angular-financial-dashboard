@@ -9,6 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { MatChipsModule } from '@angular/material/chips';
 
 const routes: Route[] = [
   {
@@ -34,6 +35,18 @@ const routes: Route[] = [
       SecurityGuard
     ]
   },
+  {
+    path: `${ApplicationRoutes.Add}/:id`,
+    component: AddRelationshipTypeComponent,
+    outlet: 'sidenav',
+    data: {
+      permission: Permission.CanEditEntityRelationshipType
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
+  },
 ];
 
 @NgModule({
@@ -45,6 +58,7 @@ const routes: Route[] = [
     CommonModule,
     SharedModule,
     MatSlideToggleModule,
+    MatChipsModule,
     RouterModule.forChild(routes)
   ]
 })

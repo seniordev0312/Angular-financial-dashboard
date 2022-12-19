@@ -42,11 +42,6 @@ export class EntitiesManagementComponent implements OnInit {
           route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesSourcesManagement}`,
           permission: Permission.CanAccessEntitySources
         },
-        {
-          title: 'Manage Entity Mapping',
-          route: `${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesMappingManagement}`,
-          permission: Permission.CanAccessEntityMapping
-        },
       ],
       backgroundColor: '#469CD9'
     },

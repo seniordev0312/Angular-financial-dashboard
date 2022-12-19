@@ -8,6 +8,7 @@ import { AddEntitySourceComponent } from './components/add-entity-source/add-ent
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const routes: Route[] = [
   {
@@ -55,6 +56,7 @@ const routes: Route[] = [
   imports: [
     CommonModule,
     SharedModule,
+    MatSlideToggleModule,
     RouterModule.forChild(routes)
   ]
 })

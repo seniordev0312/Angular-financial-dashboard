@@ -11,22 +11,24 @@ export class RelationshipTypesFormGroup {
 
     getFormGroup(item?: AddRelationshipType): FormGroup {
         this.fg = this.fb.group({
-            code: new FormControl({ value: item?.code || null, disabled: true }, [Validators.required]),
-            back: new FormControl(item?.back || null, [Validators.required]),
+            entityTypeRelationshipId: new FormControl(item?.entityTypeRelationshipId || null),
+            backward: new FormControl(item?.backward || null, [Validators.required]),
             forward: new FormControl(item?.forward || null, [Validators.required]),
             description: new FormControl(item?.description || null, [Validators.required]),
             allowedEntities: new FormControl(item?.allowedEntities || null, [Validators.required]),
+            lock: new FormControl(item?.lock || false, [Validators.required]),
         });
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): AddRelationshipType {
         return {
-            code: fg.controls.code.value,
-            back: fg.controls.back.value,
+            entityTypeRelationshipId: fg.controls.entityTypeRelationshipId.value,
+            backward: fg.controls.backward.value,
             forward: fg.controls.forward.value,
             description: fg.controls.description.value,
             allowedEntities: fg.controls.allowedEntities.value,
+            lock: fg.controls.lock.value
         };
     }
 }
