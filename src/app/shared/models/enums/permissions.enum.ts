@@ -118,6 +118,9 @@ export enum Permission {
     // entities_relationship_type
     CanAccessEntityRelationshipType = 'CanAccessEntityRelationshipType',
     CanAddEntityRelationshipType = 'CanAddEntityRelationshipType',
+    CanEditEntityRelationshipType = 'CanEditEntityRelationshipType',
+    CanDeleteEntityRelationshipType = 'CanDeleteEntityRelationshipType',
+
     // entities_template
     CanAccessEntityTemplate = 'CanAccessEntityTemplate',
     CanEditEntityTemplate = 'CanEditEntityTemplate',
@@ -128,7 +131,6 @@ export enum Permission {
     CanEditEntitySources = 'CanEditEntitySources',
     CanDeleteEntitySources = 'CanDeleteEntitySources',
     CanAddEntitySources = 'CanAddEntitySources',
-    CanShareEntitySources = 'CanShareEntitySources',
     // entities_mapping
     CanAccessEntityMapping = 'CanAccessEntityMapping',
     CanEditEntityMapping = 'CanEditEntityMapping',

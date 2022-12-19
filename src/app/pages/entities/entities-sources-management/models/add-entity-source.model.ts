@@ -1,4 +1,5 @@
 export interface AddEntitiesSource {
-    id: string;
-    name: string;
+    entitySourceId?: string;
+    sourceName: string;
+    isLockModification: boolean;
 }

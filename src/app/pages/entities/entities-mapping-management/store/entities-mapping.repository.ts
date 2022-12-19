@@ -28,15 +28,7 @@ export class EntitiesMappingRepository {
     addMapping(addedMapping: EntitiesMappingListItem) {
         this.entitiesMappingListStore.update((state) => ({
             ...state,
-            entitiesMappingList: { ...addedMapping, ...this.entitiesMappingListStore.value.entitiesMappingList }
-        }));
-    }
-
-    deleteMapping(mappingId: string) {
-        const entitiesMappingList = this.entitiesMappingListStore.value.entitiesMappingList;
-        this.entitiesMappingListStore.update((state) => ({
-            ...state,
-            entitiesMappingList: [...entitiesMappingList.filter(element => element.id === mappingId)]
+            entitiesMappingList: [addedMapping, ...this.entitiesMappingListStore.value.entitiesMappingList]
         }));
     }
 
@@ -49,7 +41,7 @@ export class EntitiesMappingRepository {
 
     getUpdatedMappingsList(mappingDetails: EntitiesMappingListItem): EntitiesMappingListItem[] {
         const newList = [...this.entitiesMappingListStore.value.entitiesMappingList];
-        const index = newList.findIndex((e) => e.id === mappingDetails.id);
+        const index = newList.findIndex((e) => e.fieldId === mappingDetails.fieldId);
         if (index !== -1) {
             newList[index] = mappingDetails;
         }

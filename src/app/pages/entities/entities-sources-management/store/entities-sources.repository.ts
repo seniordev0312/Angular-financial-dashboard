@@ -28,28 +28,20 @@ export class EntitiesSourcesRepository {
     addEntitiesSource(addedEntitiesSource: EntitiesSourcesListItem) {
         this.entitiesSourcesStore.update((state) => ({
             ...state,
-            entitiesSourcesList: { ...addedEntitiesSource, ...this.entitiesSourcesStore.value.entitiesSourcesList }
-        }));
-    }
-
-    deleteEntitiesSource(sourceId: string) {
-        const entitiesSourcesList = this.entitiesSourcesStore.value.entitiesSourcesList;
-        this.entitiesSourcesStore.update((state) => ({
-            ...state,
-            entitiesSourcesList: [...entitiesSourcesList.filter(element => element.id === sourceId)]
+            entitiesSourcesList: [addedEntitiesSource, ...this.entitiesSourcesStore.value.entitiesSourcesList]
         }));
     }
 
     updateEntitiesSource(EntitiesSource: EntitiesSourcesListItem) {
         this.entitiesSourcesStore.update((state) => ({
             ...state,
-            EntitiesSourcesList: this.getUpdatedEntitiesSourcesList(EntitiesSource)
+            entitiesSourcesList: this.getUpdatedEntitiesSourcesList(EntitiesSource)
         }));
     }
 
     getUpdatedEntitiesSourcesList(entitiesSource: EntitiesSourcesListItem): EntitiesSourcesListItem[] {
         const newList = [...this.entitiesSourcesStore.value.entitiesSourcesList];
-        const index = newList.findIndex((e) => e.id === entitiesSource.id);
+        const index = newList.findIndex((e) => e.entitySourceId === entitiesSource.entitySourceId);
         if (index !== -1) {
             newList[index] = entitiesSource;
         }

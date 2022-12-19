@@ -1,4 +1,8 @@
 export interface EntitiesSourcesListItem {
-    id: string;
-    name: string;
+    entitySourceId: string;
+    sourceName: string;
+    isLockModification: boolean;
+
+    //helper
+    isNotLockModification: boolean;
 }

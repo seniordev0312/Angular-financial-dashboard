@@ -13,6 +13,11 @@ import { SecurityGuard } from '@root/shared/guards/security.guard';
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
+    redirectTo: ':id',
+    pathMatch: 'full'
+  },
+  {
+    path: ':id',
     component: EntitiesMappingManagementComponent,
     data: {
       permission: Permission.CanAccessEntityMapping
@@ -23,7 +28,7 @@ const routes: Route[] = [
     ]
   },
   {
-    path: ApplicationRoutes.Add,
+    path: `${ApplicationRoutes.Add}`,
     component: AddNewMappingComponent,
     outlet: 'sidenav',
     data: {
@@ -34,18 +39,6 @@ const routes: Route[] = [
       SecurityGuard
     ]
   },
-  {
-    path: `${ApplicationRoutes.Add}/:id`,
-    component: AddNewMappingComponent,
-    outlet: 'sidenav',
-    data: {
-      permission: Permission.CanEditEntityMapping
-    },
-    canActivate: [
-      AutoLoginAllRoutesGuard,
-      SecurityGuard
-    ]
-  }
 ];
 
 @NgModule({

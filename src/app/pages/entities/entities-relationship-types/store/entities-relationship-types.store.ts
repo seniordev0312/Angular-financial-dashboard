@@ -6,11 +6,13 @@ import {
 } from '@ngneat/elf-persist-state';
 
 import { AddRelationshipType } from '../models/add-relationship-type.model';
+import { EntityTypesListItem } from '../models/entity-types-list-item.model';
 import { RelationshipTypesListItem } from '../models/relationship-types-list-item.model';
 
 export interface EntitiesRelationshipTypesModel {
     relationshipTypesList: RelationshipTypesListItem[];
     relationshipTypeDetails: AddRelationshipType;
+    entityTypesList: EntityTypesListItem[]
 }
 
 const store = createStore(
@@ -20,6 +22,7 @@ const store = createStore(
     withProps<EntitiesRelationshipTypesModel>({
         relationshipTypesList: [],
         relationshipTypeDetails: {} as AddRelationshipType,
+        entityTypesList: []
     })
 );
 
@@ -27,6 +30,7 @@ persistState(store, {
     storage: sessionStorageStrategy,
 });
 
+export const entityTypesList$ = store.pipe(select(({ entityTypesList }) => entityTypesList));
 export const relationshipTypesList$ = store.pipe(select(({ relationshipTypesList }) => relationshipTypesList));
 export const relationshipTypeDetails$ = store.pipe(select(({ relationshipTypeDetails }) => relationshipTypeDetails));
 
