@@ -28,7 +28,7 @@ export class GeneralAccountingService {
     }
     addJournalEntryWithDetails(item: JournalEntryModel) {
         console.log("ITEM", JSON.stringify(item))
-        const url = this.baseUrl + 'JournalEntry/AddJournalEntryCommit';
+        const url = this.baseUrl + 'JournalEntry/AddJournalEntry';
         const header = {
             headers: new HttpHeaders(
                 {
