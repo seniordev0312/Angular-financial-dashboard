@@ -17,8 +17,6 @@ import { devTools } from '@ngneat/elf-devtools';
 import { SuccessMessageInterceptor } from './shared/interceptors/success-notification-interceptor';
 import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
-import { SignalRService } from './shared/signalR/signalR.service';
-import { AbstractSignalRService } from './shared/signalR/abstract-signalR.service';
 import { SecurityGuard } from './shared/guards/security.guard';
 
 export function initElfDevTools(actions: Actions) {
@@ -56,10 +54,6 @@ export function initElfDevTools(actions: Actions) {
     TranslationService,
     SecurityGuard,
     {
-      provide: AbstractSignalRService,
-      useClass: SignalRService
-    },
-    {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: initElfDevTools,
@@ -89,8 +83,4 @@ export function initElfDevTools(actions: Actions) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
-  constructor(_signal: AbstractSignalRService) {
-
-  }
 }

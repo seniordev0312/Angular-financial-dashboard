@@ -5,7 +5,8 @@ export const environment = {
   signalRHub: 'https://dev.customerservice.aperatureuk.com',
   customerServer: 'https://dev.customerservice.aperatureuk.com',
   identityServerURL: 'https://dev.identity.sts.aperatureuk.com',
-  // signalRHub: 'http://20.241.255.241'
+  systemSetupApiUrl: 'http://20.120.63.24/v1',
+  entityApiUrl: 'https://dev.api.entity.aperatureuk.com/api',
 };
 
 
