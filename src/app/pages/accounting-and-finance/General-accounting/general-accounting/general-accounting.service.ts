@@ -27,14 +27,12 @@ export class GeneralAccountingService {
         });
     }
     addJournalEntryWithDetails(item: JournalEntryModel) {
-        console.log("ITEM", JSON.stringify(item))
         const url = this.baseUrl + (item.journalEntryId === 0 ? 'JournalEntry/AddJournalEntry' : 'JournalEntry/UpdateJournalEntry');
         const header = {
             headers: new HttpHeaders(
                 {
                 })
         };
-        console.log("ITEM", url)
         return this.httpClient.post(url, item, header);
     }
     searchAccounts(query: string) {
