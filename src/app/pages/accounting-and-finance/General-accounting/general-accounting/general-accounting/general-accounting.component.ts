@@ -227,7 +227,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
 
   editAction: TableRowAction<JournalModel> = {
     action: (data) => {
-      this.router.navigate([`${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.AddJournal}`, { id: data.journalEntryId }])
+      this.router.navigate([`${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.AddJournal}`,
+      { id: data.journalEntryId }], { skipLocationChange: true })
     },
     cssClasses: 'text-black',
     iconName: 'drive_file_rename_outline',
