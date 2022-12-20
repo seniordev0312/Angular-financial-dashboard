@@ -303,8 +303,8 @@ export class AddJournalComponent implements OnInit {
         error: (_error: any) => {
         },
         next: async (data: any) => {
+          this.onCancel();
           console.log(data)
-          this._location.back();
         },
         complete: async () => {
         },

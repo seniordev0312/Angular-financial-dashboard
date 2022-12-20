@@ -27,8 +27,7 @@ export class GeneralAccountingService {
         });
     }
     addJournalEntryWithDetails(item: JournalEntryModel) {
-        console.log("ITEM", JSON.stringify(item))
-        const url = this.baseUrl + 'JournalEntry/AddJournalEntry';
+        const url = this.baseUrl + (item.journalEntryId === 0 ? 'JournalEntry/AddJournalEntry' : 'JournalEntry/UpdateJournalEntry');
         const header = {
             headers: new HttpHeaders(
                 {
