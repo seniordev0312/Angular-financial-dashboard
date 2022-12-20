@@ -1,36 +1,53 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EntitiesControlRepository } from '../store/entities-control.repository';
-import { EntitiesControlListItem } from '../models/entities-control-list-item.model';
+import { EntityEntriesList } from '../models/entity-entries-list.model';
+import { EntityType } from '../models/entity-type.model';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
+import { EntityDefinitionsReferenceListItem } from '../models/entity-definitions-reference-list-item.model';
+import { EntityDefinition } from '../models/entity-definitions-list-item.model';
 
 @Injectable({ providedIn: 'root' })
 export class EntitiesControlService {
-    private baseUrl = `${environment.apiUrl}/v1.0/`;
 
     constructor(private httpClient: HttpClient,
         private entitiesControlRepository: EntitiesControlRepository) { }
 
-    getEntitiesList(pageIndex: number, pageSize: number, backendUrl?: string): void {
-        let endPointUrl = this.baseUrl;
-        let httpOptions = {
-            headers: new HttpHeaders(),
-            params: new HttpParams(),
-        };
-        if (backendUrl) {
-            endPointUrl = backendUrl;
-        }
-        else {
-            httpOptions = {
-                ...httpOptions,
-                params: httpOptions.params.set('PageIndex', pageIndex.toString()).set('PageSize', pageSize.toString()),
-            }
-        }
-        this.httpClient.get<EntitiesControlListItem[]>(endPointUrl, httpOptions).subscribe(data => {
-            if (!data) {
+    getEntitiesList(pageIndex: number, pageSize: number, code: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/Entity/GetEntityEntries/${code}/${pageIndex}/${pageSize}`;
+        this.httpClient.get<EntityEntriesList>(endPointUrl).subscribe(data => {
+            if (data) {
                 this.entitiesControlRepository.updateEntitiesList(data);
             }
         });
     }
 
+    getEntityTypesList(): void {
+        let endPointUrl = `${environment.entityApiUrl}/EntityType/GetEntityTypes`;
+        this.httpClient.get<EntityType[]>(endPointUrl).subscribe(data => {
+            if (data) {
+                const updatedData: BaseListItem[] = data.map(e => ({ id: e.code, value: e.name }))
+                this.entitiesControlRepository.updateEntitiesTypesList(updatedData);
+            }
+        });
+    }
+
+    getEntityDefinitionsReferenceList(): void {
+        let endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinitions`;
+        this.httpClient.get<EntityDefinitionsReferenceListItem[]>(endPointUrl).subscribe(data => {
+            if (data) {
+                this.entitiesControlRepository.updateEntitiesDefinitionsReferenceList(data);
+            }
+        });
+    }
+
+    getEntityDefinitionsList(code: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinition/${code}`;
+        this.httpClient.get<EntityDefinition>(endPointUrl).subscribe(data => {
+            if (data) {
+                this.entitiesControlRepository.updateEntitiesDefinitionsList(data);
+            }
+        });
+    }
 }

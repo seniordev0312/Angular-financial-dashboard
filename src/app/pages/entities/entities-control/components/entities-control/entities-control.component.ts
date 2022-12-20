@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -11,9 +11,11 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { EntityFilterFormGroup } from '../../form-group/entity-filter-form-group.service';
-import { EntitiesControlListItem } from '../../models/entities-control-list-item.model';
+import { EntitiesTableItem } from '../../models/entities-table-item.model';
+import { EntityEntriesList } from '../../models/entity-entries-list.model';
+import { EntitiesControlService } from '../../services/entity-control.service';
+import { entitiesList$, entityTypes$ } from '../../store/entities-control.store';
 import { AddEntityComponent } from '../add-entity/add-entity.component';
-
 
 @Component({
   selector: 'app-entities-control',
@@ -21,97 +23,20 @@ import { AddEntityComponent } from '../add-entity/add-entity.component';
   styleUrls: ['./entities-control.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesControlComponent extends BaseComponent implements OnInit, AfterViewInit {
-
+export class EntitiesControlComponent extends BaseComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<EntitiesControlListItem>;
+  table: WidgetTableComponent<EntitiesTableItem>;
   pageSize = 10;
   pageIndex = 1;
+  entityEntriesList: EntityEntriesList;
   filter: Filter[];
-  entityTypesList: BaseListItem[] = [
-    { id: '1', value: 'type1' },
-    { id: '1', value: 'type2' }
-  ];
-  entitiesList: EntitiesControlListItem[] = [
-    {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    },
-    {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    }, {
-      Date: 'opoj',
-      employeeName: '222',
-      location: 'Lebanon',
-      sourceType: 'oooooo',
-      type: ',mmmmmm'
-    },
-  ]
+  entityTypesList: BaseListItem[] = [];
+  entityTypeFormControl = new FormControl('100');
+  entitiesList: EntitiesTableItem[] = [];
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'Date',
-      property: 'Date',
+      translationKey: 'EIN',
+      property: 'EIN',
       type: 'text',
       svgIcon: '',
       cssClasses: () => '',
@@ -127,8 +52,8 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
       }
     },
     {
-      translationKey: 'employeeName',
-      property: 'employeeName',
+      translationKey: 'Name',
+      property: 'Name',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -162,7 +87,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     },
     {
       translationKey: 'Location',
-      property: 'location',
+      property: 'Location',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -178,7 +103,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     },
     {
       translationKey: 'Source Type',
-      property: 'sourceType',
+      property: 'Source',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -194,7 +119,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     },
   ];
 
-  editAction: TableRowAction<EntitiesControlListItem> = {
+  editAction: TableRowAction<EntitiesTableItem> = {
     action: (data) => this.onEntityEdited(data),
     cssClasses: 'text-primary',
     iconName: 'border_color',
@@ -204,7 +129,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     isIconButton: true,
   };
 
-  viewAction: TableRowAction<EntitiesControlListItem> = {
+  viewAction: TableRowAction<EntitiesTableItem> = {
     action: (data) => this.onEntityViewed(data),
     cssClasses: 'text-primary',
     iconName: 'visibility',
@@ -214,9 +139,9 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true });
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: false });
   filterFG: FormGroup;
-  tableConfiguration: TableConfiguration<EntitiesControlListItem> = {
+  tableConfiguration: TableConfiguration<EntitiesTableItem> = {
     tableRowsActionsList: [this.editAction, this.viewAction],
     columns: this.tableColumns,
     data: [],
@@ -225,18 +150,50 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   };
 
   constructor(private dialog: MatDialog,
+    private entitiesControlService: EntitiesControlService,
     private entityFilterFormGroup: EntityFilterFormGroup) { super(); }
 
 
   ngOnInit(): void {
+    this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+    this.entitiesControlService.getEntityTypesList();
+
     this.filterFG = this.entityFilterFormGroup.getFormGroup();
-    this.tableConfiguration.data = this.entitiesList;
-    this.tableConfiguration.dataCount = this.entitiesList.length;
+
+    this.subscriptions.add(entitiesList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        const items: EntitiesTableItem[] = [];
+        data.entityRecordItems.forEach(e => {
+          e.sections.forEach(section => {
+            if (section.name === 'Common') {
+              items.push({
+                Location: section.properties['Location'],
+                EIN: section.properties['EIN'],
+                Name: section.properties['Name'],
+                Source: section.properties['Source'],
+                type: e.entityCode
+              });
+            }
+          });
+        });
+        this.entityEntriesList = data;
+        this.tableConfiguration.data = items;
+        this.tableConfiguration.dataCount = data.totalPages;
+        this.table?.refresh();
+      }
+    }));
+
+    this.subscriptions.add(entityTypes$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.entityTypesList = [{ id: '100', value: 'All' }, ...data];
+      }
+    }));
+
+    this.subscriptions.add(this.entityTypeFormControl.valueChanges.subscribe(data => {
+      this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
+    }));
   }
 
-  ngAfterViewInit(): void {
-    this.table.refresh();
-  }
 
   onEntityAdded() {
     this.dialog.open(AddEntityComponent, {
@@ -246,17 +203,27 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, A
   }
 
 
-  onEntityEdited(_category: EntitiesControlListItem) {
+  onEntityEdited(_category: EntitiesTableItem) {
     this.dialog.open(AddEntityComponent, {
       width: '90%',
       height: '90%'
     });
   }
 
-  onEntityViewed(_category: EntitiesControlListItem) {
+  onEntityViewed(_category: EntitiesTableItem) {
   }
 
   getFormControl(key: string): FormControl {
     return this.filterFG.controls[key] as FormControl;
+  }
+
+  onPaging(data: any): void {
+    if (data.isNextPage) {
+      this.pageIndex = this.pageIndex + 1;
+    }
+    else {
+      this.pageIndex = this.pageIndex - 1;
+    }
+    this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
   }
 }

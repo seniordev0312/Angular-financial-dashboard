@@ -7,12 +7,14 @@
             <p class="text-sm mr-2">Search</p>
             <app-input-field icon="search" [control]="searchFormControl"></app-input-field>
         </div>
-        <app-button (trigger)="onChartOfAccountAdded(false)" icon="add" text="Add New Chart Account"
-            classes="bg-accent text-sm text-white font-light h-10 w-[235px]">
-        </app-button>
+        <div class="flex items-center">
+            <app-button (trigger)="onChartOfAccountAdded(false,null,true)" icon="add" text="Add New Group"
+                classes="bg-accent text-sm text-white font-light h-10 w-[200px]">
+            </app-button>
+        </div>
     </div>
-    <ng-container
-        *ngTemplateOutlet="table; context:{data:{items:chartOfAccountsList,showHeader:true,pageSize,class:'main-table'}}"></ng-container>
+    <ng-container *ngTemplateOutlet="table; context:{data:{items:chartOfAccountsList, 
+            itemsCount:itemsCount,showHeader:true,pageSize,class:'main-table',isLazy:true}}"></ng-container>
 
 </app-system-setup>
 
@@ -39,27 +41,32 @@
     </td>
     <td style="width:10%">
         <div class="flex justify-end pr-4 py-1">
-            <button [routerLink]="[viewAccountLink,{outlets:{sidenav:null}}]" mat-button>
+            <button *ngIf="showViewButton(data.item)"
+                [routerLink]="[viewAccountLink,data.item.accountTypeId??data.item.accountId,data.item.childrenCount===0,{outlets:{sidenav:null}}]"
+                mat-button>
                 <span class="material-icons-outlined text-accent">
                     visibility
                 </span>
             </button>
-            <button (click)="onChartOfAccountAdded(true)" *ngIf="!data.isLeafItem" mat-button class="ml-4">
+            <button (click)="onChartOfAccountAdded(data.item.isLeafItem,data.item.accountTypeId)"
+                *ngIf="showAddButton(data.item)" mat-button class="ml-4">
                 <mat-icon svgIcon="add-grid" class="text-accent"></mat-icon>
             </button>
-            <button (click)="onChartOfAccountEdited(data.item,data.isLeafItem)" mat-button class="ml-4">
+            <button (click)="onChartOfAccountEdited(data.item)" mat-button class="ml-4">
                 <span class="material-icons-outlined text-accent">
                     border_color
                 </span>
             </button>
-            <mat-slide-toggle (change)="onChartOfAccountDeactivated(data.item)" class="ml-4"></mat-slide-toggle>
+            <mat-slide-toggle [checked]="data.item.activeFlag"
+                (change)="onChartOfAccountDeactivated(data.item,$event.checked)" class="ml-4"></mat-slide-toggle>
         </div>
     </td>
 </ng-template>
 
 <ng-template let-data="data" #table>
-    <p-table [rows]="data.pageSize" [paginator]="data.items.length>data.pageSize" [class]="data.class"
-        [value]="data.items" rowGroupMode="subheader" rowExpandMode="single" dataKey="accountNo">
+    <p-table (onLazyLoad)="onLazyLoad($event)" [totalRecords]="data.itemsCount" [lazy]="data.isLazy"
+        [rows]="data.pageSize" [paginator]="true" [class]="data.class" [value]="data.items" rowGroupMode="subheader"
+        rowExpandMode="single" dataKey="accountNo">
         <ng-template *ngIf="data.showHeader" pTemplate="header">
             <tr>
                 <th style="width:7%">
@@ -137,7 +144,7 @@
             <tr>
                 <td class="sub-table" colspan="8">
                     <ng-container
-                        *ngTemplateOutlet="table; context:{data:{items:item.children,showHeader:false,pageSize:childrenPageSize,class:'main-table'}}">
+                        *ngTemplateOutlet="table; context:{data:{items:item.children,showHeader:false,isLazy:true,itemsCount:item.childrenCount ,pageSize:item.childrenCount,class:'main-table'}}">
                     </ng-container>
                 </td>
             </tr>

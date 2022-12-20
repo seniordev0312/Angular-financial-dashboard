@@ -1,5 +1,4 @@
-<p-table class="main-table" [value]="rolesList" rowGroupMode="subheader" dataKey="id" rowExpandMode="single"
-    [expandedRowKeys]="{'22':true}">
+<p-table class="main-table" [value]="data.paginatedJournalItems" [totalRecords]="data.journalItemsCount">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:20%">
@@ -63,54 +62,44 @@
     <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" let-expanded="expanded">
         <tr>
             <td style="width:20%">
-                <span class="font-bold text-xs ml-2">{{item.number}}</span>
+                <span class="font-bold text-xs ml-2">Opening Balance</span>
             </td>
             <td style="width:20%">
-                <span class="font-bold text-xs ml-2">{{item.postingDate}}</span>
+                <span class="font-bold text-xs ml-2">December 02, 2022</span>
             </td>
             <td style="width:10%">
             </td>
             <td style="width:10%">
             </td>
             <td style="width:10%">
+                <span class="text-xs font-bold">${{accountViewOpeningDate.totalDebit| number}}</span>
             </td>
             <td style="width:10%">
+                <span class="text-xs font-bold">${{accountViewOpeningDate.totalCredit| number}}</span>
             </td>
             <td style="width:20%">
-                <span class="text-xs font-bold">${{item.balance| number}}</span>
+                <span class="text-xs font-bold">${{accountViewOpeningDate.totalBalance| number}}</span>
             </td>
         </tr>
-    </ng-template>
-    <ng-template pTemplate="rowexpansion" let-item>
         <tr>
-            <td class="sub-table" colspan="7">
-                <div>
-                    <p-table [rows]="pageSize" class="sub-table" [value]="item.items" dataKey="id">
-                        <ng-template pTemplate="body" let-subItem>
-        <tr>
-            <td style="width:20%" class="text-xxs pl-4">{{subItem.number}}</td>
-            <td style="width:20%" class="text-xxs pl-4">{{subItem.postingDate}}</td>
-            <td style="width:10%" class="text-xxs pl-4">{{subItem.accountNumber}}</td>
-            <td style="width:10%" class="text-xxs pl-4">{{subItem.accountName}}</td>
-            <td style="width:10%" class="text-xxs pl-4">${{subItem.debit| number}}</td>
-            <td style="width:10%" class="text-xxs pl-4">${{subItem.credit| number}}</td>
-            <td style="width:20%" class="text-xxs pl-4">${{subItem.balance| number}}</td>
+            <td style="width:20%" class="text-xxs pl-4">{{item.documentNumber}}</td>
+            <td style="width:20%" class="text-xxs pl-4">{{item.postingDate}}</td>
+            <td style="width:10%" class="text-xxs pl-4">{{item.accountNumber}}</td>
+            <td style="width:10%" class="text-xxs pl-4">{{item.accountName}}</td>
+            <td style="width:10%" class="text-xxs pl-4">${{item.debit| number}}</td>
+            <td style="width:10%" class="text-xxs pl-4">${{item.credit| number}}</td>
+            <td style="width:20%" class="text-xxs pl-4">${{item.balance| number}}</td>
         </tr>
     </ng-template>
-</p-table>
-</div>
-</td>
-</tr>
-</ng-template>
-<ng-template pTemplate="footer">
-    <tr>
-        <td class="text-xs font-bold">Closing Balance</td>
-        <td class="text-xs font-bold">December 02, 2022</td>
-        <td></td>
-        <td></td>
-        <td class="text-xs font-bold">$1,500,000.00</td>
-        <td class="text-xs font-bold">$0.00</td>
-        <td class="text-xs font-bold">$3,000,000.00</td>
-    </tr>
-</ng-template>
+    <ng-template pTemplate="footer">
+        <tr>
+            <td class="text-xs font-bold">Closing Balance</td>
+            <td class="text-xs font-bold">December 02, 2022</td>
+            <td></td>
+            <td></td>
+            <td class="text-xs font-bold">${{accountViewClosingDate.totalDebit}}</td>
+            <td class="text-xs font-bold">${{accountViewClosingDate.totalCredit}}</td>
+            <td class="text-xs font-bold">${{accountViewClosingDate.totalBalance}}</td>
+        </tr>
+    </ng-template>
 </p-table>

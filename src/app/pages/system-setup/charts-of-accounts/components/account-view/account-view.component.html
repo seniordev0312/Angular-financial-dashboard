@@ -1,4 +1,4 @@
-<div class="p-10">
+<div class="p-5">
     <div mat-dialog-content class="flex items-center px-10 mt-6">
         <button [routerLink]="chartOfAccountsLink" class="flex" mat-button>
             <mat-icon class="mr-4" svgIcon="back"></mat-icon>
@@ -11,8 +11,7 @@
             <div class="flex items-center">
                 <p class="mr-4 text-sm">From</p>
                 <mat-form-field class="w-full">
-                    <input [formControl]="startDateFormControl" placeholder="xx/xx/2022" matInput
-                        [matDatepicker]="startDatePicker">
+                    <input [formControl]="startDateFormControl" matInput [matDatepicker]="startDatePicker">
                     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #startDatePicker></mat-datepicker>
                 </mat-form-field>
@@ -20,8 +19,7 @@
             <div class="flex items-center">
                 <p class="mr-4 text-sm">To</p>
                 <mat-form-field class="w-full">
-                    <input [formControl]="endDateFormControl" placeholder="xx/xx/2022" matInput
-                        [matDatepicker]="endDatePicker">
+                    <input [formControl]="endDateFormControl" matInput [matDatepicker]="endDatePicker">
                     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #endDatePicker></mat-datepicker>
                 </mat-form-field>
