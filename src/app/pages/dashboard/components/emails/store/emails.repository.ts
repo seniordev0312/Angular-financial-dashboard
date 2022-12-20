@@ -21,4 +21,23 @@ export class EmailsRepository {
             emails: emails
         }));
     }
+
+    addEmail(emails: any) {
+        console.log(emails);
+        let newReports: any[] = [];
+        if (this.systemClaimsStore.value.emails) {
+            newReports = [...this.systemClaimsStore.value.emails];
+        }
+        let index = newReports.findIndex((e: any) => e.key === emails[0].key);
+        console.log(index);
+
+        if (index !== -1) {
+            let value = emails[0].value.concat(newReports[index].value);
+            newReports[index].value = value
+            this.updateEmails(newReports);
+        } else {
+            // newReports.push(report)
+        }
+    }
+
 }

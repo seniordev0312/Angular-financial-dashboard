@@ -28,7 +28,6 @@ export class EmailChatComponent extends BaseComponent implements OnInit {
     this.emailsService.getEmailMessage(this.email.id);
     this.subscriptions.add(
       emailsMessages$.subscribe(data => {
-        console.log(data);
         if (data) {
           this.data = data.message.body
           this.cdr.detectChanges();
@@ -36,8 +35,18 @@ export class EmailChatComponent extends BaseComponent implements OnInit {
       }));
   }
 
+  CreateEmailByTicket(): void {
+    this.emailsService.createTicket(
+      {
+        entityEmail: this.email.fromEmail,
+        sourceId: 1,
+        primaryCommunicationChannelId: 1,
+        status: 0,
+      }
+    )
+  }
+
   closeEmailChat(): void {
     this.closeEmailChatEvent.emit();
   }
-
 }

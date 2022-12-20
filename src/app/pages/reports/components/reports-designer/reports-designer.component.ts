@@ -21,6 +21,18 @@ export class ReportsDesignerComponent implements OnInit, AfterViewInit, OnDestro
     private reportsService: ReportsService,
   ) { }
 
+  onSave = function (info: any) {
+    // the implementation of the onSave handler
+    console.log(info);
+
+
+    // const reportId = info.id || `report${counter.current++}`;
+    // setReportStorage(new Map(reportStorage.set(reportId, info.definition)));
+    // return Promise.resolve({ displayName: reportId });
+
+  };
+
+
   ngOnInit(): void {
     this.report = { id: '../../../../../../assets/reports/report-designer.rdlx-json', displayName: 'my report' };
     this.layoutService.updateBreadCrumbsRouter({
