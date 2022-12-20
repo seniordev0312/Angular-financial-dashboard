@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between my-6">
         <div class="flex items-center">
             <h5 class="text-base mr-4">Entity Type</h5>
-            <app-select-list></app-select-list>
+            <app-select-list [control]="entityTypeFormControl" [optionsList]="entityTypesList"></app-select-list>
         </div>
         <app-button (trigger)="onEntityAdded()" text="Add Entity" icon="add"
             classes="bg-accent text-sm h-10 w-32 text-white">
@@ -28,5 +28,5 @@
             <p class="text-sm font-medium mt-2">Search</p>
         </div>
     </form>
-    <app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+    <app-widget-table (onPaging)="onPaging($event)" [tableConfiguration]="tableConfiguration"></app-widget-table>
 </mat-dialog-content>

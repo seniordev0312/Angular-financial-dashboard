@@ -3,15 +3,15 @@
 
     <div class="flex w-full items-center justify-between mt-7 mb-5">
         <h4 class="text-xl font-bold">Create New Entity</h4>
-        <app-button (trigger)="onEntitySaved()" text="Save and close" icon="save"
-            classes="bg-accent h-12 w-52 text-white">
+        <app-button [isDisabled]="!isDefinitionFetched" (trigger)="onEntitySaved()" text="Save and close" icon="save"
+            [classes]="isDefinitionFetched?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'">
         </app-button>
     </div>
     <div class="grid grid-cols-4 gap-5">
         <div class="col-span-3">
             <cdk-accordion>
-                <cdk-accordion-item #accordionItem0="cdkAccordionItem" role="button" tabindex="0"
-                    [attr.id]="'accordion-header-0'" [attr.aria-expanded]="accordionItem0.expanded"
+                <cdk-accordion-item *ngIf="!isDefinitionFetched" #accordionItem0="cdkAccordionItem" role="button"
+                    tabindex="0" [attr.id]="'accordion-header-0'" [attr.aria-expanded]="accordionItem0.expanded"
                     [attr.aria-controls]="'accordion-body-0'">
                     <div class="flex items-center justify-between w-full panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
@@ -30,89 +30,29 @@
                     </div>
                 </cdk-accordion-item>
 
-                <cdk-accordion-item #accordionItem1="cdkAccordionItem" role="button" tabindex="1"
-                    [attr.id]="'accordion-header-1'" [attr.aria-expanded]="accordionItem1.expanded"
-                    [attr.aria-controls]="'accordion-body-1'">
+                <cdk-accordion-item *ngFor="let item of entityDefinition?.sections;let i=index"
+                    #accordionItem="cdkAccordionItem" role="button" [tabindex]="i" [attr.id]="'accordion-header-1'"
+                    [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-1'">
                     <div class="flex items-center justify-between w-full mt-2 panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
                                 class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
-                                2</div>
-                            <span class="font-bold text-lg">Basic Information</span>
+                                {{i +1}}</div>
+                            <span class="font-bold text-lg">{{item.sectionName}}</span>
                         </div>
-                        <span (click)="accordionItem1.toggle()" class="material-icons text-accent cursor-pointer">
-                            {{accordionItem1.expanded?'expand_less':'expand_more'}}
+                        <span (click)="accordionItem.toggle()" class="material-icons text-accent cursor-pointer">
+                            {{accordionItem.expanded?'expand_less':'expand_more'}}
                         </span>
                     </div>
-                    <div role="region" [style.display]="accordionItem1.expanded ? '' : 'none'"
+                    <div role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-0'">
-                        <app-entity-basic-information></app-entity-basic-information>
-                    </div>
-                </cdk-accordion-item>
-
-                <cdk-accordion-item #accordionItem2="cdkAccordionItem" role="button" tabindex="2"
-                    [attr.id]="'accordion-header-2'" [attr.aria-expanded]="accordionItem2.expanded"
-                    [attr.aria-controls]="'accordion-body-2'">
-                    <div class="flex items-center justify-between w-full panel-header mt-2 bg-gray-light3 px-5">
-                        <div class="flex items-center">
-                            <div
-                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
-                                3</div>
-                            <span class="font-bold text-lg">Address Information</span>
-                        </div>
-                        <span (click)="accordionItem2.toggle()" class="material-icons text-accent cursor-pointer">
-                            {{accordionItem2.expanded?'expand_less':'expand_more'}}
-                        </span>
-                    </div>
-                    <div role="region" [style.display]="accordionItem2.expanded ? '' : 'none'"
-                        [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'">
-                        <app-entity-address-information></app-entity-address-information>
-                    </div>
-                </cdk-accordion-item>
-
-                <cdk-accordion-item #accordionItem3="cdkAccordionItem" role="button" tabindex="3"
-                    [attr.id]="'accordion-header-3'" [attr.aria-expanded]="accordionItem3.expanded"
-                    [attr.aria-controls]="'accordion-body-2'">
-                    <div class="flex items-center justify-between w-full panel-header mt-2 bg-gray-light3 px-5">
-                        <div class="flex items-center">
-                            <div
-                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
-                                4</div>
-                            <span class="font-bold text-lg">Bank Account Information</span>
-                        </div>
-                        <span (click)="accordionItem3.toggle()" class="material-icons text-accent cursor-pointer">
-                            {{accordionItem3.expanded?'expand_less':'expand_more'}}
-                        </span>
-                    </div>
-                    <div role="region" [style.display]="accordionItem3.expanded ? '' : 'none'"
-                        [attr.id]="'accordion-body-3'" [attr.aria-labelledby]="'accordion-header-3'">
-                        <app-entity-bank-account-information></app-entity-bank-account-information>
-                    </div>
-                </cdk-accordion-item>
-
-                <cdk-accordion-item #accordionItem4="cdkAccordionItem" role="button" tabindex="4"
-                    [attr.id]="'accordion-header-4'" [attr.aria-expanded]="accordionItem4.expanded"
-                    [attr.aria-controls]="'accordion-body-2'">
-                    <div class="flex items-center justify-between w-full panel-header mt-2 bg-gray-light3 px-5">
-                        <div class="flex items-center">
-                            <div
-                                class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
-                                5</div>
-                            <span class="font-bold text-lg">KYC Information</span>
-                        </div>
-                        <span (click)="accordionItem4.toggle()" class="material-icons text-accent cursor-pointer">
-                            {{accordionItem4.expanded?'expand_less':'expand_more'}}
-                        </span>
-                    </div>
-                    <div role="region" [style.display]="accordionItem4.expanded ? '' : 'none'"
-                        [attr.id]="'accordion-body-4'" [attr.aria-labelledby]="'accordion-header-4'">
-                        <app-entity-kyc-information></app-entity-kyc-information>
+                        <app-entity-section [section]="item"></app-entity-section>
                     </div>
                 </cdk-accordion-item>
             </cdk-accordion>
         </div>
         <div class="col-span-1">
-            <app-create-entity-checks></app-create-entity-checks>
+            <app-create-entity-checks *ngIf="isDefinitionFetched"></app-create-entity-checks>
         </div>
     </div>
 </mat-dialog-content>

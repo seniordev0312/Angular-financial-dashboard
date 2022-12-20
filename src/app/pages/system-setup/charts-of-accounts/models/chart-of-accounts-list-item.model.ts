@@ -10,6 +10,8 @@ export interface ChartOfAccountsListItem {
     debit: number;
     credit: number;
     balance: number;
+    activeFlag: boolean;
     lastLevelFlag: boolean;
+    childrenCount?: number;
     children?: ChartOfAccountsListItem[];
 }
