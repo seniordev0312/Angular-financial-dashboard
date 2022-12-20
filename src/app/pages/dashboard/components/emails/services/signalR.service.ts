@@ -68,8 +68,6 @@ export class SignalRService {
     };
 
     public addOnReceiveMessageListener = () => {
-        console.log('addOnReceiveMessageListener');
-
         this.hubConnection.on('OnEmailReceived', (emails: any) => {
             this.emailsService.AddEmail(emails);
         });
