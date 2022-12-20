@@ -45,7 +45,11 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
+
+import "@grapecity/ar-viewer/dist/jsViewer.min.js";
+
 import 'zone.js';  // Included with Angular CLI.
+
 
 
 /***************************************************************************************************

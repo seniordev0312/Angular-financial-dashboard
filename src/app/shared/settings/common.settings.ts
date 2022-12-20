@@ -51,5 +51,8 @@ export const enum ApplicationRoutes {
   Calender = 'calender',
   PolicyRenewals = 'policy-renewals',
   EntitiesControl = 'entities-control',
+  Reports = 'reports',
+  ReportsViewer = 'report-viewer',
+  ReportsDesigner = 'report-designer',
   InsuranceRenewals = "insurance-renewals"
 }

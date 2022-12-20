@@ -109,12 +109,19 @@ const routes: Routes = [
     loadChildren: () => import('@root/pages/entities/entities.module').then((m) => m.EntitiesModule),
     canLoad: [AutoLoginAllRoutesGuard]
   },
-
   {
     path: ApplicationRoutes.PolicyRenewals,
     loadChildren: () =>
       import('./customer-service/policy-renewals/policy-renewals.module').then(
         (m) => m.PolicyRenewalsModule
+      ),
+    canLoad: [AutoLoginAllRoutesGuard]
+  },
+  {
+    path: ApplicationRoutes.Reports,
+    loadChildren: () =>
+      import('./reports/reports.module').then(
+        (m) => m.ReportsModule
       ),
     canLoad: [AutoLoginAllRoutesGuard]
   }
