@@ -8,6 +8,13 @@ export class EmailsRepository {
         @Inject(EMAILS_STORE) private systemClaimsStore: EmailsStore) {
     }
 
+    updateEmailMessages(messageId: string, message: any) {
+        this.systemClaimsStore.update((state) => ({
+            ...state,
+            emailsMessages: { messageId, message }
+        }));
+
+    }
     updateEmails(emails: EmailItem[]) {
         this.systemClaimsStore.update((state) => ({
             ...state,

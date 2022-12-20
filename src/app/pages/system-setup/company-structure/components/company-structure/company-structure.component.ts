@@ -131,4 +131,38 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  onCopyBranch(data: any) {
+    this.copyBranch(this.treeNode[0], {
+      type: 'branch',
+      expanded: true,
+      data: { name: data.data.name, parentId: data.data.parentId, id: data.data.id, groups: [] },
+      children: [],
+    });
+  }
+
+  copyBranch(nodes: TreeNode, branchData: any) {
+    if (Number(branchData.data.parentId) === nodes.data.id) {
+      branchData.data.name = branchData.data.name + ' - Copy';
+      nodes.children.map((node: TreeNode) => {
+        if (node.data.id === branchData.data.id) {
+          branchData.data.id = Math.floor(Math.random() * 10000);
+          branchData.children = node.children;
+          this.saveCopiedBranch(branchData);
+        }
+      })
+      return
+    }
+    this.cdr.detectChanges();
+  }
+
+  saveCopiedBranch(node: TreeNode) {
+    console.log(this.treeNode);
+    this.companyStructureService.addBranch({ name: node.data.name, parentId: node.data.parentId, id: node.data.id });
+    console.log(node.children);
+    node.children.map((value: TreeNode) => {
+      if (value.type === 'department') {
+        this.companyStructureService.addDepartment({ name: value.data.name, parentId: node.data.id, id: Math.floor(Math.random() * 10000) })
+      }
+    })
+  }
 }

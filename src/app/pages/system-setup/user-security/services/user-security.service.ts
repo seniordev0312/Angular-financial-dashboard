@@ -11,7 +11,7 @@ import { UserSecurityRepository } from "../store/user-security.repository";
 
 @Injectable({ providedIn: 'root' })
 export class UserSecurityService {
-    private baseUrl = `${environment.identityServerURL}/Roles`;
+    private baseUrl = `${environment.identityAPIServerURL}/Roles`;
 
     addRoleSubject = new BehaviorSubject<AddRole>(null);
     addRole$ = this.addRoleSubject.asObservable();

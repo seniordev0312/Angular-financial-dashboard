@@ -44,7 +44,26 @@ export class BranchCardComponent implements OnInit {
   }
 
   copyBranch(): void {
-    // this.onCopyBranch.emit({ parentId })
+    this.onCopyBranch.emit({ data: this.data })
+  }
+
+  EditBranch(): void {
+    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.CompanyStructure}`, {
+      outlets: {
+        sidenav: ApplicationRoutes.AddBranch
+      },
+    }], {
+      queryParams: {
+        id: this.data.id,
+        parentId: this.data.parentId,
+        name: this.data.name
+      },
+      skipLocationChange: true,
+    });
+
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+
   }
 
   onDepartmentAdded(): void {
@@ -54,7 +73,6 @@ export class BranchCardComponent implements OnInit {
       },
     }], {
       queryParams: {
-        level: this.data.level,
         parentId: this.data.id
       },
       skipLocationChange: true,

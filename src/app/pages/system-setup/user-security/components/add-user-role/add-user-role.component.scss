@@ -1,0 +1,36 @@
+:host ::ng-deep {
+
+    ::ng-deep .mat-chip.mat-standard-chip {
+        background-color: var(--accent-color) !important;
+        color: white !important;
+        font-size: 10px !important;
+        border-radius: 7px !important;
+    }
+
+    ::ng-deep .mat-chip.mat-standard-chip .mat-chip-remove {
+        color: white !important;
+        opacity: 1 !important;
+    }
+
+    .cancel-icon {
+        height: 16px !important;
+        width: 16px !important;
+        font-size: 13px !important;
+    }
+
+
+    ::ng-deep .mat-chip-list-wrapper {
+        background-color: #C0C6CC;
+        margin: 0px !important;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-top-color: var(--accent-color);
+        border-top-width: 1px;
+    }
+
+    .delete-icon {
+        font-size: 20px !important;
+    }
+}

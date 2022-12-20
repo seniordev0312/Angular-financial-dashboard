@@ -15,6 +15,12 @@
         <div *ngIf="data.groups.length === 0">No Groups</div>
         <app-group-chip [item]="item" *ngFor="let item of data.groups"></app-group-chip>
     </div>
+    <button mat-button (click)="EditDepartment()"
+        class="flex border-2 border-accent rounded-full absolute -top-2 right-0 bg-white">
+        <span class="material-icons right-icon text-accent">
+            chevron_right
+        </span>
+    </button>
 
     <button mat-button (click)="onGroupAdded()"
         class="flex justify-center items-center cursor-pointer rounded-sm absolute top-[12px] -right-[5.7rem] bg-primary h-[25px] w-[92px]">

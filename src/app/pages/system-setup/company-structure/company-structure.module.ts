@@ -71,7 +71,7 @@ const routes: Route[] = [
     outlet: 'sidenav',
   },
   {
-    path: `${ApplicationRoutes.AddBranch}/:id`,
+    path: `${ApplicationRoutes.AddBranch}/:id/:name`,
     component: AddBranchComponent,
     outlet: 'sidenav',
   },

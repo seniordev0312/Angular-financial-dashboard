@@ -34,13 +34,13 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "angular-auth-oidc-client": "15.0.2",
     "dayjs": "^1.11.6",
+    "ngx-plyr": "^4.0.1",
+    "plyr": "^3.7.3",
     "primeicons": "^6.0.1",
     "primeng": "^14.1.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "ngx-plyr": "^4.0.1",
-    "plyr": "^3.7.2"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.6",

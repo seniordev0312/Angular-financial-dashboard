@@ -9,8 +9,9 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { TableModule } from 'primeng/table';
+
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
-import { AddRoleComponent } from './components/add-role/add-role.component';
+import { AddUserRoleComponent } from './components/add-user-role/add-user-role.component';
 import { UserPoliciesComponent } from './components/user-policies/user-policies.component';
 import { UserRolesManagementComponent } from './components/user-roles-management/user-roles-management.component';
 import { UserSecurityComponent } from './components/user-security/user-security.component';
@@ -29,7 +30,7 @@ const routes: Route[] = [
   },
   {
     path: ApplicationRoutes.Add,
-    component: AddRoleComponent,
+    component: AddUserRoleComponent,
     outlet: 'sidenav',
     data: {
       permission: Permission.CanAddRole
@@ -41,7 +42,7 @@ const routes: Route[] = [
   },
   {
     path: `${ApplicationRoutes.Add}/:id/:name`,
-    component: AddRoleComponent,
+    component: AddUserRoleComponent,
     outlet: 'sidenav',
     data: {
       permission: Permission.CanEditRole
@@ -58,7 +59,7 @@ const routes: Route[] = [
     UserSecurityComponent,
     UserRolesManagementComponent,
     UserPoliciesComponent,
-    AddRoleComponent
+    AddUserRoleComponent
   ],
   imports: [
     CommonModule,

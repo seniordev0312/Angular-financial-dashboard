@@ -4,7 +4,7 @@ export enum Permission {
     CanViewAssignedTask = 'CanViewAssignedTask',
     CanViewStickyNote = 'CanViewStickyNote',
     CanAddStickyNote = 'CanAddStickyNote',
-    CanAccessCalander = 'CanAccessCalander',
+    CanAccessCalender = 'CanAccessCalander',
     CanAccessEmail = 'CanAccessEmail',
     //communication
     CanAccessDirectMessages = 'CanAccessDirectMessages',

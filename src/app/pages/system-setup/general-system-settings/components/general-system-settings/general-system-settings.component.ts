@@ -211,9 +211,9 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
     private layoutService: LayoutService,
     private router: Router,
     private generalSystemSettingsFormGroup: GeneralSystemSettingsFormGroup,
+    private securityCheckerService: SecurityCheckerService,
     private confirmationDialogService: ConfirmationDialogService,
     private generalSystemSettingsService: GeneralSystemSettingsService,
-    private securityCheckerService: SecurityCheckerService,
   ) {
     super();
   }
@@ -228,6 +228,7 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       }));
 
     this.generalSystemSettingsService.getHolidays(0, 1000)
+    this.getActionsList();
     this.tableConfiguration.data = this.templatesList;
     this.tableConfiguration.dataCount = this.templatesList.length;
     this.fg = this.generalSystemSettingsFormGroup.getFormGroup();

@@ -8,7 +8,7 @@
                 <app-company-card [data]="node.data"></app-company-card>
             </ng-template>
             <ng-template let-node pTemplate="branch">
-                <app-branch-card [data]="node.data"></app-branch-card>
+                <app-branch-card (onCopyBranch)="onCopyBranch($event)" [data]="node.data"></app-branch-card>
             </ng-template>
             <ng-template let-node pTemplate="department">
                 <app-department-card [data]="node.data"></app-department-card>

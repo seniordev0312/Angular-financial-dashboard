@@ -6,7 +6,7 @@ import { SystemClaimsRepository } from "../store/system-claims.repository";
 
 @Injectable({ providedIn: 'root' })
 export class SystemClaimsService {
-    private baseUrl = `${environment.identityServerURL}/Clients/3/ClaimGroups`;
+    private baseUrl = `${environment.identityAPIServerURL}/Clients/3/ClaimGroups`;
 
     constructor(
         private httpClient: HttpClient,

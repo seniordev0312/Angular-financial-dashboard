@@ -1,8 +1,10 @@
 export const environment = {
   production: false,
-  entityApiUrl: 'https://dev.api.entity.aperatureuk.com/api',
-  systemSetupApiUrl: 'http://20.120.63.24/v1',
-  identityServerURL: 'https://dev.identity.sts.aperatureuk.com',
+  apiUrl: 'https://dev.api.entity.aperatureuk.com/api',
+  identityAPIServerURL: 'https://dev.api.identity.aperatureuk.com/api',
   signalRHub: 'https://dev.customerservice.aperatureuk.com',
-  customerServer: 'http://20.241.255.241'
+  customerServer: 'https://dev.customerservice.aperatureuk.com',
+  identityServerURL: 'https://dev.identity.sts.aperatureuk.com',
+  systemSetupApiUrl: 'http://20.120.63.24/v1',
+  entityApiUrl: 'https://dev.api.entity.aperatureuk.com/api',
 };

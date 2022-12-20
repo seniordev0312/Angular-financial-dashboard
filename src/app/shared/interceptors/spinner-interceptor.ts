@@ -41,7 +41,6 @@ export class SpinnerInterceptor implements HttpInterceptor {
         this.spinnerService.startSpinning();
     }
 
-
     private onSidenavSpinnerEnd(): void {
         this.spinnerService.stopSidenavSpinning();
     }
