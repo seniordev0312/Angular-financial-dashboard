@@ -89,8 +89,7 @@ const routes: Routes = [
   },
   {
     path: ApplicationRoutes.GeneralAccounting,
-    loadChildren: () => import('./accounting-and-finance/General-accounting/general-accounting.module').
-      then((m) => m.GeneralAccountingModule),
+    loadChildren: () => import('./accounting-and-finance/General-accounting/general-accounting/general-accounting.module').then((m) => m.GeneralAccountingModule),
     canLoad: [AutoLoginAllRoutesGuard]
   },
   {

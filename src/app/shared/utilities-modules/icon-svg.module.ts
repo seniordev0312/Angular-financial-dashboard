@@ -165,6 +165,21 @@ export class IconSvgModule {
                 sanitizer.bypassSecurityTrustResourceUrl(
                     'assets/images/policy-svg-icons/calculator.svg'
                 )
+            ).addSvgIcon(
+                'copy-icon',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/svg-icons/copy-icon.svg'
+                )
+            ).addSvgIcon(
+                'print-icon',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/svg-icons/print-icon.svg'
+                )
+            ).addSvgIcon(
+                'journal-edit-icon',
+                sanitizer.bypassSecurityTrustResourceUrl(
+                    'assets/images/svg-icons/journal-edit-icon.svg'
+                )
             );
     }
 }

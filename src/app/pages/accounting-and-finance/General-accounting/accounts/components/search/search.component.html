@@ -1,0 +1,31 @@
+<div class="flex flex-row justify-start items-start  w-ful">
+    <div class="flex-row justify-start items-start mt-10">
+        <div class="flex flex-row justify-start items-center">
+            <p class="mr-4 text-sm font-medium">Accounts </p>
+            <div class="flex flex-col w-full">
+                <div class="flex  flex-row w-full">
+                    <input (keyup)="onTextChange($event)" class="h-full 
+                        bg-transparent	 flex justify-center items-center outline-none w-full
+                         px-1 text-sm xl:text-base font-light" [value]="localAccount.name" />
+                    <span matPrefix class="material-icons">
+                        search
+                    </span>
+                </div>
+                <div class="pt-2">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <mat-select disableOptionCentering #select [disabled]="showMenu"
+            class=" p-2 pl-4 text-start  font-light text-black-light1 text-sm"
+            (selectionChange)="selectionChange($event.value)">
+            <mat-select-trigger></mat-select-trigger>
+            <mat-option *ngFor="let option of accounts" [value]="option">
+                <h2 class="truncate text-xs md:text-sm  text-start  font-light
+                    text-black-light1">
+                    {{option.name}}
+                </h2>
+            </mat-option>
+        </mat-select>
+    </div>
+</div>
