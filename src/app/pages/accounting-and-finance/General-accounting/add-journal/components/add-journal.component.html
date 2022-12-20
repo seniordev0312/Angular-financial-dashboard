@@ -1,0 +1,369 @@
+<div class="min-w-[50rem] h-full ">
+    <div class="flex flex-col justify-between w-full">
+        <form [formGroup]="form">
+            <div class="flex flex-row w-full">
+                <div
+                    class="flex flex-col items-center bloc shadow shadow-lg  mt-6 py-8 px-5  justify-between bg-main-gray w-3/5	">
+                    <div class="flex flex-row w-full ">
+                        <div class="flex flex-row justify-start items-center w-1/2 pt-10">
+                            <p class="mr-4 text-sm font-light w-1/4">Posting Data *</p>
+                            <div class="w-full">
+                                <div class="flex flex-col w-full justify-center ">
+                                    <div class="flex flex-row w-full justify-center">
+                                        <input [readOnly]="true" [matDatepicker]="postingMonthDatePicker"
+                                            [errorContainer]="postingMonthErrorContainer"
+                                            [ngModel]="!journalEntryModel ? '' : journalEntryModel.postDate"
+                                            class="bg-transparent h-full flex justify-center items-center outline-none w-full
+                                                                                                                         px-1 text-sm xl:text-base font-light"
+                                            formControlName="postDate" name="postDate" minlength="2" required />
+                                        <mat-datepicker-toggle matSuffix
+                                            [for]="postingMonthDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #postingMonthDatePicker></mat-datepicker>
+                                    </div>
+                                    <div class="pr-4">
+                                        <hr>
+                                    </div>
+
+                                </div>
+                                <div class=" pt-1">
+                                    <div appValidationMessageContainer
+                                        #postingMonthErrorContainer="appValidationMessageContainer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-start items-center w-1/2 pt-8 ml-10">
+                            <p class="mr-4 text-sm font-light w-1/4">Bill Date</p>
+                            <div class="w-full">
+                                <div class="flex flex-col w-full ">
+                                    <div class="flex flex-row w-full justify-center">
+                                        <input [readOnly]="true" [matDatepicker]="billDatePicker"
+                                            [errorContainer]="billDateErrorContainer"
+                                            [ngModel]="!journalEntryModel ? '' : journalEntryModel.entryDate"
+                                            class="bg-transparent h-full flex justify-center items-center outline-none w-full
+                                                                                                                                             px-1 text-sm xl:text-base font-light"
+                                            formControlName="entryDate" name="entryDate" minlength="2" required />
+                                        <mat-datepicker-toggle matSuffix [for]="billDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #billDatePicker></mat-datepicker>
+                                    </div>
+                                    <div class="pr-4">
+                                        <hr>
+                                    </div>
+
+                                </div>
+                                <div class=" pt-1">
+                                    <div appValidationMessageContainer
+                                        #billDateErrorContainer="appValidationMessageContainer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row w-full pt-10">
+                        <div class="flex flex-row justify-start items-center w-1/2">
+                            <p class="mr-4 text-sm font-light w-1/4">Entry Type *</p>
+                            <div
+                                class="flex flex-row px-4 py-1 justify-between
+                                                           items-center rounded-xl w-full h-[43px] shadow-[0_3px_6px_#00000029]">
+                                <mat-select (selectionChange)="getJournalsByEntryType($event)"
+                                    [errorContainer]="entryTypeErrorContainer" formControlName="entryType"
+                                    name="entryType"
+                                    class="arrow w-full justify-center items-center w-full text-sm xl:text-base font-light">
+                                    <mat-option class="text-xs w-full" *ngFor="let option of entryTypes"
+                                        [value]="option.id">{{
+                                        option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="h-4">
+                                <div appValidationMessageContainer
+                                    #entryTypeErrorContainer="appValidationMessageContainer"></div>
+                            </div>
+
+                        </div>
+                        <div *ngIf="journalsEntryType.length !== 0"
+                            class="flex flex-row justify-start items-center w-1/2 ml-10">
+                            <p class="mr-4 text-sm font-light w-1/4">Journals</p>
+                            <div
+                                class="flex flex-row px-4 py-1 justify-between
+                                                                                                items-center rounded-xl w-full h-[43px] shadow-[0_3px_6px_#00000029]">
+                                <mat-select [errorContainer]="journalIdErrorContainer" formControlName="journalId"
+                                    name="journalId" class="arrow w-full justify-center items-center w-full text-sm xl:text-base
+                                                                                                     font-light">
+                                    <mat-option class="text-xs w-full" *ngFor="let option of journalsEntryType"
+                                        [value]="option.journalId">{{
+                                        option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="h-4">
+                                <div appValidationMessageContainer
+                                    #journalIdErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row w-full pt-10">
+                        <div class="flex flex-row justify-start items-center w-1/2 ">
+                            <p class="mr-4 text-sm font-light w-1/4">Currency</p>
+                            <div
+                                class="flex flex-row px-4 py-1 justify-between
+                                                                                                                        items-center rounded-xl w-full h-[43px] shadow-[0_3px_6px_#00000029]">
+                                <mat-select [errorContainer]="journalIdErrorContainer" formControlName="currencyId"
+                                    name="currencyId"
+                                    class="arrow w-full justify-center items-center w-full text-sm xl:text-base
+                                                                                                                             font-light">
+                                    <mat-option class="text-xs w-full" *ngFor="let option of currencies"
+                                        [value]="option.currencyId">{{
+                                        option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div class="h-4">
+                                <div appValidationMessageContainer
+                                    #journalIdErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col items-center mt-6 ml-10 py-8 px-5 bloc shadow shadow-lg  justify-start  bg-main-gray w-2/5">
+                    <div class="flex flex-row w-full">
+                        <div class="flex flex-row justify-start items-center w-1/2">
+                            <p class="mr-4 text-sm font-light w-1/4">Total Debits</p>
+                            <div class="w-full">
+                                <div class="flex flex-col w-full">
+                                    <p class="mr-4 text-sm font-light w-1/4">{{totalDebits !==0 ? totalDebits :''}}$
+                                    <div class="pr-4">
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-start items-center w-1/2 ml-10">
+                            <p class="mr-4 text-sm font-light w-1/4">Total Credits</p>
+                            <div class="w-full">
+                                <div class="flex flex-col w-full">
+                                    <p class="mr-4 text-sm font-light w-1/4">{{totalCredits !==0 ? totalCredits :''}}$
+                                    </p>
+                                    <div class="pr-4">
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row w-full ">
+                        <div
+                            class="flex flex-row justify-start items-center w-full mt-10 py-2 px-3 bloc bg-white rounded-lg">
+                            <p class="mr-4 text-sm font-light w-3/6">Bill Due Date</p>
+                            <div class="w-full">
+                                <div class="flex flex-col w-full justify-center ">
+                                    <div class="flex flex-row w-full justify-center">
+                                        <input [readOnly]="true" [matDatepicker]="billDueDatePicker"
+                                            [errorContainer]="billDueDateErrorContainer"
+                                            [ngModel]="!journalEntryModel ? '' : journalEntryModel.dueDate"
+                                            class="bg-transparent h-full flex justify-center items-center outline-none w-full
+                                                                                                                             px-1 text-sm xl:text-base font-light"
+                                            formControlName="dueDate" name="dueDate" minlength="2" required />
+                                        <mat-datepicker-toggle matSuffix
+                                            [for]="billDueDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #billDueDatePicker></mat-datepicker>
+                                    </div>
+                                    <div class="pr-4">
+                                        <hr>
+                                    </div>
+
+                                </div>
+                                <div class=" pt-1">
+                                    <div appValidationMessageContainer
+                                        #billDueDateErrorContainer="appValidationMessageContainer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row justify-start items-center w-full mt-10 ">
+                        <p class="mr-4 text-sm font-light w-1/4">EIN</p>
+                        <div class="w-full">
+                            <div class="flex flex-col w-full">
+                                <input [errorContainer]="einErrorContainer"
+                                    [ngModel]="!journalEntryModel ? '' : journalEntryModel.contactEin"
+                                    class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
+                                                                                            
+                                                                                              px-1 text-sm xl:text-base font-light" formControlName="ein" name="ein" minlength="1" />
+                                <div class="pr-4">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class=" pt-1">
+                                <div appValidationMessageContainer #einErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row w-full justify-between items-end">
+                <div class="w-3/5 ">
+                    <div class="w-full">
+                        <p class="mr-4 text-sm font-light pt-10 ">Description</p>
+                        <textarea class="h-full resize-none	 w-full py-3 px-3 rounded-lg  mt-3 bloc shadow shadow-lg flex justify-center items-center outline-none w-full bg-main-gray h-[10.0rem]
+                                                                         px-1 text-sm xl:text-base font-light"
+                            placeholder="Bill for legal services in August." formControlName="description"
+                            [ngModel]="!journalEntryModel ? '' : journalEntryModel.description"
+                            name="description"> </textarea>
+                    </div>
+                </div>
+                <div class="w-2/5 ml-10">
+                    <div class="pt-10">
+                        <div
+                            class="h-full py-5 px-5 rounded-lg  mt-3 bloc shadow shadow-lg flex justify-center items-center outline-none w-full bg-main-gray  h-[10.0rem]
+                                                                                                         px-1 text-sm xl:text-base font-light">
+                            <div class="flex flex-row h-full w-full ">
+                                <div class="flex bloc bg-white  rounded-lg shadow-sm w-2/5 justify-center items-center">
+                                    QR
+                                </div>
+                                <div class="flex flex-col w-3/5 ml-3 ">
+                                    <div
+                                        class="flex bloc bg-white rounded-lg  p-2 shadow-sm w-full h-2/5 justify-center items-center">
+                                        {{!selectedFile ? '' : selectedFile.name}}
+                                    </div>
+                                    <label for="dropzone-file"
+                                        class="flex bloc cursor-pointer bg-white rounded-lg shadow-sm w-full h-3/5 mt-2 justify-center items-center">
+                                        <span class="material-icons text-primary md-40">
+                                            upload_file
+                                        </span>
+                                        <input (change)="onFileSelected($event)" id="dropzone-file" type="file"
+                                            class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="flex flex-row w-full pt-10 justify-between items-end">
+            <p class="mr-4 text-lg font-medium  ">Accounting Entries</p>
+            <app-button (click)="onShowEntriesForm()" icon="add"
+                classes="px-5 py-2 text-[12px] leading-none text-center flex justify-center items-center   text-black bg-white block shadow drop-shadow-lg  color-white"
+                text="Add Rows"></app-button>
+
+        </div>
+        <app-widget-table *ngIf="!addRows" class="pt-5" [tableConfiguration]="tableConfiguration"></app-widget-table>
+        <div *ngIf="addRows"
+            class="flex bloc bg-main-gray  rounded-lg drop-shadow-lg mt-10 justify-center items-center">
+            <form [formGroup]="formEntries" class="w-full px-10 pt-5 pb-10">
+                <div class="flex flex-row justify-start items-center w-1/2">
+                    <app-search (selectAccount)="selectAccount($event)"></app-search>
+                </div>
+
+                <div class="flex flex-row w-full mt-10">
+                    <div class="flex flex-row justify-start items-center w-1/2">
+                        <p class="mr-4 text-sm font-light w-1/4">Debit</p>
+                        <div class="w-full">
+                            <div class="flex flex-col w-full">
+                                <input type="number" [errorContainer]="debitErrorContainer" class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
+                                                                             px-1 text-sm xl:text-base font-light"
+                                    formControlName="debit" name="debit" minlength="2" required />
+                                <div class="pr-4">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class=" pt-1">
+                                <div appValidationMessageContainer #debitErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row justify-start items-center w-1/2 ml-10">
+                        <p class="mr-4 text-sm font-light w-1/4">Credit</p>
+                        <div class="w-full">
+                            <div class="flex flex-col w-full">
+                                <input type="number" [errorContainer]="creditErrorContainer"
+                                    class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
+                                                                                                 px-1 text-sm xl:text-base font-light" formControlName="credit" name="credit"
+                                    minlength="2" required />
+                                <div class="pr-4">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class=" pt-1">
+                                <div appValidationMessageContainer
+                                    #creditErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-row w-full mt-5">
+                    <div class="flex flex-row justify-start items-center w-1/2">
+                        <p class="mr-4 text-sm font-light w-1/4">EIN</p>
+                        <div class="w-full">
+                            <div class="flex flex-col w-full">
+                                <input type="number" [errorContainer]="einErrorContainer" (keyup)="onEinChange($event)"
+                                    class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
+                                                                                                           px-1 text-sm xl:text-base font-light"
+                                    formControlName="ein" name="ein" minlength="2" required />
+                                <div class="pr-4">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class=" pt-1">
+                                <div appValidationMessageContainer #einErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-row justify-start items-center w-1/2 ml-10 ">
+                        <p class="mr-4 text-sm font-light w-1/4">Description</p>
+                        <div class="w-full">
+                            <div class="flex flex-col w-full">
+                                <input [errorContainer]="descriptionErrorContainer" class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
+                                                                        
+                                                                          px-1 text-sm xl:text-base font-light"
+                                    formControlName="description" name="description" minlength="1" />
+                                <div class="pr-4">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class=" pt-1">
+                                <div appValidationMessageContainer
+                                    #descriptionErrorContainer="appValidationMessageContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row w-full  mt-10 justify-between">
+                    <div *ngIf="taxes.length !==0"
+                        class="flex flex-row  rounded-lg justify-start items-center w-1/2   ">
+                        <p class="mr-4 text-sm font-light w-1/4">Tax : </p>
+                        <p class="mr-4 text-sm font-light w-1/4">{{taxes.length !==0 ? taxes[0].taxName : ''}}</p>
+                    </div>
+                    <app-button (click)="onAddEntries()" classes="px-10  py-4 text-[12px] 
+                                                       text-center flex justify-center items-center text-white bg-primary 
+                                                     shadow drop-shadow-lg color-white" text="Add">
+                    </app-button>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex flex-row w-full py-10 justify-end items-end">
+
+            <app-button (click)="onCancel()" classes="px-5 py-[14px] text-[12px] 
+                leading-none text-center flex border-[2px] justify-center items-center 
+                  text-primary bg-white  border   color-white" text="Cancel">
+            </app-button>
+            <app-button (click)="onAddJournal()" [ngClass]="form.valid && journalItems.length !==0 ?'':'opacity-25'"
+                classes="px-5 ml-3 py-4 text-[12px] 
+            leading-none text-center flex justify-center items-center text-white bg-primary 
+            shadow drop-shadow-lg color-white" text="Complete Journal Entry"></app-button>
+        </div>
+    </div>
+</div>
