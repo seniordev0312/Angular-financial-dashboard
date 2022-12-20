@@ -8,31 +8,36 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class SignalrService {
+export class SignalRService {
   private readonly baseUrl = `${environment.signalRHub}`;
   private options: signalR.IHttpConnectionOptions;
   private hubConnection: signalR.HubConnection;
 
-  constructor(private oidcSecurityService: OidcSecurityService,
-    private route: ActivatedRoute) {
+  constructor(
+    private oidcSecurityService: OidcSecurityService,
+    private route: ActivatedRoute
+  ) {
     this.options = {
       transport: signalR.HttpTransportType.LongPolling,
       accessTokenFactory: () => lastValueFrom(this.oidcSecurityService.getAccessToken()),
-      withCredentials: false
+      withCredentials: false,
     };
+  }
 
-
-    this.createConnection();
+  init(ticketId: number) {
+    this.createConnection(ticketId);
 
     this.addOnReceiveMessageListener();
 
     this.onReconnected();
 
+    this.startConnection();
+
   }
 
-  public createConnection = () => {
+  public createConnection = (ticketId: number) => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${this.baseUrl}/Hub/CustomerService`, this.options)
+      .withUrl(`${this.baseUrl}/Hub/Chat/CustomerService?ticketId=${ticketId}`, this.options)
       .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
       .build();
@@ -65,7 +70,15 @@ export class SignalrService {
   };
 
   public addOnReceiveMessageListener = () => {
-    this.hubConnection.on('OnTicketCreated', (message: any) => {
+
+    console.log('addOnReceiveMessageListener');
+    this.hubConnection.on('OnMessageReceived', (message: any) => {
+      console.log(message);
+    });
+    this.hubConnection.on('Connected', (message: any) => {
+      console.log(message);
+    });
+    this.hubConnection.on('OnConnected', (message: any) => {
       console.log(message);
     });
   };

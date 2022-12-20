@@ -122,6 +122,7 @@ export class UserSecurityService {
             }
         });
     }
+
     deleteClaimFromRole(deleteClaimFromRole: DeleteClaimFromRole, backendUrl?: string) {
         let endPointUrl = `${this.baseUrl}/${deleteClaimFromRole.roleId}/Claims?claimId=${deleteClaimFromRole.claimId}`;
         let httpOptions = {

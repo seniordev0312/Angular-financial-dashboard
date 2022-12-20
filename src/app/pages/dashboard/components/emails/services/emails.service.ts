@@ -6,7 +6,7 @@ import { EmailsRepository } from "../store/emails.repository";
 
 @Injectable({ providedIn: 'root' })
 export class EmailsService {
-    private baseUrl = `${environment.customerServer}/api/Email`;
+    private baseUrl = `${environment.customerServer}/api`;
 
     constructor(
         private httpClient: HttpClient,
@@ -14,7 +14,7 @@ export class EmailsService {
     ) { }
 
     getEmails(pageIndex: number, pageSize: number, backendUrl?: string): void {
-        let endPointUrl = this.baseUrl;
+        let endPointUrl = `${this.baseUrl}/Email`;
         let httpOptions = {
             headers: new HttpHeaders({
                 'InterceptorHideSpinner': '',
@@ -38,7 +38,7 @@ export class EmailsService {
     }
 
     getEmailMessage(messageId: any, backendUrl?: string) {
-        let endPointUrl = `${this.baseUrl}/${messageId}`;
+        let endPointUrl = `${this.baseUrl}/Email/${messageId}`;
         let httpOptions = {
             headers: new HttpHeaders({
                 'InterceptorHideSpinner': '',
@@ -65,5 +65,23 @@ export class EmailsService {
 
     AddCustomServerTicketFromEmail() {
 
+    }
+
+    AddEmail(emails: any) {
+        this.emailsRepository.addEmail(emails);
+    }
+    createTicket(ticketData: any) {
+        let endPointUrl = `${this.baseUrl}/CustomerServiceTicket`;
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'InterceptorHideSpinner': '',
+            }),
+            params: new HttpParams(),
+        };
+        this.httpClient.post<any>(endPointUrl, ticketData, httpOptions).subscribe(data => {
+            if (data) {
+                console.log(data);
+            }
+        });
     }
 }

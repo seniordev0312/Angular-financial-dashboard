@@ -92,7 +92,6 @@ export class AddUserRoleComponent extends BaseComponent implements OnInit {
 
     this.userSecurityService.getClaims(`${environment.identityAPIServerURL}/Clients/3/ClaimGroups`)
 
-
     this.multiFormGroup.get("options").valueChanges.subscribe(value => {
       console.log(value);
       const newestClaimList = new Set();
@@ -133,8 +132,6 @@ export class AddUserRoleComponent extends BaseComponent implements OnInit {
           roleName: this.addFormGroup.value.name,
         }
         if (this.id) {
-          console.log(this.id);
-
           addRole.roleId = this.id
         }
         this.userSecurityService.addRole(addRole);

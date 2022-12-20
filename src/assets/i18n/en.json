@@ -28,11 +28,22 @@
         "chart-of-accounts": "Chart of Accounts",
         "reference-tables": "Reference Tables"
     },
+    "reports": {
+        "reports": "Reports",
+        "report-viewer": {
+            "report-viewer": "Report Viewer"
+        },
+        "report-designer": {
+            "report-designer": "Report Designer"
+        }
+    },
     "core": {
         "toolbar": {},
         "footer": {},
         "left-side-bar-front": {},
         "left-side-bar-back": {
+            "report-viewer": "Report Viewer",
+            "report-designer": "Report Designer",
             "dashboard": "Dashboard",
             "customer-service": "Customer Service",
             "insurance-renewals": "Insurance Renewals",

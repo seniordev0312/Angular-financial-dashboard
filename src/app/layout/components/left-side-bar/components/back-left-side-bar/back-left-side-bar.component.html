@@ -1,6 +1,6 @@
 <div class="relative h-full" [@fadeSlideInOut]="animationState">
   <div [ngClass]="{'pl-4 pr-4': extended,'items-center': !extended}" class="h-full flex justify-center flex-col pb-2">
-    <div class="h-[5%] flex items-center gap-2 text-lg text-black">
+    <div class="h-[5%] flex items-center gap-2 text-lg text-black" *ngIf="extended">
       <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold icon" (click)="flipCard()">
       </mat-icon>
     </div>
