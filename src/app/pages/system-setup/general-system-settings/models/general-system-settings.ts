@@ -1,9 +1,9 @@
 export interface GeneralSystemSettings {
     companyName: string;
-    defaultLanguage: string;
-    country: string;
-    defaultCurrency: string;
-    fiscalYear: string;
-    underwritingYear: string;
-    accountingStyle: string;
+    accountingStyleCode: string;
+    underwritingYear: number;
+    fiscalYear: number;
+    defaultCurrencyCode: string;
+    countryCode: string;
+    languageCode: string;
 }

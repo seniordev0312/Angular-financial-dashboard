@@ -1,6 +1,7 @@
 <mat-form-field class="w-full" appearance="fill">
     <mat-label>{{label}}</mat-label>
-    <mat-select panelClass="wfullclass" [disabled]="isDisabled" [multiple]="isMultiple" [formControl]="control">
+    <mat-select panelClass="wfullclass" value="BATATA" [disabled]="isDisabled" [multiple]="isMultiple"
+        [formControl]="control">
         <mat-option *ngFor="let option of optionsList" [value]="option.id">
             <span class="text-accent text-xs">{{option.value}}</span>
         </mat-option>

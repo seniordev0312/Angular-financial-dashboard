@@ -1,3 +1,61 @@
 .contactviewclass {
   background-color: #fafafa;
 }
+
+:host ::ng-deep {
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .cdk-overlay-pane {
+    padding-top: 25px;
+  }
+
+  .mat-select-arrow-wrapper {
+    display: none !important;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding: 0px;
+  }
+
+  .selectCustomClass {
+    border-radius: 10% !important;
+    padding-top: 20px;
+  }
+
+  .mat-option.mat-active {
+    background-color: #FFFFFF;
+  }
+
+  .dropDownIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .icon {
+    width: 50px;
+    height: 33px;
+  }
+
+  .matOption {
+    height: 3rem;
+  }
+
+  .mat-form-field-infix {
+    width: 40px;
+  }
+
+  .mat-form-field-type-mat-select .mat-form-field-label {
+    width: 40px;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    border-top: solid transparent !important
+  }
+
+  .mat-select-panel .mat-optgroup-label,
+  .mat-select-panel .mat-option {
+    height: 3rem;
+  }
+}

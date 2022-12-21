@@ -20,7 +20,6 @@ export class SignalRService {
         private emailsService: EmailsService
     ) {
         this.options = {
-            transport: signalR.HttpTransportType.LongPolling,
             accessTokenFactory: () => lastValueFrom(this.oidcSecurityService.getAccessToken()),
             withCredentials: false
         };

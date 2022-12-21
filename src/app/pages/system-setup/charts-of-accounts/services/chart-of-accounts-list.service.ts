@@ -12,7 +12,7 @@ export class ChartOfAccountsListService {
         private chartOfAccountsRepository: ChartOfAccountsRepository) { }
 
     getChartOfAccountsList(pageSize: number, childrenPageSize: number): void {
-        const endPointUrl = `${environment.systemSetupApiUrl}/Account/GetAccountsHierarchy/${pageSize}/${childrenPageSize}`;
+        const endPointUrl = `${environment.accountingUrl}/Account/GetAccountsHierarchy/${pageSize}/${childrenPageSize}`;
         this.httpClient.get<ChartOfAccountsListItem[]>(endPointUrl).subscribe(data => {
             if (data) {
                 this.chartOfAccountsRepository.updateChartOfAccountsList(data);
@@ -21,7 +21,7 @@ export class ChartOfAccountsListService {
     }
 
     searchChartOfAccountsList(searchWord: string): void {
-        const endPointUrl = `${environment.systemSetupApiUrl}/Account/SearchAccount/${searchWord}`;
+        const endPointUrl = `${environment.accountingUrl}/Account/SearchAccount/${searchWord}`;
         this.httpClient.get<ChartOfAccountsListItem[]>(endPointUrl).subscribe(data => {
             if (data) {
                 this.chartOfAccountsRepository.updateChartOfAccountsList(data);

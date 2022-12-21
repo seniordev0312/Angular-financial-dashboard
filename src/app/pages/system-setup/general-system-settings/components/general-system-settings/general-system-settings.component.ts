@@ -18,7 +18,7 @@ import { take } from 'rxjs';
 import { GeneralSystemSettingsFormGroup } from '../../form-groups/general-system-settings-from-group.service';
 import { Holiday } from '../../models/holiday.model';
 import { GeneralSystemSettingsService } from '../../services/general-system-settings.service';
-import { holidays$ } from '../../store/general-system-settings.store';
+import { accountingStyle$, country$, defaultCurrency$, defaultLanguages$, generalSystemSettings$, holidays$ } from '../../store/general-system-settings.store';
 
 @Component({
   selector: 'app-general-system-settings',
@@ -103,8 +103,36 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
   fg: FormGroup;
 
   ofDayTypesList: BaseListItem[] = [
-    { id: '0', value: 'one' },
-    { id: '1', value: 'tow' }
+    { id: '0', value: 'true' },
+    { id: '1', value: 'false' },
+    { id: '1', value: 'ALL' },
+  ];
+
+  defaultLanguage: BaseListItem[] = [];
+  country: BaseListItem[] = [];
+  defaultCurrency: BaseListItem[] = [];
+  accountingStyle: BaseListItem[] = [];
+  years: BaseListItem[] = [
+    {
+      id: '2022',
+      value: '2022'
+    },
+    {
+      id: '2023',
+      value: '2023'
+    },
+    {
+      id: '2024',
+      value: '2024'
+    },
+    {
+      id: '2025',
+      value: '2025'
+    },
+    {
+      id: '2026',
+      value: '2026'
+    },
   ];
 
   editAction: TableRowAction<Holiday> = {
@@ -193,7 +221,7 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       showText: true,
       filter: {
         filterType: TableColumnFilterDataType.DropDown,
-        selectListViewProperty: 'name',
+        selectListViewProperty: 'value',
         selectOptionsList: this.ofDayTypesList
       }
     },
@@ -219,19 +247,60 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
   }
 
   ngOnInit(): void {
-    this.getActionsList();
+    this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
+    this.generalSystemSettingsService.getGeneralSystemSettings();
     this.subscriptions.add(
       holidays$.subscribe(data => {
         if (!this.isEmpty(data)) {
           this.templatesList = data;
         }
       }));
-
+    this.subscriptions.add(
+      defaultLanguages$.subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.defaultLanguage = []
+          data.forEach((item: any) => {
+            this.defaultLanguage.push({ id: item.code, value: item.value })
+          });
+        }
+      }));
+    this.subscriptions.add(
+      defaultCurrency$.subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.defaultCurrency = []
+          data.forEach((item: any) => {
+            this.defaultCurrency.push({ id: item.code, value: item.value })
+          });
+        }
+      }));
+    this.subscriptions.add(
+      accountingStyle$.subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.accountingStyle = [];
+          data.forEach((item: any) => {
+            this.accountingStyle.push({ id: item.code, value: item.value })
+          });
+        }
+      }));
+    this.subscriptions.add(
+      country$.subscribe(data => {
+        if (!this.isEmpty(data)) {
+          this.country = []
+          data.forEach((item: any) => {
+            this.country.push({ id: item.code, value: item.value })
+          });
+        }
+      }));
+    this.subscriptions.add(
+      generalSystemSettings$.subscribe(data => {
+        data.fiscalYear = data.fiscalYear.toString();
+        data.underwritingYear = data.underwritingYear.toString();
+        this.fg = this.generalSystemSettingsFormGroup.getFormGroup(data);
+      }));
     this.generalSystemSettingsService.getHolidays(0, 1000)
     this.getActionsList();
     this.tableConfiguration.data = this.templatesList;
     this.tableConfiguration.dataCount = this.templatesList.length;
-    this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -315,9 +384,9 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
   }
   onSave() {
     console.log(this.fg.value, this.fg.valid);
-
+    if (this.fg.value) {
+      this.generalSystemSettingsService.updateGeneralSystemSettings({
+      })
+    }
   }
-
-
 }
-

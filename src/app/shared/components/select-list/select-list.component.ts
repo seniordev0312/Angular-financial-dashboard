@@ -10,6 +10,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 })
 export class SelectListComponent {
   @Input() label: string;
+  @Input() selected: string = '';
   @Input() wfullclass: string;
   @Input() control: FormControl;
   @Input() isMultiple = false;

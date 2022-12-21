@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Route, RouterModule } from '@angular/router';
-import { SharedModule } from '@root/shared/shared.module';
+import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Route, RouterModule } from '@angular/router';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { SharedModule } from '@root/shared/shared.module';
+
+import { PolicyCardComponent } from './components/policy-card/policy-card.component';
+import { PolicyFilterComponent } from './components/policy-filter/policy-filter.component';
 import { PolicyRenewalsComponent } from './components/policy-renewals/policy-renewals.component';
 import { PolicySortComponent } from './components/policy-sort/policy-sort.component';
-import { PolicyCardComponent } from './components/policy-card/policy-card.component';
 import { PolicyStatusComponent } from './components/policy-status/policy-status.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { PolicyFilterComponent } from './components/policy-filter/policy-filter.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatSidenavModule } from '@angular/material/sidenav';
+
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
@@ -37,4 +39,4 @@ const routes: Route[] = [
     MatSidenavModule
   ],
 })
-export class PolicyRenewalsModule {}
+export class PolicyRenewalsModule { }

@@ -1,4 +1,5 @@
 export class ReferenceTables {
-    referenceType: string;
-    referenceValue: string;
+    key: string;
+    code: string;
+    value: string;
 }

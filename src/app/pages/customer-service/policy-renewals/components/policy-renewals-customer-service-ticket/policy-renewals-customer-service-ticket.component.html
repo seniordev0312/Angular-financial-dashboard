@@ -9,127 +9,72 @@
         <div class="w-[57%] flex flex-col pr-10 pl-7 twocolorbackground">
           <div class="flex flex-row pb-4">
             <div class="w-1/2 flex flex-row">
-              <p
-                class="font-base leading-none flex items-center pt-5 font-bold"
-              >
+              <p class="font-base leading-none flex items-center pt-5 font-bold">
                 ENTITY NAME HERE
               </p>
               <div class="flex-1">
                 <div class="flex justify-center pt-5">
                   EIN: &nbsp;
-                  <span
-                    class="underline text-[15px] text-primary decoration-sky-100 flex items-center"
-                    >0079827</span
-                  >
+                  <span class="underline text-[15px] text-primary decoration-sky-100 flex items-center">0079827</span>
                 </div>
               </div>
             </div>
             <div class="w-1/2 flex flex-row justify-center">
-              <p
-                class="text-sm px-4 leading-none pt-5 text-center font-bold flex items-center"
-              >
+              <p class="text-sm px-4 leading-none pt-5 text-center font-bold flex items-center">
                 TICKET STATUS:
               </p>
               <div class="flex-1 flex flex-row pt-5 border-b-half">
-                <div
-                  class="flex-1 flex flex-start text-center font-bold text-primary"
-                >
+                <div class="flex-1 flex flex-start text-center font-bold text-primary">
                   In Process
                 </div>
                 <div class="flex-end">
-                  <mat-icon
-                    class="flex justify-center items-center"
-                    svgIcon="customer-service-select-down"
-                  ></mat-icon>
+                  <mat-icon class="flex justify-center items-center" svgIcon="customer-service-select-down"></mat-icon>
                 </div>
               </div>
             </div>
           </div>
           <cdk-accordion>
-            <cdk-accordion-item
-              #accordionItem0="cdkAccordionItem"
-              role="button"
-              tabindex="0"
-              [attr.id]="'accordion-header-0'"
-              [attr.aria-expanded]="accordionItem0.expanded"
-              [attr.aria-controls]="'accordion-body-0'"
-            >
+            <cdk-accordion-item #accordionItem0="cdkAccordionItem" role="button" tabindex="0"
+              [attr.id]="'accordion-header-0'" [attr.aria-expanded]="accordionItem0.expanded"
+              [attr.aria-controls]="'accordion-body-0'">
               <app-contact-details (click)="accordionItem0.toggle()"></app-contact-details>
-              <div
-                class="mt-5 shadow-md bg-white"
-                role="region"
-                [style.display]="accordionItem0.expanded ? '' : 'none'"
-                [attr.id]="'accordion-body-0'"
-                [attr.aria-labelledby]="'accordion-header-0'"
-              ></div>
+              <div class="mt-5 shadow-md bg-white" role="region" [style.display]="accordionItem0.expanded ? '' : 'none'"
+                [attr.id]="'accordion-body-0'" [attr.aria-labelledby]="'accordion-header-0'"></div>
             </cdk-accordion-item>
 
             <div class="mt-5 shadow-md bg-white">
-              <cdk-accordion-item
-                #accordionItem1="cdkAccordionItem"
-                role="button"
-                tabindex="1"
-                [attr.id]="'accordion-header-1'"
-                [attr.aria-expanded]="accordionItem1.expanded"
-                [attr.aria-controls]="'accordion-body-1'"
-              >
-                <p
-                  (click)="accordionItem1.toggle()"
-                  class="flex justify-center items-center text-lg h-20 text-primary w-full"
-                >
+              <cdk-accordion-item #accordionItem1="cdkAccordionItem" role="button" tabindex="1"
+                [attr.id]="'accordion-header-1'" [attr.aria-expanded]="accordionItem1.expanded"
+                [attr.aria-controls]="'accordion-body-1'">
+                <p (click)="accordionItem1.toggle()"
+                  class="flex justify-center items-center text-lg h-20 text-primary w-full">
                   Policy Information
                 </p>
-                <div
-                  class="mt-5"
-                  role="region"
-                  [style.display]="accordionItem1.expanded ? '' : 'none'"
-                  [attr.id]="'accordion-body-1'"
-                  [attr.aria-labelledby]="'accordion-header-1'"
-                >
+                <div class="mt-5" role="region" [style.display]="accordionItem1.expanded ? '' : 'none'"
+                  [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-1'">
                   <app-policy-information></app-policy-information>
                 </div>
               </cdk-accordion-item>
             </div>
 
-            <div
-              class="flex flex-col justify-center rounded-md shadow-md bg-white px-9 mt-5"
-            >
-              <cdk-accordion-item
-                #accordionItem2="cdkAccordionItem"
-                role="button"
-                tabindex="2"
-                [attr.id]="'accordion-header-2'"
-                [attr.aria-expanded]="accordionItem2.expanded"
-                [attr.aria-controls]="'accordion-body-2'"
-              >
+            <div class="flex flex-col justify-center rounded-md shadow-md bg-white px-9 mt-5">
+              <cdk-accordion-item #accordionItem2="cdkAccordionItem" role="button" tabindex="2"
+                [attr.id]="'accordion-header-2'" [attr.aria-expanded]="accordionItem2.expanded"
+                [attr.aria-controls]="'accordion-body-2'">
                 <div class="flex justify-center w-full relative h-20">
-                  <p
-                    class="pt-5 text-primary text-lg"
-                    (click)="accordionItem2.toggle()"
-                  >
+                  <p class="pt-5 text-primary text-lg" (click)="accordionItem2.toggle()">
                     Follow-Up History
                   </p>
-                  <div
-                    role="region"
-                    [style.display]="accordionItem2.expanded ? '' : 'none'"
-                    [attr.id]="'accordion-body-2'"
-                    [attr.aria-labelledby]="'accordion-header-2'"
-                  >
-                    <button
-                    (click)="nextPage()"
-                      class="rounded-md text-xs p-3 text-white bg-primary absolute right-6 top-3"
-                    >
+                  <div role="region" [style.display]="accordionItem2.expanded ? '' : 'none'"
+                    [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'">
+                    <button (click)="nextPage()"
+                      class="rounded-md text-xs p-3 text-white bg-primary absolute right-6 top-3">
                       Add Communication
                     </button>
                   </div>
                 </div>
-                <div
-                  role="region"
-                  [style.display]="accordionItem2.expanded ? '' : 'none'"
-                  [attr.id]="'accordion-body-2'"
-                  [attr.aria-labelledby]="'accordion-header-2'"
-                  class="border-none"
-                >
+                <div role="region" [style.display]="accordionItem2.expanded ? '' : 'none'"
+                  [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'" class="border-none">
                   <div *ngIf="pageFlag == 'first'">
                     <app-history-list></app-history-list>
                     <div class="none">
@@ -138,37 +83,23 @@
                   <div *ngIf="pageFlag == 'next'">
                     <app-edit-history></app-edit-history>
                     <div class="flex-1 flex items-end justify-end">
-                      <input
-                      (click)="backToFirstPage()"
-                        class="ml-auto px-8 py-3 text-[15px] bg-primary text-white rounded-md"
-                        type="button"
-                        value="save"
-                      />
+                      <input (click)="backToFirstPage()"
+                        class="ml-auto px-8 py-3 text-[15px] bg-primary text-white rounded-md" type="button"
+                        value="save" />
                     </div>
                   </div>
-                  
+
                 </div>
               </cdk-accordion-item>
             </div>
             <div class="mt-5 mb-3">
-              <cdk-accordion-item
-                #accordionItem3="cdkAccordionItem"
-                role="button"
-                tabindex="0"
-                [attr.id]="'accordion-header-0'"
-                [attr.aria-expanded]="accordionItem3.expanded"
-                [attr.aria-controls]="'accordion-body-0'"
-              >
-                <app-notes
-                  (click)="accordionItem3.toggle()"
-                ></app-notes>
-                <div
-                  class="mt-5 shadow-md bg-white"
-                  role="region"
-                  [style.display]="accordionItem3.expanded ? '' : 'none'"
-                  [attr.id]="'accordion-body-0'"
-                  [attr.aria-labelledby]="'accordion-header-0'"
-                ></div>
+              <cdk-accordion-item #accordionItem3="cdkAccordionItem" role="button" tabindex="0"
+                [attr.id]="'accordion-header-0'" [attr.aria-expanded]="accordionItem3.expanded"
+                [attr.aria-controls]="'accordion-body-0'">
+                <app-notes (click)="accordionItem3.toggle()"></app-notes>
+                <div class="mt-5 shadow-md bg-white" role="region"
+                  [style.display]="accordionItem3.expanded ? '' : 'none'" [attr.id]="'accordion-body-0'"
+                  [attr.aria-labelledby]="'accordion-header-0'"></div>
               </cdk-accordion-item>
             </div>
           </cdk-accordion>
@@ -176,7 +107,7 @@
         <div class="w-[43%] pl-4">
           <div class="flex flex-col h-[80vh] w-[100%]">
             <div class="h-[75%] w-full bgColor rounded-md shadow-md">
-              <app-contact-view></app-contact-view>
+              <app-contact-view [data]="data"></app-contact-view>
             </div>
             <div class="h-[25%] rounded-md shadow-md">
               <app-contact-form></app-contact-form>

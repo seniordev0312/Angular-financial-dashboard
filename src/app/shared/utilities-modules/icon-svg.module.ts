@@ -23,6 +23,9 @@ export class IconSvgModule {
                 'close',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/close.svg')
             ).addSvgIcon(
+                'chat',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/chat.svg')
+            ).addSvgIcon(
                 'small-down',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/small-down.svg')
             ).addSvgIcon(

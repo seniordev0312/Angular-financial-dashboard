@@ -10,12 +10,37 @@ import { GeneralSystemSettingsRepository } from '../store/general-system-setting
 })
 export class GeneralSystemSettingsService {
 
-    private baseUrl = `${environment.identityAPIServerURL}`;
+    private baseUrl = `${environment.entityApiUrl}`;
     constructor(
         private httpClient: HttpClient,
         private generalSystemSettingsRepository: GeneralSystemSettingsRepository
     ) { }
 
+    getGeneralSystemSettings() {
+        let endPointUrl = `${this.baseUrl}/GeneralSystemSettings/GetGeneralSystemSettings`;
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        this.httpClient.get<any>(endPointUrl, httpOptions).subscribe(data => {
+            if (data) {
+                this.generalSystemSettingsRepository.updateGeneralSystemSettings(data);
+            }
+        });
+    }
+
+    updateGeneralSystemSettings(generalSystemSettings: any) {
+        let endPointUrl = `${this.baseUrl}/GeneralSystemSettings/UpdateGeneralSystemSettings`;
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        this.httpClient.post<any>(endPointUrl, generalSystemSettings, httpOptions).subscribe(data => {
+            if (data) {
+                this.generalSystemSettingsRepository.updateGeneralSystemSettings(data);
+            }
+        });
+    }
 
     getHolidays(pageIndex: number, pageSize: number, backendUrl?: string): void {
         let endPointUrl = this.baseUrl;
@@ -32,7 +57,6 @@ export class GeneralSystemSettingsService {
                 params: httpOptions.params.set('PageIndex', pageIndex.toString()).set('PageSize', pageSize.toString()),
             }
         }
-
         this.httpClient.get<any>(endPointUrl, httpOptions).subscribe(data => {
             if (data) {
                 if (data.length === 0) {
@@ -108,7 +132,6 @@ export class GeneralSystemSettingsService {
                 this.generalSystemSettingsRepository.updateHolidays(data);
             }
         });
-
     }
 
     deleteHoliday(_holiday: Holiday) {
