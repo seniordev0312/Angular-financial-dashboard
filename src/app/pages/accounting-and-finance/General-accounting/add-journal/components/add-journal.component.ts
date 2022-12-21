@@ -252,9 +252,10 @@ export class AddJournalComponent implements OnInit, OnDestroy {
 
   onAddEntries() {
     if (this.formEntries.valid && this.localAccount.name.length !== 0 && this.taxes.length !== 0) {
+      const sequence = this.journalItems.length === 0 ? 1 : this.journalItems[this.journalItems.length - 1].sequence + 1;
       this.journalItems.push({
         journalItemId: 0,
-        sequence: this.journalItems.length + 1,
+        sequence: sequence,
         accountId: this.localAccount.accountId,
         productEin: this.productEin,
         debit: this.formEntries.value.debit,
