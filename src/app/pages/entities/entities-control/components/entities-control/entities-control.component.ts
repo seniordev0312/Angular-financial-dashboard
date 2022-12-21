@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { GeneralAccountingRepository } from '@root/pages/accounting-and-finance/General-accounting/general-accounting/general-accounting.repository';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
@@ -10,6 +11,7 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { LayoutService } from '@root/shared/services/layout.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
 import { EntityFilterFormGroup } from '../../form-group/entity-filter-form-group.service';
@@ -35,7 +37,6 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   entityTypeFormControl = new FormControl('100');
   entitiesList: EntitiesTableItem[] = [];
   isSpinning$: Observable<boolean>;
-
   tableColumns: TableColumn[] = [
     {
       translationKey: 'EIN',
@@ -140,10 +141,31 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: false });
+  selectAction: TableRowAction<EntitiesTableItem> = {
+    action: (data) => {
+      this.generalAccountingRepository.updateEinValue(data.EIN);
+      this.dialog.closeAll();
+    },
+    cssClasses: 'text-primary',
+    iconName: 'check_circle_outline',
+    translationKey: '',
+    alwaysShow: true,
+    showConditionProperty: null,
+    isIconButton: true,
+  };
+
+  getActions(): TableRowAction<EntitiesTableItem>[] {
+    if (this.einFocus !== -1 && !this.einFocus) {
+      return [this.editAction, this.viewAction, this.selectAction]
+    } else {
+      return [this.editAction, this.viewAction]
+    }
+  }
+
+  tableSettings = new TableSettings({ actionsMode: 'inline', pagesSize: this.pageSize, isLocalPaging: false });
   filterFG: FormGroup;
   tableConfiguration: TableConfiguration<EntitiesTableItem> = {
-    tableRowsActionsList: [this.editAction, this.viewAction],
+    tableRowsActionsList: this.getActions(),
     columns: this.tableColumns,
     data: [],
     dataCount: 0,
@@ -152,11 +174,22 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
     private entitiesControlService: EntitiesControlService,
-    private entityFilterFormGroup: EntityFilterFormGroup) { super(); }
+    private generalAccountingRepository: GeneralAccountingRepository,
+    private cdr: ChangeDetectorRef,
+    private layoutService: LayoutService,
+    private entityFilterFormGroup: EntityFilterFormGroup) {
+    super();
+  }
 
 
+  einFocus = -1;
   ngOnInit(): void {
-    this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+
+    this.layoutService.onHandleEinFocus().subscribe((data: any) => {
+      this.einFocus = data ? data : -1;
+      console.log(this.einFocus);
+    });
+
     this.entitiesControlService.getEntityTypesList();
     this.isSpinning$ = isSpinning$;
 
@@ -187,15 +220,26 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(entityTypes$.subscribe(data => {
       if (!this.isEmpty(data)) {
-        this.entityTypesList = [{ id: '100', value: 'All' }, ...data];
+        if (this.einFocus !== -1) {
+          this.entityTypesList = this.einFocus === 1 ? data.filter(x => x.value == 'Person') : data.filter(x => x.value == 'Policy');
+          this.entityTypeFormControl = new FormControl(this.entityTypesList[0].id.toString());
+          this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+        } else {
+          this.entityTypesList = [{ id: '100', value: 'All' }, ...data];
+          this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+        }
       }
+      this.cdr.detectChanges();
     }));
 
     this.subscriptions.add(this.entityTypeFormControl.valueChanges.subscribe(data => {
-      this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
+      if (this.einFocus === -1) {
+        this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
+      }
     }));
 
   }
+
 
 
   onEntityAdded() {
@@ -229,4 +273,6 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     }
     this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
   }
+
+
 }

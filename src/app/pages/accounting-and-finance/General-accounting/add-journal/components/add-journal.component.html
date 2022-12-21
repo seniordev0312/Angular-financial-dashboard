@@ -140,7 +140,9 @@
                             <p class="mr-4 text-sm font-light w-1/4">Total Debits</p>
                             <div class="w-full">
                                 <div class="flex flex-col w-full">
-                                    <p class="mr-4 text-sm font-light w-1/4">{{totalDebits !==0 ? totalDebits :''}}$
+                                    <p *ngIf="totalDebits!==0" class="mr-4 text-sm font-light w-1/4">{{totalDebits |
+                                        number : '.2' }}
+
                                     <div class="pr-4">
                                         <hr>
                                     </div>
@@ -151,7 +153,8 @@
                             <p class="mr-4 text-sm font-light w-1/4">Total Credits</p>
                             <div class="w-full">
                                 <div class="flex flex-col w-full">
-                                    <p class="mr-4 text-sm font-light w-1/4">{{totalCredits !==0 ? totalCredits :''}}$
+                                    <p *ngIf="totalCredits!==0" class="mr-4 text-sm font-light w-1/4">
+                                        {{totalCredits | number : '.2' }}
                                     </p>
                                     <div class="pr-4">
                                         <hr>
@@ -194,8 +197,8 @@
                         <p class="mr-4 text-sm font-light w-1/4">EIN</p>
                         <div class="w-full">
                             <div class="flex flex-col w-full">
-                                <input [errorContainer]="einErrorContainer"
-                                    [ngModel]="!journalEntryModel ? '' : journalEntryModel.contactEin"
+                                <input (keydown)="onEinBlur()" (keyup)="onEinFocus()"
+                                    [errorContainer]="einErrorContainer" [ngModel]="getEinValue()"
                                     class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
                                                                                             
                                                                                               px-1 text-sm xl:text-base font-light" formControlName="ein" name="ein" minlength="1" />
@@ -234,7 +237,7 @@
 
                                 </div>
                                 <div class="flex flex-col w-3/5 ml-3  " *ngFor="let option of documentList">
-                                    <button (click)="onDownloadFile(option.documentId)"
+                                    <button (click)="onDownloadFile(option.name)"
                                         class="flex bloc bg-white rounded-lg  p-2 shadow-sm w-full h-2/5 justify-center items-center">
                                         {{ option.name}}
                                     </button>
@@ -303,7 +306,9 @@
                         <p class="mr-4 text-sm font-light w-1/4">EIN</p>
                         <div class="w-full">
                             <div class="flex flex-col w-full">
-                                <input type="number" [errorContainer]="einErrorContainer" (keyup)="onEinChange($event)"
+                                <input (keydown)="onEinPolicyBlur()" (keyup)="onEinPolicyFocus()"
+                                    [errorContainer]="einErrorContainer" (keyup)="onEinPolicyChange($event)"
+                                    [ngModel]="einPolicyValue"
                                     class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
                                                                                                            px-1 text-sm xl:text-base font-light"
                                     formControlName="ein" name="ein" minlength="2" required />
