@@ -15,6 +15,7 @@ import { CurrencyEditorComponent } from '../currency-editor/currency-editor.comp
 import { MatDialogModule } from '@angular/material/dialog';
 import { PrintJournalComponent } from '../print-journal/print-journal.component';
 import { EditCurrencyChangeComponent } from '../edit-currency-change/edit-currency-change.component';
+import { QrCodeModule } from 'ng-qrcode';
 
 const routes: Route[] = [
   {
@@ -54,6 +55,7 @@ const routes: Route[] = [
     MatSelectModule,
     MatDatepickerModule,
     MatDialogModule,
+    QrCodeModule,
     RouterModule.forChild(routes)
   ]
 })

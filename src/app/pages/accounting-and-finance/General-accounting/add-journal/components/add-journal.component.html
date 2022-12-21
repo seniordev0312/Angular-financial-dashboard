@@ -65,7 +65,8 @@
                             <div
                                 class="flex flex-row px-4 py-1 justify-between
                                                            items-center rounded-xl w-full h-[43px] shadow-[0_3px_6px_#00000029]">
-                                <mat-select (selectionChange)="getJournalsByEntryType($event)"
+                                <mat-select (selectionChange)="getJournalsByEntryType($event.value)"
+                                    [ngModel]="!journalEntryModel ? '' : journalEntryModel.journalEntryType"
                                     [errorContainer]="entryTypeErrorContainer" formControlName="entryType"
                                     name="entryType"
                                     class="arrow w-full justify-center items-center w-full text-sm xl:text-base font-light">
@@ -87,9 +88,11 @@
                             <div
                                 class="flex flex-row px-4 py-1 justify-between
                                                                                                 items-center rounded-xl w-full h-[43px] shadow-[0_3px_6px_#00000029]">
-                                <mat-select [errorContainer]="journalIdErrorContainer" formControlName="journalId"
+                                <mat-select [ngModel]="!journalEntryModel ? '' : journalEntryModel.journalId"
+                                    [errorContainer]="journalIdErrorContainer" formControlName="journalId"
                                     name="journalId" class="arrow w-full justify-center items-center w-full text-sm xl:text-base
                                                                                                      font-light">
+
                                     <mat-option class="text-xs w-full" *ngFor="let option of journalsEntryType"
                                         [value]="option.journalId">{{
                                         option.name}}
@@ -109,7 +112,8 @@
                             <div
                                 class="flex flex-row px-4 py-1 justify-between
                                                                                                                         items-center rounded-xl w-full h-[43px] shadow-[0_3px_6px_#00000029]">
-                                <mat-select [errorContainer]="journalIdErrorContainer" formControlName="currencyId"
+                                <mat-select [ngModel]="!journalEntryModel ? '' : journalEntryModel.currencyId"
+                                    [errorContainer]="journalIdErrorContainer" formControlName="currencyId"
                                     name="currencyId"
                                     class="arrow w-full justify-center items-center w-full text-sm xl:text-base
                                                                                                                              font-light">
@@ -224,22 +228,16 @@
                             class="h-full py-5 px-5 rounded-lg  mt-3 bloc shadow shadow-lg flex justify-center items-center outline-none w-full bg-main-gray  h-[10.0rem]
                                                                                                          px-1 text-sm xl:text-base font-light">
                             <div class="flex flex-row h-full w-full ">
-                                <div class="flex bloc bg-white  rounded-lg shadow-sm w-2/5 justify-center items-center">
-                                    QR
+                                <div *ngIf="qrCodeValue.length !==0"
+                                    class="flex bloc bg-white  rounded-lg shadow-sm p-2 justify-center items-center">
+                                    <qr-code [value]="qrCodeValue" size="130" errorCorrectionLevel="M"></qr-code>
+
                                 </div>
-                                <div class="flex flex-col w-3/5 ml-3 ">
-                                    <div
+                                <div class="flex flex-col w-3/5 ml-3  " *ngFor="let option of documentList">
+                                    <button (click)="onDownloadFile(option.documentId)"
                                         class="flex bloc bg-white rounded-lg  p-2 shadow-sm w-full h-2/5 justify-center items-center">
-                                        {{!selectedFile ? '' : selectedFile.name}}
-                                    </div>
-                                    <label for="dropzone-file"
-                                        class="flex bloc cursor-pointer bg-white rounded-lg shadow-sm w-full h-3/5 mt-2 justify-center items-center">
-                                        <span class="material-icons text-primary md-40">
-                                            upload_file
-                                        </span>
-                                        <input (change)="onFileSelected($event)" id="dropzone-file" type="file"
-                                            class="hidden" />
-                                    </label>
+                                        {{ option.name}}
+                                    </button>
                                 </div>
                             </div>
                         </div>

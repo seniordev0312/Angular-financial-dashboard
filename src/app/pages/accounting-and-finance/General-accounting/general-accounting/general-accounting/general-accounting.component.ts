@@ -171,22 +171,22 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
         filterType: TableColumnFilterDataType.Text
       }
     },
-    {
-      translationKey: 'Balance',
-      property: 'balance',
-      type: 'text',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
-    },
+    // {
+    //   translationKey: 'Balance',
+    //   property: 'balance',
+    //   type: 'text',
+    //   cssClasses: () => '',
+    //   dataCssClasses: () => '',
+    //   enableSort: true,
+    //   hasFilter: true,
+    //   visible: true,
+    //   displayInFilterList: true,
+    //   hasToolTip: false,
+    //   showText: true,
+    //   filter: {
+    //     filterType: TableColumnFilterDataType.Text
+    //   }
+    // },
     {
       translationKey: 'Type',
       property: 'journalName',
