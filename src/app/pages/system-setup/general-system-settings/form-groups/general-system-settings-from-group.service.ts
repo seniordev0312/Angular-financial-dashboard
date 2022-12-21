@@ -27,9 +27,9 @@ export class GeneralSystemSettingsFormGroup {
         return {
             companyName: fg.controls.companyName.value,
             accountingStyleCode: fg.controls.accountingStyleCode.value,
-            underwritingYear: fg.controls.underwritingYear.value,
+            underwritingYear: Number(fg.controls.underwritingYear.value),
             defaultCurrencyCode: fg.controls.defaultCurrencyCode.value,
-            fiscalYear: fg.controls.fiscalYear.value,
+            fiscalYear: Number(fg.controls.fiscalYear.value),
             countryCode: fg.controls.countryCode.value,
             languageCode: fg.controls.languageCode.value,
         };

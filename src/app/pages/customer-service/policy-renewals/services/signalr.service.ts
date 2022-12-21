@@ -28,13 +28,9 @@ export class SignalRService {
 
   init(ticketId: number) {
     this.createConnection(ticketId);
-
     this.addOnReceiveMessageListener();
-
     this.onReconnected();
-
     this.startConnection();
-
   }
 
   public createConnection = (ticketId: number) => {

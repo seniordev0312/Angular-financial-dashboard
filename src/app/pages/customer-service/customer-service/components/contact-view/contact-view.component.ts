@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { KYCDocumentTypeService } from '@root/pages/customer-service/policy-renewals/services/kyc-documents-type.service';
 import { kycDocumentsType$ } from '@root/pages/customer-service/policy-renewals/store/kyc-documents-type.store';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { ContactFormService } from '../../services/contact-form.service';
 
 @Component({
   selector: 'app-contact-view',
@@ -11,9 +12,11 @@ import { BaseComponent } from '@root/shared/components/base-component/base-compo
 })
 export class ContactViewComponent extends BaseComponent implements OnInit {
 
-  @Input() data: any
+  data: any = [];
+
   constructor(
     private kYCDocumentTypeService: KYCDocumentTypeService,
+    private contactFormService: ContactFormService,
     private cdr: ChangeDetectorRef
   ) {
     super();
@@ -22,16 +25,34 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   kycDocumentsTypeList: any = [];
 
 
-  onSelect(data: any): void {
+  onSelect(data: any, id: any): void {
+
+    const message = this.data.filter((e: any) => e.id === id)[0]
     console.log(data);
+    console.log(message);
+    console.log(message.chatId);
+    console.log(message.id);
+    this.kYCDocumentTypeService.extractDocument({
+      chatId: message.chatId,
+      messageId: message.id,
+      templateReferenceId: data
+    })
+
   }
 
-  updateData() {
+  updateData(data: any) {
     console.log(this.data);
+    this.data.push(data);
+    this.contactFormService.updateChat(data);
     this.cdr.detectChanges()
   }
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.kYCDocumentTypeService.extractDocumentSubject$.subscribe((data: any) => {
+        console.log(data);
+      })
+    )
     this.subscriptions.add(
       kycDocumentsType$.subscribe((data) => {
         console.log(data);

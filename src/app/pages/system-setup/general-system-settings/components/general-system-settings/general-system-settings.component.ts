@@ -31,75 +31,7 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
   table: WidgetTableComponent<Holiday>;
   addGeneralSystemSetupPermission = Permission.CanAddGeneralSystemSetup;
 
-  templatesList: Holiday[] = [
-    {
-      id: 1,
-      endDate: '10/11/2023',
-      name: 'Eid El Adha',
-      offDay: true,
-      startDate: '10/11/2023'
-    },
-    {
-      endDate: '05/7/2023',
-      name: 'Eid El Saydeh',
-      offDay: true,
-      startDate: '05/7/2023'
-    },
-    {
-      endDate: '11/11/2023',
-      name: 'Independence Day',
-      offDay: true,
-      startDate: '11/11/2023'
-    },
-    {
-      endDate: '05/06/2023',
-      name: 'Eid Marmaroun',
-      offDay: false,
-      startDate: '04/06/2023'
-    },
-    {
-      endDate: '26/12/2023',
-      name: 'Christmas',
-      offDay: true,
-      startDate: '23/12/2023'
-    },
-    {
-      endDate: '31/12/2023',
-      name: 'New Year',
-      offDay: false,
-      startDate: '29/12/2023'
-    },
-    {
-      endDate: '05/7/2023',
-      name: 'Eid El Saydeh',
-      offDay: true,
-      startDate: '05/7/2023'
-    },
-    {
-      endDate: '11/11/2023',
-      name: 'Independence Day',
-      offDay: true,
-      startDate: '11/11/2023'
-    },
-    {
-      endDate: '05/06/2023',
-      name: 'Eid Marmaroun',
-      offDay: false,
-      startDate: '04/06/2023'
-    },
-    {
-      endDate: '26/12/2023',
-      name: 'Christmas',
-      offDay: true,
-      startDate: '23/12/2023'
-    },
-    {
-      endDate: '31/12/2023',
-      name: 'New Year',
-      offDay: false,
-      startDate: '29/12/2023'
-    }
-  ];
+  templatesList: Holiday[] = [];
   fg: FormGroup;
 
   ofDayTypesList: BaseListItem[] = [
@@ -208,8 +140,8 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       }
     },
     {
-      translationKey: '',
-      property: 'offDay',
+      translationKey: 'Off Day',
+      property: 'isOffDay',
       type: 'bool',
       cssClasses: () => 'w-[25%]',
       dataCssClasses: () => (window.innerWidth > 740 ? '' : 'text-center'),
@@ -220,9 +152,7 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.DropDown,
-        selectListViewProperty: 'value',
-        selectOptionsList: this.ofDayTypesList
+        filterType: TableColumnFilterDataType.Text,
       }
     },
   ];
@@ -250,9 +180,17 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
     this.fg = this.generalSystemSettingsFormGroup.getFormGroup();
     this.generalSystemSettingsService.getGeneralSystemSettings();
     this.subscriptions.add(
+      this.generalSystemSettingsService.addHoliday$.subscribe(() => {
+        this.generalSystemSettingsService.getHolidays(0, 1000);
+      }));
+    this.subscriptions.add(
       holidays$.subscribe(data => {
-        if (!this.isEmpty(data)) {
+        if (data) {
           this.templatesList = data;
+          this.tableConfiguration.data = data;
+          this.tableConfiguration.dataCount = data.length;
+          console.log(this.templatesList);
+          this.table.refresh();
         }
       }));
     this.subscriptions.add(
@@ -323,15 +261,12 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
     }
   }
-
   ngAfterViewInit(): void {
     this.table.refresh();
   }
-
   getFormControl(key: string): FormControl {
     return this.fg.controls[key] as FormControl;
   }
-
   onHolidayAdded() {
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
       outlets: {
@@ -342,7 +277,6 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
-
   onHolidayDeleted(data: Holiday) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to delete this template?',
@@ -353,7 +287,6 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       actionButtonsColor: 'warn',
       iconCssClasses: 'text-warn',
     });
-
     this.subscriptions.add(
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
         if (isConfirmed) {
@@ -361,32 +294,40 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
         }
       }));
   }
-
   onHolidayEdited(data: Holiday) {
     console.log(data);
+    // this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.UserSecurity}`, {
+    //   outlets: {
+    //     sidenav: `${ApplicationRoutes.Add}/${userRolesListItem.id}/${userRolesListItem.name}`
+    //   },
+    // }], {
+    //   skipLocationChange: true,
+    //   queryParams: {
+    //     id: userRolesListItem.id,
+    //     name: userRolesListItem.name,
+    //   }
+    // },
+    // );
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
       outlets: {
-        sidenav: `${ApplicationRoutes.Add}`
+        sidenav: `${ApplicationRoutes.Add}/${data.holidayId}/${data.name}/${data.startDate}/${data.endDate}/${data.isOffDay}`
       },
     }], {
-      skipLocationChange: true,
-      // queryParams: {
-      //   id: data.id,
-      //   name: data.name,
-      //   startDate: data.name,
-      //   endDate: data.name,
-      //   offDay: data.offDay
-      // }
+      queryParams: {
+        id: data.holidayId,
+        name: data.name,
+        startDate: data.name,
+        endDate: data.name,
+        offDay: data.isOffDay
+      }
     });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
 
   }
   onSave() {
-    console.log(this.fg.value, this.fg.valid);
     if (this.fg.value) {
-      this.generalSystemSettingsService.updateGeneralSystemSettings({
-      })
+      this.generalSystemSettingsService.updateGeneralSystemSettings(this.generalSystemSettingsFormGroup.getValueFromFormGroup(this.fg))
     }
   }
 }

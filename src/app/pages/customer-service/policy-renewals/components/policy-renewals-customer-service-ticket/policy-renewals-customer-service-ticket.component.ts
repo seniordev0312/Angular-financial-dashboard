@@ -17,7 +17,7 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
 
-  data: any;
+  data: any = [];
   constructor(
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
     public signalRService: SignalRService,
@@ -28,12 +28,10 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
 
   ngOnInit(): void {
     this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
-    this.signalRService.init(57);
+    this.signalRService.init(187);
     this.subscriptions.add(
       this.signalRService.signalRSubject$.subscribe((data: any) => {
-        this.contactViewComponent.data = data;
-        console.log(data);
-        this.contactViewComponent.updateData();
+        this.contactViewComponent.updateData(data);
       })
     )
   }
