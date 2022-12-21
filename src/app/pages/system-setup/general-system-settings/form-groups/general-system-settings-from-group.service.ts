@@ -13,12 +13,12 @@ export class GeneralSystemSettingsFormGroup {
     getFormGroup(item?: GeneralSystemSettings): FormGroup {
         this.fg = this.fb.group({
             companyName: new FormControl(item?.companyName || null, [Validators.required]),
-            accountingStyle: new FormControl(item?.accountingStyle || null, [Validators.required]),
-            country: new FormControl(item?.country || null, [Validators.required]),
-            defaultCurrency: new FormControl(item?.defaultCurrency || null, [Validators.required]),
-            defaultLanguage: new FormControl(item?.defaultLanguage || null, [Validators.required]),
-            fiscalYear: new FormControl(item?.fiscalYear || null, [Validators.required]),
-            underwritingYear: new FormControl(item?.underwritingYear || null, [Validators.required]),
+            accountingStyleCode: new FormControl(item?.accountingStyleCode || null, [Validators.required]),
+            underwritingYear: new FormControl(item?.underwritingYear || 0, [Validators.required]),
+            fiscalYear: new FormControl(item?.fiscalYear || 0, [Validators.required]),
+            defaultCurrencyCode: new FormControl(item?.defaultCurrencyCode || null, [Validators.required]),
+            countryCode: new FormControl(item?.countryCode || null, [Validators.required]),
+            languageCode: new FormControl(item?.languageCode || null, [Validators.required]),
         });
         return this.fg;
     }
@@ -26,12 +26,12 @@ export class GeneralSystemSettingsFormGroup {
     getValueFromFormGroup(fg: FormGroup): GeneralSystemSettings {
         return {
             companyName: fg.controls.companyName.value,
-            accountingStyle: fg.controls.accountingStyle.value,
-            country: fg.controls.country.value,
-            defaultCurrency: fg.controls.defaultCurrency.value,
-            defaultLanguage: fg.controls.defaultLanguage.value,
-            fiscalYear: fg.controls.fiscalYear.value,
+            accountingStyleCode: fg.controls.accountingStyleCode.value,
             underwritingYear: fg.controls.underwritingYear.value,
+            defaultCurrencyCode: fg.controls.defaultCurrencyCode.value,
+            fiscalYear: fg.controls.fiscalYear.value,
+            countryCode: fg.controls.countryCode.value,
+            languageCode: fg.controls.languageCode.value,
         };
     }
 }

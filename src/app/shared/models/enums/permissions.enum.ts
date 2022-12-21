@@ -1,4 +1,7 @@
 export enum Permission {
+
+
+    CanAccessAddReferenceTables = 'CanAddReferenceTables',
     //dashboard
     CanViewShortcutMenu = 'CanViewShortcutMenu',
     CanViewAssignedTask = 'CanViewAssignedTask',

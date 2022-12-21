@@ -7,6 +7,11 @@ import {
 
 export interface GeneralSystemSettingsModel {
     holidays: any;
+    defaultLanguages: any,
+    defaultCurrency: any,
+    accountingStyle: any,
+    country: any,
+    generalSystemSettings: any,
 }
 
 const store = createStore(
@@ -15,6 +20,11 @@ const store = createStore(
     },
     withProps<GeneralSystemSettingsModel>({
         holidays: null,
+        defaultLanguages: null,
+        defaultCurrency: null,
+        accountingStyle: null,
+        country: null,
+        generalSystemSettings: null,
     })
 );
 
@@ -23,6 +33,11 @@ persistState(store, {
 });
 
 export const holidays$ = store.pipe(select(({ holidays }) => holidays));
+export const defaultLanguages$ = store.pipe(select(({ defaultLanguages }) => defaultLanguages));
+export const defaultCurrency$ = store.pipe(select(({ defaultCurrency }) => defaultCurrency));
+export const accountingStyle$ = store.pipe(select(({ accountingStyle }) => accountingStyle));
+export const country$ = store.pipe(select(({ country }) => country));
+export const generalSystemSettings$ = store.pipe(select(({ generalSystemSettings }) => generalSystemSettings));
 
 export type GeneralSystemSettingsStore = typeof store;
 export const GENERAL_SYSTEM_SETTINGS_STORE = new InjectionToken<

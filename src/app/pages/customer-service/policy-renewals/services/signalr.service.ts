@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,12 +13,14 @@ export class SignalRService {
   private options: signalR.IHttpConnectionOptions;
   private hubConnection: signalR.HubConnection;
 
+  SignalRSubject = new BehaviorSubject<any>(null);
+  signalRSubject$ = this.SignalRSubject.asObservable();
+
   constructor(
     private oidcSecurityService: OidcSecurityService,
     private route: ActivatedRoute
   ) {
     this.options = {
-      transport: signalR.HttpTransportType.LongPolling,
       accessTokenFactory: () => lastValueFrom(this.oidcSecurityService.getAccessToken()),
       withCredentials: false,
     };
@@ -70,10 +72,8 @@ export class SignalRService {
   };
 
   public addOnReceiveMessageListener = () => {
-
-    console.log('addOnReceiveMessageListener');
     this.hubConnection.on('OnMessageReceived', (message: any) => {
-      console.log(message);
+      this.SignalRSubject.next(message)
     });
     this.hubConnection.on('Connected', (message: any) => {
       console.log(message);
