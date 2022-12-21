@@ -3,7 +3,7 @@
         <span>Company Structure :</span>
     </div>
     <div class="h-[95%] w-full overflow-auto">
-        <p-organizationChart [value]="treeNode" selectionMode="single">
+        <p-organizationChart [value]="treeNode" selectionMode="single" (onNodeSelect)="nodeSelect($event)">
             <ng-template let-node pTemplate="company">
                 <app-company-card [data]="node.data"></app-company-card>
             </ng-template>

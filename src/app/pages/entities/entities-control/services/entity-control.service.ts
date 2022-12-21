@@ -4,10 +4,11 @@ import { environment } from 'src/environments/environment';
 import { EntitiesControlRepository } from '../store/entities-control.repository';
 import { EntityEntriesList } from '../models/entity-entries-list.model';
 import { EntityType } from '../models/entity-type.model';
-import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { EntityDefinitionsReferenceListItem } from '../models/entity-definitions-reference-list-item.model';
 import { EntityDefinition } from '../models/entity-definitions-list-item.model';
 import { AddEntityEntry } from '../models/add-entity.model';
+import { EntityEntriesListItem } from '../models/entity-entries-list-item.model';
+import { DynamicFilter } from '../models/dynamic-filter.model';
 
 @Injectable({ providedIn: 'root' })
 export class EntitiesControlService {
@@ -25,11 +26,10 @@ export class EntitiesControlService {
     }
 
     getEntityTypesList(): void {
-        let endPointUrl = `${environment.entityApiUrl}/EntityType/GetEntityTypes`;
+        let endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinitions`;
         this.httpClient.get<EntityType[]>(endPointUrl).subscribe(data => {
             if (data) {
-                const updatedData: BaseListItem[] = data.map(e => ({ id: e.code, value: e.name }))
-                this.entitiesControlRepository.updateEntitiesTypesList(updatedData);
+                this.entitiesControlRepository.updateEntitiesTypesList(data);
             }
         });
     }
@@ -57,6 +57,33 @@ export class EntitiesControlService {
         this.httpClient.post<any>(endPointUrl, data).subscribe(data => {
             if (data) {
                 console.log(data);
+            }
+        });
+    }
+
+    updateEntityEntry(data: AddEntityEntry, ein: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/Entity/UpdateEntityEntry/${ein}`;
+        this.httpClient.put<any>(endPointUrl, data).subscribe(data => {
+            if (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    getEntityEntryDetails(ein: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/Entity/GetEntityEntry/${ein}`;
+        this.httpClient.get<EntityEntriesListItem>(endPointUrl).subscribe(data => {
+            if (data) {
+                this.entitiesControlRepository.updateSelectedEntityEntry(data);
+            }
+        });
+    }
+
+    getEntityDynamicFiltersList(id: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/EntityDefinition/GetEntityDefinitionDynamicFilters/${id}`;
+        this.httpClient.get<DynamicFilter[]>(endPointUrl).subscribe(data => {
+            if (data) {
+                this.entitiesControlRepository.updateEntityDynamicFiltersList(data);
             }
         });
     }

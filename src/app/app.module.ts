@@ -18,6 +18,7 @@ import { SuccessMessageInterceptor } from './shared/interceptors/success-notific
 import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { SecurityGuard } from './shared/guards/security.guard';
+import { BaseInterceptor } from './shared/interceptors/base.interceptor';
 
 export function initElfDevTools(actions: Actions) {
   return () => {
@@ -77,6 +78,11 @@ export function initElfDevTools(actions: Actions) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseInterceptor,
       multi: true,
     },
   ],

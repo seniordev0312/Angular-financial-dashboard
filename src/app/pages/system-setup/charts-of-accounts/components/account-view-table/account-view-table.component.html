@@ -21,9 +21,9 @@
             <th style="width:10%">
                 <div class="flex items-center">
                     <p-columnFilter [showMenu]="false" type="text" placeholder="Account No" [showClearButton]="false"
-                        field="accountNumber">
+                        field="accountCode">
                     </p-columnFilter>
-                    <p-sortIcon field="accountNumber" pSortableColumn="accountNumber"></p-sortIcon>
+                    <p-sortIcon field="accountCode" pSortableColumn="accountCode"></p-sortIcon>
                 </div>
             </th>
             <th style="width:10%">
@@ -61,7 +61,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" let-expanded="expanded">
-        <tr>
+        <tr *ngIf="rowIndex===0">
             <td style="width:20%">
                 <span class="font-bold text-xs ml-2">Opening Balance</span>
             </td>
@@ -85,7 +85,7 @@
         <tr>
             <td style="width:20%" class="text-xxs pl-4">{{item.documentNumber}}</td>
             <td style="width:20%" class="text-xxs pl-4">{{item.postingDate}}</td>
-            <td style="width:10%" class="text-xxs pl-4">{{item.accountNumber}}</td>
+            <td style="width:10%" class="text-xxs pl-4">{{item.accountCode}}</td>
             <td style="width:10%" class="text-xxs pl-4">{{item.accountName}}</td>
             <td style="width:10%" class="text-xxs pl-4">${{item.debit| number}}</td>
             <td style="width:10%" class="text-xxs pl-4">${{item.credit| number}}</td>

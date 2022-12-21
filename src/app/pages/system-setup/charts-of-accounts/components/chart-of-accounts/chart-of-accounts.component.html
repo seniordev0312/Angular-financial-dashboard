@@ -14,7 +14,7 @@
         </div>
     </div>
     <ng-container *ngTemplateOutlet="table; context:{data:{items:chartOfAccountsList, 
-            itemsCount:itemsCount,showHeader:true,pageSize,class:'main-table',isLazy:true}}"></ng-container>
+            itemsCount:itemsCount,showHeader:true,pageSize,class:'main-table',isLazy:false}}"></ng-container>
 
 </app-system-setup>
 
@@ -73,48 +73,71 @@
                 </th>
                 <th style="width:15%">
                     <div class="flex items-center">
-                        <p-columnFilter [showMenu]="false" type="text" placeholder="Ledger NO" [showClearButton]="false"
-                            field="accountNo">
+                        <p-columnFilter field="accountNo" matchMode="contains" [showMenu]="false"
+                            [showClearButton]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                                    class="p-inputtext" placeholder="Ledger NO">
+                            </ng-template>
                         </p-columnFilter>
                         <p-sortIcon field="accountNo" pSortableColumn="accountNo"></p-sortIcon>
                     </div>
                 </th>
                 <th style="width:18%">
                     <div class="flex items-center">
-                        <p-columnFilter [showMenu]="false" type="text" placeholder="Description"
-                            [showClearButton]="false" field="decription">
+                        <p-columnFilter field="decription" matchMode="contains" [showMenu]="false"
+                            [showClearButton]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                                    class="p-inputtext" placeholder="Description">
+                            </ng-template>
                         </p-columnFilter>
                         <p-sortIcon field="decription" pSortableColumn="decription"></p-sortIcon>
                     </div>
                 </th>
                 <th style="width:10%">
                     <div class="flex items-center">
-                        <p-columnFilter [showMenu]="false" type="text" placeholder="Type" [showClearButton]="false"
-                            field="type">
+                        <p-columnFilter field="type" matchMode="contains" [showMenu]="false" [showClearButton]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                                    class="p-inputtext" placeholder="Type">
+                            </ng-template>
                         </p-columnFilter>
                         <p-sortIcon field="type" pSortableColumn="type"></p-sortIcon>
                     </div>
                 </th>
                 <th style="width:10%">
                     <div class="flex items-center">
-                        <p-columnFilter [showMenu]="false" type="text" placeholder="DC/CR" [showClearButton]="false"
-                            field="toIncrease">
+                        <p-columnFilter field="toIncrease" matchMode="contains" [showMenu]="false"
+                            [showClearButton]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                                    class="p-inputtext" placeholder="DC/CR">
+                            </ng-template>
                         </p-columnFilter>
                         <p-sortIcon field="toIncrease" pSortableColumn="toIncrease"></p-sortIcon>
                     </div>
                 </th>
                 <th style="width:10%">
                     <div class="flex items-center">
-                        <p-columnFilter [showMenu]="false" type="text" placeholder="Currency" [showClearButton]="false"
-                            field="currency">
+                        <p-columnFilter field="currency" matchMode="contains" [showMenu]="false"
+                            [showClearButton]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                                    class="p-inputtext" placeholder="Currency">
+                            </ng-template>
                         </p-columnFilter>
                         <p-sortIcon field="currency" pSortableColumn="currency"></p-sortIcon>
                     </div>
                 </th>
                 <th style="width:20%">
                     <div class="flex items-center">
-                        <p-columnFilter [showMenu]="false" type="text" placeholder="Balance" [showClearButton]="false"
-                            field="balance">
+                        <p-columnFilter field="balance" matchMode="contains" [showMenu]="false"
+                            [showClearButton]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
+                                    class="p-inputtext" placeholder="Balance">
+                            </ng-template>
                         </p-columnFilter>
                         <p-sortIcon field="balance" pSortableColumn="balance"></p-sortIcon>
                     </div>

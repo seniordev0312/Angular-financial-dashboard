@@ -1,4 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { AccountBalance } from '../models/account-balance.model';
 import { AccountDetails } from '../models/account-details.model';
 import { ChartOfAccountsListItem } from '../models/chart-of-accounts-list-item.model';
@@ -27,6 +28,13 @@ export class ChartOfAccountsRepository {
         this.chartOfAccountsStore.update((state) => ({
             ...state,
             journalList
+        }));
+    }
+
+    updateAccountTypesList(accountTypes: BaseListItem[]): void {
+        this.chartOfAccountsStore.update((state) => ({
+            ...state,
+            accountTypes
         }));
     }
 

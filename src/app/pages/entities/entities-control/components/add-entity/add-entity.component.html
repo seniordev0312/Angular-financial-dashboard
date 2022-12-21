@@ -2,17 +2,18 @@
 <mat-dialog-content class="px-12">
 
     <div class="flex w-full items-center justify-between mt-7 mb-5">
-        <h4 class="text-xl font-bold">Create New Entity</h4>
-        <app-button [isDisabled]="!isValid" (trigger)="onEntitySaved()" text="Save and close" icon="save"
-            [classes]="isValid?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'">
+        <h4 *ngIf="!isUpdateMode" class="text-xl font-bold">Create New Entity</h4>
+        <h4 *ngIf="isUpdateMode" class="text-xl font-bold">{{entityName}}</h4>
+        <app-button [isDisabled]="!isValid||isViewMode" (trigger)="onEntitySaved()" text="Save and close" icon="save"
+            [classes]="isValid&&!isViewMode?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'">
         </app-button>
     </div>
     <div class="grid grid-cols-4 gap-5">
         <div class="col-span-3">
             <cdk-accordion>
-                <cdk-accordion-item *ngIf="!isDefinitionFetched" #accordionItem0="cdkAccordionItem" role="button"
-                    tabindex="0" [attr.id]="'accordion-header-0'" [attr.aria-expanded]="accordionItem0.expanded"
-                    [attr.aria-controls]="'accordion-body-0'">
+                <cdk-accordion-item *ngIf="!isDefinitionFetched&&!isUpdateMode&&!isViewMode"
+                    #accordionItem0="cdkAccordionItem" role="button" tabindex="0" [attr.id]="'accordion-header-0'"
+                    [attr.aria-expanded]="accordionItem0.expanded" [attr.aria-controls]="'accordion-body-0'">
                     <div class="flex items-center justify-between w-full panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
@@ -46,7 +47,8 @@
                     </div>
                     <div role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-0'">
-                        <app-entity-section [section]="item"></app-entity-section>
+                        <app-entity-section [isViewMode]="isViewMode" [data]="selectedEntity?.sections[i]?.properties"
+                            [section]="item"></app-entity-section>
                     </div>
                 </cdk-accordion-item>
             </cdk-accordion>

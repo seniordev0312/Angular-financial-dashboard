@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren, Inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EntitiesReferenceListsService } from '@root/pages/entities/services/reference-lists.service';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { AddEntityEntry } from '../../models/add-entity.model';
 import { EntityDefinition } from '../../models/entity-definitions-list-item.model';
+import { EntityEntriesListItem } from '../../models/entity-entries-list-item.model';
 import { EntitiesControlService } from '../../services/entity-control.service';
-import { entityDefinition$ } from '../../store/entities-control.store';
+import { entityDefinition$, selectedEntity$ } from '../../store/entities-control.store';
 import { EntitySectionComponent } from '../entity-section/entity-section.component';
 import { EntityTypeComponent } from '../entity-type/entity-type.component';
 import { NewEntityMatchPercentageComponent } from '../new-entity-match-percentage/new-entity-match-percentage.component';
@@ -14,7 +15,8 @@ import { NewEntityMatchPercentageComponent } from '../new-entity-match-percentag
 @Component({
   selector: 'app-add-entity',
   templateUrl: './add-entity.component.html',
-  styleUrls: ['./add-entity.component.scss']
+  styleUrls: ['./add-entity.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AddEntityComponent extends BaseComponent implements OnInit, AfterViewInit {
   @ViewChildren(EntitySectionComponent) sections: QueryList<EntitySectionComponent>
@@ -23,9 +25,14 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
   entityDefinition: EntityDefinition;
   isDefinitionFetched = false;
   entityCode: string;
-
-
+  entityName: string;
+  isUpdateMode = false;
+  isViewMode = false;
+  selectedEntity: EntityEntriesListItem;
+  ein: string;
   constructor(private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cdr: ChangeDetectorRef,
     private entitiesReferenceListsService: EntitiesReferenceListsService,
     private entitiesControlService: EntitiesControlService) { super(); }
 
@@ -51,9 +58,11 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
   }
 
   ngAfterViewInit(): void {
-    this.subscriptions.add(this.entityType.entityTypeFormControl.valueChanges.subscribe(data => {
-      this.entityCode = data;
-    }));
+    if (this.entityType) {
+      this.subscriptions.add(this.entityType?.entityTypeFormControl?.valueChanges.subscribe(data => {
+        this.entityCode = data;
+      }));
+    }
   }
 
   ngOnInit(): void {
@@ -63,6 +72,22 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
       if (!this.isEmpty(data)) {
         this.entityDefinition = data;
         this.isDefinitionFetched = true;
+        this.cdr.detectChanges();
+      }
+    }));
+    if (this.data.ein) {
+      this.ein = this.data.ein;
+      this.entitiesControlService.getEntityEntryDetails(this.data.ein);
+      this.isUpdateMode = this.data.mode === 'edit';
+      this.isViewMode = this.data.mode === 'view';
+    }
+    this.subscriptions.add(selectedEntity$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.entityCode = data.entityCode;
+        this.selectedEntity = data;
+        this.entitiesControlService.getEntityDefinitionsList(this.entityCode);
+        this.entityName = data.name;
+        this.cdr.detectChanges();
       }
     }));
   }
@@ -75,10 +100,17 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
         name: section.section.sectionName,
         properties: section.fg.value
       });
-    })
+    });
+
+    if (this.isUpdateMode) {
+      this.entitiesControlService.updateEntityEntry(addEntity, this.ein);
+    }
+    else {
+      this.entitiesControlService.addEntityEntry(addEntity, this.entityCode);
+    }
+    this.dialog.closeAll();
+
     // if (isValid) {
-    this.entitiesControlService.addEntityEntry(addEntity, this.entityCode);
-    // this.dialog.closeAll();
     this.dialog.open(NewEntityMatchPercentageComponent, {
       width: '90%',
       height: '90%'

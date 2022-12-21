@@ -20,6 +20,9 @@ import { AccountModel } from '../../accounts/model/accounts.model';
 import { TaxModel } from '../../general-accounting/model/tax.model';
 import { JournalEntryModel } from '../../general-accounting/model/journal-entry.model';
 import { ActivatedRoute } from '@angular/router';
+import { EntitiesControlComponent } from '@root/pages/entities/entities-control/components/entities-control/entities-control.component';
+import { MatDialog } from '@angular/material/dialog';
+import { JournalService } from '../services/jornal.service';
 import { DocumentModel } from '../../general-accounting/model/document.model';
 
 @Component({
@@ -74,9 +77,14 @@ export class AddJournalComponent implements OnInit, OnDestroy {
   ];
   refreshIntervalId: any;
   constructor(private router: ActivatedRoute,
-    private cdr: ChangeDetectorRef, private journalFormGroup: JournalFormGroup, private entriesFormGroup: EntriesFormGroup, private layoutService: LayoutService,
+    private cdr: ChangeDetectorRef,
+    private journalFormGroup: JournalFormGroup,
+    private entriesFormGroup: EntriesFormGroup,
+    private layoutService: LayoutService,
     private generalAccountingService: GeneralAccountingService,
-    private _location: Location
+    private _location: Location,
+    private dialog: MatDialog,
+    private journalService: JournalService
   ) { }
 
   ngOnInit(): void {
@@ -106,6 +114,10 @@ export class AddJournalComponent implements OnInit, OnDestroy {
         },
       ],
     });
+
+    this.journalService.journalEIN$.subscribe(data => {
+      this.form.patchValue({ 'ein': data });
+    })
   }
   ngOnDestroy() {
     clearInterval(this.refreshIntervalId);
@@ -410,6 +422,18 @@ export class AddJournalComponent implements OnInit, OnDestroy {
   onCancel() {
     this._location.back();
   }
+  
+    onEinFocus() {
+    if (this.form.get('ein').value === '') {
+      this.dialog.open(EntitiesControlComponent, {
+        width: '90%',
+        height: '90%',
+        data: true
+      })
+    }
+  }
+
+
 
   async getGuidByJournalEntry(id: number) {
     const result = await this.generalAccountingService.getGuidByJournalEntry(id);
