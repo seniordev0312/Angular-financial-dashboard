@@ -34,14 +34,15 @@
     </div>
 
     <div class="flex items-center mb-4">
-        <p class="font-bold text-accent text-lg mr-1">Capital > </p>
-        <p class="font-bold text-accent text-lg">Paid-up Capital</p>
+        <p *ngIf="parentName" class="font-bold text-accent text-lg mr-1">{{parentName}} > </p>
+        <p class="font-bold text-accent text-lg">{{name}}</p>
     </div>
 
-    <app-account-view-table class="w-full"></app-account-view-table>
+    <app-account-view-table [pageSize]="pageSize" [closingDate]="endDateFormControl?.value"
+        [openingDate]="startDateFormControl?.value" class="w-full"></app-account-view-table>
 
     <div class="grid grid-cols-3 mt-5">
-        <mat-button-toggle-group class="w-max h-[30px]">
+        <mat-button-toggle-group (change)="onPageSizeChanged($event)" class="w-max h-[30px]">
             <mat-button-toggle class="w-[53px] h-[30px] font-semibold first-button" [checked]="true"
                 [value]="20">20</mat-button-toggle>
             <mat-button-toggle class="w-[53px] h-[30px] font-semibold" [value]="50">50</mat-button-toggle>
@@ -51,7 +52,7 @@
         <div></div>
         <div class="flex justify-end items-center">
             <div class="text-base h-[33px] w-[135px] bg-[#F4F4F4] rounded-lg shadow flex justify-center items-center">
-                2 Records
+                {{dataCount}}Records
             </div>
         </div>
     </div>

@@ -42,13 +42,13 @@
     <td style="width:10%">
         <div class="flex justify-end pr-4 py-1">
             <button *ngIf="showViewButton(data.item)"
-                [routerLink]="[viewAccountLink,data.item.accountTypeId??data.item.accountId,data.item.childrenCount===0,{outlets:{sidenav:null}}]"
-                mat-button>
+                [routerLink]="[viewAccountLink,data.item.accountTypeId??data.item.accountId,{outlets:{sidenav:null}}]"
+                [queryParams]="{'lastLevelFlag': data.item.childrenCount===0,'name':data.item.accountNo}" mat-button>
                 <span class="material-icons-outlined text-accent">
                     visibility
                 </span>
             </button>
-            <button (click)="onChartOfAccountAdded(data.item.isLeafItem,data.item.accountTypeId)"
+            <button (click)="onChartOfAccountAdded(data.item.isLeafItem,data.item.accountTypeId,!data.item.isLeafItem)"
                 *ngIf="showAddButton(data.item)" mat-button class="ml-4">
                 <mat-icon svgIcon="add-grid" class="text-accent"></mat-icon>
             </button>
@@ -127,7 +127,7 @@
             <tr>
                 <td style="width:7%">
                     <div [ngClass]="{'justify-end': item?.parentAccountTypeId}" class="flex items-center">
-                        <button *ngIf="item.children?.length>0" type="button" pButton pRipple [pRowToggler]="item"
+                        <button *ngIf="item.accountTypeId" type="button" pButton pRipple [pRowToggler]="item"
                             class="py-1">
                             <span class="material-icons-outlined">
                                 {{expanded?'remove_circle_outline':'add_circle_outline'}}
@@ -143,8 +143,8 @@
         <ng-template pTemplate="rowexpansion" let-item>
             <tr>
                 <td class="sub-table" colspan="8">
-                    <ng-container
-                        *ngTemplateOutlet="table; context:{data:{items:item.children,showHeader:false,isLazy:true,itemsCount:item.childrenCount ,pageSize:item.childrenCount,class:'main-table'}}">
+                    <ng-container *ngTemplateOutlet="table; context:{data:{items:item.children,showHeader:false,isLazy:true,itemsCount:item.childrenCount
+                             ,pageSize:item.childrenCount,class:'main-table'}}">
                     </ng-container>
                 </td>
             </tr>

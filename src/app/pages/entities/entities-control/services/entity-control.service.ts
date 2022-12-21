@@ -7,6 +7,7 @@ import { EntityType } from '../models/entity-type.model';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { EntityDefinitionsReferenceListItem } from '../models/entity-definitions-reference-list-item.model';
 import { EntityDefinition } from '../models/entity-definitions-list-item.model';
+import { AddEntityEntry } from '../models/add-entity.model';
 
 @Injectable({ providedIn: 'root' })
 export class EntitiesControlService {
@@ -47,6 +48,15 @@ export class EntitiesControlService {
         this.httpClient.get<EntityDefinition>(endPointUrl).subscribe(data => {
             if (data) {
                 this.entitiesControlRepository.updateEntitiesDefinitionsList(data);
+            }
+        });
+    }
+
+    addEntityEntry(data: AddEntityEntry, code: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/Entity/CreateEntityEntry/${code}`;
+        this.httpClient.post<any>(endPointUrl, data).subscribe(data => {
+            if (data) {
+                console.log(data);
             }
         });
     }

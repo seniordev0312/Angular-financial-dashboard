@@ -1,4 +1,5 @@
-<p-table class="main-table" [value]="data.paginatedJournalItems" [totalRecords]="data.journalItemsCount">
+<p-table *ngIf="data?.paginatedJournalItems" [rows]="pageSize" class="main-table" [value]="data.paginatedJournalItems"
+    [totalRecords]="data.journalItemsCount">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:20%">
@@ -65,7 +66,7 @@
                 <span class="font-bold text-xs ml-2">Opening Balance</span>
             </td>
             <td style="width:20%">
-                <span class="font-bold text-xs ml-2">December 02, 2022</span>
+                <span class="font-bold text-xs ml-2">{{formattedOpeningDate}}</span>
             </td>
             <td style="width:10%">
             </td>
@@ -94,7 +95,7 @@
     <ng-template pTemplate="footer">
         <tr>
             <td class="text-xs font-bold">Closing Balance</td>
-            <td class="text-xs font-bold">December 02, 2022</td>
+            <td class="text-xs font-bold">{{formattedClosingDate}}</td>
             <td></td>
             <td></td>
             <td class="text-xs font-bold">${{accountViewClosingDate.totalDebit}}</td>

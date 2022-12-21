@@ -75,6 +75,7 @@ export class AddChartOfAccountsComponent extends BaseComponent implements OnInit
 
     this.subscriptions.add(this.fg?.get('isNewGroup').valueChanges.subscribe(data => {
       if (!data) {
+        this.isGroup = false;
         this.fg.get('parentAccountTypeId').disable();
         this.fg.get('parentAccountTypeId').removeValidators(Validators.required);
       }

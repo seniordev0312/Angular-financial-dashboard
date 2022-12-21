@@ -10,9 +10,10 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { isSpinning$ } from '@root/shared/store/shared.store';
+import { Observable } from 'rxjs';
 import { EntityFilterFormGroup } from '../../form-group/entity-filter-form-group.service';
 import { EntitiesTableItem } from '../../models/entities-table-item.model';
-import { EntityEntriesList } from '../../models/entity-entries-list.model';
 import { EntitiesControlService } from '../../services/entity-control.service';
 import { entitiesList$, entityTypes$ } from '../../store/entities-control.store';
 import { AddEntityComponent } from '../add-entity/add-entity.component';
@@ -28,11 +29,13 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   table: WidgetTableComponent<EntitiesTableItem>;
   pageSize = 10;
   pageIndex = 1;
-  entityEntriesList: EntityEntriesList;
+  entityEntriesList: EntitiesTableItem[];
   filter: Filter[];
   entityTypesList: BaseListItem[] = [];
   entityTypeFormControl = new FormControl('100');
   entitiesList: EntitiesTableItem[] = [];
+  isSpinning$: Observable<boolean>;
+
   tableColumns: TableColumn[] = [
     {
       translationKey: 'EIN',
@@ -80,9 +83,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.DropDown,
-        selectListViewProperty: 'name',
-        selectOptionsList: this.entityTypesList
+        filterType: TableColumnFilterDataType.Text,
       }
     },
     {
@@ -157,6 +158,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
     this.entitiesControlService.getEntityTypesList();
+    this.isSpinning$ = isSpinning$;
 
     this.filterFG = this.entityFilterFormGroup.getFormGroup();
 
@@ -176,7 +178,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
             }
           });
         });
-        this.entityEntriesList = data;
+        this.entityEntriesList = items;
         this.tableConfiguration.data = items;
         this.tableConfiguration.dataCount = data.totalPages;
         this.table?.refresh();
@@ -192,6 +194,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     this.subscriptions.add(this.entityTypeFormControl.valueChanges.subscribe(data => {
       this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
     }));
+
   }
 
 
