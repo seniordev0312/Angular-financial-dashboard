@@ -12,7 +12,8 @@ export class TableSettings {
     actionsMode?: 'menu' | 'inline';
     hasSlideAction?: boolean;
     slideActionProperty?: string;
-
+    isRowsSelectionAvailable?: boolean;
+    dataKey: string;
     constructor(data: any) {
         if (!data) {
             return;
@@ -30,5 +31,7 @@ export class TableSettings {
         this.enableFilter = data?.enableFilter ?? true;
         this.hasNextPage = data?.hasNextPage ?? true;
         this.haxPreviousPage = data?.haxPreviousPage ?? true;
+        this.isRowsSelectionAvailable = data?.isRowsSelectionAvailable ?? false;
+        this.dataKey = data.dataKey ?? 'id'
     }
 }

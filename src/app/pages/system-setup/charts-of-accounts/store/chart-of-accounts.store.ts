@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, select, withProps } from '@ngneat/elf';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { AccountBalance } from '../models/account-balance.model';
 import { AccountDetails } from '../models/account-details.model';
 import { ChartOfAccountsList } from '../models/chart-of-accounts-list.model';
@@ -13,6 +14,7 @@ export interface ChartOfAccountsModel {
     accountViewOpeningDate: AccountBalance;
     accountViewClosingDate: AccountBalance;
     journalList: JournalList;
+    accountTypes: BaseListItem[]
 }
 
 const store = createStore(
@@ -25,7 +27,8 @@ const store = createStore(
         accountDetails: {} as AccountDetails,
         accountViewClosingDate: {} as AccountBalance,
         accountViewOpeningDate: {} as AccountBalance,
-        journalList: {} as JournalList
+        journalList: {} as JournalList,
+        accountTypes: []
     })
 );
 
@@ -36,6 +39,7 @@ export const accountDetails$ = store.pipe(select(({ accountDetails }) => account
 export const accountViewOpeningDate$ = store.pipe(select(({ accountViewOpeningDate }) => accountViewOpeningDate));
 export const accountViewClosingDate$ = store.pipe(select(({ accountViewClosingDate }) => accountViewClosingDate));
 export const journalList$ = store.pipe(select(({ journalList }) => journalList));
+export const accountTypes$ = store.pipe(select(({ accountTypes }) => accountTypes));
 
 
 export type ChartOfAccountsStore = typeof store;

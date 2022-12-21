@@ -14,18 +14,12 @@ import { PrimeNGConfig } from 'primeng/api';
 import { PagingConfig } from '@root/shared/models/table/page-configuration.model';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Table } from 'primeng/table';
-import {
-    getDataType,
-    getFilterValue,
-    getType,
-} from '@root/shared/statics/table-filters';
 import { BaseComponent } from '../base-component/base-component';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { Filter } from '@root/shared/models/table/filter.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { SortItem } from '@root/shared/models/table/table-sort.model';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { ObjectDataCompareTransformer } from '@root/shared/transformers/object-data-transformer.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 
 @Component({
@@ -39,9 +33,10 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     @Output() onPaging = new EventEmitter<PagingConfig>();
     @Output() onSlideToggle = new EventEmitter<{ value: boolean, item: T }>();
     @Output() onSort = new EventEmitter<SortItem>();
-    @Output() onFilter = new EventEmitter<Filter[]>();
+    @Output() onFilter = new EventEmitter<any>();
     @Output() onFilterCleared = new EventEmitter<any>();
     @ViewChild('dt', { static: true }) dataTable: Table;
+    @Output() rowsSelected = new EventEmitter<T>();
     search: string;
     filterData: Filter[] = [];
     isSliderChangeConfirmed: boolean;
@@ -51,12 +46,12 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     data: T[];
     isDesktop$ = this.layoutService.isDesktop$;
     isMobile$ = this.layoutService.isMobile$;
+    selectedRow: T;
 
     constructor(
         private primengConfig: PrimeNGConfig,
         private clipboard: Clipboard,
         private layoutService: LayoutService,
-        private objectDataCompareTransformer: ObjectDataCompareTransformer,
         private cdr: ChangeDetectorRef
     ) {
         super();
@@ -131,32 +126,20 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
         this.dataTable.filters = {};
     }
 
-    onFilterChanged(data: any) {
-        if (!this.tableConfiguration.settings.isLocalPaging) {
-            const filters: Filter[] = [];
-            Object.keys(data).forEach((key: string) => {
-                if (
-                    (!Array.isArray(data[key][0].value) && data[key][0].value !== null && data[key][0].value !== '') ||
-                    (Array.isArray(data[key][0].value) && data[key][0].value.length > 0)
-                ) {
-                    filters.push({
-                        value1: getFilterValue(data[key][0]),
-                        type: getType(data[key][0]),
-                        dataType: getDataType(data[key][0].value),
-                        property: key,
-                    });
-                }
-            });
-            const temp = this.objectDataCompareTransformer.transformBothSids(filters, this.filterData);
-            if (!this.isEmpty(temp)) {
-                this.onFilter.emit(filters);
-                this.currentPageIndex = 0;
-                this.filterData = filters;
-            }
-        }
-    }
-
     onSlideToggleChanged(item: T, checked: boolean) {
         this.onSlideToggle.emit({ value: checked, item });
+    }
+
+
+    onFilterEmitted(data: any) {
+        let filter: any[] = [];
+        Object.keys(data.filters).forEach(key => {
+            filter.push({ 'name': key, 'value': data.filters[key].value });
+        });
+        this.onFilter.emit(filter);
+    }
+
+    onRowsSelectedChanged() {
+        this.rowsSelected.emit(this.selectedRow);
     }
 }

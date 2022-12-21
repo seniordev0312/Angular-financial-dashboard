@@ -36,12 +36,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { PaginatorModule } from 'primeng/paginator';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
-
 import { DatePickerInputComponent } from './components/date-picker-input/date-picker-input.component';
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { SingleSelectComponent } from './components/single-select/single-select.component';
 import { CanAccessFeatureDirective } from './directives/access-control.directive';
 import { NotificationModule } from './notifications/notification.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
     declarations: [
@@ -61,6 +61,7 @@ import { NotificationModule } from './notifications/notification.module';
         CanAccessFeatureDirective
     ],
     imports: [
+        NgxMatSelectSearchModule,
         MatAutocompleteModule,
         MatFormFieldModule,
         MatInputModule,

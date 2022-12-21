@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { JournalService } from '@root/pages/accounting-and-finance/General-accounting/add-journal/services/jornal.service';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
@@ -12,10 +13,12 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
-import { EntityFilterFormGroup } from '../../form-group/entity-filter-form-group.service';
-import { EntitiesTableItem } from '../../models/entities-table-item.model';
+import { DynamicFilter } from '../../models/dynamic-filter.model';
+import { EntityEntriesListItem } from '../../models/entity-entries-list-item.model';
+import { EntityType } from '../../models/entity-type.model';
 import { EntitiesControlService } from '../../services/entity-control.service';
-import { entitiesList$, entityTypes$ } from '../../store/entities-control.store';
+import { EntitiesControlRepository } from '../../store/entities-control.repository';
+import { dynamicFiltersList$, entitiesList$, entityTypes$ } from '../../store/entities-control.store';
 import { AddEntityComponent } from '../add-entity/add-entity.component';
 
 @Component({
@@ -26,14 +29,16 @@ import { AddEntityComponent } from '../add-entity/add-entity.component';
 })
 export class EntitiesControlComponent extends BaseComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<EntitiesTableItem>;
-  pageSize = 10;
+  table: WidgetTableComponent<any>;
+  pageSize = 10000;
   pageIndex = 1;
-  entityEntriesList: EntitiesTableItem[];
+  entityEntriesList: any[];
   filter: Filter[];
-  entityTypesList: BaseListItem[] = [];
+  entityTypesOptionsList: BaseListItem[] = [];
+  entityTypesList: EntityType[] = [];
+  filterFields: string[] = ['EIN', 'Name', 'Source', 'Location', 'Icon'];
   entityTypeFormControl = new FormControl('100');
-  entitiesList: EntitiesTableItem[] = [];
+  entitiesList: any[] = [];
   isSpinning$: Observable<boolean>;
 
   tableColumns: TableColumn[] = [
@@ -43,7 +48,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
       type: 'text',
       svgIcon: '',
       cssClasses: () => '',
-      dataCssClasses: () => 'underline text-accent',
+      dataCssClasses: () => 'underline text-center text-accent',
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -120,7 +125,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     },
   ];
 
-  editAction: TableRowAction<EntitiesTableItem> = {
+  editAction: TableRowAction<any> = {
     action: (data) => this.onEntityEdited(data),
     cssClasses: 'text-primary',
     iconName: 'border_color',
@@ -130,7 +135,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     isIconButton: true,
   };
 
-  viewAction: TableRowAction<EntitiesTableItem> = {
+  viewAction: TableRowAction<any> = {
     action: (data) => this.onEntityViewed(data),
     cssClasses: 'text-primary',
     iconName: 'visibility',
@@ -140,9 +145,11 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: false });
+  tableSettings = new TableSettings({
+    actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true, dataKey: 'EIN'
+  });
   filterFG: FormGroup;
-  tableConfiguration: TableConfiguration<EntitiesTableItem> = {
+  tableConfiguration: TableConfiguration<any> = {
     tableRowsActionsList: [this.editAction, this.viewAction],
     columns: this.tableColumns,
     data: [],
@@ -151,32 +158,42 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   };
 
   constructor(private dialog: MatDialog,
-    private entitiesControlService: EntitiesControlService,
-    private entityFilterFormGroup: EntityFilterFormGroup) { super(); }
+    @Inject(MAT_DIALOG_DATA) public showSelection: boolean,
+    private entitiesControlRepository: EntitiesControlRepository,
+    private journalService: JournalService,
+    private entitiesControlService: EntitiesControlService) { super(); }
 
 
   ngOnInit(): void {
+
+    if (this.showSelection) {
+      this.tableConfiguration.settings = new TableSettings({
+        actionsMode: 'inline',
+        pageSize: this.pageSize,
+        isLocalPaging: true,
+        isRowsSelectionAvailable: true,
+        dataKey: 'EIN'
+      });
+      this.table?.refresh();
+    }
+
     this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
     this.entitiesControlService.getEntityTypesList();
     this.isSpinning$ = isSpinning$;
-
-    this.filterFG = this.entityFilterFormGroup.getFormGroup();
-
+    const fg: any = {};
+    this.filterFields.forEach(field => {
+      fg[field] = new FormControl(null);
+    });
+    this.filterFG = new FormGroup(fg);
     this.subscriptions.add(entitiesList$.subscribe(data => {
       if (!this.isEmpty(data)) {
-        const items: EntitiesTableItem[] = [];
+        const items: any[] = [];
         data.entityRecordItems.forEach(e => {
+          let item = {};
           e.sections.forEach(section => {
-            if (section.name === 'Common') {
-              items.push({
-                Location: section.properties['Location'],
-                EIN: section.properties['EIN'],
-                Name: section.properties['Name'],
-                Source: section.properties['Source'],
-                type: e.entityCode
-              });
-            }
+            item = { ...item, ...section.properties };
           });
+          items.push(item);
         });
         this.entityEntriesList = items;
         this.tableConfiguration.data = items;
@@ -185,20 +202,61 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
       }
     }));
 
+
     this.subscriptions.add(entityTypes$.subscribe(data => {
       if (!this.isEmpty(data)) {
-        this.entityTypesList = [{ id: '100', value: 'All' }, ...data];
+        this.entityTypesList = data;
+        this.entityTypesOptionsList = [{ id: '100', value: 'All' }, ...data.map(e => ({ id: e.code, value: e.name }))];
       }
     }));
 
     this.subscriptions.add(this.entityTypeFormControl.valueChanges.subscribe(data => {
       this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
+      const entityDefinitionId = this.entityTypesList.find(entity => entity.code === data).entityDefinitionId;
+      this.entitiesControlService.getEntityDynamicFiltersList(entityDefinitionId);
     }));
 
+    this.subscriptions.add(dynamicFiltersList$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.filterFields = [];
+        this.filterFG = this.getFormGroup(data);
+        this.tableConfiguration.columns = [];
+        const einClass = 'underline text-center text-accent';
+        data.forEach(item => {
+          this.filterFields.push(item.elementName);
+          this.tableConfiguration.columns.push({
+            translationKey: item.elementName,
+            property: item.elementName,
+            type: 'text',
+            svgIcon: '',
+            cssClasses: () => '',
+            dataCssClasses: () => item.elementName === 'EIN' ? einClass : 'text-center',
+            enableSort: true,
+            hasFilter: true,
+            visible: true,
+            displayInFilterList: false,
+            hasToolTip: false,
+            showText: true,
+            filter: {
+              filterType: TableColumnFilterDataType.Text
+            }
+          })
+        });
+        this.table.refresh();
+      }
+    }));
   }
 
+  getFormGroup(data: DynamicFilter[]) {
+    const fg: any = {};
+    data.forEach(field => {
+      fg[field.elementName] = new FormControl(null);
+    });
+    return new FormGroup(fg);
+  }
 
   onEntityAdded() {
+    this.entitiesControlRepository.updateSelectedEntityEntry({} as EntityEntriesListItem);
     this.dialog.open(AddEntityComponent, {
       width: '90%',
       height: '90%'
@@ -206,14 +264,22 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   }
 
 
-  onEntityEdited(_category: EntitiesTableItem) {
+  onEntityEdited(data: any) {
+    this.entitiesControlRepository.updateSelectedEntityEntry({} as EntityEntriesListItem);
     this.dialog.open(AddEntityComponent, {
       width: '90%',
-      height: '90%'
+      height: '90%',
+      data: { ein: data.EIN, mode: 'edit' }
     });
   }
 
-  onEntityViewed(_category: EntitiesTableItem) {
+  onEntityViewed(data: any) {
+    this.entitiesControlRepository.updateSelectedEntityEntry({} as EntityEntriesListItem);
+    this.dialog.open(AddEntityComponent, {
+      width: '90%',
+      height: '90%',
+      data: { ein: data.EIN, mode: 'view' }
+    });
   }
 
   getFormControl(key: string): FormControl {
@@ -228,5 +294,23 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
       this.pageIndex = this.pageIndex - 1;
     }
     this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+  }
+
+  onFilterChange(value: any, field: string) {
+    this.table.dataTable.filters[field] = { value: value, matchMode: "contains", operator: "and" };
+    this.table.dataTable.filter(value, field, "contains");
+  }
+
+  onTableFilter(value: any[]) {
+    const data: any = {};
+    value.forEach((e: any) => {
+      data[e['name']] = e['value'];
+    });
+    this.filterFG.patchValue(data, { emitEvent: false })
+  }
+
+  onRowsSelected(data: any) {
+    this.journalService.updateJournalEIN(data[0].EIN);
+    this.dialog.closeAll();
   }
 }
