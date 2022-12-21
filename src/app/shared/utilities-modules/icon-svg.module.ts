@@ -41,6 +41,10 @@ export class IconSvgModule {
                 'treaty',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/treaty.svg')
             ).addSvgIcon(
+                'report-viewer',
+                sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/report-viewer.svg')
+            )
+            .addSvgIcon(
                 'system-setup',
                 sanitizer.bypassSecurityTrustResourceUrl('assets/images/svg-icons/system-setup.svg')
             ).addSvgIcon(

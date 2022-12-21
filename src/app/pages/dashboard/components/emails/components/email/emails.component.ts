@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { SignalRService } from '@root/shared/services/signalR.service';
 
 import { EmailItem } from '../../models/email-item.model';
 import { EmailsService } from '../../services/emails.service';
+import { SignalRService } from '../../services/signalR.service';
 import { emails$ } from '../../store/emails.store';
 
 @Component({
@@ -25,14 +26,13 @@ export class EmailsComponent extends BaseComponent implements OnInit, OnDestroy 
     private layoutService: LayoutService,
     private emailsService: EmailsService,
     private cdr: ChangeDetectorRef,
-    private signal: SignalRService
+    private signalR: SignalRService
   ) {
     super();
   }
   ngOnInit(): void {
     document.documentElement.style.setProperty('--right-sidenav-width', '320px');
     this.layoutService.showToggleInRightSideNav();
-    this.signal.initiateEmailSignalRConnection()
     this.subscriptions.add(
       emails$.subscribe((data: EmailItem[]) => {
         console.log(data);
@@ -42,6 +42,7 @@ export class EmailsComponent extends BaseComponent implements OnInit, OnDestroy 
     )
     this.layoutService.updateBreadCrumbsRouter({});
     this.emailsService.getEmails(0, 100);
+    this.signalR.startConnection()
   }
 
   onEmailContentClick(_item?: any): void {
@@ -57,9 +58,9 @@ export class EmailsComponent extends BaseComponent implements OnInit, OnDestroy 
     }
   }
 
-  OnDestroy() {
-    console.log('OnDestroy');
+  ngOnDestroy() {
     document.documentElement.style.setProperty('--right-sidenav-width', '320px');
     this.layoutService.showToggleInRightSideNav();
+    this.signalR.stopConnection();
   }
 }

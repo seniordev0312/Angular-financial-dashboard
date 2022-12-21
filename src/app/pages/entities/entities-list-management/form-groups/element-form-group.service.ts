@@ -14,7 +14,7 @@ export class ElementFormGroup {
             elementType: new FormControl(item?.elementType || null, [Validators.required]),
             elementName: new FormControl(item?.elementName || null, [Validators.required]),
             description: new FormControl(item?.description || null, [Validators.required]),
-            regularExpression: new FormControl(item?.regularExpression || null, [Validators.required]),
+            regularExpression: new FormControl(item?.regularExpression || null),
             indexable: new FormControl(item?.indexable || false, [Validators.required]),
             mandatory: new FormControl(item?.mandatory || false, [Validators.required]),
             lockModifications: new FormControl(item?.lockModifications || false, [Validators.required]),

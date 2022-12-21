@@ -6,8 +6,10 @@ import { ConfirmationDialogService } from '@root/shared/notifications/services/d
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { debounceTime, take } from 'rxjs';
+import { AccountDetails } from '../../models/account-details.model';
 import { ChartOfAccountsListItem } from '../../models/chart-of-accounts-list-item.model';
 import { ChartOfAccountsListService } from '../../services/chart-of-accounts-list.service';
+import { ChartOfAccountsRepository } from '../../store/chart-of-accounts.repository';
 import { chartOfAccountsList$ } from '../../store/chart-of-accounts.store';
 
 @Component({
@@ -20,31 +22,35 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
   searchFormControl = new FormControl();
   viewAccountLink = ApplicationRoutes.ViewAccount;
   pageSize = 10;
-  childrenPageSize = 10;
-
+  pageIndex = 0;
+  itemsCount = 0;
   chartOfAccountsList: ChartOfAccountsListItem[] = [];
 
   constructor(private layoutService: LayoutService,
     private confirmationDialogService: ConfirmationDialogService,
+    private chartOfAccountsRepository: ChartOfAccountsRepository,
     private chartOfAccountsListService: ChartOfAccountsListService,
     private cdr: ChangeDetectorRef,
     private router: Router) { super(); }
 
 
   ngOnInit(): void {
-    this.chartOfAccountsListService.getChartOfAccountsList(this.pageSize, this.childrenPageSize);
+    // this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize, null);
+    this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize);
 
     this.subscriptions.add(chartOfAccountsList$.subscribe(data => {
       if (!this.isEmpty(data)) {
-        this.chartOfAccountsList = data;
+        this.chartOfAccountsList = data.paginatedAccounts;
+        this.itemsCount = data.accountsCount;
         this.cdr.detectChanges();
       }
     }));
 
     this.subscriptions.add(
-      this.searchFormControl.valueChanges.pipe(debounceTime(400)).subscribe(data => {
+      this.searchFormControl.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
         if (!this.isEmpty(data)) {
-          this.chartOfAccountsListService.searchChartOfAccountsList(data);
+          this.pageIndex = 0;
+          this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize, data);
         }
       })
     );
@@ -64,23 +70,25 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
   }
 
 
-  onChartOfAccountAdded(showParentInput: boolean) {
+  onChartOfAccountAdded(isLeafItem: boolean, parentAccountTypeId: string = null, canChangeParent = false) {
+    this.chartOfAccountsRepository.updateAccountDetails({} as AccountDetails);
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.ChartOfAccounts}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}` },
-    }], { skipLocationChange: true, queryParams: { isLeafItem: showParentInput } });
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${!isLeafItem}` },
+    }], { skipLocationChange: true, queryParams: { parentAccountTypeId, canChangeParent } });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onChartOfAccountEdited(item: ChartOfAccountsListItem, isLeafItem: boolean) {
+  onChartOfAccountEdited(item: ChartOfAccountsListItem) {
+    this.chartOfAccountsRepository.updateAccountDetails({} as AccountDetails);
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.ChartOfAccounts}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${item.accountTypeId}` },
-    }], { skipLocationChange: true, queryParams: { isLeafItem } });
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${item.accountTypeId ?? item.accountId}/${item.accountTypeId !== null}` },
+    }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  onChartOfAccountDeactivated(_item: ChartOfAccountsListItem) {
+  onChartOfAccountDeactivated(item: ChartOfAccountsListItem, isActive: boolean) {
     this.confirmationDialogService.open({
       description: 'Are you sure you want to deactivate this chart of account?',
       title: 'Deactivate Chart Of Account',
@@ -93,7 +101,30 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(
       this.confirmationDialogService.confirmed().pipe(take(1)).subscribe((isConfirmed) => {
-        if (isConfirmed) { }
+        if (isConfirmed) {
+          this.chartOfAccountsListService.changeChartOfAccountStatus(item.accountId ?? item.accountTypeId, item.lastLevelFlag, isActive);
+        }
       }));
+  }
+
+  showViewButton(item: ChartOfAccountsListItem): boolean {
+    let showViewButton = true;
+    item.children?.forEach((item) => {
+      if (item.childrenCount && item.childrenCount > 0) {
+        showViewButton = false;
+      }
+    })
+    return showViewButton;
+  }
+
+  showAddButton(item: ChartOfAccountsListItem) {
+    return item.accountTypeId;
+  }
+
+  onLazyLoad(data: any) {
+    if ((data.first / data.rows) !== this.pageIndex && data.rows !== 0) {
+      this.pageIndex = data.first / data.rows;
+      this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize);
+    }
   }
 }
