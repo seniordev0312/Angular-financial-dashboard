@@ -2,7 +2,7 @@ import { JournalItemsModel } from "./journal-items.model";
 
 export interface JournalEntryModel {
     journalEntryId: number, // 0 Or 1
-    type: number, // General = 0, Invoice = 1, CreditNote = 2, Bill = 3, Refund = 4
+    journalEntryType: number, // General = 0, Invoice = 1, CreditNote = 2, Bill = 3, Refund = 4
     journalId: number, // GetJournalsByEntryType endpoint
     entryName: string, // Invoice No
     description: string,

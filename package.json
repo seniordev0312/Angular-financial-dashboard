@@ -34,6 +34,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "angular-auth-oidc-client": "15.0.2",
     "dayjs": "^1.11.6",
+    "ng-qrcode": "^8.0.1",
     "ngx-plyr": "^4.0.1",
     "plyr": "^3.7.3",
     "primeicons": "^6.0.1",
