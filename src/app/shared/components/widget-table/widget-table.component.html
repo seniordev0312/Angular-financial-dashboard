@@ -1,7 +1,6 @@
 <div class="card overflow-auto shared-table" [ngClass]="tableConfiguration.settings.cssClasses">
   <p-table #dt [value]="data" [rowHover]="true" responsiveLayout="scroll" [rows]="pageSize"
-    (onFilter)="onFilterChanged($event.filters)" [lazy]="!tableConfiguration.settings.isLocalPaging"
-    [totalRecords]="totalRecords" [paginator]="
+    [lazy]="!tableConfiguration.settings.isLocalPaging" [totalRecords]="totalRecords" [paginator]="
                     (!tableConfiguration.settings.isLocalPaging ||
                         (tableConfiguration.settings.isLocalPaging &&
                             totalRecords > tableConfiguration.settings.pageSize)) &&

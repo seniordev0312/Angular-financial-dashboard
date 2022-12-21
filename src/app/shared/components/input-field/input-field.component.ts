@@ -14,6 +14,7 @@ export class InputFieldComponent {
   @Input() value: string;
   @Input() type: string = 'text';
   @Input() control: FormControl;
+  @Input() icon: string;
   @Input() baseListItemsList: BaseListItem[];
   @Output() onTrigger = new EventEmitter<void>();
 

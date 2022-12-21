@@ -1,14 +1,14 @@
 <form [formGroup]="fg" class="grid grid-cols-3 gap-10 mt-7">
     <ng-container *ngFor="let field of section.fields">
-        <container-element [ngSwitch]="field.elementType">
-            <app-input-field *ngSwitchCase="'Text'" [label]="field.elementName"
+        <container-element [ngSwitch]="getElementType(field.elementType)">
+            <app-input-field *ngSwitchDefault [label]="field.elementName"
                 [control]="getFormControl(field.elementName)"></app-input-field>
             <app-select-list *ngSwitchCase="'Select'" [label]="field.elementName"
                 [control]="getFormControl(field.elementName)"></app-select-list>
-            <mat-form-field *ngSwitchCase="'Select'">
+            <mat-form-field appearance="fill" class="w-full" *ngSwitchCase="'Date'">
                 <mat-label>{{field.elementName}}</mat-label>
-                <input [formControlName]="field.elementName" matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <input [formControl]="getFormControl(field.elementName)" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </container-element>

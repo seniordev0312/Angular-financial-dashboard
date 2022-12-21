@@ -47,7 +47,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
     }));
 
     this.subscriptions.add(
-      this.searchFormControl.valueChanges.pipe(debounceTime(400)).subscribe(data => {
+      this.searchFormControl.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
         if (!this.isEmpty(data)) {
           this.pageIndex = 0;
           this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize, data);
@@ -82,7 +82,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
   onChartOfAccountEdited(item: ChartOfAccountsListItem) {
     this.chartOfAccountsRepository.updateAccountDetails({} as AccountDetails);
     this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.ChartOfAccounts}`, {
-      outlets: { sidenav: `${ApplicationRoutes.Add}/${item.accountTypeId ?? item.accountId}/${item.parentAccountTypeId === null}` },
+      outlets: { sidenav: `${ApplicationRoutes.Add}/${item.accountTypeId ?? item.accountId}/${item.accountTypeId !== null}` },
     }], { skipLocationChange: true });
     this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
@@ -118,11 +118,11 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
   }
 
   showAddButton(item: ChartOfAccountsListItem) {
-    return item.childrenCount !== 0;
+    return item.accountTypeId;
   }
 
   onLazyLoad(data: any) {
-    if ((data.first / data.rows) !== this.pageIndex) {
+    if ((data.first / data.rows) !== this.pageIndex && data.rows !== 0) {
       this.pageIndex = data.first / data.rows;
       this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize);
     }

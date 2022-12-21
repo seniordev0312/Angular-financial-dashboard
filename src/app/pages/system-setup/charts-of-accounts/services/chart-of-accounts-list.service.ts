@@ -17,12 +17,22 @@ export class ChartOfAccountsListService {
     constructor(private httpClient: HttpClient,
         private chartOfAccountsRepository: ChartOfAccountsRepository) { }
 
-    getChartOfAccountsList(pageIndex: number, pageSize: number, searchWord?: string): void {
+    getChartOfAccountsList(pageIndex: number, pageSize: number, searchWord?: string, isBackground = false): void {
+        let httpOptions = {
+        };
+        if (isBackground) {
+            httpOptions = {
+                ...httpOptions,
+                headers: new HttpHeaders({
+                    'process': 'background',
+                })
+            }
+        }
         let endPointUrl = `${environment.systemSetupApiUrl}/Account/GetAccountsHierarchy/${pageIndex}/${pageSize}`;
         if (searchWord) {
             endPointUrl = `${environment.systemSetupApiUrl}/Account/SearchAccountsHierarchy/${searchWord}/${pageIndex}/${pageSize}`;
         }
-        this.httpClient.get<ChartOfAccountsList>(endPointUrl).subscribe(data => {
+        this.httpClient.get<ChartOfAccountsList>(endPointUrl, httpOptions).subscribe(data => {
             if (data) {
                 this.chartOfAccountsRepository.updateChartOfAccountsList(data);
             }
@@ -76,7 +86,7 @@ export class ChartOfAccountsListService {
         const endPointUrl = `${environment.systemSetupApiUrl}/AccountType/UpdateAccountType`;
         this.httpClient.post<AccountDetails>(endPointUrl, account).subscribe(data => {
             if (data) {
-                this.chartOfAccountsRepository.updateAccountDetails(data);
+                this.getChartOfAccountsList(0, 10, null, true);
             }
         });
     }
@@ -85,7 +95,7 @@ export class ChartOfAccountsListService {
         const endPointUrl = `${environment.systemSetupApiUrl}/AccountType/AddAccountType`;
         this.httpClient.post<AccountDetails>(endPointUrl, account).subscribe(data => {
             if (data) {
-                this.chartOfAccountsRepository.updateAccountDetails(data);
+                this.getChartOfAccountsList(0, 10, null, true);
             }
         });
     }
@@ -94,7 +104,7 @@ export class ChartOfAccountsListService {
         const endPointUrl = `${environment.systemSetupApiUrl}/Account/UpdateAccount`;
         this.httpClient.post<AccountDetails>(endPointUrl, account).subscribe(data => {
             if (data) {
-                this.chartOfAccountsRepository.updateAccountDetails(data);
+                this.getChartOfAccountsList(0, 10, null, true);
             }
         });
     }
@@ -103,7 +113,7 @@ export class ChartOfAccountsListService {
         const endPointUrl = `${environment.systemSetupApiUrl}/Account/AddAccount`;
         this.httpClient.post<AccountDetails>(endPointUrl, account).subscribe(data => {
             if (data) {
-                this.chartOfAccountsRepository.updateAccountDetails(data);
+                this.getChartOfAccountsList(0, 10, null, true);
             }
         });
     }
@@ -136,8 +146,10 @@ export class ChartOfAccountsListService {
         });
     }
 
-    getAccountJournalList(accountId: string, pageIndex: number, pageSize: number, lastLevelFlag: boolean, bookId: number): void {
-        const endPointUrl = `${environment.systemSetupApiUrl}/JournalItem/GetEntriesByAccountOrAccountType/${accountId}/${pageIndex}/${pageSize}/${lastLevelFlag}/${bookId}`;
+    getAccountJournalList(accountId: string, pageIndex: number, pageSize: number, lastLevelFlag: boolean,
+        fromDate: string, toDate: string,
+        bookId: number): void {
+        const endPointUrl = `${environment.systemSetupApiUrl}/JournalItem/GetEntriesByAccountOrAccountType/${accountId}/${pageIndex}/${pageSize}/${lastLevelFlag}/${fromDate}/${toDate}/${bookId}`;
         this.httpClient.get<JournalList>(endPointUrl).subscribe(data => {
             if (data) {
                 this.chartOfAccountsRepository.updateJournalList(data);

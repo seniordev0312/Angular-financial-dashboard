@@ -3,8 +3,8 @@
 
     <div class="flex w-full items-center justify-between mt-7 mb-5">
         <h4 class="text-xl font-bold">Create New Entity</h4>
-        <app-button [isDisabled]="!isDefinitionFetched" (trigger)="onEntitySaved()" text="Save and close" icon="save"
-            [classes]="isDefinitionFetched?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'">
+        <app-button [isDisabled]="!isValid" (trigger)="onEntitySaved()" text="Save and close" icon="save"
+            [classes]="isValid?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'">
         </app-button>
     </div>
     <div class="grid grid-cols-4 gap-5">
@@ -26,7 +26,7 @@
                     </div>
                     <div role="region" [style.display]="accordionItem0.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-0'" [attr.aria-labelledby]="'accordion-header-0'">
-                        <app-entity-type></app-entity-type>
+                        <app-entity-type #entityType></app-entity-type>
                     </div>
                 </cdk-accordion-item>
 
@@ -52,7 +52,32 @@
             </cdk-accordion>
         </div>
         <div class="col-span-1">
-            <app-create-entity-checks *ngIf="isDefinitionFetched"></app-create-entity-checks>
+            <div *ngIf="isDefinitionFetched" class="bg-gray-light3 rounded-xl h-full p-4 flex flex-col">
+                <h3 class="font-bold text-center text-lg">Creating a Person</h3>
+
+                <div *ngFor="let item of sectionsData" class="mt-4 flex flex-col">
+                    <h4 class="text-primary font-semibold text-base">{{item.name}}</h4>
+                    <div *ngFor="let control of getFormControlsList(item.fg);let i=index"
+                        class="items-center grid grid-cols-3">
+                        <h5 *ngIf="isFormControlRequired(control)" class="text-xs font-bold col-span-2">Mandatory Field
+                        </h5>
+                        <h5 *ngIf="!isFormControlRequired(control)" class="text-xs font-bold col-span-2">Optional Field
+                        </h5>
+
+                        <div class="flex items-center justify-between">
+                            <h6 class="text-sm mr-3">{{getFormControlName(item.fg,i)}}</h6>
+                            <span *ngIf="control.valid" class="material-icons text-success">
+                                check_circle_outline
+                            </span>
+                            <span *ngIf="!control.valid" class="material-icons text-warn">
+                                warning_amber
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
 </mat-dialog-content>

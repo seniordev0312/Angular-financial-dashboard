@@ -56,7 +56,7 @@ const routes: Route[] = [
     ]
   },
   {
-    path: `${ApplicationRoutes.ViewAccount}/:id/:lastLevelFlag`,
+    path: `${ApplicationRoutes.ViewAccount}/:id`,
     component: AccountViewComponent,
     data: {
       permission: Permission.CanAddChartOfAccounts

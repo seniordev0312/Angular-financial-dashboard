@@ -32,7 +32,7 @@ import { isSpinning$ } from '@root/shared/store/shared.store';
     selector: 'app-widget-table',
     templateUrl: './widget-table.component.html',
     styleUrls: ['./widget-table.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
 })
 export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     @Input() tableConfiguration: TableConfiguration<T>;
@@ -42,7 +42,7 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     @Output() onFilter = new EventEmitter<Filter[]>();
     @Output() onFilterCleared = new EventEmitter<any>();
     @ViewChild('dt', { static: true }) dataTable: Table;
-
+    search: string;
     filterData: Filter[] = [];
     isSliderChangeConfirmed: boolean;
     pageSize = 50;
@@ -159,5 +159,4 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     onSlideToggleChanged(item: T, checked: boolean) {
         this.onSlideToggle.emit({ value: checked, item });
     }
-
 }
