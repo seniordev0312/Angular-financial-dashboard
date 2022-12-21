@@ -1,6 +1,7 @@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { AddChartOfAccounts } from '../models/add-chart-of-account.model';
+import { AccountDetails } from '../models/account-details.model';
+import { AddAccount } from '../models/add-account.model';
 
 @Injectable({
     providedIn: 'root',
@@ -9,30 +10,29 @@ export class AddChartOfAccountFormGroup {
     fg: FormGroup;
     constructor(public fb: FormBuilder) { }
 
-    getFormGroup(item?: AddChartOfAccounts): FormGroup {
+    getFormGroup(item?: AccountDetails): FormGroup {
         this.fg = this.fb.group({
-            id: new FormControl(item?.id || null),
-            companyName: new FormControl(item?.companyName || null, [Validators.required]),
-            parentAccount: new FormControl(item?.parentAccount || null, [Validators.required]),
-            defaultCurrency: new FormControl(item?.defaultCurrency || null, [Validators.required]),
-            description: new FormControl(item?.description || null, [Validators.required]),
-            isNewGroup: new FormControl(item?.isNewGroup || null, [Validators.required]),
-            ledgerNumber: new FormControl(item?.ledgerNumber || null, [Validators.required]),
-            accountType: new FormControl(item?.accountType || null, [Validators.required]),
+            accountId: new FormControl(item?.accountId || 0),
+            accountTypeId: new FormControl(item?.accountTypeId || 0),
+            companyName: new FormControl(item?.companyName || null),
+            parentAccountTypeId: new FormControl(item?.parentAccountTypeId || 0, [Validators.required]),
+            currencyId: new FormControl(item?.currencyId || null, [Validators.required]),
+            name: new FormControl(item?.name || null, [Validators.required]),
+            isNewGroup: new FormControl(item?.isNewGroup || true, [Validators.required]),
+            code: new FormControl(item?.code || null, [Validators.required]),
+            accountType: new FormControl(item?.accountType || 0, [Validators.required]),
         });
         return this.fg;
     }
 
-    getValueFromFormGroup(fg: FormGroup): AddChartOfAccounts {
+    getValueFromFormGroup(fg: FormGroup): AddAccount {
         return {
-            id: fg.controls.id?.value,
-            companyName: fg.controls.companyName.value,
-            ledgerNumber: fg.controls.ledgerNumber.value,
-            description: fg.controls.description.value,
-            isNewGroup: fg.controls.isNewGroup.value,
-            parentAccount: fg.controls.parentAccount.value,
-            defaultCurrency: fg.controls.defaultCurrency.value,
-            accountType: fg.controls.accountType.value,
+            accountId: fg.controls.accountId?.value,
+            accountCode: fg.controls.code.value,
+            accountName: fg.controls.name.value,
+            parentAccountTypeId: fg.controls.parentAccountTypeId.value,
+            currencyId: fg.controls.currencyId.value,
+            accountTypeId: fg.controls.accountTypeId.value,
         }
     }
 }

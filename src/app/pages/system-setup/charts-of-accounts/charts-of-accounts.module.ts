@@ -34,31 +34,29 @@ const routes: Route[] = [
     ]
   },
   {
-    path: ApplicationRoutes.Add,
+    path: `${ApplicationRoutes.Add}/:isGroup`,
     component: AddChartOfAccountsComponent,
     outlet: 'sidenav',
     data: {
       permission: Permission.CanAddChartOfAccounts
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
   {
-    path: `${ApplicationRoutes.Add}/:id`,
+    path: `${ApplicationRoutes.Add}/:id/:isGroup`,
     component: AddChartOfAccountsComponent,
     outlet: 'sidenav',
     data: {
       permission: Permission.CanEditChartOfAccounts
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
   {
-    path: ApplicationRoutes.ViewAccount,
+    path: `${ApplicationRoutes.ViewAccount}/:id`,
     component: AccountViewComponent,
     data: {
       permission: Permission.CanAddChartOfAccounts
