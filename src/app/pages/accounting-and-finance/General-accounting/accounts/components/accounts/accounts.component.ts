@@ -259,7 +259,7 @@ export class AccountsComponent implements OnInit {
       error: (_error: any) => {
       },
       next: async (data: any) => {
-        this.accountOpenBalance = data;
+        this.accountOpenBalance = data.totalBalance;
       },
       complete: async () => {
       },
@@ -267,13 +267,13 @@ export class AccountsComponent implements OnInit {
   }
   async getAccountCloseBalance(id: number) {
     const result = await this.generalAccountingService.getAccountOpenBalance(id,
-      this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd') ? this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd') : '2022-01-01',
+      this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd') ? this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd') : '2022-01-01',
     );
     result.subscribe({
       error: (_error: any) => {
       },
       next: async (data: any) => {
-        this.accountCloseBalance = data;
+        this.accountCloseBalance = data.totalBalance;
       },
       complete: async () => {
       },
