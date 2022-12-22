@@ -16,7 +16,7 @@ import { Actions } from '@ngneat/effects-ng';
 import { devTools } from '@ngneat/elf-devtools';
 import { SuccessMessageInterceptor } from './shared/interceptors/success-notification-interceptor';
 import { SpinnerInterceptor } from './shared/interceptors/spinner-interceptor';
-import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+// import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { SecurityGuard } from './shared/guards/security.guard';
 import { BaseInterceptor } from './shared/interceptors/base.interceptor';
 
@@ -75,11 +75,11 @@ export function initElfDevTools(actions: Actions) {
       useClass: SpinnerInterceptor,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ErrorInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseInterceptor,

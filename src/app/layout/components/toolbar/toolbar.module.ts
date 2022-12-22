@@ -9,6 +9,7 @@ import { DropdownComponent } from './component/dropdown/dropdown.component';
 import { ToolbarComponent } from './component/toolbar/toolbar.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
         MatToolbarModule,
         MatSelectModule,
         MatIconModule,
+        MatMenuModule,
         MatButtonModule,
         MatInputModule
     ],

@@ -27,7 +27,7 @@ export class RightSideBarComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(this.router.events.subscribe(e => {
       if (e instanceof ActivationStart && e.snapshot.outlet === 'sidenav') {
-        this.outlet.deactivate();
+        this.outlet?.deactivate();
       }
     }));
     this.subscriptions.add(

@@ -15,7 +15,6 @@ import { BranchCardComponent } from './components/branch-card/branch-card.compon
 import { DepartmentCardComponent } from './components/department-card/department-card.component';
 import { GroupChipComponent } from './components/group-chip/group-chip.component';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
@@ -26,7 +25,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessCompanyStructure
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -38,7 +36,6 @@ const routes: Route[] = [
       permission: Permission.CanAddCompanyStructure
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -50,7 +47,6 @@ const routes: Route[] = [
       permission: Permission.CanEditCompanyStructure
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },

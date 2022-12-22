@@ -15,7 +15,7 @@ export class BaseInterceptor implements HttpInterceptor {
             const headers = req?.headers.delete('InterceptorSkipContentTypeHeader');
             req = req?.clone({ headers });
         } else {
-            req = req?.clone({ setHeaders: { 'Content-Type': 'application/json', Accept: 'application/json' } });
+            req = req?.clone({ setHeaders: { 'Content-Type': 'application/json', Accept: 'text/plain' } });
         }
 
         let request: HttpRequest<unknown>;

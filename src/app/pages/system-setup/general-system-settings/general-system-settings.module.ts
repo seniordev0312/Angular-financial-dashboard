@@ -11,7 +11,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
@@ -22,7 +21,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessGeneralSystemSetup
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -34,7 +32,6 @@ const routes: Route[] = [
       permission: Permission.CanAddGeneralSystemSetup
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -46,7 +43,6 @@ const routes: Route[] = [
       permission: Permission.CanEditGeneralSystemSetup
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },

@@ -5,7 +5,8 @@
         <p class="text-black text-sm font-medium">{{data.name}}</p>
         <p class="text-xxs font-bold mt-2 text-primary">Company</p>
         <div class="absolute right-1 bottom-[2px]  px-2 ">
-            <span (click)="toggleElementsListVisibility()" class="material-icons text-primary cursor-pointer">
+            <span id="expand" (click)="toggleElementsListVisibility()"
+                class="material-icons text-primary cursor-pointer">
                 {{showElementsList?'expand_less':'expand_more'}}
             </span>
         </div>

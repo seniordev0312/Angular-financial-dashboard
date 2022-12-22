@@ -12,16 +12,7 @@ import { CompanyStructureService } from '../../services/company-structure.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompanyStructureComponent extends BaseComponent implements OnInit {
-  treeNode: TreeNode[] = [
-    {
-      type: 'company',
-      expanded: true,
-      data: {
-        name: 'Company Name', id: 3, parentId: 0, groups: []
-      },
-      children: []
-    }
-  ];
+  treeNode: TreeNode[] = [];
 
   selectedItem: TreeNode;
 
@@ -40,6 +31,7 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
           this.addNodeToTreeNode(
             {
               type: 'branch',
+              label: '',
               expanded: true,
               data: { name: data.name, parentId: data.parentId, id: data.id, groups: [] },
               children: [],
@@ -62,7 +54,8 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
           this.addNodeToTreeNode(
             {
               type: 'department',
-              expanded: true,
+              label: '',
+              expanded: false,
               data: { name: data.name, parentId: data.parentId, id: data.id, groups: [] },
               children: [],
             });
@@ -102,53 +95,7 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
             }
           ]
         },
-        children: [
-          {
-            type: 'branch',
-            expanded: true,
-            data: {
-              name: 'B1', id: 324, parentId: 3, groups: [[
-                {
-                  name: 'G2',
-                  id: 131,
-                  parentId: 324,
-                  users: [
-                    {
-                      id: '121-21-2121-2',
-                      displayName: 'Batata'
-                    }
-                  ]
-                }
-              ]]
-            },
-            children: []
-          },
-          {
-            type: 'branch',
-            expanded: true,
-            data: {
-              name: 'Company Name', id: 4516, parentId: 3, groups: []
-            },
-            children: [
-              {
-                type: 'department',
-                expanded: true,
-                data: {
-                  name: 'Company Name', id: 4421, parentId: 4516, groups: []
-                },
-                children: []
-              }
-            ]
-          },
-          {
-            type: 'department',
-            expanded: true,
-            data: {
-              name: 'Company Name', id: 4401, parentId: 3, groups: []
-            },
-            children: []
-          }
-        ]
+        children: []
       }
     ];
   }
@@ -183,6 +130,8 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
 
   addNodeToTreeNode(node: TreeNode) {
     this.selectedItem.children.push(node);
+    document.getElementById('expand').click();
+
     this.cdr.detectChanges();
   }
 

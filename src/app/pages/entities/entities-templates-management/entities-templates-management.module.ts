@@ -5,7 +5,6 @@ import { Route, RouterModule } from '@angular/router';
 import { SharedModule } from '@root/shared/shared.module';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddEntityTemplateComponent } from './components/add-entity-template/add-entity-template.component';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,7 +21,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessEntityTemplate
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -34,7 +32,6 @@ const routes: Route[] = [
       permission: Permission.CanAddEntityTemplate
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -46,7 +43,6 @@ const routes: Route[] = [
       permission: Permission.CanEditEntityTemplate
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   }

@@ -12,7 +12,7 @@ import { ElementChipComponent } from './components/element-chip/element-chip.com
 import { AddSectionComponent } from './components/add-section/add-section.component';
 import { AddElementComponent } from './components/add-element/add-element.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+// import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 
@@ -24,7 +24,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessEntityManagement
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -35,7 +34,6 @@ const routes: Route[] = [
       permission: Permission.CanAddEntityManagement
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -46,7 +44,6 @@ const routes: Route[] = [
       permission: Permission.CanEditEntityManagement
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -55,7 +52,6 @@ const routes: Route[] = [
     component: AddSectionComponent,
     outlet: 'sidenav',
     canActivate: [
-      AutoLoginAllRoutesGuard,
     ]
   },
   {
@@ -63,7 +59,6 @@ const routes: Route[] = [
     component: AddSectionComponent,
     outlet: 'sidenav',
     canActivate: [
-      AutoLoginAllRoutesGuard,
     ]
   },
   {
@@ -71,7 +66,6 @@ const routes: Route[] = [
     component: AddElementComponent,
     outlet: 'sidenav',
     canActivate: [
-      AutoLoginAllRoutesGuard,
     ]
   },
   {
@@ -79,7 +73,6 @@ const routes: Route[] = [
     component: AddElementComponent,
     outlet: 'sidenav',
     canActivate: [
-      AutoLoginAllRoutesGuard,
     ]
   }
 ];

@@ -7,9 +7,7 @@ import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { TableModule } from 'primeng/table';
-
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
 import { AddUserRoleComponent } from './components/add-user-role/add-user-role.component';
 import { UserPoliciesComponent } from './components/user-policies/user-policies.component';
@@ -24,7 +22,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessUserSecurity
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -36,7 +33,6 @@ const routes: Route[] = [
       permission: Permission.CanAddRole
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -48,7 +44,6 @@ const routes: Route[] = [
       permission: Permission.CanEditRole
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },

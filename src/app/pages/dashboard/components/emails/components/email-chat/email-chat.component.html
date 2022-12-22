@@ -1,3 +1,6 @@
+<div class="spinner" *ngIf="isSpinning$|async">
+    <mat-spinner></mat-spinner>
+</div>
 <div class="h-full pb-2 w-full">
     <div class="h-[3%] flex items-center gap-2 text-lg text-black">
         <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold icon" (click)="closeEmailChat()">

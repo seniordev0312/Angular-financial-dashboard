@@ -17,6 +17,7 @@ import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SafeHtmlPipe } from './components/emails/pipe/safe-html.pipe';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Route[] = [
   {
@@ -65,6 +66,7 @@ const routes: Route[] = [
   imports: [
     CommonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     SharedModule,
     RouterModule.forChild(routes)
   ],
