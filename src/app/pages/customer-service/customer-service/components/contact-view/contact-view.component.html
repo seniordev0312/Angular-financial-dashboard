@@ -46,7 +46,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div *ngIf="item.type === 0" class="flex flex-col relative w-[85%] shadow-xl rounded-lg p-2 h-fit">
+            <div *ngIf="item.type === 0 && item.body"
+                class="flex flex-col relative w-[85%] shadow-xl rounded-lg p-2 h-fit">
                 <div class="flex justify-between items-center font-medium text-xs mb-1">
                     <div class="text-accent">
                     </div>
