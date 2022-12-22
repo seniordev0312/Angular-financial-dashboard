@@ -43,6 +43,6 @@ export class DropdownComponent implements OnInit {
   }
 
   onLogout() {
-    this.oidcSecurityService.logoff();
+    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
 }

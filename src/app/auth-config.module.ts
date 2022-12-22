@@ -17,7 +17,7 @@ import { ApplicationRoutes } from './shared/settings/common.settings';
                 silentRenew: true,
                 useRefreshToken: true,
                 tokenRefreshInSeconds: 20,
-                logLevel: LogLevel.Error,
+                logLevel: LogLevel.Debug,
                 renewUserInfoAfterTokenRenew: true,
                 renewTimeBeforeTokenExpiresInSeconds: 30,
                 postLoginRoute: `/${ApplicationRoutes.Dashboard}`,
