@@ -53,8 +53,12 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
     });
 
     this.subscriptions.add(JournalList$.subscribe(data => {
-      this.journalList = data;
-      this.tableConfiguration.data = data;
+      for (var item of data) {
+        item.postingDate = this.pipe.transform(item.postingDate, 'yyyy-MM-dd ');
+        this.journalList.push(item);
+      }
+
+      this.tableConfiguration.data = this.journalList;
       this.tableConfiguration.dataCount = data.length;
       this.cdr.detectChanges();
       this.table.refresh();

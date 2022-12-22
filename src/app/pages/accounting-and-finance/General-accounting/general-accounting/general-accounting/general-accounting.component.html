@@ -61,8 +61,8 @@
             <p class="mr-4 text-lg text-white">Total</p>
         </div>
         <div *ngIf="journalTotal !== null" class="flex w-full justify-center">
-            <p *ngIf="journalTotal?.totalDebit !== null" class="text-lg text-white">{{journalTotal.totalDebit}}$</p>
-            <p *ngIf="journalTotal?.totalCredit !== null" class="ml-8 text-lg text-white">{{journalTotal.totalCredit}}$
+            <p *ngIf="journalTotal?.totalDebit !== null" class="text-lg text-white">${{journalTotal.totalDebit}}</p>
+            <p *ngIf="journalTotal?.totalCredit !== null" class="ml-8 text-lg text-white">${{journalTotal.totalCredit}}
             </p>
             <!-- <p *ngIf="journalTotal?.totalBalance !== null" class="ml-8 text-lg text-white">
                 {{journalTotal.totalBalance}}$
