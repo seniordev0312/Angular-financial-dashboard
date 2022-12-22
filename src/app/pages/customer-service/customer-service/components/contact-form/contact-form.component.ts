@@ -73,13 +73,14 @@ export class ContactFormComponent extends BaseComponent implements OnInit {
   }
 
   send() {
-    console.log(this.chatData);
-    console.log(this.userData);
+    console.log(this.chatData.chatId.toString());
+    console.log(this.userData.sub);
+    console.log(this.text);
+    console.log(this.userData.sub);
     let formData: FormData = new FormData();
     formData.append('image', this.fileBlob);
     formData.append('SenderId', this.userData.sub);
     formData.append('ChatId', this.chatData.chatId.toString());
-    console.log('this.text', this.name);
     formData.append('Body', this.text);
     formData.append('SourceCommunicationChannelId', '1');
     this.text = '';
