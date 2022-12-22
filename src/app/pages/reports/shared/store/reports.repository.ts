@@ -8,26 +8,34 @@ export class ReportsRepository {
         @Inject(REPORTS_STORE) private reportsStore: ReportsStore) {
     }
 
-    updateReports(report: any) {
-        let newReports: any[] = [];
-        if (this.reportsStore.value.reports) {
-            newReports = [...this.reportsStore.value.reports];
-        }
-        let index = newReports.findIndex((e: any) => e.id === report.id);
-        if (index !== -1) {
-            newReports[index] = report;
-        } else {
-            newReports.push(report)
-        }
-        console.log('newReports', newReports);
-
+    updateReportA(report: any) {
         this.reportsStore.update((state) => ({
             ...state,
-            reports: newReports
+            reportA: report
         }));
     }
 
-    getReports() {
-        return this.reportsStore.value.reports;
+    updateReportB(report: any) {
+        this.reportsStore.update((state) => ({
+            ...state,
+            reportB: report
+        }));
+    }
+
+    updateReportC(report: any) {
+        this.reportsStore.update((state) => ({
+            ...state,
+            reportC: report
+        }));
+    }
+
+    getReportA() {
+        return this.reportsStore.value.reportA;
+    }
+    getReportB() {
+        return this.reportsStore.value.reportB;
+    }
+    getReportC() {
+        return this.reportsStore.value.reportC;
     }
 }

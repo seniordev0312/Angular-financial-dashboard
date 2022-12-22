@@ -7,7 +7,6 @@ import { SharedModule } from '@root/shared/shared.module';
 import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-setup.module';
 import { SystemClaimsService } from './services/system-claims.service';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
@@ -18,7 +17,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessSystemClaims
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   }

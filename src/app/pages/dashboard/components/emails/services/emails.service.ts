@@ -13,23 +13,14 @@ export class EmailsService {
         private emailsRepository: EmailsRepository
     ) { }
 
-    getEmails(pageIndex: number, pageSize: number, backendUrl?: string): void {
+    getEmails(pageIndex: number, pageSize: number): void {
         let endPointUrl = `${this.baseUrl}/Email`;
         let httpOptions = {
             headers: new HttpHeaders({
                 'InterceptorHideSpinner': '',
             }),
-            params: new HttpParams(),
+            params: new HttpParams().set('PageIndex', pageIndex.toString()).set('PageSize', pageSize.toString()),
         };
-        if (backendUrl) {
-            endPointUrl = backendUrl;
-        }
-        else {
-            httpOptions = {
-                ...httpOptions,
-                params: httpOptions.params.set('PageIndex', pageIndex.toString()).set('PageSize', pageSize.toString()),
-            }
-        }
         this.httpClient.get<EmailItem[]>(endPointUrl, httpOptions).subscribe(data => {
             if (data) {
                 this.emailsRepository.updateEmails(data);
@@ -37,23 +28,14 @@ export class EmailsService {
         });
     }
 
-    getEmailMessage(messageId: any, backendUrl?: string) {
+    getEmailMessage(messageId: any) {
         let endPointUrl = `${this.baseUrl}/Email/${messageId}`;
         let httpOptions = {
             headers: new HttpHeaders({
-                'InterceptorHideSpinner': '',
+                'InterceptorShowSidenavSpinner': '',
             }),
             params: new HttpParams(),
         };
-
-        if (backendUrl) {
-            endPointUrl = backendUrl;
-        }
-        else {
-            httpOptions = {
-                ...httpOptions
-            }
-        }
 
         this.httpClient.get<any>(endPointUrl, httpOptions).subscribe(data => {
             console.log(data);

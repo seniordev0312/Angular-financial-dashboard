@@ -457,7 +457,11 @@ export class AddJournalComponent extends BaseComponent implements OnInit, OnDest
         next: async (data: any) => {
           this.qrCodeValue = 'https://dev.camera.aperatureuk.com' + '?guid=' + data;
           if (!this.Id || this.Id === 0) {
+            console.log("getGuidByJournalEntry", this.Id)
             this.getJournalEntryByGuid(data);
+          } else {
+            this.getDocumentListTEdit(this.Id);
+            this.refreshIntervalId = interval(50000).subscribe(x => { console.log(x), this.getDocumentListTEdit(this.Id); })
           }
           this.cdr.detectChanges();
         },
@@ -474,12 +478,29 @@ export class AddJournalComponent extends BaseComponent implements OnInit, OnDest
         error: (_error: any) => {
         },
         next: async (data: any) => {
-          if (data.layout != 0 && data.length != this.documentList) {
+          if (data.length != 0 && data.length != this.documentList) {
             this.documentList = data;
             this.getGuidByJournalEntry(this.Id);
             this.cdr.detectChanges();
-
           }
+        },
+        complete: async () => {
+        },
+      });
+    }
+  }
+
+  async getDocumentListTEdit(id: number) {
+    const result = await this.generalAccountingService.getDocumentList(id);
+    if (isObservable(result)) {
+      result.subscribe({
+        error: (_error: any) => {
+        },
+        next: async (data: any) => {
+          console.log("documentList", id);
+          console.log("documentList", data);
+          this.documentList = data;
+          this.cdr.detectChanges();
         },
         complete: async () => {
         },

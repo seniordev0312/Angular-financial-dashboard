@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Permission } from '../models/enums/permissions.enum';
 import { UserClaims } from '../models/user-claims.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 
 export class SecurityCheckerService {
+    userClaimsSubject = new BehaviorSubject<UserClaims>(null);
+    userClaims$ = this.userClaimsSubject.asObservable();
+
     userClaims: UserClaims;
     permissionsListKeys = [
         'dashboard',
@@ -32,6 +36,8 @@ export class SecurityCheckerService {
     constructor() { }
 
     setUserClaims(userClaims: UserClaims) {
+        this.userClaimsSubject.next(userClaims);
+
         this.userClaims = {
             email: userClaims.email,
             email_verified: userClaims.email_verified,

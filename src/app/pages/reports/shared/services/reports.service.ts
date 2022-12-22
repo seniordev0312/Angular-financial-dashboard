@@ -7,11 +7,27 @@ export class ReportsService {
         private reportsRepository: ReportsRepository
     ) { }
 
-    updateReports(report: any): void {
-        this.reportsRepository.updateReports(report);
+    updateReportA(report: any): void {
+        this.reportsRepository.updateReportA(report);
     }
 
-    getReports() {
-        return this.reportsRepository.getReports();
+
+    updateReportB(report: any): void {
+        this.reportsRepository.updateReportB(report);
+    }
+
+    updateReportC(report: any): void {
+        this.reportsRepository.updateReportC(report);
+    }
+    getReportA() {
+        return this.reportsRepository.getReportA();
+    }
+
+    getReportB() {
+        return this.reportsRepository.getReportB();
+    }
+
+    getReportC() {
+        return this.reportsRepository.getReportC();
     }
 }
