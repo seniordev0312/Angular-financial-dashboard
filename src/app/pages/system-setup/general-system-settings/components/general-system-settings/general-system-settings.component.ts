@@ -189,7 +189,6 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
           this.templatesList = data;
           this.tableConfiguration.data = data;
           this.tableConfiguration.dataCount = data.length;
-          console.log(this.templatesList);
           this.table.refresh();
         }
       }));
@@ -237,8 +236,6 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
       }));
     this.generalSystemSettingsService.getHolidays(0, 1000)
     this.getActionsList();
-    this.tableConfiguration.data = this.templatesList;
-    this.tableConfiguration.dataCount = this.templatesList.length;
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
@@ -308,21 +305,21 @@ export class GeneralSystemSettingsComponent extends BaseComponent implements OnI
     //   }
     // },
     // );
-    this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
-      outlets: {
-        sidenav: `${ApplicationRoutes.Add}/${data.holidayId}/${data.name}/${data.startDate}/${data.endDate}/${data.isOffDay}`
-      },
-    }], {
-      queryParams: {
-        id: data.holidayId,
-        name: data.name,
-        startDate: data.name,
-        endDate: data.name,
-        offDay: data.isOffDay
-      }
-    });
-    this.layoutService.openRightSideNav();
-    this.layoutService.changeRightSideNavMode('over');
+    // this.router.navigate([`${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`, {
+    //   outlets: {
+    //     sidenav: `${ApplicationRoutes.Add}/${data.holidayId}/${data.name}/${data.startDate}/${data.endDate}/${data.isOffDay}`
+    //   },
+    // }], {
+    //   queryParams: {
+    //     id: data.holidayId,
+    //     name: data.name,
+    //     startDate: data.name,
+    //     endDate: data.name,
+    //     offDay: data.isOffDay
+    //   }
+    // });
+    // this.layoutService.openRightSideNav();
+    // this.layoutService.changeRightSideNavMode('over');
 
   }
   onSave() {

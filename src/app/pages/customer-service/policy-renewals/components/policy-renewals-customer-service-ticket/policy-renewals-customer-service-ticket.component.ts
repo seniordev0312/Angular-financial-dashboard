@@ -29,11 +29,12 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
   ngOnInit(): void {
     this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
     this.signalRService.init(187);
+
     this.subscriptions.add(
       this.signalRService.signalRSubject$.subscribe((data: any) => {
         this.contactViewComponent.updateData(data);
       })
-    )
+    );
   }
 
   ngOnDestroy(): void {

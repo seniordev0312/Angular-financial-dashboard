@@ -41,10 +41,10 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   }
 
   updateData(data: any) {
-    console.log(this.data);
     this.data.push(data);
+    console.log(this.data);
     this.contactFormService.updateChat(data);
-    this.cdr.detectChanges()
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void {

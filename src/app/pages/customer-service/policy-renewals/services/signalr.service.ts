@@ -69,7 +69,8 @@ export class SignalRService {
 
   public addOnReceiveMessageListener = () => {
     this.hubConnection.on('OnMessageReceived', (message: any) => {
-      this.SignalRSubject.next(message)
+      console.log('OnMessageReceived', message);
+      this.SignalRSubject.next(message);
     });
     this.hubConnection.on('Connected', (message: any) => {
       console.log(message);

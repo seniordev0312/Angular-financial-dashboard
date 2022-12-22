@@ -1,7 +1,7 @@
 <div class="h-full w-full overflow-auto">
     <div class="flex-col">
         <div class="flex w-full p-4 bg-white" *ngFor="let item of data"
-            [ngStyle]="{'justify-content': true ? 'flex-start' :'flex-end' }">
+            [ngStyle]="{'justify-content': !item.isOwnMessage ? 'flex-start' :'flex-end' }">
             <div *ngIf="item.type === 1" class="flex flex-col relative w-[75%] shadow-xl rounded-lg p-2 h-fit">
                 <div class="flex justify-between items-center font-medium text-xs mb-1">
                     <div class="text-accent">
@@ -12,25 +12,6 @@
                 </div>
                 <div class="text-left text-xs">
                     <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre>
-                </div>
-                <div class="absolute h-10 w-10 -right-3 -bottom-3 bg-primary rounded-full cursor-pointer ">
-                    <mat-form-field floatLabel="never">
-                        <mat-label class="flex justify-center items-center">
-                            <mat-icon svgIcon="chat" class="icon"></mat-icon>
-                        </mat-label>
-                        <mat-select [disableOptionCentering]="true" panelClass="selectCustomClass"
-                            (selectionChange)="onSelect($event.value,item.id)">
-                            <mat-option [value]="option.templateProcessingKeyInformation"
-                                *ngFor="let option of kycDocumentsTypeList; let i = index" class="matOption">
-                                <div class="flex justify-start items-center text-sm pb-2">
-                                    <span>Process as {{option.kycDocumentType}}</span>
-                                </div>
-                                <div class="absolute inset-x-0 bottom-0 pl-4 pr-4 opacity-20">
-                                    <hr *ngIf="i+1 !== kycDocumentsTypeList.length">
-                                </div>
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
                 </div>
             </div>
             <div *ngIf="item.type === 3" class="flex flex-col relative w-[75%] shadow-xl rounded-lg p-2 h-fit">
@@ -63,6 +44,21 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+                </div>
+            </div>
+            <div *ngIf="item.type === 0" class="flex flex-col relative w-[75%] shadow-xl rounded-lg p-2 h-fit">
+                <div class="flex justify-between items-center font-medium text-xs mb-1">
+                    <div class="text-accent">
+                    </div>
+                    <div class="text-right">
+                        {{ item.sentOn | date:'shortTime'}}
+                    </div>
+                </div>
+                <div class="text-left text-xs">
+                    <span class="bg-white text-black">
+                        {{item.body}}
+                    </span>
+                    <!-- <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre> -->
                 </div>
             </div>
         </div>

@@ -24,6 +24,7 @@ import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { MatSelectModule } from '@angular/material/select';
 import { SafeHtmlPipe } from './services/pipe/safe-html.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Route[] = [
   {
@@ -62,6 +63,7 @@ const routes: Route[] = [
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatSidenavModule,
     EntitiesControlModule,

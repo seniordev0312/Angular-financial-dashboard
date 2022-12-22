@@ -78,4 +78,14 @@ export class UserSecurityRepository {
         }
         return newList;
     }
+
+    saveUserPolices(data: any) {
+        this.userSecurityDocumentsStore.update((state) => ({
+            ...state,
+            userPolicies: data
+        }));
+    }
+    getUserPolices() {
+        this.userSecurityDocumentsStore.value.userPolicies;
+    }
 }
