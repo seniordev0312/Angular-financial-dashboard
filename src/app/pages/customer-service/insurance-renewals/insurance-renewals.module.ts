@@ -7,7 +7,8 @@ import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
-    canActivate: [AutoLoginAllRoutesGuard]
+    canActivate: [AutoLoginAllRoutesGuard],
+    canLoad: [AutoLoginAllRoutesGuard]
   }
 ];
 

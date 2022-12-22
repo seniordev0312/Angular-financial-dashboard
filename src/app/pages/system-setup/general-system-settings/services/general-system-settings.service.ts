@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Holiday } from '../models/holiday.model';
 
@@ -11,6 +12,10 @@ import { GeneralSystemSettingsRepository } from '../store/general-system-setting
 export class GeneralSystemSettingsService {
 
     private baseUrl = `${environment.entityApiUrl}`;
+
+    addHolidaySubject = new BehaviorSubject<void>(null);
+    addHoliday$ = this.addHolidaySubject.asObservable();
+
     constructor(
         private httpClient: HttpClient,
         private generalSystemSettingsRepository: GeneralSystemSettingsRepository
@@ -35,7 +40,7 @@ export class GeneralSystemSettingsService {
             headers: new HttpHeaders(),
             params: new HttpParams(),
         };
-        this.httpClient.post<any>(endPointUrl, generalSystemSettings, httpOptions).subscribe(data => {
+        this.httpClient.put<any>(endPointUrl, generalSystemSettings, httpOptions).subscribe(data => {
             if (data) {
                 this.generalSystemSettingsRepository.updateGeneralSystemSettings(data);
             }
@@ -43,7 +48,7 @@ export class GeneralSystemSettingsService {
     }
 
     getHolidays(pageIndex: number, pageSize: number, backendUrl?: string): void {
-        let endPointUrl = this.baseUrl;
+        let endPointUrl = `${this.baseUrl}/GeneralSystemSettings/GetHolidays`;
         let httpOptions = {
             headers: new HttpHeaders(),
             params: new HttpParams(),
@@ -59,82 +64,27 @@ export class GeneralSystemSettingsService {
         }
         this.httpClient.get<any>(endPointUrl, httpOptions).subscribe(data => {
             if (data) {
-                if (data.length === 0) {
-                    data = [
-                        {
-                            endDate: '10/11/2023',
-                            name: 'Eid El Adha',
-                            offDay: true,
-                            startDate: '10/11/2023'
-                        },
-                        {
-                            endDate: '05/7/2023',
-                            name: 'Eid El Saydeh',
-                            offDay: true,
-                            startDate: '05/7/2023'
-                        },
-                        {
-                            endDate: '11/11/2023',
-                            name: 'Independence Day',
-                            offDay: true,
-                            startDate: '11/11/2023'
-                        },
-                        {
-                            endDate: '05/06/2023',
-                            name: 'Eid Marmaroun',
-                            offDay: false,
-                            startDate: '04/06/2023'
-                        },
-                        {
-                            endDate: '26/12/2023',
-                            name: 'Christmas',
-                            offDay: true,
-                            startDate: '23/12/2023'
-                        },
-                        {
-                            endDate: '31/12/2023',
-                            name: 'New Year',
-                            offDay: false,
-                            startDate: '29/12/2023'
-                        },
-                        {
-                            endDate: '05/7/2023',
-                            name: 'Eid El Saydeh',
-                            offDay: true,
-                            startDate: '05/7/2023'
-                        },
-                        {
-                            endDate: '11/11/2023',
-                            name: 'Independence Day',
-                            offDay: true,
-                            startDate: '11/11/2023'
-                        },
-                        {
-                            endDate: '05/06/2023',
-                            name: 'Eid Marmaroun',
-                            offDay: false,
-                            startDate: '04/06/2023'
-                        },
-                        {
-                            endDate: '26/12/2023',
-                            name: 'Christmas',
-                            offDay: true,
-                            startDate: '23/12/2023'
-                        },
-                        {
-                            endDate: '31/12/2023',
-                            name: 'New Year',
-                            offDay: false,
-                            startDate: '29/12/2023'
-                        }
-                    ];
-                }
                 this.generalSystemSettingsRepository.updateHolidays(data);
             }
         });
     }
 
-    deleteHoliday(_holiday: Holiday) {
+    addHoliday(holiday: Holiday) {
+        let endPointUrl = `${this.baseUrl}/GeneralSystemSettings/AddHoliday`;
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        this.httpClient.post<any>(endPointUrl, holiday, httpOptions).subscribe(_data => {
+            this.addHolidaySubject.next();
+        });
+    }
+
+    deleteHoliday(holiday: Holiday) {
         // console.log(holiday);
+        let endPointUrl = `${this.baseUrl}/GeneralSystemSettings/DeleteHoliday/${holiday.holidayId}`;
+        this.httpClient.delete<any>(endPointUrl).subscribe(_data => {
+            this.addHolidaySubject.next();
+        });
     }
 }

@@ -13,9 +13,9 @@ export class UserPolicyFormGroup {
         this.fg = this.fb.group({
             isComplexPasswordForced: new FormControl(item?.isComplexPasswordForced || false, [Validators.required]),
             isChangePasswordForced: new FormControl(item?.isChangePasswordForced || false, [Validators.required]),
-            minPasswordLength: new FormControl(item?.minPasswordLength || null, [Validators.required]),
-            maxTrialsBeforeLockingLength: new FormControl(item?.maxTrialsBeforeLockingLength || null, [Validators.required]),
-            numberOfDays: new FormControl(item?.numberOfDays || null, [Validators.required]),
+            minPasswordLength: new FormControl(item?.minPasswordLength || 0, [Validators.required]),
+            maxTrialsBeforeLockingLength: new FormControl(item?.maxTrialsBeforeLockingLength || 0, [Validators.required]),
+            numberOfDays: new FormControl(item?.numberOfDays || 0, [Validators.required]),
         });
         return this.fg;
     }

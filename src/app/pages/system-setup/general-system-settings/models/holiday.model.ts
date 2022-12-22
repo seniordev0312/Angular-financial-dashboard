@@ -1,7 +1,7 @@
 export class Holiday {
-    id?: number;
+    holidayId?: string;
     name: string;
     startDate: string;
     endDate: string;
-    offDay: boolean;
+    isOffDay: boolean;
 }

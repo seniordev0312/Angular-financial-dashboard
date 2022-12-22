@@ -9,6 +9,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '@root/pages/customer-service/policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
+import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -33,8 +34,9 @@ export class PolicyRenewalsComponent implements OnInit {
 
   constructor(
     private policyCardService: PolicyCardService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    public kYCDocumentTypeService: KYCDocumentTypeService,
+  ) { }
 
   openDialog(): void {
     this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
@@ -45,6 +47,7 @@ export class PolicyRenewalsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCards();
+    this.kYCDocumentTypeService.getCustomerServiceTicket(0, 100);
   }
 
   getCards(): void {

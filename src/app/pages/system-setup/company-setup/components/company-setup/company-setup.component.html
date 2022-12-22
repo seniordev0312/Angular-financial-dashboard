@@ -1,8 +1,8 @@
 <app-system-setup>
     <form class="flex flex-col gap-2">
         <div class="flex items-center text-sm font-medium mb-8">
-            <h1 class="mr-10">Company Setup for:</h1>
-            <h2 class="text-accent">MedGulf</h2>
+            <h1 class="mr-1">Company Setup for:</h1>
+            <h2 class="text-accent">{{companyName}}</h2>
         </div>
         <div class="grid grid-cols-3 gap-10">
             <app-input-field label="Address:" [control]="getFormControl('address')"></app-input-field>
@@ -23,27 +23,40 @@
                     <p class="text-xs">Avaya Central</p>
                     <mat-slide-toggle [formControl]="getFormControl('avayaCentral')"></mat-slide-toggle>
                 </div>
-            </div>
-            <div class="grid grid-cols-3 gap-10">
-                <div class="flex items-center justify-between">
-                    <p class="text-xs">Twilio Send Grid</p>
-                    <mat-slide-toggle [formControl]="getFormControl('twilioSendGrid')"></mat-slide-toggle>
-                </div>
+                <app-input-field label="API Key Information:"
+                    [control]="getFormControl('avayaAPIKeyInformation')"></app-input-field>
+                <app-input-field label="API Secret Key:"
+                    [control]="getFormControl('avayaAPISecretKey')"></app-input-field>
             </div>
             <div class="grid grid-cols-3 gap-10">
                 <div class="flex items-center justify-between">
                     <p class="text-xs">Twilio WhatsApp</p>
                     <mat-slide-toggle [formControl]="getFormControl('twilioWhatsApp')"></mat-slide-toggle>
                 </div>
+                <app-input-field label="API Key Information:"
+                    [control]="getFormControl('twilioWhatsAppAPIKeyInformation')"></app-input-field>
+                <app-input-field label="API Secret Key:"
+                    [control]="getFormControl('twilioWhatsAppAPISecretKey')"></app-input-field>
+            </div>
+            <div class="grid grid-cols-3 gap-10">
+                <div class="flex items-center justify-between">
+                    <p class="text-xs">Twilio Send Grid</p>
+                    <mat-slide-toggle [formControl]="getFormControl('twilioSendGrid')"></mat-slide-toggle>
+                </div>
+                <app-input-field label="API Key Information:"
+                    [control]="getFormControl('twilioAPIKeyInformation')"></app-input-field>
+                <app-input-field label="API Secret Key:"
+                    [control]="getFormControl('twilioAPISecretKey')"></app-input-field>
             </div>
             <div class="grid grid-cols-3 gap-10">
                 <div class="flex items-center justify-between">
                     <p class="text-xs">SMS Proxireach</p>
-                    <mat-slide-toggle [formControl]="getFormControl('sMSProxireach')"></mat-slide-toggle>
+                    <mat-slide-toggle [formControl]="getFormControl('SMSProxireach')"></mat-slide-toggle>
                 </div>
                 <app-input-field label="API Key Information:"
-                    [control]="getFormControl('aPIKeyInformation')"></app-input-field>
-                <app-input-field label="API Secret Key:" [control]="getFormControl('aPISecretKey')"></app-input-field>
+                    [control]="getFormControl('SMSProxireachAPIKeyInformation')"></app-input-field>
+                <app-input-field label="API Secret Key:"
+                    [control]="getFormControl('SMSProxireachAPISecretKey')"></app-input-field>
 
             </div>
             <div class="grid grid-cols-3 gap-10">

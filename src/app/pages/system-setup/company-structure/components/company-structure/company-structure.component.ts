@@ -52,6 +52,7 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
       this.companyStructureService.addGroup$.subscribe((data) => {
         if (data) {
           this.addGroup(this.treeNode[0], data);
+          console.log(this.treeNode);
         }
       }));
 
@@ -82,6 +83,74 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
       ],
     });
 
+    this.treeNode = [
+      {
+        type: 'company',
+        expanded: true,
+        data: {
+          name: 'Company Name', id: 3, parentId: 0, groups: [
+            {
+              name: 'G1',
+              id: 6309,
+              parentId: 3,
+              users: [
+                {
+                  id: '121-21-2121-2',
+                  displayName: 'Batata'
+                }
+              ]
+            }
+          ]
+        },
+        children: [
+          {
+            type: 'branch',
+            expanded: true,
+            data: {
+              name: 'B1', id: 324, parentId: 3, groups: [[
+                {
+                  name: 'G2',
+                  id: 131,
+                  parentId: 324,
+                  users: [
+                    {
+                      id: '121-21-2121-2',
+                      displayName: 'Batata'
+                    }
+                  ]
+                }
+              ]]
+            },
+            children: []
+          },
+          {
+            type: 'branch',
+            expanded: true,
+            data: {
+              name: 'Company Name', id: 4516, parentId: 3, groups: []
+            },
+            children: [
+              {
+                type: 'department',
+                expanded: true,
+                data: {
+                  name: 'Company Name', id: 4421, parentId: 4516, groups: []
+                },
+                children: []
+              }
+            ]
+          },
+          {
+            type: 'department',
+            expanded: true,
+            data: {
+              name: 'Company Name', id: 4401, parentId: 3, groups: []
+            },
+            children: []
+          }
+        ]
+      }
+    ];
   }
 
   addGroup(nodes: TreeNode, data: AddGroup) {

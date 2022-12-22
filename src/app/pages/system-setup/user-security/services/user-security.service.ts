@@ -138,4 +138,11 @@ export class UserSecurityService {
             }
         });
     }
+
+    saveUserPolices(data: any) {
+        this.userSecurityRepository.saveUserPolices(data)
+    }
+    getUserPolices() {
+        return this.userSecurityRepository.getUserPolices();
+    }
 }
