@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { EntityDefinitionsSection } from '../../models/entity-definitions-section.model';
@@ -13,9 +13,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EntitySectionComponent extends BaseComponent implements OnInit {
   @Input() section: EntityDefinitionsSection;
+  @Input() data: any;
+  @Input() isViewMode: boolean;
+
   elementTypesReferenceList: BaseListItem[];
   fg: FormGroup;
-  constructor() { super(); }
+
+  constructor(private cdr: ChangeDetectorRef) { super(); }
 
   ngOnInit(): void {
     this.subscriptions.add(elementTypesReferenceList$.subscribe(data => {
@@ -24,6 +28,7 @@ export class EntitySectionComponent extends BaseComponent implements OnInit {
       }
     }));
     this.fg = this.getFormGroup(this.section);
+    this.setFgValues(this.data);
   }
 
 
@@ -43,5 +48,15 @@ export class EntitySectionComponent extends BaseComponent implements OnInit {
 
   getElementType(id: number) {
     return this.elementTypesReferenceList && this.elementTypesReferenceList.find(e => e.id === id).value;
+  }
+
+  setFgValues(data: any) {
+    this.fg.patchValue(data);
+    if (this.isViewMode) {
+      Object.values(this.fg.controls).forEach(control => {
+        control.disable();
+      });
+    }
+    this.cdr.detectChanges();
   }
 }

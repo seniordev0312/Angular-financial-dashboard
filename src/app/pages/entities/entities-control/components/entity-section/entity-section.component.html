@@ -3,8 +3,8 @@
         <container-element [ngSwitch]="getElementType(field.elementType)">
             <app-input-field *ngSwitchDefault [label]="field.elementName"
                 [control]="getFormControl(field.elementName)"></app-input-field>
-            <app-select-list *ngSwitchCase="'Select'" [label]="field.elementName"
-                [control]="getFormControl(field.elementName)"></app-select-list>
+            <!-- <app-select-list *ngSwitchCase="'Select'" [label]="field.elementName"
+                [control]="getFormControl(field.elementName)"></app-select-list> -->
             <mat-form-field appearance="fill" class="w-full" *ngSwitchCase="'Date'">
                 <mat-label>{{field.elementName}}</mat-label>
                 <input [formControl]="getFormControl(field.elementName)" matInput [matDatepicker]="picker">

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -7,10 +7,10 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { isObservable } from 'rxjs';
+import { interval, isObservable } from 'rxjs';
 import { GeneralAccountingService } from '../../general-accounting/general-accounting.service';
 import { JournalFormGroup } from '../form-groups/journal-form-group.service';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { EntriesFormGroup } from '../form-groups/entries-form-group.service';
 import { JournalItemsModel } from '../../general-accounting/model/journal-items.model';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -20,6 +20,10 @@ import { AccountModel } from '../../accounts/model/accounts.model';
 import { TaxModel } from '../../general-accounting/model/tax.model';
 import { JournalEntryModel } from '../../general-accounting/model/journal-entry.model';
 import { ActivatedRoute } from '@angular/router';
+import { DocumentModel } from '../../general-accounting/model/document.model';
+import { GeneralAccountingRepository } from '../../general-accounting/general-accounting.repository';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { EinValue$ } from '../../general-accounting/general-accounting.store';
 
 @Component({
   selector: 'app-add-journal',
@@ -27,7 +31,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-journal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddJournalComponent implements OnInit {
+export class AddJournalComponent extends BaseComponent implements OnInit, OnDestroy {
 
   journalEntryModel: JournalEntryModel;
   Id = 0;
@@ -46,6 +50,13 @@ export class AddJournalComponent implements OnInit {
   journalsEntryType: JournalsEntryTypeModel[] = [];
   taxes: TaxModel[] = [];
   currencies: CurrencyModel[] = []
+  documentList: DocumentModel[] = []
+  qrCodeValue = '';
+  pipe = new DatePipe('en-US');
+  cuCode = '$';
+
+  einValue = '';
+  einPolicyValue = '';
 
   entryTypes = [
     {
@@ -69,17 +80,26 @@ export class AddJournalComponent implements OnInit {
       name: 'Refund'
     },
   ];
-  constructor(private router: ActivatedRoute,
+  refreshIntervalId: any;
+  einFocus = -1;
+  constructor(private router: ActivatedRoute, private generalAccountingRepository: GeneralAccountingRepository,
     private cdr: ChangeDetectorRef, private journalFormGroup: JournalFormGroup, private entriesFormGroup: EntriesFormGroup, private layoutService: LayoutService,
     private generalAccountingService: GeneralAccountingService,
-    private _location: Location
-  ) { }
+    private _location: Location,
+
+  ) { super(); }
 
   ngOnInit(): void {
+    this.getProductTaxByProductEin(1);
     this.router.params.subscribe(data => {
       if (data) {
         this.Id = data['id'];
         this.getGeneralJournalEntryById(data['id']);
+        if (this.Id) {
+          this.getGuidByJournalEntry(this.Id);
+        } else {
+          this.getGuidByJournalEntry(0);
+        }
       }
     });
     this.getCurrencies();
@@ -97,8 +117,23 @@ export class AddJournalComponent implements OnInit {
         },
       ],
     });
-  }
 
+    this.subscriptions.add(EinValue$.subscribe(data => {
+      if (data.search('01-') !== -1) {
+        this.einValue = data;
+      }
+      if (data.search('50-') !== -1) {
+        this.einPolicyValue = data;
+      }
+      this.getEinValue();
+      this.cdr.detectChanges();
+    }));
+  }
+  ngOnDestroy() {
+    clearInterval(this.refreshIntervalId);
+    this.generalAccountingRepository.updateEinValue('');
+    this.layoutService.changeEinFocus(-1);
+  }
   /// 
 
 
@@ -236,17 +271,15 @@ export class AddJournalComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      console.log(event.target.files[0].name);
     }
   }
 
   onAddEntries() {
-    console.log(this.formEntries.value)
     if (this.formEntries.valid && this.localAccount.name.length !== 0 && this.taxes.length !== 0) {
-      console.log(this.formEntries.value)
+      const sequence = this.journalItems.length === 0 ? 1 : this.journalItems[this.journalItems.length - 1].sequence + 1;
       this.journalItems.push({
         journalItemId: 0,
-        sequence: this.journalItems.length + 1,
+        sequence: sequence,
         accountId: this.localAccount.accountId,
         productEin: this.productEin,
         debit: this.formEntries.value.debit,
@@ -277,18 +310,25 @@ export class AddJournalComponent implements OnInit {
     this.cdr.detectChanges();
   }
   onAddJournal() {
+
+    let entryDate = new Date(this.form.value.entryDate);
+    let postDate = new Date(this.form.value.postDate);
+    let dueDate = new Date(this.form.value.dueDate);
+    entryDate.setHours((new Date().getHours()));
+    postDate.setHours((new Date().getHours()));
+    entryDate.setHours((new Date().getHours()));
     if (this.form.valid && this.journalItems.length !== 0)
       this.addJournalEntryWithDetails({
         journalEntryId: this.Id ? this.Id : 0,
-        type: this.form.value.entryType,
+        journalEntryType: this.form.value.entryType,
         journalId: this.form.value.journalId,
         entryName: '/',
         description: this.form.value.description,
         state: 1,
         currencyId: this.form.value.currencyId,
-        entryDate: this.form.value.entryDate,
-        postDate: this.form.value.postDate,
-        dueDate: this.form.value.dueDate,
+        entryDate: this.pipe.transform(entryDate, 'yyyy-MM-dd hh:mm:ss'),
+        postDate: this.pipe.transform(postDate, 'yyyy-MM-dd hh:mm:ss'),
+        dueDate: this.pipe.transform(dueDate, 'yyyy-MM-dd hh:mm:ss'),
         source: 'source',
         contactEin: this.form.value.ein,
         bookId: 0,
@@ -313,8 +353,7 @@ export class AddJournalComponent implements OnInit {
   }
 
   async getJournalsByEntryType(entryTypeID: any) {
-    console.log(entryTypeID)
-    const result = await this.generalAccountingService.getJournalsByEntryType(entryTypeID.value);
+    const result = await this.generalAccountingService.getJournalsByEntryType(entryTypeID);
     if (isObservable(result)) {
       result.subscribe({
         error: (_error: any) => {
@@ -322,12 +361,17 @@ export class AddJournalComponent implements OnInit {
         next: async (data: any) => {
           if (data)
             this.journalsEntryType = data;
+          this.cdr.detectChanges();
         },
         complete: async () => {
         },
       });
     }
   }
+
+  // selectionCurrencies(item: CurrencyModel) {
+  //   this.cuCode = item.name;
+  // }
 
   async getCurrencies() {
     const result = await this.generalAccountingService.getCurrencies();
@@ -345,7 +389,7 @@ export class AddJournalComponent implements OnInit {
     }
   }
 
-  onEinChange(event: any) {
+  onEinPolicyChange(event: any) {
     if (event.target.value.length !== 0) {
       this.productEin = event.target.value;
       this.getProductTaxByProductEin(event.target.value)
@@ -378,13 +422,16 @@ export class AddJournalComponent implements OnInit {
           error: (_error: any) => {
           },
           next: async (data: any) => {
+            console.log("DATA", data)
             this.journalEntryModel = data;
             this.journalItems = data.journalItems;
             this.form.value.ein = data.contactEin;
             this.tableConfiguration.data = this.journalItems;
+            this.getJournalsByEntryType(this.journalEntryModel.journalEntryType)
             this.countTotal();
             this.cdr.detectChanges();
             this.table.refresh();
+
           },
           complete: async () => {
           },
@@ -400,4 +447,103 @@ export class AddJournalComponent implements OnInit {
   onCancel() {
     this._location.back();
   }
+
+  async getGuidByJournalEntry(id: number) {
+    const result = await this.generalAccountingService.getGuidByJournalEntry(id);
+    if (isObservable(result)) {
+      result.subscribe({
+        error: (_error: any) => {
+        },
+        next: async (data: any) => {
+          this.qrCodeValue = 'https://dev.camera.aperatureuk.com' + '?guid=' + data;
+          if (!this.Id || this.Id === 0) {
+            this.getJournalEntryByGuid(data);
+          }
+          this.cdr.detectChanges();
+        },
+        complete: async () => {
+        },
+      });
+    }
+  }
+
+  async getDocumentList(id: number) {
+    const result = await this.generalAccountingService.getDocumentList(id);
+    if (isObservable(result)) {
+      result.subscribe({
+        error: (_error: any) => {
+        },
+        next: async (data: any) => {
+          if (data.layout != 0 && data.length != this.documentList) {
+            this.documentList = data;
+            this.getGuidByJournalEntry(this.Id);
+            this.cdr.detectChanges();
+
+          }
+        },
+        complete: async () => {
+        },
+      });
+    }
+  }
+
+  onDownloadFile(name: string) {
+    window.open('https://dev.api.accounting.aperatureuk.com/v1/Document/DownloadFile/' + this.Id + '/' + name, "_blank");
+  }
+
+  downloadFile(data: any) {
+    const blob = new Blob([data], { type: 'pdf' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
+
+
+  async getJournalEntryByGuid(guid: any) {
+    const result = await this.generalAccountingService.getJournalEntryByGuid(guid);
+    if (isObservable(result)) {
+      result.subscribe({
+        error: (_error: any) => {
+        },
+        next: async (data: any) => {
+          console.log("DDD", data['journalEntryId'])
+          this.Id = data['journalEntryId'];
+          this.refreshIntervalId = interval(50000).subscribe(x => { console.log(x), this.getDocumentList(this.Id); })
+          this.cdr.detectChanges();
+        },
+        complete: async () => {
+        },
+      });
+    }
+  }
+
+
+  onEinFocus() {
+    this.layoutService.changeEinFocus(1);
+  }
+
+  onEinBlur() {
+    this.layoutService.changeEinFocus(-1);
+  }
+
+  getEinValue() {
+    if (!this.journalEntryModel && this.einValue === '') {
+      return '';
+    } else if (this.einValue !== '') {
+      return this.einValue;
+    } else {
+      return this.journalEntryModel.contactEin
+    }
+  }
+
+
+  onEinPolicyFocus() {
+    this.layoutService.changeEinFocus(2);
+  }
+
+
+  onEinPolicyBlur() {
+    this.layoutService.changeEinFocus(-1);
+  }
+
+
 }

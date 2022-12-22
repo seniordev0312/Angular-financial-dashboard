@@ -1,9 +1,10 @@
 import { Injectable, Inject } from '@angular/core';
-import { BaseListItem } from '@root/shared/models/base-list-item.model';
-import { EntitiesTableItem } from '../models/entities-table-item.model';
+import { DynamicFilter } from '../models/dynamic-filter.model';
 import { EntityDefinition } from '../models/entity-definitions-list-item.model';
 import { EntityDefinitionsReferenceListItem } from '../models/entity-definitions-reference-list-item.model';
+import { EntityEntriesListItem } from '../models/entity-entries-list-item.model';
 import { EntityEntriesList } from '../models/entity-entries-list.model';
+import { EntityType } from '../models/entity-type.model';
 import { EntitiesControlStore, ENTITIES_CONTROL_STORE } from './entities-control.store';
 
 @Injectable({
@@ -14,12 +15,6 @@ export class EntitiesControlRepository {
         @Inject(ENTITIES_CONTROL_STORE) private entitiesControlStore: EntitiesControlStore,
     ) { }
 
-    updateSelectedRelationshipType(entitiesControlListItem: EntitiesTableItem): void {
-        this.entitiesControlStore.update((state) => ({
-            ...state,
-            selectedEntity: entitiesControlListItem
-        }));
-    }
 
     updateEntitiesList(entitiesList: EntityEntriesList): void {
         this.entitiesControlStore.update((state) => ({
@@ -28,10 +23,26 @@ export class EntitiesControlRepository {
         }));
     }
 
-    updateEntitiesTypesList(entityTypes: BaseListItem[]): void {
+    updateSelectedEntityEntry(selectedEntity: EntityEntriesListItem): void {
+        this.entitiesControlStore.update((state) => ({
+            ...state,
+            selectedEntity
+        }));
+    }
+
+
+    updateEntitiesTypesList(entityTypes: EntityType[]): void {
         this.entitiesControlStore.update((state) => ({
             ...state,
             entityTypes
+        }));
+    }
+
+
+    updateEntityDynamicFiltersList(dynamicFiltersList: DynamicFilter[]): void {
+        this.entitiesControlStore.update((state) => ({
+            ...state,
+            dynamicFiltersList
         }));
     }
 

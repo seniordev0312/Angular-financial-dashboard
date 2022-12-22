@@ -36,7 +36,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     // this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize, null);
-    this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize);
+    this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, 1000);
 
     this.subscriptions.add(chartOfAccountsList$.subscribe(data => {
       if (!this.isEmpty(data)) {
@@ -48,10 +48,8 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(
       this.searchFormControl.valueChanges.pipe(debounceTime(1000)).subscribe(data => {
-        if (!this.isEmpty(data)) {
-          this.pageIndex = 0;
-          this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, this.pageSize, data);
-        }
+        this.pageIndex = 0;
+        this.chartOfAccountsListService.getChartOfAccountsList(this.pageIndex, 1000, data);
       })
     );
 
@@ -108,13 +106,7 @@ export class ChartOfAccountsComponent extends BaseComponent implements OnInit {
   }
 
   showViewButton(item: ChartOfAccountsListItem): boolean {
-    let showViewButton = true;
-    item.children?.forEach((item) => {
-      if (item.childrenCount && item.childrenCount > 0) {
-        showViewButton = false;
-      }
-    })
-    return showViewButton;
+    return item.lastLevelFlag;
   }
 
   showAddButton(item: ChartOfAccountsListItem) {

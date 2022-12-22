@@ -9,7 +9,7 @@ import { JournalEntryModel } from './model/journal-entry.model';
 @Injectable({ providedIn: 'root' })
 export class GeneralAccountingService {
     /// TEST ONE
-    private baseUrl = `http://20.120.63.24/v1/`;
+    private baseUrl = 'https://dev.api.accounting.aperatureuk.com/v1/';
 
     constructor(private httpClient: HttpClient,
         private generalAccountingRepository: GeneralAccountingRepository) { }
@@ -27,7 +27,9 @@ export class GeneralAccountingService {
         });
     }
     addJournalEntryWithDetails(item: JournalEntryModel) {
-        const url = this.baseUrl + (item.journalEntryId === 0 ? 'JournalEntry/AddJournalEntry' : 'JournalEntry/UpdateJournalEntry');
+        console.log("DATA", item)
+        const url = this.baseUrl + 'JournalEntry/UpdateJournalEntry';
+        console.log("DATA", this.baseUrl)
         const header = {
             headers: new HttpHeaders(
                 {
@@ -124,7 +126,8 @@ export class GeneralAccountingService {
     }
 
     getProductTaxByProductEin(ein: number) {
-        const url = this.baseUrl + 'ProductTax/GetProductTaxByProductEin/' + ein;
+        console.log(ein);
+        const url = this.baseUrl + 'ProductTax/GetProductTaxByProductEin/' + '01289122';
         const header = {
             headers: new HttpHeaders(
                 {
@@ -144,5 +147,45 @@ export class GeneralAccountingService {
         return this.httpClient.get(url, header);
     }
 
+    getGuidByJournalEntry(id: number) {
+        const url = this.baseUrl + 'Document/GetGuidByJournalEntry/' + id;
+        const header = {
+            headers: new HttpHeaders(
+                {
+                })
+        };
+        return this.httpClient.get(url, header);
+    }
+
+    getDocumentList(id: number) {
+        const url = this.baseUrl + 'Document/GetDocumentList/' + id;
+        const header = {
+            headers: new HttpHeaders(
+                {
+                })
+        };
+        return this.httpClient.get(url, header);
+    }
+
+
+    downloadFile(id: number, name: string) {
+        const url = this.baseUrl + 'Document/DownloadFile/' + id + '/' + name;
+        const header = {
+            headers: new HttpHeaders(
+                {
+                })
+        };
+        return this.httpClient.get(url, header);
+    }
+
+    getJournalEntryByGuid(guid: any) {
+        const url = this.baseUrl + 'Document/GetJournalEntry/' + guid;
+        const header = {
+            headers: new HttpHeaders(
+                {
+                })
+        };
+        return this.httpClient.get(url, header);
+    }
 }
 

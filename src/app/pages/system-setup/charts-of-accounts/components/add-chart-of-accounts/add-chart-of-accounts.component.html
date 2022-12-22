@@ -9,8 +9,9 @@
                 <mat-radio-button [value]="false" class="text-xxs">No</mat-radio-button>
             </mat-radio-group>
         </div>
-        <app-input-field [icon]="isParentAccountDisabled?'lock':''" label="Parent Account"
-            [control]="getFormControl('parentAccountTypeId')"></app-input-field>
+        <app-select-list [hasSearch]="true" [icon]="isParentAccountDisabled?'lock':''" label="Parent Account"
+            [control]="getFormControl('parentAccountTypeId')" [optionsList]="parentAccountsList"
+            (onSearch)="onSearchParentAccount($event)"></app-select-list>
         <app-input-field label="Ledger No" [control]="getFormControl('code')"></app-input-field>
         <app-input-field label="Description" [control]="getFormControl('name')"></app-input-field>
         <app-select-list label="Default Currency" [optionsList]="currenciesList"

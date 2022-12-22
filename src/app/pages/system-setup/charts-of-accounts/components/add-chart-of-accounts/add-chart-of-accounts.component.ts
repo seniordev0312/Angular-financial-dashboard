@@ -8,7 +8,7 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddChartOfAccountFormGroup } from '../../form-groups/add-chart-of-account-form-group.service';
 import { ChartOfAccountsListService } from '../../services/chart-of-accounts-list.service';
-import { accountDetails$, currenciesList$ } from '../../store/chart-of-accounts.store';
+import { accountDetails$, currenciesList$, accountTypes$ } from '../../store/chart-of-accounts.store';
 
 @Component({
   selector: 'app-add-chart-of-accounts',
@@ -20,6 +20,7 @@ export class AddChartOfAccountsComponent extends BaseComponent implements OnInit
   fg: FormGroup;
   mode: DialogMode = DialogMode.Add;
   currenciesList: BaseListItem[];
+  parentAccountsList: BaseListItem[];
   accountTypesList: BaseListItem[] = [
     { id: 1, value: 'Capital' },
     { id: 2, value: 'Asset' },
@@ -47,6 +48,7 @@ export class AddChartOfAccountsComponent extends BaseComponent implements OnInit
 
   ngOnInit(): void {
     this.chartOfAccountsListService.getCurrenciesList();
+    this.chartOfAccountsListService.getAccountTypesList('d');
 
     this.subscriptions.add(this.activeRoute.paramMap.subscribe(params => {
       if (params.get('isGroup')) {
@@ -107,6 +109,13 @@ export class AddChartOfAccountsComponent extends BaseComponent implements OnInit
       }
     }));
 
+    this.subscriptions.add(accountTypes$.subscribe(data => {
+      if (!this.isEmpty(data)) {
+        this.parentAccountsList = data;
+        this.cdr.detectChanges();
+      }
+    }));
+
     this.subscriptions.add(this.activeRoute.queryParams.subscribe(params => {
       if (params.parentAccountTypeId) {
         this.showIsGroup = true;
@@ -163,4 +172,7 @@ export class AddChartOfAccountsComponent extends BaseComponent implements OnInit
     return this.mode === DialogMode.Edit;
   }
 
+  onSearchParentAccount(data: string) {
+    this.chartOfAccountsListService.getAccountTypesList(data);
+  }
 }

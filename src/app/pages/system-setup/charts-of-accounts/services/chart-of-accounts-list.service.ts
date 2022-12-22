@@ -10,7 +10,6 @@ import { AccountBalance } from '../models/account-balance.model';
 import { ChartOfAccountsList } from '../models/chart-of-accounts-list.model';
 import { JournalList } from '../models/journal-list.model';
 
-
 @Injectable({ providedIn: 'root' })
 export class ChartOfAccountsListService {
 
@@ -153,6 +152,20 @@ export class ChartOfAccountsListService {
         this.httpClient.get<JournalList>(endPointUrl).subscribe(data => {
             if (data) {
                 this.chartOfAccountsRepository.updateJournalList(data);
+            }
+        });
+    }
+
+    getAccountTypesList(search: string): void {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'process': 'background',
+            }),
+        };
+        const endPointUrl = `${environment.systemSetupApiUrl}/AccountType/SearchAccountType/${search}`;
+        this.httpClient.get<any[]>(endPointUrl, httpOptions).subscribe(data => {
+            if (data) {
+                this.chartOfAccountsRepository.updateAccountTypesList(data.map(e => ({ id: e.accountTypeId, value: e.name })));
             }
         });
     }
