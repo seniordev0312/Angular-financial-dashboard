@@ -11,6 +11,7 @@ import { JournalModel } from './model/journal.model';
 export interface GeneralAccountingModel {
     JournalList: JournalModel[];
     JournalTotal: JournalTotalsModel;
+    EinValue: string,
 }
 
 const store = createStore(
@@ -19,7 +20,8 @@ const store = createStore(
     },
     withProps<GeneralAccountingModel>({
         JournalList: [],
-        JournalTotal: null
+        JournalTotal: null,
+        EinValue: '',
     })
 );
 
@@ -30,6 +32,11 @@ persistState(store, {
 export const JournalList$ = store.pipe(select(({ JournalList }) => JournalList));
 
 export const JournalTotal$ = store.pipe(select(({ JournalTotal }) => JournalTotal));
+
+export const EinValue$ = store.pipe(select(({ EinValue }) => EinValue));
+
+
+
 
 export type GeneralAccountingStore = typeof store;
 export const GENERAL_ACCOUNTING_STORE = new InjectionToken<

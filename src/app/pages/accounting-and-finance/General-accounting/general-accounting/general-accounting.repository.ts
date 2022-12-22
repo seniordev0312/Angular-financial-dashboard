@@ -29,4 +29,11 @@ export class GeneralAccountingRepository {
         }));
     }
 
+
+    updateEinValue(value: string) {
+        this.generalAccountingStore.update((state) => ({
+            ...state,
+            EinValue: value
+        }));
+    }
 }

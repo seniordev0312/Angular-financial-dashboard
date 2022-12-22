@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { RouteCrumbsList } from '../models/bread-crumbs/router-crumbs-list.model';
@@ -15,6 +15,8 @@ export class LayoutService {
     updateBreadCrumbsRouter(data: RouteCrumbsList): void {
         this.breadcrumbsRoutesSubject.next(data);
     }
+
+    einFocus = new BehaviorSubject<number>(-1);
 
     isRightSidenavOpenedSubject = new BehaviorSubject<boolean>(false);
     isRightSidenavOpened$ = this.isRightSidenavOpenedSubject.asObservable();
@@ -64,5 +66,13 @@ export class LayoutService {
 
     changeRightSideNavMode(mode: MatDrawerMode): void {
         this.rightSidenavModeSubject.next(mode);
+    }
+
+    changeEinFocus(value : number) {
+        this.einFocus.next(value);
+    }
+
+    onHandleEinFocus(): Observable<any> {
+        return this.einFocus.asObservable();
     }
 }

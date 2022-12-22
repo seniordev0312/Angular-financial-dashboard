@@ -126,7 +126,8 @@ export class GeneralAccountingService {
     }
 
     getProductTaxByProductEin(ein: number) {
-        const url = this.baseUrl + 'ProductTax/GetProductTaxByProductEin/' + ein;
+        console.log(ein);
+        const url = this.baseUrl + 'ProductTax/GetProductTaxByProductEin/' + '01289122';
         const header = {
             headers: new HttpHeaders(
                 {
@@ -167,8 +168,8 @@ export class GeneralAccountingService {
     }
 
 
-    downloadFile(id: number, documentId: number) {
-        const url = this.baseUrl + 'Document/DownloadFile/' + id + '/' + documentId;
+    downloadFile(id: number, name: string) {
+        const url = this.baseUrl + 'Document/DownloadFile/' + id + '/' + name;
         const header = {
             headers: new HttpHeaders(
                 {

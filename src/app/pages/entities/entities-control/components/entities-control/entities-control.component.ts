@@ -1,7 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { JournalService } from '@root/pages/accounting-and-finance/General-accounting/add-journal/services/jornal.service';
+import { GeneralAccountingRepository } from '@root/pages/accounting-and-finance/General-accounting/general-accounting/general-accounting.repository';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
@@ -11,9 +12,11 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { LayoutService } from '@root/shared/services/layout.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
 import { DynamicFilter } from '../../models/dynamic-filter.model';
+import { EntitiesTableItem } from '../../models/entities-table-item.model';
 import { EntityEntriesListItem } from '../../models/entity-entries-list-item.model';
 import { EntityType } from '../../models/entity-type.model';
 import { EntitiesControlService } from '../../services/entity-control.service';
@@ -40,7 +43,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   entityTypeFormControl = new FormControl('100');
   entitiesList: any[] = [];
   isSpinning$: Observable<boolean>;
-
+  einFocus = -1;
   tableColumns: TableColumn[] = [
     {
       translationKey: 'EIN',
@@ -145,26 +148,39 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({
-    actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true, dataKey: 'EIN'
-  });
-  filterFG: FormGroup;
-  tableConfiguration: TableConfiguration<any> = {
-    tableRowsActionsList: [this.editAction, this.viewAction],
-    columns: this.tableColumns,
-    data: [],
-    dataCount: 0,
-    settings: this.tableSettings,
+  selectAction: TableRowAction<EntitiesTableItem> = {
+    action: (data) => {
+      this.generalAccountingRepository.updateEinValue(data.EIN);
+      this.dialog.closeAll();
+    },
+    cssClasses: 'text-primary',
+    iconName: 'check_circle_outline',
+    translationKey: '',
+    alwaysShow: true,
+    showConditionProperty: null,
+    isIconButton: true,
   };
+
+
+
+
 
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public showSelection: boolean,
     private entitiesControlRepository: EntitiesControlRepository,
     private journalService: JournalService,
+    private layoutService: LayoutService,
+    private generalAccountingRepository: GeneralAccountingRepository,
+    private cdr: ChangeDetectorRef,
     private entitiesControlService: EntitiesControlService) { super(); }
 
 
   ngOnInit(): void {
+
+    this.layoutService.onHandleEinFocus().subscribe((data: any) => {
+      this.einFocus = data ? data : -1;
+      console.log(this.einFocus);
+    });
 
     if (this.showSelection) {
       this.tableConfiguration.settings = new TableSettings({
@@ -177,7 +193,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
       this.table?.refresh();
     }
 
-    this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+    //this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
     this.entitiesControlService.getEntityTypesList();
     this.isSpinning$ = isSpinning$;
     const fg: any = {};
@@ -205,9 +221,23 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(entityTypes$.subscribe(data => {
       if (!this.isEmpty(data)) {
-        this.entityTypesList = data;
-        this.entityTypesOptionsList = [{ id: '100', value: 'All' }, ...data.map(e => ({ id: e.code, value: e.name }))];
+        if (this.einFocus !== -1) {
+          this.entityTypesList = data;
+          this.entityTypesList = this.einFocus === 1 ? data.filter(x => x.name == 'Person') : data.filter(x => x.name == 'Policy');
+          this.entityTypesOptionsList = this.einFocus === 1 ? data.filter(x => x.name == 'Person').map(e => ({ id: e.code, value: e.name })) : data.filter(x => x.name == 'Policy').map(e => ({ id: e.code, value: e.name }));
+          this.entityTypeFormControl = new FormControl(this.entityTypesOptionsList[0].id.toString());
+          this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+          this.tableConfiguration.tableRowsActionsList = [this.editAction, this.viewAction, this.selectAction];
+        } else {
+          this.entityTypesList = data;
+          this.entityTypesOptionsList = [{ id: '100', value: 'All' }, ...data.map(e => ({ id: e.code, value: e.name }))];
+          this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+          this.tableConfiguration.tableRowsActionsList = [this.editAction, this.viewAction,];
+
+        }
       }
+      this.table.refresh();
+      this.cdr.detectChanges();
     }));
 
     this.subscriptions.add(this.entityTypeFormControl.valueChanges.subscribe(data => {
@@ -246,6 +276,20 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
       }
     }));
   }
+
+
+
+  tableSettings = new TableSettings({
+    actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true, dataKey: 'EIN'
+  });
+  filterFG: FormGroup;
+  tableConfiguration: TableConfiguration<any> = {
+    tableRowsActionsList: [],
+    columns: this.tableColumns,
+    data: [],
+    dataCount: 0,
+    settings: this.tableSettings,
+  };
 
   getFormGroup(data: DynamicFilter[]) {
     const fg: any = {};

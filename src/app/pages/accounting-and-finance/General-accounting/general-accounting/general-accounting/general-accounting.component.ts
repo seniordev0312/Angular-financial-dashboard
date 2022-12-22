@@ -221,7 +221,7 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
     },
   ];
 
-  pageSize = 5;
+  pageSize = 15;
 
   tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true });
 
@@ -273,9 +273,10 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
 
 
   onStartSearch() {
-    this.pipe.transform(this.startDateFormControl.value, 'yyyy/MM/dd');
-    this.generalAccountingService.getJournalItems(this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd'), this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd'));
-    this.generalAccountingService.getJournalItemTotals(this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd'), this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd'));
+    this.generalAccountingService.getJournalItems(this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd  h:mm:ss'), this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd'));
+    this.generalAccountingService.getJournalItemTotals(this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd  h:mm:ss'), this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd'));
+    this.startDateFormControl.reset();
+    this.endDateFormControl.reset();
   }
   //
   currencyEditorClick() {

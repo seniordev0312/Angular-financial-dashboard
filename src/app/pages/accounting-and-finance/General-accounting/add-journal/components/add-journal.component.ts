@@ -10,7 +10,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { interval, isObservable } from 'rxjs';
 import { GeneralAccountingService } from '../../general-accounting/general-accounting.service';
 import { JournalFormGroup } from '../form-groups/journal-form-group.service';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { EntriesFormGroup } from '../form-groups/entries-form-group.service';
 import { JournalItemsModel } from '../../general-accounting/model/journal-items.model';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -20,10 +20,10 @@ import { AccountModel } from '../../accounts/model/accounts.model';
 import { TaxModel } from '../../general-accounting/model/tax.model';
 import { JournalEntryModel } from '../../general-accounting/model/journal-entry.model';
 import { ActivatedRoute } from '@angular/router';
-import { EntitiesControlComponent } from '@root/pages/entities/entities-control/components/entities-control/entities-control.component';
-import { MatDialog } from '@angular/material/dialog';
-import { JournalService } from '../services/jornal.service';
 import { DocumentModel } from '../../general-accounting/model/document.model';
+import { GeneralAccountingRepository } from '../../general-accounting/general-accounting.repository';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { EinValue$ } from '../../general-accounting/general-accounting.store';
 
 @Component({
   selector: 'app-add-journal',
@@ -31,7 +31,7 @@ import { DocumentModel } from '../../general-accounting/model/document.model';
   styleUrls: ['./add-journal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddJournalComponent implements OnInit, OnDestroy {
+export class AddJournalComponent extends BaseComponent implements OnInit, OnDestroy {
 
   journalEntryModel: JournalEntryModel;
   Id = 0;
@@ -52,6 +52,11 @@ export class AddJournalComponent implements OnInit, OnDestroy {
   currencies: CurrencyModel[] = []
   documentList: DocumentModel[] = []
   qrCodeValue = '';
+  pipe = new DatePipe('en-US');
+  cuCode = '$';
+
+  einValue = '';
+  einPolicyValue = '';
 
   entryTypes = [
     {
@@ -76,18 +81,16 @@ export class AddJournalComponent implements OnInit, OnDestroy {
     },
   ];
   refreshIntervalId: any;
-  constructor(private router: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-    private journalFormGroup: JournalFormGroup,
-    private entriesFormGroup: EntriesFormGroup,
-    private layoutService: LayoutService,
+  einFocus = -1;
+  constructor(private router: ActivatedRoute, private generalAccountingRepository: GeneralAccountingRepository,
+    private cdr: ChangeDetectorRef, private journalFormGroup: JournalFormGroup, private entriesFormGroup: EntriesFormGroup, private layoutService: LayoutService,
     private generalAccountingService: GeneralAccountingService,
     private _location: Location,
-    private dialog: MatDialog,
-    private journalService: JournalService
-  ) { }
+
+  ) { super(); }
 
   ngOnInit(): void {
+    this.getProductTaxByProductEin(1);
     this.router.params.subscribe(data => {
       if (data) {
         this.Id = data['id'];
@@ -115,12 +118,21 @@ export class AddJournalComponent implements OnInit, OnDestroy {
       ],
     });
 
-    this.journalService.journalEIN$.subscribe(data => {
-      this.form.patchValue({ 'ein': data });
-    })
+    this.subscriptions.add(EinValue$.subscribe(data => {
+      if (data.search('01-') !== -1) {
+        this.einValue = data;
+      }
+      if (data.search('50-') !== -1) {
+        this.einPolicyValue = data;
+      }
+      this.getEinValue();
+      this.cdr.detectChanges();
+    }));
   }
   ngOnDestroy() {
     clearInterval(this.refreshIntervalId);
+    this.generalAccountingRepository.updateEinValue('');
+    this.layoutService.changeEinFocus(-1);
   }
   /// 
 
@@ -264,9 +276,10 @@ export class AddJournalComponent implements OnInit, OnDestroy {
 
   onAddEntries() {
     if (this.formEntries.valid && this.localAccount.name.length !== 0 && this.taxes.length !== 0) {
+      const sequence = this.journalItems.length === 0 ? 1 : this.journalItems[this.journalItems.length - 1].sequence + 1;
       this.journalItems.push({
         journalItemId: 0,
-        sequence: this.journalItems.length + 1,
+        sequence: sequence,
         accountId: this.localAccount.accountId,
         productEin: this.productEin,
         debit: this.formEntries.value.debit,
@@ -297,6 +310,13 @@ export class AddJournalComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
   onAddJournal() {
+
+    let entryDate = new Date(this.form.value.entryDate);
+    let postDate = new Date(this.form.value.postDate);
+    let dueDate = new Date(this.form.value.dueDate);
+    entryDate.setHours((new Date().getHours()));
+    postDate.setHours((new Date().getHours()));
+    entryDate.setHours((new Date().getHours()));
     if (this.form.valid && this.journalItems.length !== 0)
       this.addJournalEntryWithDetails({
         journalEntryId: this.Id ? this.Id : 0,
@@ -306,9 +326,9 @@ export class AddJournalComponent implements OnInit, OnDestroy {
         description: this.form.value.description,
         state: 1,
         currencyId: this.form.value.currencyId,
-        entryDate: this.form.value.entryDate,
-        postDate: this.form.value.postDate,
-        dueDate: this.form.value.dueDate,
+        entryDate: this.pipe.transform(entryDate, 'yyyy-MM-dd hh:mm:ss'),
+        postDate: this.pipe.transform(postDate, 'yyyy-MM-dd hh:mm:ss'),
+        dueDate: this.pipe.transform(dueDate, 'yyyy-MM-dd hh:mm:ss'),
         source: 'source',
         contactEin: this.form.value.ein,
         bookId: 0,
@@ -349,6 +369,10 @@ export class AddJournalComponent implements OnInit, OnDestroy {
     }
   }
 
+  // selectionCurrencies(item: CurrencyModel) {
+  //   this.cuCode = item.name;
+  // }
+
   async getCurrencies() {
     const result = await this.generalAccountingService.getCurrencies();
     if (isObservable(result)) {
@@ -365,7 +389,7 @@ export class AddJournalComponent implements OnInit, OnDestroy {
     }
   }
 
-  onEinChange(event: any) {
+  onEinPolicyChange(event: any) {
     if (event.target.value.length !== 0) {
       this.productEin = event.target.value;
       this.getProductTaxByProductEin(event.target.value)
@@ -398,6 +422,7 @@ export class AddJournalComponent implements OnInit, OnDestroy {
           error: (_error: any) => {
           },
           next: async (data: any) => {
+            console.log("DATA", data)
             this.journalEntryModel = data;
             this.journalItems = data.journalItems;
             this.form.value.ein = data.contactEin;
@@ -422,18 +447,6 @@ export class AddJournalComponent implements OnInit, OnDestroy {
   onCancel() {
     this._location.back();
   }
-  
-    onEinFocus() {
-    if (this.form.get('ein').value === '') {
-      this.dialog.open(EntitiesControlComponent, {
-        width: '90%',
-        height: '90%',
-        data: true
-      })
-    }
-  }
-
-
 
   async getGuidByJournalEntry(id: number) {
     const result = await this.generalAccountingService.getGuidByJournalEntry(id);
@@ -474,20 +487,14 @@ export class AddJournalComponent implements OnInit, OnDestroy {
     }
   }
 
-  async onDownloadFile(docId: number) {
-    const result = await this.generalAccountingService.downloadFile(this.Id, docId);
-    if (isObservable(result)) {
-      result.subscribe({
-        error: (_error: any) => {
-        },
-        next: async (data: any) => {
-          console.log(data);
+  onDownloadFile(name: string) {
+    window.open('https://dev.api.accounting.aperatureuk.com/v1/Document/DownloadFile/' + this.Id + '/' + name, "_blank");
+  }
 
-        },
-        complete: async () => {
-        },
-      });
-    }
+  downloadFile(data: any) {
+    const blob = new Blob([data], { type: 'pdf' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
   }
 
 
@@ -508,5 +515,35 @@ export class AddJournalComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+
+  onEinFocus() {
+    this.layoutService.changeEinFocus(1);
+  }
+
+  onEinBlur() {
+    this.layoutService.changeEinFocus(-1);
+  }
+
+  getEinValue() {
+    if (!this.journalEntryModel && this.einValue === '') {
+      return '';
+    } else if (this.einValue !== '') {
+      return this.einValue;
+    } else {
+      return this.journalEntryModel.contactEin
+    }
+  }
+
+
+  onEinPolicyFocus() {
+    this.layoutService.changeEinFocus(2);
+  }
+
+
+  onEinPolicyBlur() {
+    this.layoutService.changeEinFocus(-1);
+  }
+
 
 }
