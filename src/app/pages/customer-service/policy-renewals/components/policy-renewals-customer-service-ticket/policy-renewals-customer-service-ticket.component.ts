@@ -31,7 +31,7 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
   ngOnInit(): void {
     this.subscriptions.add(
       tickets$.subscribe((data: any) => {
-        this.dataTicket = data.inQueueTickets[data.inQueueTickets.length - 5];
+        this.dataTicket = data.inQueueTickets[data.inQueueTickets.length - 2];
         console.log('this.dataTicket', this.dataTicket);
         this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
         this.signalRService.init(this.dataTicket.id);
@@ -57,5 +57,4 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
   backToFirstPage() {
     this.pageFlag = 'first';
   }
-
 }
