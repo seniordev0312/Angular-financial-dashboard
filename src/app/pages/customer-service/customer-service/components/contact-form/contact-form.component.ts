@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ticketData$ } from '@root/pages/customer-service/policy-renewals/store/kyc-documents-type.store';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+
 import { ContactFormService } from '../../services/contact-form.service';
-import { data$ } from '../../store/contact-form.store';
+
 const buffer = require('buffer').Buffer;
 @Component({
   selector: 'app-contact-form',
@@ -29,7 +31,7 @@ export class ContactFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      data$.subscribe((data) => {
+      ticketData$.subscribe((data) => {
         this.chatData = data;
         console.log('Chat Data:', data);
       })
@@ -76,10 +78,11 @@ export class ContactFormComponent extends BaseComponent implements OnInit {
     let formData: FormData = new FormData();
     formData.append('image', this.fileBlob);
     formData.append('SenderId', this.userData.sub);
-    formData.append('ChatId', this.chatData.chatId);
+    formData.append('ChatId', this.chatData.chatId.toString());
     console.log('this.text', this.name);
     formData.append('Body', this.text);
     formData.append('SourceCommunicationChannelId', '1');
+    this.text = '';
     this.contactFormService.sendMessage(formData);
   }
 }

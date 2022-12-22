@@ -42,6 +42,32 @@ export class KYCDocumentTypeService {
         });
     }
 
+    saveTicketData(ticketData: any) {
+        this.kYCDocumentTypeRepository.saveTicketData(ticketData)
+    }
+    getCustomerServiceTicket(pageIndex: number, pageSize: number, backendUrl?: string) {
+        let endPointUrl = `${this.customerServer}/api/CustomerServiceTicket/Filter`;
+        let httpOptions = {
+            headers: new HttpHeaders(),
+            params: new HttpParams(),
+        };
+        if (backendUrl) {
+            endPointUrl = backendUrl;
+        }
+        else {
+            httpOptions = {
+                ...httpOptions,
+                params: httpOptions.params.set('PageIndex', pageIndex.toString()).set('PageSize', pageSize.toString()),
+            }
+        }
+        this.httpClient.post<any>(endPointUrl, {}, httpOptions).subscribe(data => {
+            if (data) {
+                console.log('CustomerServiceTicket', data);
+                this.kYCDocumentTypeRepository.updateTickets(data);
+            }
+        });
+    }
+
     extractDocument(extractDocument: any) {
         let endPointUrl = `${this.customerServer}/api/Document/Extract/${extractDocument.chatId}`;
         let httpOptions = {

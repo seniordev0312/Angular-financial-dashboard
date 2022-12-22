@@ -4,6 +4,7 @@ import { ContactViewComponent } from '@root/pages/customer-service/customer-serv
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import { SignalRService } from '../../services/signalr.service';
+import { tickets$ } from '../../store/kyc-documents-type.store';
 
 @Component({
   selector: 'app-policy-renewals-customer-service-ticket',
@@ -18,6 +19,7 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
   contactViewComponent: ContactViewComponent;
 
   data: any = [];
+  dataTicket: any = [];
   constructor(
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
     public signalRService: SignalRService,
@@ -27,9 +29,16 @@ export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent 
   }
 
   ngOnInit(): void {
-    this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
-    this.signalRService.init(187);
+    this.subscriptions.add(
+      tickets$.subscribe((data: any) => {
+        this.dataTicket = data.inQueueTickets[data.inQueueTickets.length - 5];
+        console.log('this.dataTicket', this.dataTicket);
+        this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
+        this.signalRService.init(this.dataTicket.id);
+      })
+    )
 
+    this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
     this.subscriptions.add(
       this.signalRService.signalRSubject$.subscribe((data: any) => {
         this.contactViewComponent.updateData(data);

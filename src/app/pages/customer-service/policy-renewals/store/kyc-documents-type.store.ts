@@ -8,6 +8,8 @@ import { KycDocumentsType } from '../models/kyc-documents-type.model';
 
 export interface KycDocumentsTypeModel {
     kycDocumentsType: KycDocumentsType[];
+    tickets: any;
+    ticketData: any;
 }
 
 const store = createStore(
@@ -16,6 +18,8 @@ const store = createStore(
     },
     withProps<KycDocumentsTypeModel>({
         kycDocumentsType: null,
+        tickets: null,
+        ticketData: null
     })
 );
 
@@ -24,6 +28,8 @@ persistState(store, {
 });
 
 export const kycDocumentsType$ = store.pipe(select(({ kycDocumentsType }) => kycDocumentsType));
+export const tickets$ = store.pipe(select(({ tickets }) => tickets));
+export const ticketData$ = store.pipe(select(({ ticketData }) => ticketData));
 
 export type KycDocumentsTypeStore = typeof store;
 export const KYC_DOCUMENTS_TYPE_STORE = new InjectionToken<
