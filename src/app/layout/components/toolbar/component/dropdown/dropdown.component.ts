@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '@root/shared/services/auth.service';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DropdownComponent implements OnInit {
 
@@ -22,10 +23,17 @@ export class DropdownComponent implements OnInit {
     icon: 'logout',
     value: 'SignOut',
   }];
+  name: string;
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private oidcSecurityService: OidcSecurityService,
+    private cdr: ChangeDetectorRef,
+    private securityCheckerService: SecurityCheckerService) { }
 
   ngOnInit(): void {
+    this.securityCheckerService.userClaims$.subscribe(data => {
+      this.name = data?.name;
+      this.cdr.detectChanges();
+    })
   }
 
   onChange(event: string): void {
@@ -35,6 +43,6 @@ export class DropdownComponent implements OnInit {
   }
 
   onLogout() {
-    this.authenticationService.signOut();
+    this.oidcSecurityService.logoff();
   }
 }

@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { EmailsService } from '../../services/emails.service';
 import { emailsMessages$ } from '../../store/emails.store';
+import { EmailsRepository } from '../../store/emails.repository';
+import { isSidenavSpinning$ } from '@root/shared/store/shared.store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-email-chat',
@@ -14,10 +17,13 @@ export class EmailChatComponent extends BaseComponent implements OnInit {
   @Output() closeEmailChatEvent: EventEmitter<void> = new EventEmitter<void>();
   @Input() email: any;
   data: any;
+  isSpinning$: Observable<boolean>;
+
 
   constructor(
     private emailsService: EmailsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private emailsRepository: EmailsRepository,
   ) {
     super()
   }
@@ -25,6 +31,9 @@ export class EmailChatComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.data = undefined;
     console.log('Email Chat');
+    this.emailsRepository.updateEmailMessages(this.email.id, null);
+    this.isSpinning$ = isSidenavSpinning$;
+
     this.emailsService.getEmailMessage(this.email.id);
     this.subscriptions.add(
       emailsMessages$.subscribe(data => {

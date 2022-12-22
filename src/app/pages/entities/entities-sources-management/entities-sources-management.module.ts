@@ -5,7 +5,6 @@ import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
 import { AddEntitySourceComponent } from './components/add-entity-source/add-entity-source.component';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -18,7 +17,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessEntitySources
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -30,7 +28,6 @@ const routes: Route[] = [
       permission: Permission.CanAddEntitySources
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -42,7 +39,6 @@ const routes: Route[] = [
       permission: Permission.CanEditEntitySources
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   }

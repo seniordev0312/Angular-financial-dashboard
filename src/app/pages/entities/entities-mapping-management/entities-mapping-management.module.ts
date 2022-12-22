@@ -5,7 +5,6 @@ import { SharedModule } from '@root/shared/shared.module';
 import { Route, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AddNewMappingComponent } from './components/add-new-mapping/add-new-mapping.component';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 
@@ -23,7 +22,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessEntityMapping
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -35,7 +33,6 @@ const routes: Route[] = [
       permission: Permission.CanAddEntityMapping
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },

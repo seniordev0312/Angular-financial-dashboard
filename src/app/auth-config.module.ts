@@ -20,7 +20,7 @@ import { ApplicationRoutes } from './shared/settings/common.settings';
                 logLevel: LogLevel.Error,
                 renewUserInfoAfterTokenRenew: true,
                 renewTimeBeforeTokenExpiresInSeconds: 30,
-                postLoginRoute: `/${ApplicationRoutes.Dashboard}`
+                postLoginRoute: `/${ApplicationRoutes.Dashboard}`,
             }
         })],
     exports: [AuthModule],

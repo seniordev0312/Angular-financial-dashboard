@@ -6,7 +6,6 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { Route, RouterModule } from '@angular/router';
 import { AddRelationshipTypeComponent } from './components/add-relationship-type/add-relationship-type.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { MatChipsModule } from '@angular/material/chips';
@@ -19,7 +18,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessEntityRelationshipType
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -31,7 +29,6 @@ const routes: Route[] = [
       permission: Permission.CanAddEntityRelationshipType
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -43,7 +40,6 @@ const routes: Route[] = [
       permission: Permission.CanEditEntityRelationshipType
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },

@@ -19,7 +19,6 @@ import { AccountViewTableComponent } from './components/account-view-table/accou
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
-import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
@@ -29,7 +28,6 @@ const routes: Route[] = [
       permission: Permission.CanAccessChartOfAccounts
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   },
@@ -62,7 +60,6 @@ const routes: Route[] = [
       permission: Permission.CanAddChartOfAccounts
     },
     canActivate: [
-      AutoLoginAllRoutesGuard,
       SecurityGuard
     ]
   }

@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { LayoutService } from '@root/shared/services/layout.service';
-
 import { EmailItem } from '../../models/email-item.model';
 import { EmailsService } from '../../services/emails.service';
 import { SignalRService } from '../../services/signalR.service';
@@ -33,6 +32,7 @@ export class EmailsComponent extends BaseComponent implements OnInit, OnDestroy 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--right-sidenav-width', '320px');
     this.layoutService.showToggleInRightSideNav();
+
     this.subscriptions.add(
       emails$.subscribe((data: EmailItem[]) => {
         console.log(data);

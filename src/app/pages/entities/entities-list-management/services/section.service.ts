@@ -14,9 +14,9 @@ export class SectionService {
         private entitiesListRepository: EntitiesListRepository) { }
 
 
-    addSection(section: AddSection): void {
+    addSection(section: AddSection): any {
         const endPointUrl = `${environment.entityApiUrl}/EntityDefinition/CreateOrUpdateEntityDefinition`;
-        this.httpClient.post<EntityDetails>(endPointUrl, section).subscribe(data => {
+        return this.httpClient.post<EntityDetails>(endPointUrl, section).subscribe(data => {
             if (data) {
                 this.entitiesListRepository.updateEntityDetails(data);
             }

@@ -1,24 +1,4 @@
  :host ::ng-deep {
-     .mat-form-field-underline {
-         display: none;
-     }
-
-     .cdk-overlay-pane {
-         padding-top: 25px;
-     }
-
-     .mat-select-arrow-wrapper {
-         display: none !important;
-     }
-
-     .mat-form-field-label-wrapper {
-         top: -0.2em !important;
-     }
-
-
-     .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-         padding: 0px;
-     }
 
      .selectCustomClass {
          border-radius: 10% !important;
@@ -34,16 +14,13 @@
          height: 20px;
      }
 
-     .matOption {
-         height: 3rem;
+     .icon {
+         width: 10px !important;
+         height: 10px !important;
+
      }
 
-     .mat-form-field-appearance-legacy .mat-form-field-infix {
-         border-top: solid transparent !important
-     }
-
-     .mat-select-panel .mat-optgroup-label,
-     .mat-select-panel .mat-option {
+     .option {
          height: 3rem;
      }
  }
