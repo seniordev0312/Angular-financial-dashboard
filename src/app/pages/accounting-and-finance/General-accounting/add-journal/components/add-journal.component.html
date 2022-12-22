@@ -197,11 +197,11 @@
                         <p class="mr-4 text-sm font-light w-1/4">EIN</p>
                         <div class="w-full">
                             <div class="flex flex-col w-full">
+
                                 <input (keydown)="onEinBlur()" (keyup)="onEinFocus()"
                                     [errorContainer]="einErrorContainer" [ngModel]="getEinValue()"
-                                    class="h-full bg-transparent	 flex justify-center items-center outline-none w-full
-                                                                                            
-                                                                                              px-1 text-sm xl:text-base font-light" formControlName="ein" name="ein" minlength="1" />
+                                    class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                                    formControlName="ein" name="ein" minlength="1" />
                                 <div class="pr-4">
                                     <hr>
                                 </div>

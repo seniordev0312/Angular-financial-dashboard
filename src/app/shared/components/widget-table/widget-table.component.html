@@ -5,10 +5,15 @@
                         (tableConfiguration.settings.isLocalPaging &&
                             totalRecords > tableConfiguration.settings.pageSize)) &&
                     tableConfiguration.settings.enablePaging
-                " (onLazyLoad)="onLazyLoad($event)" [filterDelay]="0" styleClass="p-datatable-sm p-datatable-gridlines"
-    [showFirstLastIcon]="false" [showPageLinks]="true" loadingIcon="pi pi-spin pi-spinner loading-icon-size">
+                " (onLazyLoad)="onLazyLoad($event)" (onFilter)="onFilterEmitted($event)"
+    [dataKey]="tableConfiguration.settings.dataKey" [filterDelay]="0" styleClass="p-datatable-sm p-datatable-gridlines"
+    [selectionPageOnly]="true" selectionMode="single" [(selection)]="selectedRow"
+    (selectionChange)="onRowsSelectedChanged()" [showFirstLastIcon]="false" [showPageLinks]="true"
+    loadingIcon="pi pi-spin pi-spinner loading-icon-size">
     <ng-template pTemplate="header">
       <tr>
+        <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable">
+        </td>
         <ng-container *ngFor="let column of tableConfiguration.columns">
           <th *ngIf="column.visible" [ngClass]="column.cssClasses(column.property)" scope="cols">
             <!--check-->
@@ -16,13 +21,18 @@
               <ng-container *ngIf="column.hasFilter">
                 <ng-container [ngSwitch]="column.filter?.filterType">
                   <!--text-->
-                  <p-columnFilter *ngSwitchCase="'string'" [field]="column?.filter?.filterProperty ?? column.property"
-                    matchMode="contains" [showMenu]="false">
+                  <!-- <p-columnFilter *ngSwitchCase="'string'" [field]="column?.filter?.filterProperty ?? column.property"
+                    matchMode="contains" [showMenu]="false" [showClearButton]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                       <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
                         class="p-inputtext" [placeholder]="column.translationKey">
                     </ng-template>
-                  </p-columnFilter>
+                  </p-columnFilter> -->
+
+                  <p-columnFilter *ngSwitchCase="'string'" type="text" [showClearButton]="false"
+                    [placeholder]="column.translationKey"
+                    [field]="column?.filter?.filterProperty ?? column.property"></p-columnFilter>
+
                   <!--numeric-->
                   <p-columnFilter *ngSwitchCase="'numeric'" type="numeric" [showMenu]="false"
                     [placeholder]="column.translationKey" [showClearButton]="false"
@@ -91,6 +101,9 @@
     </ng-template>
     <ng-template [pTemplate]="'body'" let-row>
       <tr class="p-selectable-row">
+        <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable">
+          <p-tableCheckbox [value]="row"></p-tableCheckbox>
+        </td>
         <ng-container *ngFor="let column of tableConfiguration.columns">
           <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
             <div class="flex justify-center">

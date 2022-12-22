@@ -6,23 +6,20 @@
     <div class="flex items-center justify-between my-6">
         <div class="flex items-center">
             <h5 class="text-base mr-4">Entity Type</h5>
-            <app-select-list [control]="entityTypeFormControl" [optionsList]="entityTypesList"></app-select-list>
+            <app-select-list [control]="entityTypeFormControl" [optionsList]="entityTypesOptionsList"></app-select-list>
         </div>
         <app-button (trigger)="onEntityAdded()" text="Add Entity" icon="add"
             classes="bg-accent text-sm h-10 w-32 text-white">
         </app-button>
     </div>
-    <!-- <form [formGroup]="filterFG"
+    <form [formGroup]="filterFG"
         class="flex items-stretch lg:items-center my-6 h-max lg:h-[133px] shadow rounded-[14px] justify-between">
         <div class="flex justify-center filter-title items-center w-28 h-full bg-[#F2F2F2]">
             <p class="text-xs font-bold text-center">Dynamically Generated Filters</p>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-1 py-2 px-4 filters">
-            <app-input-field [control]="getFormControl('einNumber')" class="mr-8" label="EIN Code"></app-input-field>
-            <app-input-field [control]="getFormControl('name')" class="mr-8" label="Name"></app-input-field>
-            <app-input-field [control]="getFormControl('type')" class="mr-8" label="Entity Type"></app-input-field>
-            <app-input-field [control]="getFormControl('location')" class="mr-8" label="Location"></app-input-field>
-            <app-input-field [control]="getFormControl('source')" class="mr-8" label="Source"></app-input-field>
+            <app-input-field *ngFor="let control of filterFields" [control]="getFormControl(control)" class="mr-8"
+                [label]="control" (trigger)="onFilterChange($event,control)"></app-input-field>
         </div>
         <div class="flex flex-col justify-center items-center w-32 h-full bg-accent text-white rounded-[14px]">
             <span class="material-icons">
@@ -30,6 +27,7 @@
             </span>
             <p class="text-sm font-medium mt-2">Search</p>
         </div>
-    </form> -->
-    <app-widget-table (onPaging)="onPaging($event)" [tableConfiguration]="tableConfiguration"></app-widget-table>
+    </form>
+    <app-widget-table (rowsSelected)="onRowsSelected($event)" (onFilter)="onTableFilter($event)"
+        (onPaging)="onPaging($event)" [tableConfiguration]="tableConfiguration"></app-widget-table>
 </mat-dialog-content>

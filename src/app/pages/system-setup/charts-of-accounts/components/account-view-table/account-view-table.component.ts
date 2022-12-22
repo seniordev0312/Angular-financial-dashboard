@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import dayjs from 'dayjs';
 import { AccountBalance } from '../../models/account-balance.model';
@@ -21,7 +21,7 @@ export class AccountViewTableComponent extends BaseComponent implements OnInit {
   accountViewClosingDate: AccountBalance;
 
   data: JournalList;
-  constructor() { super(); }
+  constructor(private cdr: ChangeDetectorRef) { super(); }
 
   ngOnInit(): void {
     this.subscriptions.add(accountViewOpeningDate$.subscribe(data => {
@@ -35,10 +35,11 @@ export class AccountViewTableComponent extends BaseComponent implements OnInit {
         this.accountViewClosingDate = data;
       }
     }));
-
+    
     this.subscriptions.add(journalList$.subscribe(data => {
       if (!this.isEmpty(data)) {
         this.data = data;
+        this.cdr.detectChanges();
       }
     }));
   }

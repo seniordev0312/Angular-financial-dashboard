@@ -8,6 +8,7 @@ import { SharedSystemSetupModule } from '../shared-system-setup/shared-system-se
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { AddReferenceTablesComponent } from './components/add-reference-tables/add-reference-tables.component';
 
 const routes: Route[] = [
   {
@@ -21,10 +22,22 @@ const routes: Route[] = [
       SecurityGuard
     ]
   },
+  {
+    path: ApplicationRoutes.Add,
+    component: AddReferenceTablesComponent,
+    outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAccessAddReferenceTables
+    },
+    canActivate: [
+      AutoLoginAllRoutesGuard,
+      SecurityGuard
+    ]
+  },
 ]
 
 @NgModule({
-  declarations: [ReferenceTablesComponent],
+  declarations: [ReferenceTablesComponent, AddReferenceTablesComponent],
   imports: [
     CommonModule,
     SharedModule,

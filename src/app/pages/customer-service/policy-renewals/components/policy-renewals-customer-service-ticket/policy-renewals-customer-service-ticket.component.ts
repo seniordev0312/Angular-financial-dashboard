@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ContactViewComponent } from '@root/pages/customer-service/customer-service/components/contact-view/contact-view.component';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import { SignalRService } from '../../services/signalr.service';
 
 @Component({
@@ -8,16 +11,31 @@ import { SignalRService } from '../../services/signalr.service';
   styleUrls: ['./policy-renewals-customer-service-ticket.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit, OnDestroy {
+export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent implements OnInit, OnDestroy {
   pageFlag: string = 'first';
 
+  @ViewChild(ContactViewComponent)
+  contactViewComponent: ContactViewComponent;
+
+  data: any;
   constructor(
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
-    public signalRService: SignalRService
-  ) { }
+    public signalRService: SignalRService,
+    private kYCDocumentTypeService: KYCDocumentTypeService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
+    this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
     this.signalRService.init(57);
+    this.subscriptions.add(
+      this.signalRService.signalRSubject$.subscribe((data: any) => {
+        this.contactViewComponent.data = data;
+        console.log(data);
+        this.contactViewComponent.updateData();
+      })
+    )
   }
 
   ngOnDestroy(): void {

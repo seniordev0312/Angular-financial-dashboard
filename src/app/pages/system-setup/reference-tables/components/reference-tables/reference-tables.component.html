@@ -3,7 +3,7 @@
         <div class="h-[10%] flex items-center justify-between">
             <span>Manage Reference Types</span>
             <ng-template [appCanAccessFeature]="canAddRelationshipTypePermission">
-                <app-button icon="add" text="Add New Relationship Type"
+                <app-button icon="add" text="Add New Relationship Type" (click)="AddReferenceTable()"
                     classes="bg-accent text-xxs text-white font-light h-8 w-[200px]">
                 </app-button>
             </ng-template>

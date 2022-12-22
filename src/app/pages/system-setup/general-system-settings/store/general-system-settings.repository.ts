@@ -16,4 +16,34 @@ export class GeneralSystemSettingsRepository {
             holidays: holidays
         }));
     }
+    updateGeneralSystemSettings(generalSystemSettings: any) {
+        this.generalSystemSettingsStore.update((state) => ({
+            ...state,
+            generalSystemSettings: generalSystemSettings
+        }));
+    }
+    updateDefaultLanguages(defaultLanguages: any) {
+        this.generalSystemSettingsStore.update((state) => ({
+            ...state,
+            defaultLanguages: defaultLanguages
+        }));
+    }
+    updateDefaultCurrency(defaultCurrency: any) {
+        this.generalSystemSettingsStore.update((state) => ({
+            ...state,
+            defaultCurrency: defaultCurrency
+        }));
+    }
+    updateAccountingStyle(accountingStyle: any) {
+        this.generalSystemSettingsStore.update((state) => ({
+            ...state,
+            accountingStyle: accountingStyle
+        }));
+    }
+    updateCountry(country: any) {
+        this.generalSystemSettingsStore.update((state) => ({
+            ...state,
+            country: country
+        }));
+    }
 }

@@ -9,10 +9,22 @@ import { CompanyStructureService } from '../../services/company-structure.servic
   selector: 'app-company-structure',
   templateUrl: './company-structure.component.html',
   styleUrls: ['./company-structure.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompanyStructureComponent extends BaseComponent implements OnInit {
-  treeNode: TreeNode[];
+  treeNode: TreeNode[] = [
+    {
+      type: 'company',
+      expanded: true,
+      data: {
+        name: 'Company Name', id: 3, parentId: 0, groups: []
+      },
+      children: []
+    }
+  ];
+
+  selectedItem: TreeNode;
+
   constructor(
     private layoutService: LayoutService,
     private companyStructureService: CompanyStructureService,
@@ -26,16 +38,13 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
       this.companyStructureService.addBranch$.subscribe((data) => {
         if (data) {
           this.addNodeToTreeNode(
-            this.treeNode[0],
             {
               type: 'branch',
               expanded: true,
               data: { name: data.name, parentId: data.parentId, id: data.id, groups: [] },
               children: [],
             });
-          this.cdr.detectChanges();
         }
-        this.cdr.detectChanges();
       })
     );
 
@@ -44,14 +53,12 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
         if (data) {
           this.addGroup(this.treeNode[0], data);
         }
-        this.cdr.detectChanges();
       }));
 
     this.subscriptions.add(
       this.companyStructureService.addDepartment$.subscribe((data) => {
         if (data) {
           this.addNodeToTreeNode(
-            this.treeNode[0],
             {
               type: 'department',
               expanded: true,
@@ -59,7 +66,6 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
               children: [],
             });
         }
-        this.cdr.detectChanges();
       })
     );
 
@@ -76,17 +82,8 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
       ],
     });
 
-    this.treeNode = [
-      {
-        type: 'company',
-        expanded: true,
-        data: {
-          name: 'Company Name', id: 3, parentId: 0, groups: []
-        },
-        children: []
-      }
-    ];
   }
+
   addGroup(nodes: TreeNode, data: AddGroup) {
     if (Number(data.parentId) === nodes.data.id) {
       let index = nodes.data.groups.findIndex((e: any) => Number(e.id) === Number(data.id));
@@ -115,19 +112,8 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  addNodeToTreeNode(nodes: TreeNode, node: TreeNode) {
-    if (Number(node.data.parentId) === nodes.data.id) {
-      nodes.children.push(node);
-      return
-    }
-    nodes.children.forEach((item) => {
-      if (item.data.id === node.data.parentId) {
-        item.children.push(node);
-        return
-      } else {
-        return this.addNodeToTreeNode(item, node)
-      }
-    });
+  addNodeToTreeNode(node: TreeNode) {
+    this.selectedItem.children.push(node);
     this.cdr.detectChanges();
   }
 
@@ -164,5 +150,9 @@ export class CompanyStructureComponent extends BaseComponent implements OnInit {
         this.companyStructureService.addDepartment({ name: value.data.name, parentId: node.data.id, id: Math.floor(Math.random() * 10000) })
       }
     })
+  }
+
+  nodeSelect(data: any) {
+    this.selectedItem = data.node;
   }
 }

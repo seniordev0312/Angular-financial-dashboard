@@ -17,9 +17,9 @@ import { journalList$ } from '../../store/chart-of-accounts.store';
 })
 export class AccountViewComponent extends BaseComponent implements OnInit {
   startDateFormControl = new FormControl(new Date());
-  endDateFormControl = new FormControl(new Date());
+  endDateFormControl = new FormControl(new Date('12/30/2022'));
   chartOfAccountsLink = `/${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.ChartOfAccounts}`;
-  pageIndex = 1;
+  pageIndex = 0;
   pageSize = 20;
   dataCount: number;
   accountTypeId: string;

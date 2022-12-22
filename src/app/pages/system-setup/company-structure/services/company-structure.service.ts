@@ -23,9 +23,11 @@ export class CompanyStructureService {
     addGroup(addGroup: AddGroup) {
         this.addGroupSubject.next(addGroup);
     }
+
     addDepartment(addDepartment: AddDepartment) {
         this.addDepartmentSubject.next(addDepartment);
     }
+
     addBranch(addBranch: AddBranch) {
         this.addBranchSubject.next(addBranch);
     }

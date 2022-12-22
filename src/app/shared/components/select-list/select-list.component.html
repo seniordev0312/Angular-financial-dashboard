@@ -1,6 +1,9 @@
 <mat-form-field class="w-full" appearance="fill">
     <mat-label>{{label}}</mat-label>
     <mat-select panelClass="wfullclass" [disabled]="isDisabled" [multiple]="isMultiple" [formControl]="control">
+        <mat-option *ngIf="hasSearch">
+            <ngx-mat-select-search [formControl]="searchFormControl"></ngx-mat-select-search>
+        </mat-option>
         <mat-option *ngFor="let option of optionsList" [value]="option.id">
             <span class="text-accent text-xs">{{option.value}}</span>
         </mat-option>

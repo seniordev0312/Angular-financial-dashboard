@@ -22,6 +22,8 @@ import { EditHistoryComponent } from './components/followup-history/edit-history
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { MatSelectModule } from '@angular/material/select';
+import { SafeHtmlPipe } from './services/pipe/safe-html.pipe';
 
 const routes: Route[] = [
   {
@@ -55,6 +57,7 @@ const routes: Route[] = [
     SalesFlowComponent,
     HistoryListComponent,
     EditHistoryComponent,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,
@@ -64,6 +67,7 @@ const routes: Route[] = [
     EntitiesControlModule,
     CdkAccordionModule,
     RouterModule.forChild(routes),
+    MatSelectModule,
   ],
 })
 export class CustomerServiceModule { }
