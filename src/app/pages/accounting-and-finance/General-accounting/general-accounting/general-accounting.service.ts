@@ -59,6 +59,7 @@ export class GeneralAccountingService {
 
     getAccountOpenBalance(id: number, date: string,) {
         const url = this.baseUrl + 'Account/GetAccountBalance/' + id + '/' + date + '/1';
+        console.log(url)
         const header = {
             headers: new HttpHeaders(
                 {

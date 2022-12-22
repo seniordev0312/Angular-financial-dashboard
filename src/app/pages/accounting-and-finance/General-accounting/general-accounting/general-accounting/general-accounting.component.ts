@@ -53,6 +53,7 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
     });
 
     this.subscriptions.add(JournalList$.subscribe(data => {
+      this.journalList = [];
       for (var item of data) {
         item.postingDate = this.pipe.transform(item.postingDate, 'yyyy-MM-dd ');
         this.journalList.push(item);
