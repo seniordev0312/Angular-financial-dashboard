@@ -20,9 +20,6 @@ import { AccountModel } from '../../accounts/model/accounts.model';
 import { TaxModel } from '../../general-accounting/model/tax.model';
 import { JournalEntryModel } from '../../general-accounting/model/journal-entry.model';
 import { ActivatedRoute } from '@angular/router';
-import { EntitiesControlComponent } from '@root/pages/entities/entities-control/components/entities-control/entities-control.component';
-import { MatDialog } from '@angular/material/dialog';
-import { JournalService } from '../services/jornal.service';
 import { DocumentModel } from '../../general-accounting/model/document.model';
 import { GeneralAccountingRepository } from '../../general-accounting/general-accounting.repository';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -84,11 +81,13 @@ export class AddJournalComponent extends BaseComponent implements OnInit, OnDest
     },
   ];
   refreshIntervalId: any;
-  constructor(private router: ActivatedRoute,
+  einFocus = -1;
+  constructor(private router: ActivatedRoute, private generalAccountingRepository: GeneralAccountingRepository,
     private cdr: ChangeDetectorRef, private journalFormGroup: JournalFormGroup, private entriesFormGroup: EntriesFormGroup, private layoutService: LayoutService,
     private generalAccountingService: GeneralAccountingService,
-    private _location: Location
-  ) { }
+    private _location: Location,
+
+  ) { super(); }
 
   ngOnInit(): void {
     this.getProductTaxByProductEin(1);
@@ -118,6 +117,17 @@ export class AddJournalComponent extends BaseComponent implements OnInit, OnDest
         },
       ],
     });
+
+    this.subscriptions.add(EinValue$.subscribe(data => {
+      if (data.search('01-') !== -1) {
+        this.einValue = data;
+      }
+      if (data.search('50-') !== -1) {
+        this.einPolicyValue = data;
+      }
+      this.getEinValue();
+      this.cdr.detectChanges();
+    }));
   }
   ngOnDestroy() {
     clearInterval(this.refreshIntervalId);
@@ -437,18 +447,6 @@ export class AddJournalComponent extends BaseComponent implements OnInit, OnDest
   onCancel() {
     this._location.back();
   }
-
-  onEinFocus() {
-    if (this.form.get('ein').value === '') {
-      this.dialog.open(EntitiesControlComponent, {
-        width: '90%',
-        height: '90%',
-        data: true
-      })
-    }
-  }
-
-
 
   async getGuidByJournalEntry(id: number) {
     const result = await this.generalAccountingService.getGuidByJournalEntry(id);
