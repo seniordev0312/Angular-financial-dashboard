@@ -259,7 +259,7 @@ export class AccountsComponent implements OnInit {
       error: (_error: any) => {
       },
       next: async (data: any) => {
-        this.accountOpenBalance = data;
+        this.accountOpenBalance = data.totalBalance;
       },
       complete: async () => {
       },
@@ -273,7 +273,7 @@ export class AccountsComponent implements OnInit {
       error: (_error: any) => {
       },
       next: async (data: any) => {
-        this.accountCloseBalance = data;
+        this.accountCloseBalance = data.totalBalance;
       },
       complete: async () => {
       },
