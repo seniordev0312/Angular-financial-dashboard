@@ -3,6 +3,8 @@ import { DesignerComponent } from '@grapecity/activereports-angular';
 import { ReportsService } from '../../shared/services/reports.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { reportsDesignerNavList } from './reports-designer-nav-list';
+
 
 @Component({
   selector: 'app-reports-designer',
@@ -16,6 +18,10 @@ export class ReportsDesignerComponent implements OnInit, AfterViewInit, OnDestro
   report: any;
   @ViewChild(DesignerComponent, { static: false }) reportDesigner: DesignerComponent;
 
+
+  navList = reportsDesignerNavList;
+
+  ID = -1;
   constructor(
     private layoutService: LayoutService,
     private reportsService: ReportsService,
@@ -31,6 +37,7 @@ export class ReportsDesignerComponent implements OnInit, AfterViewInit, OnDestro
     // return Promise.resolve({ displayName: reportId });
 
   };
+
 
 
   ngOnInit(): void {
@@ -51,9 +58,19 @@ export class ReportsDesignerComponent implements OnInit, AfterViewInit, OnDestro
 
   ngAfterViewInit(): void {
     this.reportDesigner.createReport({ reportType: 'CPL' })
+    this.reportDesigner.setReport(this.reportsService.getReportA());
     this.saveIntervalId = setInterval(async () => {
       const reportInfo = await this.reportDesigner.getReport();
-      this.reportsService.updateReports(reportInfo)
+      if (this.ID === 1) {
+        this.reportsService.updateReportA(reportInfo)
+      }
+      if (this.ID === 2) {
+        this.reportsService.updateReportB(reportInfo)
+      }
+      if (this.ID === 3) {
+        this.reportsService.updateReportC(reportInfo)
+      }
+
     }, 5000);
   }
   ngOnDestroy(): void {
@@ -67,4 +84,18 @@ export class ReportsDesignerComponent implements OnInit, AfterViewInit, OnDestro
     return Promise.resolve({ id: reportId, displayName: reportId });
   };
 
+
+  onItemClick(navListItem: number) {
+    this.ID = navListItem;
+    console.log(this.ID)
+    if (this.ID === 1) {
+      this.reportDesigner.setReport(this.reportsService.getReportA());
+    }
+    if (this.ID === 2) {
+      this.reportDesigner.setReport(this.reportsService.getReportB());
+    }
+    if (this.ID === 3) {
+      this.reportDesigner.setReport(this.reportsService.getReportC());
+    }
+  }
 }

@@ -1,4 +1,24 @@
 <div id="designer-host">
-    <gc-activereports-designer [report]="report" [onSave]="onSave" [onSaveAs]="false">
-    </gc-activereports-designer>
+
+    <div class="h-full w-full shadow-xl overflow-y-auto min-w-[40rem] min-h-[40rem]">
+        <mat-drawer-container>
+            <mat-drawer #drawer mode="side" opened="true" class="flex flex-col p-2 justify-center items-center">
+                <div *ngFor="let item of navList" class="flex justify-between items-center cursor-pointer px-2 py-4"
+                    (click)="onItemClick(item.id)">
+                    <div class="text-xs">
+                        <span translate>{{item.name}}</span>
+                    </div>
+                    <mat-icon color="primary">keyboard_arrow_right</mat-icon>
+                </div>
+            </mat-drawer>
+            <mat-drawer-content>
+                <div id="designer-host" class="p-1 h-full px-8 py-4">
+                    <gc-activereports-designer [report]="report" [onSave]="onSave" [onSaveAs]="false">
+                    </gc-activereports-designer>
+                </div>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+
+
 </div>

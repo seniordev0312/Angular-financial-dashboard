@@ -4,9 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { Route, RouterModule } from '@angular/router';
 import { ActiveReportsModule } from '@grapecity/activereports-angular';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { SharedModule } from '@root/shared/shared.module';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { ReportsDesignerComponent } from './components/reports-designer/reports-designer.component';
 import { ReportsViewerComponent } from './components/reports-viewer/reports-viewer.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const routes: Route[] = [
     {
@@ -34,7 +36,9 @@ const routes: Route[] = [
     imports: [
         CommonModule,
         ActiveReportsModule,
+        MatSidenavModule,
         MatIconModule,
+        SharedModule,
         RouterModule.forChild(routes)
     ]
 })

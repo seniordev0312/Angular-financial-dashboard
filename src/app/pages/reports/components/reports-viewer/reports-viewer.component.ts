@@ -4,6 +4,7 @@ import { BaseComponent } from '@root/shared/components/base-component/base-compo
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { ReportsService } from '../../shared/services/reports.service';
+import { reportsViewerNavList } from './reports-viewer-nav-list';
 
 // import { reports$ } from '../../shared/store/reports.store';
 
@@ -34,10 +35,19 @@ export class ReportsViewerComponent extends BaseComponent implements OnInit {
 
   @ViewChild(ViewerComponent, { static: false }) reportViewer!: ViewerComponent;
 
+  navList = reportsViewerNavList;
+
+  ID = -1;
+
+  reportA: any;
+  reportB: any;
+  reportC: any;
+
   onViewerInit() {
-    let reports = this.reportsService.getReports();
-    console.log(reports[0].definition);
-    this.reportViewer.open(reports[0].definition);
+    this.reportA = this.reportsService.getReportA();
+    this.reportB = this.reportsService.getReportB();
+    this.reportC = this.reportsService.getReportC();
+    this.reportViewer.open(this.reportA.definition);
   }
 
   report: any
@@ -70,6 +80,20 @@ export class ReportsViewerComponent extends BaseComponent implements OnInit {
     //     }
     //   })
     // )
+  }
+
+  onItemClick(navListItem: number) {
+    this.ID = navListItem;
+    if (this.ID === 1) {
+      this.reportViewer.open(this.reportA.definition);
+    }
+    if (this.ID === 2) {
+      this.reportViewer.open(this.reportB.definition);
+    }
+    if (this.ID === 3) {
+      this.reportViewer.open(this.reportC.definition);
+    }
+
   }
 
 }
