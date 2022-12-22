@@ -39,7 +39,7 @@ const routes: Route[] = [
     ]
   },
   {
-    path: `${ApplicationRoutes.Add}/:id/:name/:startDate/:endDate/:offDay`,
+    path: `${ApplicationRoutes.Add}/:holidayId/:name/:startDate/:endDate/:isOffDay`,
     component: AddHolidayComponent,
     outlet: 'sidenav',
     data: {

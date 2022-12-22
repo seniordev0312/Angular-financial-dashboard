@@ -13,17 +13,17 @@ export class AddNewHolidayFormGroup {
             endDate: new FormControl(item?.endDate || null, [Validators.required]),
             startDate: new FormControl(item?.startDate || null, [Validators.required]),
             name: new FormControl(item?.name || null, [Validators.required]),
-            offDay: new FormControl(item?.offDay || null, [Validators.required]),
+            isOffDay: new FormControl(item?.isOffDay || null, [Validators.required]),
         });
         return this.fg;
     }
 
     getValueFromFormGroup(fg: FormGroup): Holiday {
         return {
-            endDate: fg.controls.endDate.value,
-            startDate: fg.controls.startDate.value,
+            endDate: new Date(fg.controls.endDate.value).toLocaleDateString('en-GB'),
+            startDate: new Date(fg.controls.startDate.value).toLocaleDateString('en-GB'),
             name: fg.controls.name.value,
-            offDay: fg.controls.offDay.value,
+            isOffDay: fg.controls.isOffDay.value,
         };
     }
 }

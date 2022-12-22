@@ -13,11 +13,14 @@ import { PolicyFilterComponent } from './components/policy-filter/policy-filter.
 import { PolicyRenewalsComponent } from './components/policy-renewals/policy-renewals.component';
 import { PolicySortComponent } from './components/policy-sort/policy-sort.component';
 import { PolicyStatusComponent } from './components/policy-status/policy-status.component';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: PolicyRenewalsComponent,
+    canLoad: [AutoLoginAllRoutesGuard]
   },
 ];
 
@@ -33,6 +36,7 @@ const routes: Route[] = [
     CommonModule,
     SharedModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MatToolbarModule,
     DragDropModule,
     RouterModule.forChild(routes),

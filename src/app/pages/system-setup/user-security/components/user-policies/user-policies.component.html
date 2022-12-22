@@ -1,26 +1,29 @@
 <div class="py-5">
     <h1 class="text-base font-medium mb-5">User Policies</h1>
-    <div class="grid grid-cols-3 gap-10">
-        <app-select-list label="Force Complex Passwords:" [control]="getFormControl('isComplexPasswordForced')">
-        </app-select-list>
-    </div>
     <div class="w-full h-1/3 grid grid-cols-3 gap-10">
-        <app-input-field label="Force Complex Passwords:" [name]="'forceComplexPasswords'"
-            [control]="getFormControl('isComplexPasswordForced')">
-        </app-input-field>
-        <app-input-field label="Force Change Password:" [name]="'forceChangePassword'"
-            [control]="getFormControl('isChangePasswordForced')">
-        </app-input-field>
-        <app-input-field label="Every X Days (Enter X):" [name]="'everyXDays'"
+        <app-input-field label="Every X Days (Enter X):" [name]="'everyXDays'" type="number"
             [control]="getFormControl('numberOfDays')">
         </app-input-field>
-    </div>
-    <div class="w-full h-1/3 grid grid-cols-3 gap-10">
-        <app-input-field label="Minimum Password Length:" [name]="'minimumPasswordLength'"
+        <app-input-field label="Minimum Password Length:" [name]="'minimumPasswordLength'" type="number"
             [control]="getFormControl('minPasswordLength')">
         </app-input-field>
-        <app-input-field label="Maximum Trials before Locking:" [name]="'maximumTrailsBeforeLocking'"
+        <app-input-field label="Maximum Trials before Locking:" [name]="'maximumTrailsBeforeLocking'" type="number"
             [control]="getFormControl('maxTrialsBeforeLockingLength')">
         </app-input-field>
+    </div>
+    <div class="w-full h-1/3 grid grid-cols-3 gap-10">
+        <div class="flex items-center justify-between">
+            <p class="text-xs">Force Complex Passwords:</p>
+            <mat-slide-toggle [formControl]="getFormControl('isComplexPasswordForced')"></mat-slide-toggle>
+        </div>
+        <div class="flex items-center justify-between">
+            <p class="text-xs">Force Change Password:</p>
+            <mat-slide-toggle [formControl]="getFormControl('isChangePasswordForced')"></mat-slide-toggle>
+        </div>
+        <div class="flex items-center justify-end">
+            <app-button (trigger)="onSave()" text="Save"
+                classes="bg-accent text-xs text-white font-light h-8 w-[150px]">
+            </app-button>
+        </div>
     </div>
 </div>
