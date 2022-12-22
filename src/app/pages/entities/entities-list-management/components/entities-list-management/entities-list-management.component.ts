@@ -153,9 +153,9 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
     if (this.securityCheckerService.doesUserHasPermission(Permission.CanEditEntityManagement)) {
       this.tableConfiguration.tableRowsActionsList.push(this.editAction);
     }
-    if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteEntityManagement)) {
-      this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
-    }
+    // if (this.securityCheckerService.doesUserHasPermission(Permission.CanDeleteEntityManagement)) {
+    //   this.tableConfiguration.tableRowsActionsList.push(this.deleteAction);
+    // }
   }
 
   onEntityAdded() {
