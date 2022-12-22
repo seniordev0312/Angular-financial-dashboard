@@ -214,7 +214,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-row w-full justify-between items-end">
+            <div class="flex flex-row w-full justify-between items-start ">
                 <div class="w-3/5 ">
                     <div class="w-full">
                         <p class="mr-4 text-sm font-light pt-10 ">Description</p>
@@ -225,22 +225,24 @@
                             name="description"> </textarea>
                     </div>
                 </div>
-                <div class="w-2/5 ml-10">
+                <div class="w-2/5 ml-10 pt-5">
                     <div class="pt-10">
                         <div
-                            class="h-full py-5 px-5 rounded-lg  mt-3 bloc shadow shadow-lg flex justify-center items-center outline-none w-full bg-main-gray  h-[10.0rem]
+                            class="h-full py-5 px-5 rounded-lg  mt-3 bloc shadow shadow-lg flex justify-center items-center outline-none w-full bg-main-gray  
                                                                                                          px-1 text-sm xl:text-base font-light">
                             <div class="flex flex-row h-full w-full ">
                                 <div *ngIf="qrCodeValue.length !==0"
                                     class="flex bloc bg-white  rounded-lg shadow-sm p-2 justify-center items-center">
-                                    <qr-code [value]="qrCodeValue" size="130" errorCorrectionLevel="M"></qr-code>
+                                    <qr-code [value]="qrCodeValue" size="105" errorCorrectionLevel="M"></qr-code>
 
                                 </div>
-                                <div class="flex flex-col w-3/5 ml-3  " *ngFor="let option of documentList">
-                                    <button (click)="onDownloadFile(option.name)"
-                                        class="flex bloc bg-white rounded-lg  p-2 shadow-sm w-full h-2/5 justify-center items-center">
-                                        {{ option.name}}
-                                    </button>
+                                <div class="flex flex-col w-3/5 ml-3  ">
+                                    <div *ngFor="let option of documentList  ">
+                                        <button (click)="onDownloadFile(option.name)"
+                                            class="flex  p-5 bloc bg-white rounded-lg  p-2 shadow-sm w-full h-2/5 justify-center items-center">
+                                            {{ option.name}}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
