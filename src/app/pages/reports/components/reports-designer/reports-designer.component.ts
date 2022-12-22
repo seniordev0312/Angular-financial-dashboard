@@ -58,7 +58,6 @@ export class ReportsDesignerComponent implements OnInit, AfterViewInit, OnDestro
 
   ngAfterViewInit(): void {
     this.reportDesigner.createReport({ reportType: 'CPL' })
-    this.reportDesigner.setReport(this.reportsService.getReportA());
     this.saveIntervalId = setInterval(async () => {
       const reportInfo = await this.reportDesigner.getReport();
       if (this.ID === 1) {
