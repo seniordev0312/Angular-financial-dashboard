@@ -132,8 +132,10 @@ export class AddEntityTemplateComponent extends BaseComponent implements OnInit 
   }
 
   onNewElementAdded(): void {
-    const data: TemplateElement = this.templateElementFormGroup.getValueFromFormGroup(this.templateFg);
-    this.formArrayService.getFormArrayItems('fields', this.fg).push(this.templateElementFormGroup.getFormGroup(data));
-    this.templateFg.reset();
+    if (this.templateFg.valid) {
+      const data: TemplateElement = this.templateElementFormGroup.getValueFromFormGroup(this.templateFg);
+      this.formArrayService.addItemToFormArray('fields', this.fg, this.templateElementFormGroup.getFormGroup(data));
+      this.templateFg.reset();
+    }
   }
 }
