@@ -57,17 +57,6 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
         super();
     }
 
-    get totalRecords() {
-        if (this.tableConfiguration.settings.isLocalPaging) {
-            return this.tableConfiguration?.dataCount;
-        } else if (this.tableConfiguration.settings.hasNextPage) {
-            return (this.currentPageIndex + 1) * this.tableConfiguration.settings.pageSize + 1;
-        } else if (!this.tableConfiguration.settings.hasNextPage && this.tableConfiguration.settings.haxPreviousPage) {
-            return (this.currentPageIndex + 1) * this.tableConfiguration.settings.pageSize;
-        }
-        return this.tableConfiguration?.settings.pageSize;
-    }
-
     ngOnInit() {
         this.pageSize = this.tableConfiguration.settings.pageSize;
         this.primengConfig.ripple = true;
