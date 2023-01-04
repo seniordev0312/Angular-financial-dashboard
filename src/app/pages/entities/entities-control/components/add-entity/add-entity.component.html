@@ -4,8 +4,9 @@
     <div class="flex w-full items-center justify-between mt-7 mb-5">
         <h4 *ngIf="!isUpdateMode" class="text-xl font-bold">Create New Entity</h4>
         <h4 *ngIf="isUpdateMode" class="text-xl font-bold">{{entityName}}</h4>
-        <app-button [isDisabled]="!isValid||isViewMode" (trigger)="onEntitySaved()" text="Save and close" icon="save"
-            [classes]="isValid&&!isViewMode?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'">
+        <app-button (trigger)="onEntitySaved()" text="Save and close" icon="save"
+            classes="bg-accent h-12 w-52 text-white">
+            <!-- [classes]="isValid&&!isViewMode?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'" -->
         </app-button>
     </div>
     <div class="grid grid-cols-4 gap-5">
@@ -34,6 +35,7 @@
                 <cdk-accordion-item *ngFor="let item of entityDefinition?.sections;let i=index"
                     #accordionItem="cdkAccordionItem" role="button" [tabindex]="i" [attr.id]="'accordion-header-1'"
                     [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-1'">
+
                     <div class="flex items-center justify-between w-full mt-2 panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
@@ -50,6 +52,7 @@
                         <app-entity-section [isViewMode]="isViewMode" [data]="selectedEntity?.sections[i]?.properties"
                             [section]="item"></app-entity-section>
                     </div>
+
                 </cdk-accordion-item>
             </cdk-accordion>
         </div>
