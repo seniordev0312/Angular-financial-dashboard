@@ -1,15 +1,12 @@
 <div class="card overflow-auto shared-table" [ngClass]="tableConfiguration.settings.cssClasses">
+  {{tableConfiguration?.dataCount}}
   <p-table #dt [value]="data" [rowHover]="true" responsiveLayout="scroll" [rows]="pageSize"
-    [lazy]="!tableConfiguration.settings.isLocalPaging" [totalRecords]="totalRecords" [paginator]="
-                    (!tableConfiguration.settings.isLocalPaging ||
-                        (tableConfiguration.settings.isLocalPaging &&
-                            totalRecords > tableConfiguration.settings.pageSize)) &&
-                    tableConfiguration.settings.enablePaging
-                " (onLazyLoad)="onLazyLoad($event)" (onFilter)="onFilterEmitted($event)"
-    [dataKey]="tableConfiguration.settings.dataKey" [filterDelay]="0" styleClass="p-datatable-sm p-datatable-gridlines"
-    [selectionPageOnly]="true" selectionMode="single" [(selection)]="selectedRow"
-    (selectionChange)="onRowsSelectedChanged()" [showFirstLastIcon]="false" [showPageLinks]="true"
-    loadingIcon="pi pi-spin pi-spinner loading-icon-size">
+    [lazy]="!tableConfiguration.settings.isLocalPaging" [totalRecords]="tableConfiguration?.dataCount"
+    [paginator]="tableConfiguration.settings.enablePaging" (onLazyLoad)="onLazyLoad($event)"
+    (onFilter)="onFilterEmitted($event)" [dataKey]="tableConfiguration.settings.dataKey" [filterDelay]="0"
+    styleClass="p-datatable-sm p-datatable-gridlines" [selectionPageOnly]="true" selectionMode="single"
+    [(selection)]="selectedRow" (selectionChange)="onRowsSelectedChanged()" [showFirstLastIcon]="false"
+    [showPageLinks]="true" loadingIcon="pi pi-spin pi-spinner loading-icon-size">
     <ng-template pTemplate="header">
       <tr>
         <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable">
