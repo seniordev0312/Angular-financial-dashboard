@@ -12,7 +12,7 @@ export class TemplateElementFormGroup {
     getFormGroup(item?: TemplateElement): FormGroup {
         this.fg = this.fb.group({
             elementName: new FormControl(item?.elementName || null, [Validators.required]),
-            elementType: new FormControl(item?.elementType, [Validators.required]),
+            elementType: new FormControl(item?.elementType || null, [Validators.required]),
         });
         return this.fg;
     }

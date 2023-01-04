@@ -2,7 +2,7 @@
     <div class="flex flex-col border border-accent container relative pt-5 w-full px-4">
         <ng-content></ng-content>
 
-        <button (click)="onAddClicked()" class="absolute top-[50%] -right-[0.79rem] ">
+        <button appFormValidationTrigger (click)="onAddClicked()" class="absolute top-[50%] -right-[0.79rem] ">
             <span class="material-icons text-accent">
                 add_circle_outline
             </span>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { FormArrayService } from '@root/shared/services/form-array.service';
@@ -6,7 +6,8 @@ import { FormArrayService } from '@root/shared/services/form-array.service';
 @Component({
   selector: 'app-select-list-with-chips',
   templateUrl: './select-list-with-chips.component.html',
-  styleUrls: ['./select-list-with-chips.component.scss']
+  styleUrls: ['./select-list-with-chips.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class SelectListWithChipsComponent {
   @Output() addNewItem = new EventEmitter<void>();
