@@ -13,7 +13,7 @@ export class ElementFormGroup {
         this.fg = this.fb.group({
             elementType: new FormControl(item?.elementType || null, [Validators.required]),
             elementName: new FormControl(item?.elementName || null, [Validators.required]),
-            description: new FormControl(item?.description || null, [Validators.required]),
+            description: new FormControl(item?.description || null),
             regularExpression: new FormControl(item?.regularExpression || null),
             indexable: new FormControl(item?.indexable || false, [Validators.required]),
             mandatory: new FormControl(item?.mandatory || false, [Validators.required]),
