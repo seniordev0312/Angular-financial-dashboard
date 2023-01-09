@@ -1,0 +1,36 @@
+::ng-deep .inProcessSelect {
+  .mat-form-field {
+    width: 150px;
+    bottom: -13px;
+  }
+}
+
+::ng-deep .noteIcon {
+  .mat-icon {
+    width: 16px !important;
+    height: 12px !important;
+  }
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 0px;
+}
+
+
+@media screen and (max-width: 1750px) {
+  .button-responsive {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .communication-button {
+    position: inherit;
+  }
+  .text-class {
+    padding-top: 0px;
+  }
+  .button-class {
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
+  }
+}

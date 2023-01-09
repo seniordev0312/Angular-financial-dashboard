@@ -1,4 +1,11 @@
-<div class="flex flex-row p-4 rounded-md shadow-md bg-white h-20 items-center">
-  <div class="flex-1 text-primary text-center text-[18px]">Notes</div>
-  <mat-icon svgIcon="customer-service-arrow-down-notes"></mat-icon>
+<div class="px-7 pb-4 flex flex-col">
+  <div class="flex flex-col">
+    <p class="text-xl font-bold">Add Notes</p>
+    <textarea class="mt-4 bg-main-gray" rows="5" cols="40"></textarea>
+  </div>
+
+  <app-button
+    classes="mt-8 ml-auto px-8 py-3 text-[15px] bg-primary text-white rounded-md"
+    text="submit"
+  ></app-button>
 </div>

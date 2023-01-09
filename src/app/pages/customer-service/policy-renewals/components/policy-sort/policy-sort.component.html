@@ -8,14 +8,30 @@
     </div>
     <div class="w-[20%] flex justify-end">
       <div class="flex flex-col px-2">
-        <img
-          src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
-          class="pb-1 w-[18px] h-[13px]"
-        />
-        <img
-          src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
-          class="pb-1 w-[18px] h-[13px]"
-        />
+        <div *ngIf="!arrow">
+          <img
+            (click)="ascending()"
+            src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
+            class="pb-1 w-[18px] h-[13px] bg-white text-primary"
+          />
+          <img
+            (click)="descending()"
+            src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
+            class="pb-1 w-[18px] h-[13px]"
+          />
+        </div>
+        <div *ngIf="arrow">
+          <img
+            (click)="ascending()"
+            src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
+            class="pb-1 w-[18px] h-[13px] rotate-icon"
+          />
+          <img
+            (click)="descending()"
+            src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
+            class="pb-1 w-[18px] h-[13px] rotate-icon"
+          />         
+        </div>
       </div>
     </div>
   </div>
