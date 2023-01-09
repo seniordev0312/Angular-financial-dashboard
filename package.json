@@ -9,7 +9,8 @@
     "build:qa": "ts-node build/build.ts qa",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "ng-high-memory": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng serve --configuration=prod"
   },
   "private": true,
   "dependencies": {
