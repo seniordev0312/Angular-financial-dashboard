@@ -1,20 +1,18 @@
 <form class="flex flex-col pl-9 pt-8 pb-7 pr-6 h-[100%]" action="">
   <div class="flex w-full">
-    <input
-      class="border-none text-[17px] w-[100%]"
-      type="text"
-      placeholder="Enter your message here"
-    />
+    <input class="border-none text-[17px] w-[100%]" type="text" placeholder="Enter your message here" id="username"
+      name="username" [(ngModel)]="text" />
   </div>
 
   <div class="mt-auto w-full flex flex-row pr-7 pl-4">
     <div class="w-[55%] flex flex-row justify-between items-center">
       <div class="flex items-center">
-        <mat-icon svgIcon="customer-contact-form-paperclip"></mat-icon>
+        <mat-icon svgIcon="customer-contact-form-paperclip" for="uploadPhoto" (click)="uploadPhoto.click()"></mat-icon>
+        <input type="file" #uploadPhoto name="photo" #myFileInput id="uploadPhoto" (change)="onChange($event)" />
       </div>
       <div class="text-[24px]">|</div>
       <div class="flex items-center">
-        <img width="27px" src="../../../../../../assets/images/customer-service-icons/mail.png" alt="">
+        <mat-icon svgIcon="customer-contact-form-mail"></mat-icon>
       </div>
       <p class="text-[24px]">|</p>
       <div class="flex items-center">
@@ -26,9 +24,8 @@
       </div>
     </div>
     <div class="w-[45%] flex justify-end">
-      <button
-        class="ml-auto px-9 py-4 text-[15px] bg-primary text-white rounded-md"
-      >send</button>
+      <input #input class="ml-auto px-9 py-4 text-[15px] bg-primary text-white rounded-md" type="button" value="send"
+        (keyup)="onKey(input.value)" (click)="send()" />
     </div>
   </div>
 </form>

@@ -1,79 +1,49 @@
 <div *ngIf="card">
-  <div
-    class="flex flex-row w-[100%] h-36 rounded-md shadow-md relative bg-white min-w-[200px]"
-  >
-    <div
-      class="flex flex-col items-center relative h-full w-[10%] text-[12px] text-[#FFFFFF] rounded-l-md {{
-        cardInfo.leftSideBackground
-      }}"
-    >
-      <div>{{ cardInfo.day + "D" }}</div>
-      <div>{{ cardInfo.hour + "H" }}</div>
-      <div>{{ cardInfo.minute + "M" }}</div>
+  <div class="flex flex-row w-[100%] h-36 rounded-md shadow-md relative bg-white">
+    <div class="flex flex-col items-center relative h-full w-[10%] {{
+        card.left.backgroundColor
+      }} text-[12px] text-[#FFFFFF] rounded-l-md">
+      <div>{{ card.left.leftD }}</div>
+      <div>{{ card.left.leftH }}</div>
+      <div>{{ card.left.leftM }}</div>
       <div class="absolute flex bottom-1 shadow-lg">
-        <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" />
+        <mat-icon svgIcon="{{ card.left.svg }}"></mat-icon>
       </div>
     </div>
     <div class="flex flex-col h-full w-[90%] p-0">
-      <div
-        class="flex justify-end items-center w-full h-[10%] mt-2 pr-4 text-[10px]"
-      >
-        {{ cardInfo.dateCreated }}
+      <div class="flex justify-end items-center w-full h-[10%] mt-2 pr-4 text-[10px]">
+        {{ card.date }}
       </div>
-      <div
-        class="flex justify-end items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[7px]"
-      >
-        {{ cardInfo.ticketCode }}
+      <div class="flex justify-end items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[7px]">
+        {{ card.prf }}
       </div>
       <div class="h-[60%] flex flex-row items-center justify-center gap-1">
         <div class="h-full w-[30%] flex relative">
-          <!-- <div
-            
-          > -->
-          <img
-            class="absolute flex items-start justify-start shadow-lg bg-none"
-            height="29px"
-            width="29px"
-            src="{{ cardInfo.sourceIconUrl }}"
-            alt=""
-          />
-          <!-- </div> -->
-          <img
-            class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
-            src="{{ cardInfo.entityProfilePictureUri }}"
-          />
+          <div class="absolute flex items-start justify-start shadow-lg">
+            <mat-icon svgIcon="{{ card.customer.svg }}"></mat-icon>
+          </div>
+          <img class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
+            src="{{ card.customer.photo }}" />
         </div>
         <div class="h-full w-[60%] flex flex-col items-start justify-center">
-          <span class="font-bold text-[11px]">{{ cardInfo.entityName }}</span>
-          <span class="text-[8px]">
-            <div *ngIf="cardInfo.ein">
-              EIN:
-              <span class="text-[#005f83] underline">{{ cardInfo.ein }}</span>
-            </div>
-            <div *ngIf="cardInfo.ein == null">
-              <span class="text-[#005f83]">Entity Not Matched or Created</span>
-            </div>
-          </span>
+          <span class="font-bold text-[11px]">{{ card.customer.name }}</span>
+          <span class="text-[8px]">{{ card.customer.ein }}
+            <span class="text-[#005f83] underline">{{
+              card.customer.einNumber
+              }}</span></span>
         </div>
       </div>
       <div class="h-[25%] flex justify-start items-center flex-row w-full pb-2">
-        <div
-          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[60%] h-full"
-        >
-          <div *ngIf="cardInfo.assignedToName">
-            <span class="text-[9px] pl-1">
-              {{ "assigned to " + cardInfo.assignedToName }}</span
-            >
-          </div>
-          <div *ngIf="cardInfo.assignedToName == null">
-            <span class="text-[9px] pl-1"> Unassigned </span>
-          </div>
+        <div class="{{
+            card.assignedClient.textColor
+          }} items-center justify-center shadow-lg ml-2 flex {{
+            card.assignedClient.borderColor
+          }} border-[1px] border-solid rounded-lg w-[60%] h-full">
+          <span class="text-[9px] pl-1"> {{ card.assignedClient.name }} </span>
         </div>
       </div>
     </div>
-    <img
-      class="rounded-full w-[45px] flex absolute -bottom-4 -right-4 object-contain"
-      src="{{ cardInfo.assignedToProfilePictureUri }}"
-    />
+    <img class="rounded-full w-[45px] flex absolute -bottom-4 -right-4 object-contain"
+      src="{{ card.assignedClient.photo }}" />
   </div>
 </div>

@@ -3,12 +3,12 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
-  selector: 'app-customer-service',
-  templateUrl: './customer-service.component.html',
-  styleUrls: ['./customer-service.component.scss'],
+  selector: 'app-insurance-renewals',
+  templateUrl: './insurance-renewal.component.html',
+  styleUrls: ['./insurance-renewals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerServiceComponent implements OnInit {
+export class InsuranceRenewalsComponent implements OnInit {
 
   constructor(private layoutService: LayoutService) { }
 
@@ -16,8 +16,8 @@ export class CustomerServiceComponent implements OnInit {
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
-          route: ApplicationRoutes.CustomerService,
-          translationKey: 'customer-service.customer-service'
+          route: ApplicationRoutes.InsuranceRenewals,
+          translationKey: 'insurance-renewals.insurance-renewals'
         }
       ],
     });

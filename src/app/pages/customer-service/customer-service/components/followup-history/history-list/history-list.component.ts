@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ViewChild,
-  AfterViewInit,
-} from '@angular/core';
-import { Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, AfterViewInit } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
@@ -16,53 +10,27 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TicketHistoryListItem } from '../../../models/ticket-history-list-item.model';
-import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
 
 @Component({
   selector: 'app-history-list',
   templateUrl: './history-list.component.html',
   styleUrls: ['./history-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HistoryListComponent
-  extends BaseComponent
-  implements OnInit, AfterViewInit
-{
-  constructor(public policyCardService: PolicyCardService) {
-    super();
-  }
-  @Input() pageControl: string;
-  @Input() actionFlag: number;
-  @Input() data: any;
-  @Output() NextPageEvent = new EventEmitter<boolean>();
-  @Output() pageControlChange = new EventEmitter<any>();
-  @Output() actionFlagChange = new EventEmitter<any>();
+export class HistoryListComponent extends BaseComponent implements OnInit, AfterViewInit {
 
+  constructor() { super(); }
+
+  @Output() NextPageEvent = new EventEmitter<boolean>();
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<TicketHistoryListItem>;
   pageSize = 3;
   pageIndex = 1;
   filter: Filter[];
   entityTypesList: BaseListItem[] = [
-    { id: '1', name: 'type1' },
-    { id: '1', name: 'type2' },
+    { id: '1', value: 'type1' },
+    { id: '1', value: 'type2' }
   ];
-  iconResponseName: string;
-  historyList: {
-    id: number;
-    Date: string;
-    employeeName: string;
-    Response: string;
-  }[] = [];
-  historyData: {
-    id: number;
-    response: number;
-    detailContent: string;
-    policyPrice: string;
-    additionalDetailContent: string;
-    date: string;
-  }[];
-
   happyIcon: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
     cssClasses: 'text-primary',
@@ -72,7 +40,28 @@ export class HistoryListComponent
     showConditionProperty: null,
     isIconButton: true,
   };
-
+  entitiesList: TicketHistoryListItem[] = [
+    {
+      Date: '10/11/2023    10:54 A.M.',
+      employeeName: 'Mohamad El Yousaf',
+      Response: "customer-service-happy-icon"
+    },
+    {
+      Date: '09/11/2023    11:12 A.M.',
+      employeeName: 'Karim Moussa',
+      Response: "customer-service-sad-nocolor-1-icon"
+    },
+    {
+      Date: '08/11/2023    05:27 P.M.',
+      employeeName: 'Mohamad El Yousaf',
+      Response: "customer-service-full-sad"
+    },
+    {
+      Date: '08/11/2023    05:27 P.M.',
+      employeeName: 'Mohamad El Yousaf',
+      Response: "customer-service-happy-icon"
+    },
+  ]
   tableColumns: TableColumn[] = [
     {
       translationKey: 'Date',
@@ -85,11 +74,12 @@ export class HistoryListComponent
       hasFilter: true,
       visible: true,
       displayInFilterList: false,
+
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
+        filterType: TableColumnFilterDataType.Text
+      }
     },
     {
       translationKey: 'employeeName',
@@ -104,8 +94,8 @@ export class HistoryListComponent
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
+        filterType: TableColumnFilterDataType.Text
+      }
     },
     {
       translationKey: 'Response',
@@ -121,14 +111,15 @@ export class HistoryListComponent
       hasToolTip: false,
       showText: false,
       filter: {
-        filterType: TableColumnFilterDataType.Text,
+        filterType: TableColumnFilterDataType.Text
       },
     },
+
   ];
+
 
   editAction: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
-
     cssClasses: 'text-primary',
     iconName: 'edit',
     translationKey: '',
@@ -139,7 +130,6 @@ export class HistoryListComponent
 
   viewAction: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketViewed(data),
-
     cssClasses: 'text-primary',
     iconName: 'visibility',
     translationKey: '',
@@ -150,7 +140,6 @@ export class HistoryListComponent
 
   deleteAction: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketDeleted(data),
-
     cssClasses: 'text-red-500',
     iconName: 'delete',
     translationKey: '',
@@ -161,7 +150,6 @@ export class HistoryListComponent
 
   lockAction: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketLocked(data),
-
     cssClasses: 'text-black',
     iconName: 'lock',
     translationKey: '',
@@ -170,84 +158,42 @@ export class HistoryListComponent
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({
-    actionsMode: 'inline',
-    pageSize: this.pageSize,
-  });
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize });
 
   tableConfiguration: TableConfiguration<TicketHistoryListItem> = {
-    tableRowsActionsList: [
-      this.viewAction,
-      this.editAction,
-      this.deleteAction,
-      this.lockAction,
-    ],
+    tableRowsActionsList: [this.viewAction, this.editAction, this.deleteAction, this.lockAction],
     columns: this.tableColumns,
     data: [],
     dataCount: 0,
     settings: this.tableSettings,
   };
 
-  // get icon name according to the response value.
-  displayIcon(response: number) {
-    switch (response) {
-      case 0:
-        return 'customer-service-happy-icon';
-      case 1:
-        return 'customer-service-sad-color-2';
-      default:
-        return 'customer-service-sad-color-1';
-    }
-  }
+
 
   ngOnInit(): void {
-    //define the type of historyData
-    this.getHistoryData();
+    this.tableConfiguration.data = this.entitiesList;
+    this.tableConfiguration.dataCount = this.entitiesList.length;
   }
 
   ngAfterViewInit(): void {
     this.table.refresh();
   }
 
-  getHistoryData() {
-    this.historyData = Object.values(this.data.detailsJson);
-
-    for (let i = 0; i < this.historyData.length; i++) {
-      let historyItem = {
-        id: this.historyData[i].id,
-        Response: this.displayIcon(this.historyData[i].response),
-        employeeName: '',
-        Date: new Date(this.historyData[i].date).toDateString(),
-      };
-      this.historyList.push(historyItem);
-    }
-
-    this.tableConfiguration.data = this.historyList;
-    this.tableConfiguration.dataCount = this.historyList.length;
-  }
-
   onTicketEdited(_category: TicketHistoryListItem) {
-    // display other pages for editing
-    this.pageControlChange.emit('next');
-    // send id to edit.
-    this.actionFlagChange.emit(_category.id);
+    this.NextPageEvent.emit(true);
+    console.log(true);
   }
 
-  onTicketViewed(_category: TicketHistoryListItem) {}
+  onTicketViewed(_category: TicketHistoryListItem) {
+
+  }
 
   onTicketDeleted(_category: TicketHistoryListItem) {
-    this.historyData.splice(_category.id, 1);
-    this.historyList.splice(_category.id, 1);
 
-    for (let i = 0; i < this.historyData.length; i++) {
-      this.historyData[i].id = i;
-      this.historyList[i].id = i;
-    }
-
-    this.data.detailsJson = Object.assign({}, this.historyData);
-    this.policyCardService.updatePolicyRenewalTickets(this.data);
-    this.table.refresh();
   }
 
-  onTicketLocked(_category: TicketHistoryListItem) {}
+  onTicketLocked(_category: TicketHistoryListItem) {
+
+  }
+
 }
