@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { PolicyCard } from '../../policy-renewals/components/policy-card/models/policy-card.model';
+import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 import { TicketCategory } from '../models/ticket-category.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerCardService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /*========================================
     CRUD Methods for CustomerService RESTful API

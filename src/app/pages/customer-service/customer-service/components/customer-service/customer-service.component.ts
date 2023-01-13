@@ -4,8 +4,8 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { PolicyStatus } from '@root/pages/customer-service/policy-renewals/components/policy-status/models/policy-status.model';
-import { PolicyCard } from '@root/pages/customer-service/policy-renewals/components/policy-card/models/policy-card.model';
+import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
+import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
 // import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
 import {
   CdkDragDrop,
