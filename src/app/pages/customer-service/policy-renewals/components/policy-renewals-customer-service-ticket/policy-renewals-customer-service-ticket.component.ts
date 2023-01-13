@@ -1,60 +1,46 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Inject,
+} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ContactViewComponent } from '@root/pages/customer-service/customer-service/components/contact-view/contact-view.component';
-import { BaseComponent } from '@root/shared/components/base-component/base-component';
-import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
-import { SignalRService } from '../../services/signalr.service';
-import { tickets$ } from '../../store/kyc-documents-type.store';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
 @Component({
   selector: 'app-policy-renewals-customer-service-ticket',
   templateUrl: './policy-renewals-customer-service-ticket.component.html',
   styleUrls: ['./policy-renewals-customer-service-ticket.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PolicyRenewalsCustomerServiceTicketComponent extends BaseComponent implements OnInit, OnDestroy {
+export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
   pageFlag: string = 'first';
+  // flag for edit or create
+  communicationAction: number = -1;
+  noteSectionFlag: boolean = false;
+  status: BaseListItem[];
 
-  @ViewChild(ContactViewComponent)
-  contactViewComponent: ContactViewComponent;
-
-  data: any = [];
-  dataTicket: any = [];
   constructor(
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
-    public signalRService: SignalRService,
-    private kYCDocumentTypeService: KYCDocumentTypeService
-  ) {
-    super();
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      tickets$.subscribe((data: any) => {
-        this.dataTicket = data.inQueueTickets[data.inQueueTickets.length - 1];
-        console.log('this.dataTicket', this.dataTicket);
-        this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
-        this.signalRService.init(this.dataTicket.id);
-      })
-    )
-
-    this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
-    this.subscriptions.add(
-      this.signalRService.signalRSubject$.subscribe((data: any) => {
-        this.contactViewComponent.updateData(data);
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.signalRService.stopConnection();
+    let statusValue: string;
+    statusValue = this.data.dataKey.status == 0 ? 'Follow up' : '';
+    statusValue = this.data.dataKey.status == 1 ? 'In Process' : '';
+    statusValue = this.data.dataKey.status == 2 ? 'Processed' : '';
+    statusValue = this.data.dataKey.status == 3 ? 'Approved' : '';
+    statusValue = this.data.dataKey.status == 4 ? 'Closed' : '';
+    this.status = [{ id: '0', value: statusValue }];
   }
 
   nextPage() {
     this.pageFlag = 'next';
   }
 
-  backToFirstPage() {
-    this.pageFlag = 'first';
+  openNote() {
+    this.noteSectionFlag = !this.noteSectionFlag;
   }
 }
