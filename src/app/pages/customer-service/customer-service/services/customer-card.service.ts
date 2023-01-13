@@ -9,7 +9,7 @@ import { TicketCategory } from '../models/ticket-category.model';
   providedIn: 'root',
 })
 export class CustomerCardService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -19,9 +19,6 @@ export class CustomerCardService {
   httpOptions = {
     headers: new HttpHeaders({
       'content-type': 'application/json',
-      Authorization:
-        'Bearer ' +
-        'eyJhbGciOiJSUzI1NiIsImtpZCI6IkQzQTA2NERGMjA1MjVBNzM2RjJEOEU1N0RGNDFDRDhDIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE2NzIxMjg3MjYsImV4cCI6MTY3MjEzMjMyNiwiaXNzIjoiaHR0cHM6Ly9kZXYuaWRlbnRpdHkuc3RzLmFwZXJhdHVyZXVrLmNvbSIsImF1ZCI6ImFwZXJ0dXJlaWRlbnRpdHlfYXBpIiwiY2xpZW50X2lkIjoiYXBlcnR1cmUtcG93ZXJob3VzZSIsInN1YiI6ImUzZDk0NjQ0LTcwNjUtNDdlMy04NTUwLTQxMWFjNmJlNDk1NCIsImF1dGhfdGltZSI6MTY3MjA2MzAyMiwiaWRwIjoibG9jYWwiLCJyb2xlIjpbIk1hbmFnZW1lbnQgQWRtaW4iLCJhZG1pbiIsIkluc3VyYW5jZSBwb3dlcmhvdXNlIGFkbWluIl0sIm5hbWUiOiJhYXR3aSIsInNpZCI6IkVGOEYxQjM4NjI2QjhBMkVBQjVGNzRERTBGMkEwRTIzIiwiaWF0IjoxNjcyMTI4NzI2LCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiLCJlbWFpbCIsImFkZHJlc3MiLCJhcGVydHVyZWlkZW50aXR5X2FwaSIsImluc3VyYW5jZV9wb3dlcmhvdXNlIl0sImFtciI6WyJwd2QiXX0.Om6dh8A6XxvoRQJ--1IH6bLcPJSRGRLuymh1QLXDIDRjJ4BvSRy0Zvyyg5ENVc1aSweHJUepQbh-_zjr9EhDYUYB11sLG5w5zfPCrUBswctPfCZj7LaQVP2UsSd9p1QiA_pupXdbDNuaCx4lB5YiHhe_BRBrFbjijCgwGDl07XGkEwhzJZOvKZ8dz637FZhMehPkagbMDx3R8X5HZ7f08eSSHGBsMLjEGLHe-fwkwEI7hByp957QJDKA8gIkPyPCqlqDhFxy_DLCTYbb_kDp0H5taLCTgmB346kufFbd43kdvxhw3bSZCMAgOCxNo12ZWt6q4Y_L5lMQWbd6mfu_1g',
     }),
   };
 
