@@ -4,7 +4,7 @@ import { Route, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-// import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { CustomerServiceComponent } from './components/customer-service/customer-service.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { ContactViewComponent } from './components/contact-view/contact-view.component';
@@ -23,11 +23,22 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CustomerServiceTicketComponent } from './components/customer-service-ticket/customer-service-ticket.component';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '../policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
 import { PendingInformaitonCardComponent } from './components/pending-informaiton-card/pending-informaiton-card.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
-    path: 'index',
+    path: ApplicationRoutes.Empty,
     component: CustomerServiceComponent,
+    data: {
+      permission: Permission.CanAccessCustomerService,
+    },
+    canActivate: [AutoLoginAllRoutesGuard, SecurityGuard],
+  },
+  {
+    path: ApplicationRoutes.CustomerService,
+    component: SalesFlowComponent,
   },
 ];
 

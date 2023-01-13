@@ -13,11 +13,13 @@ import { PolicyFilterComponent } from './components/policy-filter/policy-filter.
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: PolicyRenewalsComponent,
+    canLoad: [AutoLoginAllRoutesGuard],
   },
 ];
 
