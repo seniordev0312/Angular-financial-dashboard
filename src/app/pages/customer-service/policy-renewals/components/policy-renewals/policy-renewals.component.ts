@@ -4,9 +4,9 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { PolicyStatus } from '../policy-status/models/policy-status.model';
-import { PolicyCardService } from '../../services/policy-card.service';
-import { PolicyCard } from '../policy-card/models/policy-card.model';
+import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
+import { PolicyCardService } from '@root/pages/customer-service/customer-service-shared/services/policy-card.service';
+import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -32,6 +32,7 @@ export class PolicyRenewalsComponent implements OnInit {
     { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
   ];
 
+  isFilter: boolean = false;
   flag: number = 0;
   tickets: any = {};
   constructor(

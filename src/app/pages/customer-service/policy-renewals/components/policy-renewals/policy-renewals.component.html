@@ -1,5 +1,9 @@
-<div class="h-full bg-[#ffffff] max-w-max static">
-  <mat-drawer #policyFilterDrawer position="end"
+<div class="h-full max-w-max static">
+  <mat-drawer
+    #policyFilterDrawer
+    position="end"
+    (openedChange)="isFilter = !isFilter"
+    [ngStyle]="isFilter ? { display: 'block' } : { display: 'none' }"
     ><app-policy-filter
       [policyFilterDrawer]="policyFilterDrawer"
       [(filteringArray)]="tickets"
@@ -20,9 +24,9 @@
       </div>
     </mat-drawer>
     <div class="h-[10%] flex justify-end">
-      <div class="flex items-center gap-12">
+      <div class="flex items-center gap-12 pr-3">
         <div
-          class="search flex items-center bloc border-[1px] text-[#676767] border-[#00000029] border-solid rounded-2xl gap-4 text-sm pr-4 pl-4 text-primary"
+          class="search flex flex-row items-center bloc border-[1px] text-[#676767] border-[#00000029] border-solid rounded-2xl gap-4 text-sm pr-4 pl-4 pt-0 pb-0 text-primary"
         >
           <mat-icon>search</mat-icon>
           <input

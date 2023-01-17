@@ -16,7 +16,7 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TicketHistoryListItem } from '../../../models/ticket-history-list-item.model';
-import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
+import { PolicyCardService } from '@root/pages/customer-service/customer-service-shared/services/policy-card.service';
 
 @Component({
   selector: 'app-history-list',
