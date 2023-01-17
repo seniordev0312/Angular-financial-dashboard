@@ -1,6 +1,11 @@
 <div class="h-full max-w-max static">
   <div class="">
-    <mat-drawer #policyFilterDrawer position="start">
+    <mat-drawer
+      #policyFilterDrawer
+      position="end"
+      (openedChange)="isFilter = !isFilter"
+      [ngStyle]="isFilter ? { display: 'block' } : { display: 'none' }"
+    >
       <app-policy-filter
         [policyFilterDrawer]="policyFilterDrawer"
         [(filteringArray)]="tickets"

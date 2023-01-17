@@ -33,7 +33,7 @@ export class CustomerServiceComponent implements OnInit {
     { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
   ];
 
-  // policyFilterDrawer: any = false;
+  isFilter: boolean = false;
   flag: number = 0;
   tickets: any = {};
   constructor(

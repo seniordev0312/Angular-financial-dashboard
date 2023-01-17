@@ -32,6 +32,7 @@ export class PolicyRenewalsComponent implements OnInit {
     { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
   ];
 
+  isFilter: boolean = false;
   flag: number = 0;
   tickets: any = {};
   constructor(
