@@ -1,31 +1,5 @@
 <div class="h-full max-w-max static">
-  <div class="">
-    <mat-drawer
-      #policyFilterDrawer
-      position="end"
-      (openedChange)="isFilter = !isFilter"
-      [ngStyle]="isFilter ? { display: 'block' } : { display: 'none' }"
-    >
-      <app-policy-filter
-        [policyFilterDrawer]="policyFilterDrawer"
-        [(filteringArray)]="tickets"
-      ></app-policy-filter
-    ></mat-drawer>
-  </div>
-
   <mat-drawer-container class="h-full static">
-    <mat-drawer
-      #drawer
-      class="drawer"
-      fixedInViewport
-      mode="over"
-      opened="false"
-      position="end"
-    >
-      <div class="w-[25%] absolute h-[100%] right-0 top-0">
-        <app-policy-filter></app-policy-filter>
-      </div>
-    </mat-drawer>
     <div class="h-[10%] flex justify-end">
       <div class="flex items-center gap-12 pr-3">
         <div
@@ -37,10 +11,7 @@
             matInput
             placeholder="Search CST Number or Client Info"
           />
-          <mat-icon
-            (click)="policyFilterDrawer.toggle()"
-            svgIcon="policy-filter"
-          ></mat-icon>
+          <mat-icon svgIcon="policy-filter"></mat-icon>
           <mat-icon>cancel</mat-icon>
         </div>
         <div class="flex gap-2">
