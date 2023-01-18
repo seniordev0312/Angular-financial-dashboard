@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { PolicyCardService } from '../../services/policy-card.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
@@ -71,7 +71,7 @@ export class PolicyFilterComponent implements OnInit {
 
   onCancel(): void {
     this.router.navigate([
-      `${ApplicationRoutes.SystemSetup}/${ApplicationRoutes.GeneralSystemSettings}`,
+      `${ApplicationRoutes.CustomerService}/${ApplicationRoutes.Filter}`,
     ]);
     this.layoutService.closeRightSideNav();
   }
