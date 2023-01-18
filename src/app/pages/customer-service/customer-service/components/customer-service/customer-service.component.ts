@@ -59,7 +59,6 @@ export class CustomerServiceComponent implements OnInit {
       { skipLocationChange: true }
     );
 
-    this.layoutService.openRightSideNav();
     this.layoutService.changeRightSideNavMode('over');
   }
 
