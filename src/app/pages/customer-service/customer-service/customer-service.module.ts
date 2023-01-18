@@ -19,6 +19,7 @@ import { SalesFlowComponent } from './components/sales-flow/sales-flow.component
 import { HistoryListComponent } from './components/followup-history/history-list/history-list.component';
 import { EditHistoryComponent } from './components/followup-history/edit-history/edit-history.component';
 import { CustomerServiceSharedModule } from '../customer-service-shared/customer-service-shared.module';
+import { PolicyFilterComponent } from '../customer-service-shared/components/policy-filter/policy-filter.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CustomerServiceTicketComponent } from './components/customer-service-ticket/customer-service-ticket.component';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '../policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
@@ -35,6 +36,15 @@ const routes: Route[] = [
       permission: Permission.CanAccessCustomerService,
     },
     canActivate: [AutoLoginAllRoutesGuard, SecurityGuard],
+  },
+  {
+    path: ApplicationRoutes.Filter,
+    component: PolicyFilterComponent,
+    outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAddGeneralSystemSetup,
+    },
+    canActivate: [SecurityGuard],
   },
   {
     path: ApplicationRoutes.CustomerService,

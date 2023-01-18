@@ -4,9 +4,10 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
-// import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -15,6 +16,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerServiceTicketComponent } from '../customer-service-ticket/customer-service-ticket.component';
 import { CustomerCardService } from '../../services/customer-card.service';
+import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -39,8 +41,27 @@ export class CustomerServiceComponent implements OnInit {
   constructor(
     public customerCardService: CustomerCardService,
     public dialog: MatDialog,
-    private ref: ChangeDetectorRef
+    private router: Router,
+    private ref: ChangeDetectorRef,
+    private layoutService: LayoutService
   ) {}
+
+  openFilter() {
+    this.router.navigate(
+      [
+        `${ApplicationRoutes.CustomerService}`,
+        {
+          outlets: {
+            sidenav: ApplicationRoutes.Filter,
+          },
+        },
+      ],
+      { skipLocationChange: true }
+    );
+
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+  }
 
   openDialog(card: {}): void {
     this.dialog.open(CustomerServiceTicketComponent, {

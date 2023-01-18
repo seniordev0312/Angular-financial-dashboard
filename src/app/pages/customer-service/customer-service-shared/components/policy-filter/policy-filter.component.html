@@ -55,12 +55,12 @@
     <div class="w-[100%] flex justify-between">
       <app-button
         text="Cancel"
-        (click)="policyFilterDrawer.toggle()"
+        (click)="onCancel()"
         classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-28  shadow-lg"
       ></app-button>
       <app-button
         text="Apply"
-        (click)="filter(); policyFilterDrawer.toggle()"
+        (click)="filter(); onCancel()"
         classes="bg-accent h-10 w-28 text-white shadow-lg"
       ></app-button>
     </div>

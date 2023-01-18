@@ -9,6 +9,9 @@ import {
 } from '@angular/core';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { PolicyCardService } from '../../services/policy-card.service';
+import { Router } from '@angular/router';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-policy-filter',
@@ -59,10 +62,19 @@ export class PolicyFilterComponent implements OnInit {
 
   constructor(
     public policyCardService: PolicyCardService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private layoutService: LayoutService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
+
+  onCancel(): void {
+    this.router.navigate([
+      `${ApplicationRoutes.CustomerService}/${ApplicationRoutes.Filter}`,
+    ]);
+    this.layoutService.closeRightSideNav();
+  }
 
   filter() {
     const filterOption = {
