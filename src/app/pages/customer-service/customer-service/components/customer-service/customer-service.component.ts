@@ -18,6 +18,7 @@ import { CustomerServiceTicketComponent } from '../customer-service-ticket/custo
 import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
+import { tickets$ } from '../../store/customer-service-tickets.store';
 
 @Component({
   selector: 'app-customer-service',
@@ -38,6 +39,7 @@ export class CustomerServiceComponent implements OnInit {
   isFilter: boolean = false;
   flag: number = 0;
   tickets: any = {};
+
   constructor(
     public customerCardService: CustomerCardService,
     public dialog: MatDialog,
@@ -74,12 +76,10 @@ export class CustomerServiceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subscription = this.customerCardService
-      .getCutomerServiceTickets()
-      .subscribe((data: any) => {
-        this.tickets = data;
-        this.ref.detectChanges();
-      });
+    this.subscription = tickets$.subscribe((data: any) => {
+      this.tickets = data;
+      this.ref.detectChanges();
+    });
   }
 
   ngOnDestroy(): void {

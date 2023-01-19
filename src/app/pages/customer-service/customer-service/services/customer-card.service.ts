@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, tap } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 import { TicketCategory } from '../models/ticket-category.model';
+import { CustomerServiceTicketsRepository } from '../store/customer-service-tickets.repository';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerCardService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private customerServiceTicketsRepository: CustomerServiceTicketsRepository
+  ) {}
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -22,7 +27,7 @@ export class CustomerCardService {
     }),
   };
 
-  customerServiceServerURL = 'https://dev.customerservice.aperatureuk.com/api';
+  customerServiceServerURL = `${environment.customerServer}/api`;
 
   // Define API route
   apiFilterURL = `${this.customerServiceServerURL}/CustomerServiceTicket/Filter`;
@@ -33,17 +38,32 @@ export class CustomerCardService {
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
 
   // HttpClient API post() method => Get customer service tickets
+
   getCutomerServiceTickets(): Observable<PolicyCard> {
     return this.http
       .post<PolicyCard>(this.apiFilterURL, {}, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(
+        tap((data: any) => {
+          if (data) {
+            this.customerServiceTicketsRepository.updateTickets(data);
+          }
+        }),
+        catchError(this.handleError)
+      );
   }
 
   // HttpClient API post() method => Filter customer service tickets
   filterCustomerServiceickets(option: {}): Observable<any> {
     return this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(
+        tap((data: any) => {
+          if (data) {
+            this.customerServiceTicketsRepository.updateTickets(data);
+          }
+        }),
+        catchError(this.handleError)
+      );
   }
 
   // HttpClient API put() method => Put CustomerServiceTickets
