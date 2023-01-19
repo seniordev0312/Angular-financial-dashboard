@@ -48,6 +48,18 @@ export class CustomerServiceComponent implements OnInit {
     private layoutService: LayoutService
   ) {}
 
+  ngOnInit(): void {
+    this.customerCardService.getCutomerServiceTickets();
+    this.subscription = tickets$.subscribe((data: any) => {
+      this.tickets = data;
+      this.ref.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
+
   openFilter() {
     this.router.navigate(
       [
@@ -73,17 +85,6 @@ export class CustomerServiceComponent implements OnInit {
         dataKey: card,
       },
     });
-  }
-
-  ngOnInit(): void {
-    this.subscription = tickets$.subscribe((data: any) => {
-      this.tickets = data;
-      this.ref.detectChanges();
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {

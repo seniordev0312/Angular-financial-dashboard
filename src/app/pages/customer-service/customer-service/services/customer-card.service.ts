@@ -39,17 +39,12 @@ export class CustomerCardService {
 
   // HttpClient API post() method => Get customer service tickets
 
-  getCutomerServiceTickets(): Observable<PolicyCard> {
-    return this.http
-      .post<PolicyCard>(this.apiFilterURL, {}, this.httpOptions)
-      .pipe(
-        tap((data: any) => {
-          if (data) {
-            this.customerServiceTicketsRepository.updateTickets(data);
-          }
-        }),
-        catchError(this.handleError)
-      );
+  getCutomerServiceTickets() {
+    this.http
+      .post<any>(this.apiFilterURL, {}, this.httpOptions)
+      .subscribe((data) => {
+        this.customerServiceTicketsRepository.updateTickets(data);
+      });
   }
 
   // HttpClient API post() method => Filter customer service tickets
