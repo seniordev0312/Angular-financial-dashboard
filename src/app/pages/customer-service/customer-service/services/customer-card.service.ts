@@ -56,11 +56,11 @@ export class CustomerCardService {
   }
 
   // HttpClient API put() method => Put CustomerServiceTickets
-  updateCustomServiceTickets(body: {}) {
+  updateCustomServiceTickets(previous: {}, current: {}, body: {}) {
     this.http
       .put<PolicyCard>(this.apiPutURL, body, this.httpOptions)
       .subscribe(console.log);
-    this.customerServiceTicketsRepository.updateTicket(body);
+    this.customerServiceTicketsRepository.updateTicket(previous, current);
   }
 
   // HttpClient API get() method => get categories in CustomerServiceTicket

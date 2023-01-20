@@ -21,10 +21,43 @@ export class CustomerServiceTicketsRepository {
     }));
   }
 
-  updateTicket(ticket: any) {
+  getKeyType(id: any) {
+    let key = null;
+
+    switch (id) {
+      case 'cdk-drop-list-0':
+        key = 'closedTickets';
+        break;
+      case 'cdk-drop-list-1':
+        key = 'inProgressTickets';
+        break;
+      case 'cdk-drop-list-2':
+        key = 'inQueueTickets';
+        break;
+      case 'cdk-drop-list-3':
+        key = 'processedTickets';
+        break;
+      case 'cdk-drop-list-4':
+        key = 'resolvedTickets';
+        break;
+      default:
+        break;
+    }
+
+    return key;
+  }
+
+  updateTicket(previous: any, current: any) {
+    let tempTickets = this.generalSystemSettingsStore.state.tickets;
+    let previousKey = this.getKeyType(previous.id);
+    let currentkey = this.getKeyType(current.id);
+
+    tempTickets[previousKey] = previous.data;
+    tempTickets[currentkey] = current.data;
+
     this.generalSystemSettingsStore.update((state) => ({
       ...state,
-      tickets: ticket,
+      tickets: tempTickets,
     }));
   }
 }
