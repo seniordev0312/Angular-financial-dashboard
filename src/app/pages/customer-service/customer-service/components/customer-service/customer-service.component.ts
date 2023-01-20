@@ -105,8 +105,6 @@ export class CustomerServiceComponent implements OnInit {
       event.container.data[event.currentIndex].status = status;
 
       this.customerCardService.updateCustomServiceTickets(
-        event.previousContainer,
-        event.container,
         event.container.data[event.currentIndex]
       );
       this.openDialog(event.container.data[event.currentIndex]);

@@ -46,18 +46,4 @@ export class CustomerServiceTicketsRepository {
 
     return key;
   }
-
-  updateTicket(previous: any, current: any) {
-    let tempTickets = this.generalSystemSettingsStore.state.tickets;
-    let previousKey = this.getKeyType(previous.id);
-    let currentkey = this.getKeyType(current.id);
-
-    tempTickets[previousKey] = previous.data;
-    tempTickets[currentkey] = current.data;
-
-    this.generalSystemSettingsStore.update((state) => ({
-      ...state,
-      tickets: tempTickets,
-    }));
-  }
 }
