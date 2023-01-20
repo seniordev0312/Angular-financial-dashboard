@@ -46,7 +46,6 @@ export class EditHistoryComponent implements OnInit {
       this.policyPrice = this.toEditCommunciation.policyPrice;
       this.additionalDetailContent =
         this.toEditCommunciation.additionalDetailContent;
-      console.log('resonse', this.response);
     }
   }
 

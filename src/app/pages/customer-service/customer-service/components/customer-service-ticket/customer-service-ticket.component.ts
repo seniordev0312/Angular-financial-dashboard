@@ -82,7 +82,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   // move to emergency flow or sales flow section
   displaySection(sectionFlag: string, categoryId: number) {
     this.choosedButtons.category = categoryId;
-    console.log(this.choosedButtons.category);
+
     this.isBlue = !this.isBlue;
     switch (sectionFlag) {
       case 'business': {
