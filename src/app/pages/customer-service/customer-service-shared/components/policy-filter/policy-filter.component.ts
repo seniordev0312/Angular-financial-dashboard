@@ -72,7 +72,9 @@ export class PolicyFilterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.activeRoute.paramMap);
+   this.activeRoute.paramMap.subscribe((params) => {
+     console.log(params);
+   });
   }
 
   onCancel(): void {

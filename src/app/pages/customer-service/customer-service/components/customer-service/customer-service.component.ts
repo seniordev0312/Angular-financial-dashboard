@@ -67,7 +67,7 @@ export class CustomerServiceComponent implements OnInit {
         `${ApplicationRoutes.CustomerService}`,
         {
           outlets: {
-            sidenav: ApplicationRoutes.Filter,
+            sidenav: `${ApplicationRoutes.Filter}/customerService`,
           },
         },
       ],
