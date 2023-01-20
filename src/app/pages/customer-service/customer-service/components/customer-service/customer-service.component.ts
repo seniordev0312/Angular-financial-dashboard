@@ -103,7 +103,7 @@ export class CustomerServiceComponent implements OnInit {
         event.currentIndex
       );
       event.container.data[event.currentIndex].status = status;
-
+      console.log(9);
       this.customerCardService.updateCustomServiceTickets(
         event.container.data[event.currentIndex]
       );
