@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '@root/pages/customer-service/policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
 import { Subscription } from 'rxjs';
 import { LayoutService } from '@root/shared/services/layout.service';
+import { tickets$ } from '../../store/policy-renewals-tickets.store';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -38,7 +39,7 @@ export class PolicyRenewalsComponent implements OnInit {
 
   isFilter: boolean = false;
   flag: number = 0;
-  tickets: any = {};
+  tickets: any = null;
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -49,12 +50,12 @@ export class PolicyRenewalsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.policyCardService
-      .getPolicyRenewalTickets()
-      .subscribe((data: any) => {
-        this.tickets = data;
-        this.ref.detectChanges();
-      });
+    this.policyCardService.getPolicyRenewalTickets();
+
+    this.subscription = tickets$.subscribe((data: any) => {
+      this.tickets = data;
+      this.ref.detectChanges();
+    });
   }
 
   ngOnDestroy(): void {
