@@ -59,7 +59,8 @@ export class CustomerCardService {
   updateCustomServiceTickets(body: {}) {
     this.http
       .put<PolicyCard>(this.apiPutURL, body, this.httpOptions)
-      .subscribe('update====', console.log);
+      .subscribe(console.log);
+    this.customerServiceTicketsRepository.updateTicket(body);
   }
 
   // HttpClient API get() method => get categories in CustomerServiceTicket

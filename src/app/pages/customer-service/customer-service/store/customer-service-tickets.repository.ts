@@ -20,4 +20,11 @@ export class CustomerServiceTicketsRepository {
       tickets: tickets,
     }));
   }
+
+  updateTicket(ticket: any) {
+    this.generalSystemSettingsStore.update((state) => ({
+      ...state,
+      tickets: ticket,
+    }));
+  }
 }
