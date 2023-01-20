@@ -8,8 +8,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
-import { PolicyCardService } from '../../services/policy-card.service';
-import { Router } from '@angular/router';
+import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
+import { CustomerCardService } from '@root/pages/customer-service/customer-service/services/customer-card.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
@@ -20,6 +21,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PolicyFilterComponent implements OnInit {
+  @Input() ticketType: any;
   @Input() policyFilterDrawer: any;
   @Input() filteringArray: any;
   @Output() filteringArrayChange = new EventEmitter<any>();
@@ -62,12 +64,16 @@ export class PolicyFilterComponent implements OnInit {
 
   constructor(
     public policyCardService: PolicyCardService,
+    public customerCardService: CustomerCardService,
+    private activeRoute: ActivatedRoute,
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.activeRoute.paramMap);
+  }
 
   onCancel(): void {
     this.router.navigate([
@@ -82,6 +88,7 @@ export class PolicyFilterComponent implements OnInit {
       fromDateCreated: this.fromDateCreated,
       toDateCreated: this.toDateCreated,
     };
+
     this.policyCardService
       .filterPolicyRenewalTickets(filterOption)
       .subscribe((data: any) => {

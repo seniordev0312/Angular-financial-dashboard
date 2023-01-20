@@ -50,6 +50,7 @@ export class CustomerServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerCardService.getCutomerServiceTickets();
+
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
       this.ref.detectChanges();
@@ -102,6 +103,7 @@ export class CustomerServiceComponent implements OnInit {
         event.currentIndex
       );
       event.container.data[event.currentIndex].status = status;
+
       this.customerCardService.updateCustomServiceTickets(
         event.container.data[event.currentIndex]
       );

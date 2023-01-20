@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, tap } from 'rxjs';
+import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
@@ -48,17 +48,12 @@ export class CustomerCardService {
   }
 
   // HttpClient API post() method => Filter customer service tickets
-  filterCustomerServiceickets(option: {}): Observable<any> {
-    return this.http
+  filterCustomerServiceickets(option: {}) {
+    this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
-      .pipe(
-        tap((data: any) => {
-          if (data) {
-            this.customerServiceTicketsRepository.updateTickets(data);
-          }
-        }),
-        catchError(this.handleError)
-      );
+      .subscribe((data) => {
+        this.customerServiceTicketsRepository.updateTickets(data);
+      });
   }
 
   // HttpClient API put() method => Put CustomerServiceTickets

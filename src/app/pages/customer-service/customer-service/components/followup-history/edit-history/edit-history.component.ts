@@ -7,7 +7,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
-import { PolicyCardService } from '@root/pages/customer-service/customer-service-shared/services/policy-card.service';
+import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
 
 @Component({
   selector: 'app-edit-history',

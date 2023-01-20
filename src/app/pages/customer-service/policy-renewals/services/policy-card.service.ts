@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { PolicyCard } from '../components/policy-card/models/policy-card.model';
+import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 
 @Injectable({
   providedIn: 'root',
