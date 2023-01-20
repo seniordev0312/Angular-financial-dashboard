@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
-import { PolicyCardService } from '@root/pages/customer-service/customer-service-shared/services/policy-card.service';
+import { PolicyCardService } from '../../services/policy-card.service';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
 import {
   CdkDragDrop,

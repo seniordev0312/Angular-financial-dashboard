@@ -8,5 +8,5 @@ export const environment = {
   systemSetupApiUrl: 'https://dev.api.accounting.aperatureuk.com/v1',
   accountingUrl: 'https://dev.api.accounting.aperatureuk.com/v1/',
   entityApiUrl: 'https://dev.api.entity.aperatureuk.com/api',
-  postLogoutRedirectUri: 'http://localhost:4200/dashboard'
+  postLogoutRedirectUri: 'http://localhost:4200/dashboard',
 };

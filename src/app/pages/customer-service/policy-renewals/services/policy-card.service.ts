@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { PolicyCard } from '../components/policy-card/models/policy-card.model';
+import { environment } from 'src/environments/environment';
+import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PolicyCardService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -21,7 +22,7 @@ export class PolicyCardService {
     }),
   };
 
-  customerServiceServerURL = 'https://dev.customerservice.aperatureuk.com/api';
+  customerServiceServerURL = `${environment.customerServer}/api`;
 
   // Define Filter API
   apiFilterURL = `${this.customerServiceServerURL}/PolicyRenewalTicket/Filter`;
