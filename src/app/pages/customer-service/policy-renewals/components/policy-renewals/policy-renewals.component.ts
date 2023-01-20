@@ -4,6 +4,9 @@ import {
   OnInit,
   ChangeDetectorRef,
 } from '@angular/core';
+
+import { Router } from '@angular/router';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
 import { PolicyCardService } from '../../services/policy-card.service';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
@@ -15,6 +18,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '@root/pages/customer-service/policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
 import { Subscription } from 'rxjs';
+import { LayoutService } from '@root/shared/services/layout.service';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -35,21 +39,14 @@ export class PolicyRenewalsComponent implements OnInit {
   isFilter: boolean = false;
   flag: number = 0;
   tickets: any = {};
+
   constructor(
     public policyCardService: PolicyCardService,
     public dialog: MatDialog,
-    private ref: ChangeDetectorRef
+    private router: Router,
+    private ref: ChangeDetectorRef,
+    private layoutService: LayoutService
   ) {}
-
-  openDialog(card: {}): void {
-    this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
-      height: '90%',
-      width: '90%',
-      data: {
-        dataKey: card,
-      },
-    });
-  }
 
   ngOnInit(): void {
     this.subscription = this.policyCardService
@@ -62,6 +59,33 @@ export class PolicyRenewalsComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  openFilter() {
+    this.router.navigate(
+      [
+        `${ApplicationRoutes.PolicyRenewals}`,
+        {
+          outlets: {
+            sidenav: `${ApplicationRoutes.Filter}/policyRenewals`,
+          },
+        },
+      ],
+      { skipLocationChange: true }
+    );
+
+    this.layoutService.openRightSideNav();
+    this.layoutService.changeRightSideNavMode('over');
+  }
+
+  openDialog(card: {}): void {
+    this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
+      height: '90%',
+      width: '90%',
+      data: {
+        dataKey: card,
+      },
+    });
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
@@ -79,6 +103,7 @@ export class PolicyRenewalsComponent implements OnInit {
         event.currentIndex
       );
       event.container.data[event.currentIndex].status = status;
+
       this.policyCardService.updatePolicyRenewalTickets(
         event.container.data[event.currentIndex]
       );

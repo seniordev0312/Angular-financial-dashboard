@@ -11,7 +11,7 @@
             matInput
             placeholder="Search CST Number or Client Info"
           />
-          <mat-icon svgIcon="policy-filter"></mat-icon>
+          <mat-icon (click)="openFilter()" svgIcon="policy-filter"></mat-icon>
           <mat-icon>cancel</mat-icon>
         </div>
         <div class="flex gap-2">
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-row w-[100%] h-[15%]">
+    <div class="flex flex-row w-[100%] h-[15%]" *ngIf="tickets">
       <div class="w-1/5 flex flex-col justify-start gap-y-5 p-5 control-width">
         <app-policy-status [step]="steps[0]"></app-policy-status>
         <app-policy-sort

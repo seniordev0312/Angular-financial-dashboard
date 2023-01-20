@@ -38,7 +38,7 @@ export class CustomerServiceComponent implements OnInit {
 
   isFilter: boolean = false;
   flag: number = 0;
-  tickets: any = {};
+  tickets: any = null;
 
   constructor(
     public customerCardService: CustomerCardService,
