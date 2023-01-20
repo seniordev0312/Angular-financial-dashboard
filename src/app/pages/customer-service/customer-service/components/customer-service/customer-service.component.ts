@@ -18,6 +18,7 @@ import { CustomerServiceTicketComponent } from '../customer-service-ticket/custo
 import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
+import { tickets$ } from '../../store/customer-service-tickets.store';
 
 @Component({
   selector: 'app-customer-service',
@@ -38,6 +39,7 @@ export class CustomerServiceComponent implements OnInit {
   isFilter: boolean = false;
   flag: number = 0;
   tickets: any = {};
+
   constructor(
     public customerCardService: CustomerCardService,
     public dialog: MatDialog,
@@ -46,13 +48,26 @@ export class CustomerServiceComponent implements OnInit {
     private layoutService: LayoutService
   ) {}
 
+  ngOnInit(): void {
+    this.customerCardService.getCutomerServiceTickets();
+
+    this.subscription = tickets$.subscribe((data: any) => {
+      this.tickets = data;
+      this.ref.detectChanges();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
+  }
+
   openFilter() {
     this.router.navigate(
       [
         `${ApplicationRoutes.CustomerService}`,
         {
           outlets: {
-            sidenav: ApplicationRoutes.Filter,
+            sidenav: `${ApplicationRoutes.Filter}/customerService`,
           },
         },
       ],
@@ -73,19 +88,6 @@ export class CustomerServiceComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.subscription = this.customerCardService
-      .getCutomerServiceTickets()
-      .subscribe((data: any) => {
-        this.tickets = data;
-        this.ref.detectChanges();
-      });
-  }
-
-  ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
-  }
-
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -101,6 +103,7 @@ export class CustomerServiceComponent implements OnInit {
         event.currentIndex
       );
       event.container.data[event.currentIndex].status = status;
+
       this.customerCardService.updateCustomServiceTickets(
         event.container.data[event.currentIndex]
       );

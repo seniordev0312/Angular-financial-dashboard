@@ -5,11 +5,11 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectorRef,
 } from '@angular/core';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
-import { PolicyCardService } from '../../services/policy-card.service';
-import { Router } from '@angular/router';
+import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
+import { CustomerCardService } from '@root/pages/customer-service/customer-service/services/customer-card.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
@@ -24,6 +24,7 @@ export class PolicyFilterComponent implements OnInit {
   @Input() filteringArray: any;
   @Output() filteringArrayChange = new EventEmitter<any>();
 
+  tikcetType: any;
   fromDateCreated: Date;
   toDateCreated: Date;
   fromDateModified: Date;
@@ -62,12 +63,17 @@ export class PolicyFilterComponent implements OnInit {
 
   constructor(
     public policyCardService: PolicyCardService,
-    private ref: ChangeDetectorRef,
+    public customerCardService: CustomerCardService,
+    private activeRoute: ActivatedRoute,
     private layoutService: LayoutService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activeRoute.paramMap.subscribe((params) => {
+      this.tikcetType = params.get('ticketType');
+    });
+  }
 
   onCancel(): void {
     this.router.navigate([
@@ -82,12 +88,9 @@ export class PolicyFilterComponent implements OnInit {
       fromDateCreated: this.fromDateCreated,
       toDateCreated: this.toDateCreated,
     };
-    this.policyCardService
-      .filterPolicyRenewalTickets(filterOption)
-      .subscribe((data: any) => {
-        this.filteringArray = data;
-        this.filteringArrayChange.emit(this.filteringArray);
-        this.ref.detectChanges();
-      });
+
+    this.tikcetType == 'policyRenewals'
+      ? this.policyCardService.filterPolicyRenewalTickets(filterOption)
+      : this.customerCardService.filterCustomerServiceickets(filterOption);
   }
 }

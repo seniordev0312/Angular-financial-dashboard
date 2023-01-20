@@ -38,7 +38,7 @@ const routes: Route[] = [
     canActivate: [AutoLoginAllRoutesGuard, SecurityGuard],
   },
   {
-    path: ApplicationRoutes.Filter,
+    path: `${ApplicationRoutes.Filter}/:ticketType`,
     component: PolicyFilterComponent,
     outlet: 'sidenav',
     data: {
