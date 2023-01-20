@@ -38,7 +38,6 @@ export class CustomerCardService {
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
 
   // HttpClient API post() method => Get customer service tickets
-
   getCutomerServiceTickets() {
     this.http
       .post<any>(this.apiFilterURL, {}, this.httpOptions)
@@ -52,7 +51,6 @@ export class CustomerCardService {
     this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
       .subscribe((data) => {
-        console.log(data);
         this.customerServiceTicketsRepository.updateTickets(data);
       });
   }
@@ -61,7 +59,7 @@ export class CustomerCardService {
   updateCustomServiceTickets(body: {}) {
     this.http
       .put<PolicyCard>(this.apiPutURL, body, this.httpOptions)
-      .subscribe(console.log);
+      .subscribe('update====', console.log);
   }
 
   // HttpClient API get() method => get categories in CustomerServiceTicket

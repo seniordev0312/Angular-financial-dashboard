@@ -52,7 +52,6 @@ export class CustomerServiceComponent implements OnInit {
     this.customerCardService.getCutomerServiceTickets();
 
     this.subscription = tickets$.subscribe((data: any) => {
-      console.log('tickets');
       this.tickets = data;
       this.ref.detectChanges();
     });

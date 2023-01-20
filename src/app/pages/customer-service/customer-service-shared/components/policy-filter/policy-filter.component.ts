@@ -88,7 +88,7 @@ export class PolicyFilterComponent implements OnInit {
       fromDateCreated: this.fromDateCreated,
       toDateCreated: this.toDateCreated,
     };
-    console.log('filter=====>', filterOption);
+
     this.tikcetType == 'policyRenewals'
       ? this.policyCardService.filterPolicyRenewalTickets(filterOption)
       : this.customerCardService.filterCustomerServiceickets(filterOption);
