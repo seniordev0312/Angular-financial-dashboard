@@ -5,7 +5,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  // ChangeDetectorRef,
 } from '@angular/core';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
@@ -66,7 +65,6 @@ export class PolicyFilterComponent implements OnInit {
     public policyCardService: PolicyCardService,
     public customerCardService: CustomerCardService,
     private activeRoute: ActivatedRoute,
-    // private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private router: Router
   ) {}
@@ -90,14 +88,9 @@ export class PolicyFilterComponent implements OnInit {
       fromDateCreated: this.fromDateCreated,
       toDateCreated: this.toDateCreated,
     };
-
+    console.log('filter=====>', filterOption);
     this.tikcetType == 'policyRenewals'
       ? this.policyCardService.filterPolicyRenewalTickets(filterOption)
-      : // .subscribe((data: any) => {
-        //   this.filteringArray = data;
-        //   this.filteringArrayChange.emit(this.filteringArray);
-        //   this.ref.detectChanges();
-        // })
-        this.customerCardService.filterCustomerServiceickets(filterOption);
+      : this.customerCardService.filterCustomerServiceickets(filterOption);
   }
 }

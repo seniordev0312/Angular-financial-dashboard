@@ -1,5 +1,11 @@
 <mat-form-field appearance="fill">
-  <input placeholder="{{ value }}" matInput [matDatepicker]="picker" />
+  <input
+    [(ngModel)]="dateValue"
+    placeholder="{{ value }}"
+    matInput
+    [matDatepicker]="picker"
+    (dateChange)="dateChange()"
+  />
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

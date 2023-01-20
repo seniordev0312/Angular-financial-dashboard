@@ -52,6 +52,7 @@ export class CustomerCardService {
     this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
       .subscribe((data) => {
+        console.log(data);
         this.customerServiceTicketsRepository.updateTickets(data);
       });
   }
