@@ -5,7 +5,7 @@ import {
   Input,
   Output,
   EventEmitter,
-  ChangeDetectorRef,
+  // ChangeDetectorRef,
 } from '@angular/core';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
@@ -21,11 +21,11 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PolicyFilterComponent implements OnInit {
-  @Input() ticketType: any;
   @Input() policyFilterDrawer: any;
   @Input() filteringArray: any;
   @Output() filteringArrayChange = new EventEmitter<any>();
 
+  tikcetType: any;
   fromDateCreated: Date;
   toDateCreated: Date;
   fromDateModified: Date;
@@ -66,15 +66,15 @@ export class PolicyFilterComponent implements OnInit {
     public policyCardService: PolicyCardService,
     public customerCardService: CustomerCardService,
     private activeRoute: ActivatedRoute,
-    private ref: ChangeDetectorRef,
+    // private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-   this.activeRoute.paramMap.subscribe((params) => {
-     console.log(params);
-   });
+    this.activeRoute.paramMap.subscribe((params) => {
+      this.tikcetType = params.get('ticketType');
+    });
   }
 
   onCancel(): void {
@@ -91,12 +91,13 @@ export class PolicyFilterComponent implements OnInit {
       toDateCreated: this.toDateCreated,
     };
 
-    this.policyCardService
-      .filterPolicyRenewalTickets(filterOption)
-      .subscribe((data: any) => {
-        this.filteringArray = data;
-        this.filteringArrayChange.emit(this.filteringArray);
-        this.ref.detectChanges();
-      });
+    this.tikcetType == 'policyRenewals'
+      ? this.policyCardService.filterPolicyRenewalTickets(filterOption)
+      : // .subscribe((data: any) => {
+        //   this.filteringArray = data;
+        //   this.filteringArrayChange.emit(this.filteringArray);
+        //   this.ref.detectChanges();
+        // })
+        this.customerCardService.filterCustomerServiceickets(filterOption);
   }
 }
