@@ -36,6 +36,11 @@
               </div>
             </div>
           </div>
+
+          <div [style.display]="isLoading ? '' : 'none'">
+            <mat-progress-spinner></mat-progress-spinner>
+          </div>
+
           <cdk-accordion class="">
             <cdk-accordion-item
               #contactDetailsAccordion="cdkAccordionItem"

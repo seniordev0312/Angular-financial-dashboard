@@ -1,9 +1,5 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  Inject,
-  ChangeDetectorRef,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -33,6 +29,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   emergencyFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
   isShowAppField = false;
+  isLoading = false;
   categories: { id: number; name: string }[] = [];
   businesses: { id: number; name: string }[] = [];
   products: { id: number; productCode: string; productDescription: string }[] =
@@ -67,10 +64,12 @@ export class CustomerServiceTicketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.subscription = this.customerCardService
       .getCategory()
       .subscribe((data: any) => {
         this.categories = data;
+        this.isLoading = false;
         this.ref.detectChanges();
       });
   }
@@ -82,7 +81,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   // move to emergency flow or sales flow section
   displaySection(sectionFlag: string, categoryId: number) {
     this.choosedButtons.category = categoryId;
-
+    this.isLoading = true;
     this.isBlue = !this.isBlue;
     switch (sectionFlag) {
       case 'business': {
@@ -93,6 +92,7 @@ export class CustomerServiceTicketComponent implements OnInit {
           .getBusiness()
           .subscribe((data: any) => {
             this.businesses = data;
+            this.isLoading = false;
             this.ref.detectChanges();
           });
         break;
@@ -105,6 +105,7 @@ export class CustomerServiceTicketComponent implements OnInit {
           .getEmerencyTypeData()
           .subscribe((data: any) => {
             this.emergencyTypes = data;
+            this.isLoading = false;
             this.ref.detectChanges();
           });
         break;
@@ -116,11 +117,13 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   // move to the product section
   displayProductSection(businessId: number) {
+    this.isLoading = true;
     this.choosedButtons.business = businessId;
     this.subscription = this.customerCardService
       .getProduct(businessId)
       .subscribe((data: any) => {
         this.products = data;
+        this.isLoading = false;
         this.ref.detectChanges();
       });
     this.productSectionFlag = true;
@@ -146,11 +149,13 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   // display location section
   displayLocationSection(emergencyTypeId: number) {
+    this.isLoading = true;
     this.choosedButtons.emergencyType = emergencyTypeId;
     this.subscription = this.customerCardService
       .getEmergencyInitiateItems(emergencyTypeId)
       .subscribe((data: any) => {
         this.emergencyInitiateItems = data;
+        this.isLoading = false;
         this.ref.detectChanges();
       });
     this.locationSectionFlag = true;
@@ -161,6 +166,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   }
 
   RequestDraftPolicy() {
+    this.isLoading = true;
     if (this.priceValue == ' ') {
       this.disableButton = true;
       this.disableButtonClass = 'set-opacity';
@@ -168,6 +174,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         .getRequiredData()
         .subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
+          this.isLoading = false;
           this.ref.detectChanges();
         });
     }
