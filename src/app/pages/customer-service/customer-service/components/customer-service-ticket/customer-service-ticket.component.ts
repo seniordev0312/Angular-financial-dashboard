@@ -4,6 +4,8 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CustomerCardService } from '../../services/customer-card.service';
+import { isSpinning$ } from '@root/shared/store/shared.store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -12,6 +14,7 @@ import { CustomerCardService } from '../../services/customer-card.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerServiceTicketComponent implements OnInit {
+  isSpinning$: Observable<boolean>;
   subscription: Subscription;
   // state variable
   buttonAfterClickStyle: string = 'white bg-[#005F83]';
@@ -49,27 +52,27 @@ export class CustomerServiceTicketComponent implements OnInit {
     emergencyType: number;
     initiate: number;
   } = {
-    category: 0,
-    business: 0,
-    product: 0,
-    emergencyType: 0,
-    initiate: 0,
-  };
+      category: 0,
+      business: 0,
+      product: 0,
+      emergencyType: 0,
+      initiate: 0,
+    };
 
   constructor(
     public dialogRef: MatDialogRef<CustomerServiceTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public customerCardService: CustomerCardService,
     private ref: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.isSpinning$ = isSpinning$;
     this.subscription = this.customerCardService
       .getCategory()
       .subscribe((data: any) => {
         this.categories = data;
-        this.isLoading = false;
+        // this.isLoading = false;
         this.ref.detectChanges();
       });
   }
@@ -81,7 +84,8 @@ export class CustomerServiceTicketComponent implements OnInit {
   // move to emergency flow or sales flow section
   displaySection(sectionFlag: string, categoryId: number) {
     this.choosedButtons.category = categoryId;
-    this.isLoading = true;
+    // this.isLoading = true;
+    this.isSpinning$ = isSpinning$;
     this.isBlue = !this.isBlue;
     switch (sectionFlag) {
       case 'business': {
@@ -92,7 +96,7 @@ export class CustomerServiceTicketComponent implements OnInit {
           .getBusiness()
           .subscribe((data: any) => {
             this.businesses = data;
-            this.isLoading = false;
+            // this.isLoading = false;
             this.ref.detectChanges();
           });
         break;
@@ -105,7 +109,7 @@ export class CustomerServiceTicketComponent implements OnInit {
           .getEmerencyTypeData()
           .subscribe((data: any) => {
             this.emergencyTypes = data;
-            this.isLoading = false;
+            // this.isLoading = false;
             this.ref.detectChanges();
           });
         break;
@@ -117,13 +121,14 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   // move to the product section
   displayProductSection(businessId: number) {
-    this.isLoading = true;
+    // this.isLoading = true;
+    this.isSpinning$ = isSpinning$;
     this.choosedButtons.business = businessId;
     this.subscription = this.customerCardService
       .getProduct(businessId)
       .subscribe((data: any) => {
         this.products = data;
-        this.isLoading = false;
+        // this.isLoading = false;
         this.ref.detectChanges();
       });
     this.productSectionFlag = true;
@@ -149,13 +154,14 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   // display location section
   displayLocationSection(emergencyTypeId: number) {
-    this.isLoading = true;
+    // this.isLoading = true;
+    this.isSpinning$ = isSpinning$;
     this.choosedButtons.emergencyType = emergencyTypeId;
     this.subscription = this.customerCardService
       .getEmergencyInitiateItems(emergencyTypeId)
       .subscribe((data: any) => {
         this.emergencyInitiateItems = data;
-        this.isLoading = false;
+        // this.isLoading = false;
         this.ref.detectChanges();
       });
     this.locationSectionFlag = true;
@@ -166,7 +172,8 @@ export class CustomerServiceTicketComponent implements OnInit {
   }
 
   RequestDraftPolicy() {
-    this.isLoading = true;
+    // this.isLoading = true;
+    this.isSpinning$ = isSpinning$;
     if (this.priceValue == ' ') {
       this.disableButton = true;
       this.disableButtonClass = 'set-opacity';
@@ -174,7 +181,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         .getRequiredData()
         .subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
-          this.isLoading = false;
+          // this.isLoading = false;
           this.ref.detectChanges();
         });
     }
