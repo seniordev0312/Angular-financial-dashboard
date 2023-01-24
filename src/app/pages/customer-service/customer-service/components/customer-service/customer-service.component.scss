@@ -50,7 +50,7 @@
 
 ::ng-deep .control-width {
   .mat-form-field-wrapper {
-    width: 60% !important;
+    width: 100%;
   }
 }
 
@@ -62,8 +62,9 @@ mat-drawer-content {
 }
 
 ::ng-deep .mat-drawer-content {
- overflow: hidden;
+  overflow: hidden;
 }
+
 ::ng-deep .mat-dialog-container {
   overflow-y: hidden !important;
 }
@@ -72,4 +73,3 @@ mat-drawer-content {
   width: 75w;
   max-width: 100%;
 }
-
