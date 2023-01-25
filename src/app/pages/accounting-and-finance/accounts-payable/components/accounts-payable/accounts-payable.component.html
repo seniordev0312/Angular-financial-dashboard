@@ -3,19 +3,13 @@
     <div class="pl-6">
       <app-button
         classes="px-12 py-4 text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
-        text="Currency Editor"
+        text="status"
       ></app-button>
     </div>
     <div class="pl-6">
       <app-button
         classes="px-12 py-4  text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
-        text="Accounts"
-      ></app-button>
-    </div>
-    <div class="pl-6">
-      <app-button
-        classes="px-12 py-4 text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
-        text="Add Journal Entry"
+        text="Add new payable"
       ></app-button>
     </div>
   </div>
@@ -73,7 +67,9 @@
       <p class="text-sm font-medium mt-2">Search</p>
     </button>
   </div>
-  <app-widget-table></app-widget-table>
+  <app-widget-table
+    [tableConfiguration]="tableConfiguration"
+  ></app-widget-table>
   <div
     class="flex mb-10 items-stretch my-6 py-3 px-5 shadow rounded-lg justify-between bg-primary w-full"
   >

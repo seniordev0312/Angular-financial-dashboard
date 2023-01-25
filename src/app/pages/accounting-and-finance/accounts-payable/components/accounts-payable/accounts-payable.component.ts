@@ -1,22 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
-  // ViewChild,
+  OnInit
 } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
-// import { MatDialog } from '@angular/material/dialog';
-// import { Router } from '@angular/router';
-// import { BaseComponent } from '@root/shared/components/base-component/base-component';
-// import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
-// import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
-// import { TableColumn } from '@root/shared/models/table/table-column.model';
-// import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
-// import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
-// import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
+import { TableColumn } from '@root/shared/models/table/table-column.model';
+import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
+import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { PayableModel } from '../../model/payable.model';
 
 @Component({
   selector: 'app-accounts-payable',
@@ -27,6 +22,29 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 export class AccountsPayableComponent implements OnInit {
   startDateFormControl = new FormControl();
   endDateFormControl = new FormControl();
+  payableList: PayableModel[] = [
+    {
+      ein: "779722",
+      name: "Taanayel Hospital",
+      currency: "USD",
+      amount: 21592.00,
+      amountnotdue: 12100.00,
+    },
+    {
+      ein: "779722",
+      name: "Taanayel Hospital",
+      currency: "USD",
+      amount: 21592.00,
+      amountnotdue: 12100.00,
+    },
+    {
+      ein: "779722",
+      name: "Taanayel Hospital",
+      currency: "USD",
+      amount: 21592.00,
+      amountnotdue: 12100.00,
+    }
+  ];
 
   constructor(private layoutService: LayoutService) {}
 
@@ -41,4 +59,102 @@ export class AccountsPayableComponent implements OnInit {
       ],
     });
   }
+
+  tableColumns: TableColumn[] = [
+  {
+    translationKey: 'EIN',
+    property: 'ein',
+    type: 'text',
+    svgIcon: '',
+    cssClasses: () => '',
+    dataCssClasses: () => 'underline text-accent',
+    enableSort: true,
+    hasFilter: true,
+    visible: true,
+    displayInFilterList: false,
+    hasToolTip: false,
+    showText: true,
+    filter: {
+      filterType: TableColumnFilterDataType.Date
+    }
+  },
+  {
+    translationKey: 'Name',
+    property: 'name',
+    type: 'text',
+    cssClasses: () => '',
+    dataCssClasses: () => '',
+    enableSort: true,
+    hasFilter: true,
+    visible: true,
+    displayInFilterList: true,
+    hasToolTip: false,
+    showText: true,
+    filter: {
+      filterType: TableColumnFilterDataType.Text
+    }
+  },
+  {
+    translationKey: 'Currency',
+    property: 'currency',
+    type: 'text',
+    cssClasses: () => '',
+    dataCssClasses: () => '',
+    enableSort: true,
+    hasFilter: true,
+    visible: true,
+    displayInFilterList: true,
+    hasToolTip: false,
+    showText: true,
+    filter: {
+      filterType: TableColumnFilterDataType.Text
+    }
+  },
+  {
+    translationKey: 'Amount',
+    property: 'amount',
+    type: 'number',
+    cssClasses: () => '',
+    dataCssClasses: () => '',
+    enableSort: true,
+    hasFilter: true,
+    visible: true,
+    displayInFilterList: true,
+    hasToolTip: false,
+    showText: true,
+    filter: {
+      filterType: TableColumnFilterDataType.Text
+    }
+  },
+  {
+    translationKey: 'Amount Not Due',
+    property: 'amountnotdue',
+    type: 'number',
+    cssClasses: () => '',
+    dataCssClasses: () => '',
+    enableSort: true,
+    hasFilter: true,
+    visible: true,
+    displayInFilterList: true,
+    hasToolTip: false,
+    showText: true,
+    filter: {
+      filterType: TableColumnFilterDataType.Text
+    }
+  },
+  ];
+
+  
+
+  pageSize = 15;
+
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true });
+
+  tableConfiguration: TableConfiguration<PayableModel> = {
+    tableRowsActionsList: [],
+    columns: this.tableColumns,
+    data: this.payableList,
+    dataCount: 0,
+    settings: this.tableSettings,
+  };
 }
