@@ -1,1 +1,85 @@
-<p>accounts-payable works!</p>
+<div class="min-w-[50rem] h-full px-5">
+  <div class="flex flex-row justify-end items-center w-full">
+    <div class="pl-6">
+      <app-button
+        classes="px-12 py-4 text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
+        text="Currency Editor"
+      ></app-button>
+    </div>
+    <div class="pl-6">
+      <app-button
+        classes="px-12 py-4  text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
+        text="Accounts"
+      ></app-button>
+    </div>
+    <div class="pl-6">
+      <app-button
+        classes="px-12 py-4 text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
+        text="Add Journal Entry"
+      ></app-button>
+    </div>
+  </div>
+  <div
+    class="flex items-stretch my-6 h-[90px] shadow rounded-[14px] justify-between w-full"
+  >
+    <div class="flex flex-row justify-between items-center w-full px-5">
+      <div class="flex pl-8 justify-end items-center w-full">
+        <p class="mr-4 text-lg">From</p>
+        <div class="w-full">
+          <div class="flex flex-row justify-center items-center w-full">
+            <input
+              class="w-full"
+              placeholder="xx/xx/2022"
+              [readOnly]="true"
+              [matDatepicker]="startDatePicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </div>
+          <div class="pr-4">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex pl-8 justify-end items-center w-full">
+        <p class="mr-4 text-lg">To</p>
+        <div class="w-full">
+          <div class="flex flex-row justify-center items-center w-full">
+            <input
+              class="w-full"
+              placeholder="xx/xx/2022"
+              [readOnly]="true"
+              [matDatepicker]="endDatePicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+          </div>
+          <div class="pr-4">
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="flex flex-col justify-center items-center w-24 h-full bg-primary text-white rounded-r-[14px]"
+    >
+      <span class="material-icons"> search </span>
+      <p class="text-sm font-medium mt-2">Search</p>
+    </button>
+  </div>
+  <app-widget-table></app-widget-table>
+  <div
+    class="flex mb-10 items-stretch my-6 py-3 px-5 shadow rounded-lg justify-between bg-primary w-full"
+  >
+    <div>
+      <p class="mr-4 text-lg text-white">Total</p>
+    </div>
+  </div>
+  <div class="h-10"></div>
+</div>
