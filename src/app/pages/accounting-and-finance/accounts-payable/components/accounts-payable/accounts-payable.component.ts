@@ -46,7 +46,7 @@ export class AccountsPayableComponent implements OnInit {
     }
   ];
 
-  constructor(private layoutService: LayoutService) {}
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -61,90 +61,90 @@ export class AccountsPayableComponent implements OnInit {
   }
 
   tableColumns: TableColumn[] = [
-  {
-    translationKey: 'EIN',
-    property: 'ein',
-    type: 'text',
-    svgIcon: '',
-    cssClasses: () => '',
-    dataCssClasses: () => 'underline text-accent',
-    enableSort: true,
-    hasFilter: true,
-    visible: true,
-    displayInFilterList: false,
-    hasToolTip: false,
-    showText: true,
-    filter: {
-      filterType: TableColumnFilterDataType.Date
-    }
-  },
-  {
-    translationKey: 'Name',
-    property: 'name',
-    type: 'text',
-    cssClasses: () => '',
-    dataCssClasses: () => '',
-    enableSort: true,
-    hasFilter: true,
-    visible: true,
-    displayInFilterList: true,
-    hasToolTip: false,
-    showText: true,
-    filter: {
-      filterType: TableColumnFilterDataType.Text
-    }
-  },
-  {
-    translationKey: 'Currency',
-    property: 'currency',
-    type: 'text',
-    cssClasses: () => '',
-    dataCssClasses: () => '',
-    enableSort: true,
-    hasFilter: true,
-    visible: true,
-    displayInFilterList: true,
-    hasToolTip: false,
-    showText: true,
-    filter: {
-      filterType: TableColumnFilterDataType.Text
-    }
-  },
-  {
-    translationKey: 'Amount',
-    property: 'amount',
-    type: 'number',
-    cssClasses: () => '',
-    dataCssClasses: () => '',
-    enableSort: true,
-    hasFilter: true,
-    visible: true,
-    displayInFilterList: true,
-    hasToolTip: false,
-    showText: true,
-    filter: {
-      filterType: TableColumnFilterDataType.Text
-    }
-  },
-  {
-    translationKey: 'Amount Not Due',
-    property: 'amountnotdue',
-    type: 'number',
-    cssClasses: () => '',
-    dataCssClasses: () => '',
-    enableSort: true,
-    hasFilter: true,
-    visible: true,
-    displayInFilterList: true,
-    hasToolTip: false,
-    showText: true,
-    filter: {
-      filterType: TableColumnFilterDataType.Text
-    }
-  },
+    {
+      translationKey: 'EIN',
+      property: 'ein',
+      type: 'text',
+      svgIcon: '',
+      cssClasses: () => '',
+      dataCssClasses: () => 'underline text-accent',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: false,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Date
+      }
+    },
+    {
+      translationKey: 'Name',
+      property: 'name',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Currency',
+      property: 'currency',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Amount',
+      property: 'amount',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Amount Not Due',
+      property: 'amountnotdue',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
   ];
 
-  
+
 
   pageSize = 15;
 
