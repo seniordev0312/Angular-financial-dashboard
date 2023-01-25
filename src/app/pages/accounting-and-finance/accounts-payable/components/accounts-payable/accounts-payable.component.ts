@@ -1,6 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
+
+import { FormControl } from '@angular/forms';
+import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
+import { TableColumn } from '@root/shared/models/table/table-column.model';
+import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
+import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { PayableModel } from '../../model/payable.model';
 
 @Component({
   selector: 'app-accounts-payable',
@@ -9,6 +20,31 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountsPayableComponent implements OnInit {
+  startDateFormControl = new FormControl();
+  endDateFormControl = new FormControl();
+  payableList: PayableModel[] = [
+    {
+      ein: "779722",
+      name: "Taanayel Hospital",
+      currency: "USD",
+      amount: 21592.00,
+      amountnotdue: 12100.00,
+    },
+    {
+      ein: "779722",
+      name: "Taanayel Hospital",
+      currency: "USD",
+      amount: 21592.00,
+      amountnotdue: 12100.00,
+    },
+    {
+      ein: "779722",
+      name: "Taanayel Hospital",
+      currency: "USD",
+      amount: 21592.00,
+      amountnotdue: 12100.00,
+    }
+  ];
 
   constructor(private layoutService: LayoutService) { }
 
@@ -17,10 +53,108 @@ export class AccountsPayableComponent implements OnInit {
       crumbs: [
         {
           route: ApplicationRoutes.AccountsPayable,
-          translationKey: 'accounting-add-finance.accounts-payable.accounts-payable'
-        }
+          translationKey:
+            'accounting-add-finance.accounts-payable.accounts-payable',
+        },
       ],
     });
   }
 
+  tableColumns: TableColumn[] = [
+    {
+      translationKey: 'EIN',
+      property: 'ein',
+      type: 'text',
+      svgIcon: '',
+      cssClasses: () => '',
+      dataCssClasses: () => 'underline text-accent',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: false,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Name',
+      property: 'name',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Currency',
+      property: 'currency',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Amount',
+      property: 'amount',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+    {
+      translationKey: 'Amount Not Due',
+      property: 'amountnotdue',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text
+      }
+    },
+  ];
+
+
+
+  pageSize = 15;
+
+  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true });
+
+  tableConfiguration: TableConfiguration<PayableModel> = {
+    tableRowsActionsList: [],
+    columns: this.tableColumns,
+    data: this.payableList,
+    dataCount: null,
+    settings: this.tableSettings,
+  };
 }
