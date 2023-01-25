@@ -75,7 +75,7 @@ export class AccountsPayableComponent implements OnInit {
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Date
+        filterType: TableColumnFilterDataType.Text
       }
     },
     {
@@ -154,7 +154,7 @@ export class AccountsPayableComponent implements OnInit {
     tableRowsActionsList: [],
     columns: this.tableColumns,
     data: this.payableList,
-    dataCount: 0,
+    dataCount: null,
     settings: this.tableSettings,
   };
 }
