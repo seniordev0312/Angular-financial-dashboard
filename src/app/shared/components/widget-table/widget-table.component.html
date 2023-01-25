@@ -1,5 +1,4 @@
 <div class="card overflow-auto shared-table" [ngClass]="tableConfiguration.settings.cssClasses">
-  {{tableConfiguration?.dataCount}}
   <p-table #dt [value]="data" [rowHover]="true" responsiveLayout="scroll" [rows]="pageSize"
     [lazy]="!tableConfiguration.settings.isLocalPaging" [totalRecords]="tableConfiguration?.dataCount"
     [paginator]="tableConfiguration.settings.enablePaging" (onLazyLoad)="onLazyLoad($event)"
