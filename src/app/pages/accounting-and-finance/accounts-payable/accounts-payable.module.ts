@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddPaymentComponent } from './components/add-payment/add-payment.component';
 
 const routes: Route[] = [
   {
@@ -25,7 +26,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [AccountsPayableComponent],
+  declarations: [AccountsPayableComponent, AddPaymentComponent],
   imports: [
     CommonModule,
     SharedModule,

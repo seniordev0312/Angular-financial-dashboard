@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
@@ -12,6 +13,7 @@ import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PayableModel } from '../../model/payable.model';
+import { AddPaymentComponent } from '../add-payment/add-payment.component';
 
 @Component({
   selector: 'app-accounts-payable',
@@ -46,7 +48,10 @@ export class AccountsPayableComponent implements OnInit {
     }
   ];
 
-  constructor(private layoutService: LayoutService) { }
+  constructor(
+    private layoutService: LayoutService,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -58,6 +63,13 @@ export class AccountsPayableComponent implements OnInit {
         },
       ],
     });
+  }
+
+  openAddingPayment() {
+    this.dialog.open(AddPaymentComponent, {
+      width: '90%',
+      height: '80%',
+    })
   }
 
   tableColumns: TableColumn[] = [
@@ -143,8 +155,6 @@ export class AccountsPayableComponent implements OnInit {
       }
     },
   ];
-
-
 
   pageSize = 15;
 
