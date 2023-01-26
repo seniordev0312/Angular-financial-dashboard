@@ -1,11 +1,142 @@
-<app-dialog-header label="Currency Exchange"></app-dialog-header>
+<app-dialog-header label="Adding a Payment"></app-dialog-header>
 <mat-dialog-content>
-  <div class="flex flex-col justify-center items-center">
-    <div
-      class="flex items-stretch mt-6 py-3 px-5 shadow rounded-t-lg justify-between bg-primary w-full"
-    >
-      <p class="mr-4 text-lg font-bold text-white">USD</p>
+  <div class="flex flex-col justify-center items-center px-8">
+    <div class="flex flex-row items-center">
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <p class="mr-4 text-sm font-medium">EIN</p>
+        <div class="flex flex-col w-full">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <p class="mr-4 text-sm font-medium">Name</p>
+        <div class="flex flex-col w-full">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <p class="mr-4 text-sm font-medium">Invoice No</p>
+        <div class="flex flex-col w-full">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <!-- <div class="flex pl-8 justify-end items-center w-full"> -->
+        <p class="mr-4 text-lg">Bill Due Date</p>
+        <div class="w-full">
+          <div class="flex flex-row justify-center items-center w-full">
+            <input
+              class="w-full"
+              placeholder="MM/DD/YYYY"
+              [readOnly]="true"
+              [matDatepicker]="startDatePicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </div>
+          <div class="pr-4">
+            <hr />
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
     </div>
+
+    <div class="flex flex-row items-center">
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <p class="mr-4 text-sm font-medium">Amount</p>
+        <div class="flex flex-col w-full">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <p class="mr-4 text-sm font-medium">Currency</p>
+        <div class="flex flex-col w-full">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <p class="mr-4 text-sm font-medium">Invoice Type</p>
+        <div class="flex flex-col w-full">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8">
+        <!-- <div class="flex pl-8 justify-end items-center w-full"> -->
+        <p class="mr-4 text-lg">Invoice Date</p>
+        <div class="w-full">
+          <div class="flex flex-row justify-center items-center w-full">
+            <input
+              class="w-full"
+              placeholder="MM/DD/YYYY"
+              [readOnly]="true"
+              [matDatepicker]="startDatePicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </div>
+          <div class="pr-4">
+            <hr />
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+
     <div class="flex flex-row justify-start items-center pt-8">
       <p class="mr-4 text-sm font-medium">Exchange</p>
       <div class="flex flex-col w-full">
@@ -20,11 +151,32 @@
         </div>
       </div>
     </div>
+
+    <p>Description</p>
+    <div class="flex flex-row justify-between items-center">
+      <div class="bg-gray-700 w-7/12">
+        <p>Bill for legal service in August</p>
+      </div>
+      <div class="bg-gray-700 w-4/12">
+        <p>Bill for legal service in August</p>
+      </div>
+    </div>
+
     <div class="pt-10 flex flex-row justify-end items-end w-ful">
       <app-button
         classes="px-12 py-4 text-[12px] leading-none text-center flex
                  justify-center items-center  bg-primary text-white  color-white"
-        text="Update"
+        text="Cancel"
+      ></app-button>
+      <app-button
+        classes="px-12 py-4 text-[12px] leading-none text-center flex
+                 justify-center items-center  bg-primary text-white  color-white"
+        text="Save"
+      ></app-button>
+      <app-button
+        classes="px-12 py-4 text-[12px] leading-none text-center flex
+                 justify-center items-center  bg-primary text-white  color-white"
+        text="Pay Now"
       ></app-button>
     </div>
   </div>
