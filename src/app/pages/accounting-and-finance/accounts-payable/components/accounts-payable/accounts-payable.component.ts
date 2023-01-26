@@ -68,7 +68,7 @@ export class AccountsPayableComponent implements OnInit {
   openAddingPayment() {
     this.dialog.open(AddPaymentComponent, {
       width: '90%',
-      height: '80%',
+      height: '60%',
     })
   }
 
