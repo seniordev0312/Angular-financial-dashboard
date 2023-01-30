@@ -1,0 +1,80 @@
+<app-dialog-header label="Payable Status"></app-dialog-header>
+<mat-dialog-content>
+  <div class="min-w-[50rem] h-full flex flex-row">
+    <div class="flex flex-col w-[10%] border-2 border-gray-light1">
+      <div
+        class="w-full h-[17%] flex flex-col justify-center items-center border-b-2 border-gray-light1"
+      >
+        <img
+          class="h-[25px] w-[35px] object-contain"
+          src="{{ wireTransferImage }}"
+        />
+        <h3>Wire Transfer</h3>
+      </div>
+      <div class="w-full h-[83%] flex flex-col justify-center items-center">
+        <img class="h-[25px] w-[35px] object-contain" src="{{ checksImage }}" />
+        <h3>Checks</h3>
+      </div>
+    </div>
+    <div class="flex flex-col w-[90%] px-3">
+      <div
+        class="flex items-stretch my-6 h-[90px] shadow rounded-[14px] justify-between w-full"
+      >
+        <div class="flex flex-row justify-between items-center w-full px-5">
+          <div class="flex pl-8 justify-end items-center w-full">
+            <p class="mr-4 text-lg">From</p>
+            <div class="w-full">
+              <div class="flex flex-row justify-center items-center w-full">
+                <input
+                  class="w-full"
+                  placeholder="xx/xx/2022"
+                  [readOnly]="true"
+                  [matDatepicker]="startDatePicker"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="startDatePicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+              </div>
+              <div class="pr-4">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="flex pl-8 justify-end items-center w-full">
+            <p class="mr-4 text-lg">To</p>
+            <div class="w-full">
+              <div class="flex flex-row justify-center items-center w-full">
+                <input
+                  class="w-full"
+                  placeholder="xx/xx/2022"
+                  [readOnly]="true"
+                  [matDatepicker]="endDatePicker"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="endDatePicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+              </div>
+              <div class="pr-4">
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="flex flex-col justify-center items-center w-24 h-full bg-primary text-white rounded-r-[14px]"
+        >
+          <span class="material-icons"> search </span>
+          <p class="text-sm font-medium mt-2">Search</p>
+        </button>
+      </div>
+      <app-widget-table
+        [tableConfiguration]="tableConfiguration"
+      ></app-widget-table>
+      <div class="h-10"></div>
+    </div>
+  </div>
+</mat-dialog-content>
