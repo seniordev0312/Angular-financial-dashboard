@@ -41,6 +41,8 @@ export class PayableStatusComponent implements OnInit {
     },
   ];
 
+  tab: number = 1;
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -144,4 +146,8 @@ export class PayableStatusComponent implements OnInit {
     dataCount: null,
     settings: this.tableSettings,
   };
+
+  tabSelection(currentTab: number): void {
+    this.tab = currentTab;
+  }
 }
