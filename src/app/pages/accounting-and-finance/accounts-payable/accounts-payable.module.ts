@@ -13,6 +13,7 @@ import { SharedModule } from '@root/shared/shared.module';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { AccountsPayableComponent } from './components/accounts-payable/accounts-payable.component';
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
+import { PayableStatusComponent } from './components/payable-status/payable-status.component';
 
 const routes: Route[] = [
   {
@@ -26,7 +27,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [AccountsPayableComponent, AddPaymentComponent],
+  declarations: [AccountsPayableComponent, AddPaymentComponent, PayableStatusComponent],
   imports: [
     CommonModule,
     SharedModule,

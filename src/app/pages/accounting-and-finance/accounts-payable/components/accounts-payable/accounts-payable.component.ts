@@ -14,6 +14,7 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PayableModel } from '../../model/payable.model';
 import { AddPaymentComponent } from '../add-payment/add-payment.component';
+import { PayableStatusComponent } from '../payable-status/payable-status.component';
 
 @Component({
   selector: 'app-accounts-payable',
@@ -67,6 +68,13 @@ export class AccountsPayableComponent implements OnInit {
 
   openAddingPayment() {
     this.dialog.open(AddPaymentComponent, {
+      width: '90%',
+      height: '60%',
+    })
+  }
+
+  openPayableStatus() {
+    this.dialog.open(PayableStatusComponent, {
       width: '90%',
       height: '60%',
     })
