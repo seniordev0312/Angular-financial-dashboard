@@ -24,10 +24,18 @@ const routes: Route[] = [
     },
     canActivate: [AutoLoginAllRoutesGuard, SecurityGuard],
   },
+  {
+    path: ApplicationRoutes.PayableStatus,
+    component: PayableStatusComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [AccountsPayableComponent, AddPaymentComponent, PayableStatusComponent],
+  declarations: [
+    AccountsPayableComponent,
+    AddPaymentComponent,
+    PayableStatusComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

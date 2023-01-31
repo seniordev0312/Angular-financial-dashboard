@@ -11,6 +11,7 @@ export const enum ApplicationRoutes {
   CustomerServiceTicketTwo = 'customer-service-ticket-two',
   CustomerServiceTicketThree = 'customer-service-ticket-three',
   CustomerServiceTicketFour = 'customer-service-ticket-four',
+  PayableStatus = 'payable-status',
   Filter = 'filter',
   ProductManagement = 'product-management',
   TreatyManagement = 'treaty-management',
