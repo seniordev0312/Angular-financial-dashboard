@@ -2,6 +2,7 @@
   <div class="flex flex-row justify-end items-center w-full">
     <div class="pl-6">
       <app-button
+        routerLink="/accounts-payable/payable-status"
         classes="px-12 py-4 text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
         text="status"
       ></app-button>
@@ -71,12 +72,5 @@
   <app-widget-table
     [tableConfiguration]="tableConfiguration"
   ></app-widget-table>
-  <!-- <div
-    class="flex mb-10 items-stretch my-6 py-3 px-5 shadow rounded-lg justify-between bg-primary w-full"
-  >
-    <div>
-      <p class="mr-4 text-lg text-white">Total</p>
-    </div>
-  </div> -->
   <div class="h-10"></div>
 </div>

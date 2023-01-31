@@ -1,27 +1,22 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
-import { LayoutService } from '@root/shared/services/layout.service';
-import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PayableModel } from '../../model/payable.model';
-import { AddPaymentComponent } from '../add-payment/add-payment.component';
-// import { PayableStatusComponent } from '../payable-status/payable-status.component';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-accounts-payable',
-  templateUrl: './accounts-payable.component.html',
-  styleUrls: ['./accounts-payable.component.scss'],
+  selector: 'app-payable-status',
+  templateUrl: './payable-status.component.html',
+  styleUrls: ['./payable-status.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountsPayableComponent implements OnInit {
-  startDateFormControl = new FormControl();
-  endDateFormControl = new FormControl();
+export class PayableStatusComponent implements OnInit {
+  checksImage: string =
+    '../../../../../../assets/images/accounting-payable/checks.png';
+  wireTransferImage: string =
+    '../../../../../../assets/images/accounting-payable/wire-transfer.png';
+
   payableList: PayableModel[] = [
     {
       ein: '779722',
@@ -46,44 +41,11 @@ export class AccountsPayableComponent implements OnInit {
     },
   ];
 
-  constructor(
-    private layoutService: LayoutService,
-    private dialog: MatDialog,
-    private router: Router
-  ) {}
+  tab: number = 1;
 
-  ngOnInit(): void {
-    this.layoutService.updateBreadCrumbsRouter({
-      crumbs: [
-        {
-          route: ApplicationRoutes.AccountsPayable,
-          translationKey:
-            'accounting-add-finance.accounts-payable.accounts-payable',
-        },
-      ],
-    });
-  }
+  constructor() {}
 
-  openAddingPayment() {
-    this.dialog.open(AddPaymentComponent, {
-      width: '90%',
-      height: '60%',
-    });
-  }
-
-  openPayableStatus() {
-    this.router.navigate(
-      [
-        `${ApplicationRoutes.PayableStatus}`,
-        {
-          outlets: {
-            sidenav: 'accounts-payable/payable-status',
-          },
-        },
-      ],
-      { skipLocationChange: true }
-    );
-  }
+  ngOnInit(): void {}
 
   tableColumns: TableColumn[] = [
     {
@@ -184,4 +146,8 @@ export class AccountsPayableComponent implements OnInit {
     dataCount: null,
     settings: this.tableSettings,
   };
+
+  tabSelection(currentTab: number): void {
+    this.tab = currentTab;
+  }
 }
