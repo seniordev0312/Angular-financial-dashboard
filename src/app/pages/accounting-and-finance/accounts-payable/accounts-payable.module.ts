@@ -14,6 +14,7 @@ import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { AccountsPayableComponent } from './components/accounts-payable/accounts-payable.component';
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
 import { PayableStatusComponent } from './components/payable-status/payable-status.component';
+import { VendorInvoiceComponent } from './components/vendor-invoice/vendor-invoice.component';
 
 const routes: Route[] = [
   {
@@ -35,6 +36,7 @@ const routes: Route[] = [
     AccountsPayableComponent,
     AddPaymentComponent,
     PayableStatusComponent,
+    VendorInvoiceComponent,
   ],
   imports: [
     CommonModule,

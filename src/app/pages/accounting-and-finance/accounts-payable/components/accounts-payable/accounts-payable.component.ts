@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,8 +16,8 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PayableModel } from '../../model/payable.model';
 import { AddPaymentComponent } from '../add-payment/add-payment.component';
-// import { PayableStatusComponent } from '../payable-status/payable-status.component';
 import { Router } from '@angular/router';
+import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 
 @Component({
   selector: 'app-accounts-payable',
@@ -22,34 +28,16 @@ import { Router } from '@angular/router';
 export class AccountsPayableComponent implements OnInit {
   startDateFormControl = new FormControl();
   endDateFormControl = new FormControl();
-  payableList: PayableModel[] = [
-    {
-      ein: '779722',
-      name: 'Taanayel Hospital',
-      currency: 'USD',
-      amount: 21592.0,
-      amountnotdue: 12100.0,
-    },
-    {
-      ein: '779722',
-      name: 'Taanayel Hospital',
-      currency: 'USD',
-      amount: 21592.0,
-      amountnotdue: 12100.0,
-    },
-    {
-      ein: '779722',
-      name: 'Taanayel Hospital',
-      currency: 'USD',
-      amount: 21592.0,
-      amountnotdue: 12100.0,
-    },
-  ];
+  payableList: PayableModel[] = [];
+
+  @ViewChild(WidgetTableComponent)
+  table: WidgetTableComponent<PayableModel>;
 
   constructor(
     private layoutService: LayoutService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +50,38 @@ export class AccountsPayableComponent implements OnInit {
         },
       ],
     });
+
+    this.payableList = [
+      {
+        id: 0,
+        ein: '779722',
+        name: 'Taanayel Hospital',
+        currency: 'USD',
+        amount: 21592.0,
+        amountnotdue: 12100.0,
+      },
+      {
+        id: 1,
+        ein: '779722',
+        name: 'Taanayel Hospital',
+        currency: 'USD',
+        amount: 21592.0,
+        amountnotdue: 12100.0,
+      },
+      {
+        id: 2,
+        ein: '779722',
+        name: 'Taanayel Hospital',
+        currency: 'USD',
+        amount: 21592.0,
+        amountnotdue: 12100.0,
+      },
+    ];
+
+    this.tableConfiguration.data = this.payableList;
+    this.tableConfiguration.dataCount = this.payableList.length;
+    this.cdr.detectChanges();
+    this.table.refresh();
   }
 
   openAddingPayment() {
@@ -87,7 +107,7 @@ export class AccountsPayableComponent implements OnInit {
 
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'EIN',
+      translationKey: 'ein',
       property: 'ein',
       type: 'text',
       svgIcon: '',
@@ -104,7 +124,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Name',
+      translationKey: 'name',
       property: 'name',
       type: 'text',
       cssClasses: () => '',
@@ -120,7 +140,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Currency',
+      translationKey: 'currency',
       property: 'currency',
       type: 'text',
       cssClasses: () => '',
@@ -136,7 +156,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Amount',
+      translationKey: 'amount',
       property: 'amount',
       type: 'number',
       cssClasses: () => '',
@@ -152,7 +172,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Amount Not Due',
+      translationKey: 'amountnotdue',
       property: 'amountnotdue',
       type: 'number',
       cssClasses: () => '',
@@ -180,8 +200,8 @@ export class AccountsPayableComponent implements OnInit {
   tableConfiguration: TableConfiguration<PayableModel> = {
     tableRowsActionsList: [],
     columns: this.tableColumns,
-    data: this.payableList,
-    dataCount: null,
+    data: [],
+    dataCount: 0,
     settings: this.tableSettings,
   };
 }
