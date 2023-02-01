@@ -5,11 +5,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
-import { PayableModel } from '../../model/payable.model';
+import { VendorInvoiceModel } from '../../model/vendor-invoice.model';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { AdvancePaymentModel } from '../../model/advance-payment.model';
 
 @Component({
   selector: 'app-vendor-invoice',
@@ -19,7 +20,8 @@ import { TableSettings } from '@root/shared/models/table/table-settings.model';
 })
 export class VendorInvoiceComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<PayableModel>;
+  table: WidgetTableComponent<VendorInvoiceModel>;
+  table1: WidgetTableComponent<AdvancePaymentModel>;
 
   constructor() {}
 
@@ -27,7 +29,138 @@ export class VendorInvoiceComponent implements OnInit {
 
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'ein',
+      translationKey: 'Policy No',
+      property: 'policyno',
+      type: 'text',
+      svgIcon: '',
+      cssClasses: () => '',
+      dataCssClasses: () => 'underline text-accent',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: false,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Name',
+      property: 'name',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Due Date',
+      property: 'duedate',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Date,
+      },
+    },
+    {
+      translationKey: 'Total Unpaid Due',
+      property: 'totalunpaiddue',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Total Unpaid Not Due',
+      property: 'totalunpaidnotdue',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Currency',
+      property: 'currency',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Invoice Type',
+      property: 'invoicetype',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Custome',
+      property: 'custome',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+  ];
+  tableColumns1: TableColumn[] = [
+    {
+      translationKey: 'EIN',
       property: 'ein',
       type: 'text',
       svgIcon: '',
@@ -44,8 +177,24 @@ export class VendorInvoiceComponent implements OnInit {
       },
     },
     {
-      translationKey: 'name',
-      property: 'name',
+      translationKey: 'Data Paid',
+      property: 'datapaid',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Date,
+      },
+    },
+    {
+      translationKey: 'Total Remaining',
+      property: 'totalremaining',
       type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -60,7 +209,7 @@ export class VendorInvoiceComponent implements OnInit {
       },
     },
     {
-      translationKey: 'currency',
+      translationKey: 'Currency',
       property: 'currency',
       type: 'text',
       cssClasses: () => '',
@@ -76,24 +225,8 @@ export class VendorInvoiceComponent implements OnInit {
       },
     },
     {
-      translationKey: 'amount',
-      property: 'amount',
-      type: 'number',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-    {
-      translationKey: 'amountnotdue',
-      property: 'amountnotdue',
+      translationKey: 'Custome',
+      property: 'custome',
       type: 'number',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -118,9 +251,17 @@ export class VendorInvoiceComponent implements OnInit {
     isRowSelectable: true,
   });
 
-  tableConfiguration: TableConfiguration<PayableModel> = {
+  tableConfiguration: TableConfiguration<VendorInvoiceModel> = {
     tableRowsActionsList: [],
     columns: this.tableColumns,
+    data: [],
+    dataCount: 0,
+    settings: this.tableSettings,
+  };
+
+  tableConfiguration1: TableConfiguration<AdvancePaymentModel> = {
+    tableRowsActionsList: [],
+    columns: this.tableColumns1,
     data: [],
     dataCount: 0,
     settings: this.tableSettings,
