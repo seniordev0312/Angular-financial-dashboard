@@ -18,6 +18,7 @@ import { PayableModel } from '../../model/payable.model';
 import { AddPaymentComponent } from '../add-payment/add-payment.component';
 import { Router } from '@angular/router';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { VendorInvoiceComponent } from '../vendor-invoice/vendor-invoice.component';
 
 @Component({
   selector: 'app-accounts-payable',
@@ -62,16 +63,16 @@ export class AccountsPayableComponent implements OnInit {
       },
       {
         id: 1,
-        ein: '779722',
-        name: 'Taanayel Hospital',
+        ein: '123',
+        name: 'Taanayel 1',
         currency: 'USD',
         amount: 21592.0,
         amountnotdue: 12100.0,
       },
       {
         id: 2,
-        ein: '779722',
-        name: 'Taanayel Hospital',
+        ein: '456',
+        name: 'Taanayel 2',
         currency: 'USD',
         amount: 21592.0,
         amountnotdue: 12100.0,
@@ -195,6 +196,7 @@ export class AccountsPayableComponent implements OnInit {
     actionsMode: 'inline',
     pageSize: this.pageSize,
     isLocalPaging: true,
+    isRowSelectable: true,
   });
 
   tableConfiguration: TableConfiguration<PayableModel> = {
@@ -204,4 +206,13 @@ export class AccountsPayableComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
+
+  onRowSelection(data: any) {
+    console.log('1111111111', data);
+
+    this.dialog.open(VendorInvoiceComponent, {
+      width: '90%',
+      height: '80%',
+    });
+  }
 }

@@ -72,6 +72,7 @@
   <div *ngIf="tableConfiguration.data.length < 0"><h3>Hello</h3></div>
   <app-widget-table
     [tableConfiguration]="tableConfiguration"
+    (onRowSelection)="onRowSelection($event)"
   ></app-widget-table>
   <div class="h-10"></div>
 </div>

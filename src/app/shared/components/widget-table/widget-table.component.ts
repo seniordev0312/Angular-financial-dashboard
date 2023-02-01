@@ -37,6 +37,7 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   @Output() onFilterCleared = new EventEmitter<any>();
   @ViewChild('dt', { static: true }) dataTable: Table;
   @Output() rowsSelected = new EventEmitter<T>();
+  @Output() onRowSelection = new EventEmitter<T>();
   search: string;
   filterData: Filter[] = [];
   isSliderChangeConfirmed: boolean;
@@ -65,7 +66,6 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
   refresh(): void {
     this.data = [...this.tableConfiguration?.data];
-    console.log('table data for widget table ::==>>', this.data);
     this.cdr.detectChanges();
   }
 
@@ -137,5 +137,9 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
   onRowsSelectedChanged() {
     this.rowsSelected.emit(this.selectedRow);
+  }
+
+  onRowSelect(event: any) {
+    this.onRowSelection.emit(event.data);
   }
 }

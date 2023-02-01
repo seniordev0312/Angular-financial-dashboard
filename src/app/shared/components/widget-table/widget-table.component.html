@@ -19,6 +19,7 @@
     [selectionPageOnly]="true"
     selectionMode="single"
     [(selection)]="selectedRow"
+    (onRowSelect)="onRowSelect($event)"
     (selectionChange)="onRowsSelectedChanged()"
     [showFirstLastIcon]="false"
     [showPageLinks]="true"
@@ -174,7 +175,7 @@
       </tr>
     </ng-template>
     <ng-template [pTemplate]="'body'" let-row>
-      <tr class="p-selectable-row">
+      <tr [pSelectableRow]="row" class="p-selectable-row">
         <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable">
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
         </td>

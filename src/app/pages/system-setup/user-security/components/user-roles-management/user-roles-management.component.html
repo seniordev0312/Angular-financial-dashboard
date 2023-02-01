@@ -1,111 +1,170 @@
 <div class="flex items-center justify-between mb-4">
-    <div>
-        <p class="text-sm">Manage User Roles</p>
-    </div>
-    <ng-template [appCanAccessFeature]="canAddRolePermission">
-        <app-button (trigger)="onRoleAdded()" icon="add" text="Add User Role"
-            classes="bg-accent text-xs text-white font-light h-8 w-[150px]">
-        </app-button>
-    </ng-template>
+  <div>
+    <p class="text-sm">Manage User Roles</p>
+  </div>
+  <ng-template [appCanAccessFeature]="canAddRolePermission">
+    <app-button
+      (trigger)="onRoleAdded()"
+      icon="add"
+      text="Add User Role"
+      classes="bg-accent text-xs text-white font-light h-8 w-[150px]"
+    >
+    </app-button>
+  </ng-template>
 </div>
-<p-table #dt class="main-table" (onPage)="paginate($event)" [value]="data?.roles" rowGroupMode="subheader" dataKey="id"
-    [totalRecords]="data?.totalCount" [rows]="4" [paginator]="true" [(first)]="first">
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width:5%"></th>
-            <th style="width:10%">
-                <p-columnFilter [showMenu]="false" type="text" placeholder="role" [showClearButton]="false"
-                    field="name">
-                </p-columnFilter>
-            </th>
-            <th style="width:20%">
-                <p-columnFilter [showMenu]="false" type="text" placeholder="description" [showClearButton]="false"
-                    field="description">
-                </p-columnFilter>
-            </th>
-            <th class="text-xs" style="width:10%">Action</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-role let-rowIndex="rowIndex" let-expanded="expanded">
-        <tr>
-            <td style="width:5%" class="">
-                <button type="button" pButton pRipple [pRowToggler]="role" class="flex justify-center items-center"
-                    (click)="getRoleClaims(role,expanded)">
-                    <span class="material-icons">
-                        {{expanded?'remove_circle_outline':'add_circle_outline'}}
-                    </span>
-                </button>
-            </td>
-            <td style="width:10%">
-                <span class="font-bold text-xs ml-2">{{role.name}}</span>
-            </td>
-            <td style="width:20%">
-                <span class="text-xs ml-2">{{role.description}}</span>
-            </td>
-            <td>
-                <div class="flex justify-end">
-                    <button (click)="onRoleDeleted(role)" mat-button>
-                        <span class="material-icons text-warn">
-                            delete_outline
-                        </span>
-                    </button>
-                    <ng-template [appCanAccessFeature]="canEditRolePermission">
-                        <button (click)="onRoleEdited(role)" mat-button class="ml-4">
-                            <span class="material-icons text-accent">
-                                edit
-                            </span>
-                        </button>
-                    </ng-template>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="rowexpansion" let-role>
-        <tr>
-            <td class="sub-table" colspan="7">
-                <div>
-                    <p-table class="sub-table" [value]="role.claimList?.claims"
-                        [totalRecords]="role.claimList?.totalCount" dataKey="id" [rows]="4" [paginator]="true">
-                        <ng-template pTemplate="header">
-        <tr>
-            <th class="sub-table-header">
-            </th>
-            <th class="sub-table-header">
-                <p-columnFilter [showMenu]="false" type="text" placeholder="module" [showClearButton]="false"
-                    field="claimType">
-                </p-columnFilter>
-            </th>
-            <th class="sub-table-header">
-                <p-columnFilter [showMenu]="false" type="text" placeholder="claims" [showClearButton]="false"
-                    field="claimValue">
-                </p-columnFilter>
-            </th>
-            <th class="sub-table-header">
-                <p-columnFilter [showMenu]="false" type="text" placeholder="description" [showClearButton]="false"
-                    field="description">
-                </p-columnFilter>
-            </th>
-            <th class="sub-table-header text-xxs" style="width:10%">Action</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-claim>
-        <tr>
-            <td class="sub-table-header"></td>
-            <td class="text-xxs sub-table-header pl-4">{{claim.claimType}}</td>
-            <td class="text-xxs sub-table-header pl-4">{{claim.claimValue}}</td>
-            <td class="text-xxs sub-table-header pl-4">{{claim.description}}</td>
-            <td class="flex justify-end sub-table-header">
-                <button mat-button (click)="removeClaimFromRole(claim)">
+<p-table
+  #dt
+  class="main-table"
+  (onPage)="paginate($event)"
+  [value]="data?.roles"
+  rowGroupMode="subheader"
+  dataKey="id"
+  [totalRecords]="data?.totalCount"
+  [rows]="4"
+  [paginator]="true"
+  [(first)]="first"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 5%"></th>
+      <th style="width: 10%">
+        <p-columnFilter
+          [showMenu]="false"
+          type="text"
+          placeholder="role"
+          [showClearButton]="false"
+          field="name"
+        >
+        </p-columnFilter>
+      </th>
+      <th style="width: 20%">
+        <p-columnFilter
+          [showMenu]="false"
+          type="text"
+          placeholder="description"
+          [showClearButton]="false"
+          field="description"
+        >
+        </p-columnFilter>
+      </th>
+      <th class="text-xs" style="width: 10%">Action</th>
+    </tr>
+  </ng-template>
+  <ng-template
+    pTemplate="body"
+    let-role
+    let-rowIndex="rowIndex"
+    let-expanded="expanded"
+  >
+    <tr>
+      <td style="width: 5%" class="">
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="role"
+          class="flex justify-center items-center"
+          (click)="getRoleClaims(role, expanded)"
+        >
+          <span class="material-icons">
+            {{ expanded ? "remove_circle_outline" : "add_circle_outline" }}
+          </span>
+        </button>
+      </td>
+      <td style="width: 10%">
+        <span class="font-bold text-xs ml-2">{{ role.name }}</span>
+      </td>
+      <td style="width: 20%">
+        <span class="text-xs ml-2">{{ role.description }}</span>
+      </td>
+      <td>
+        <div class="flex justify-end">
+          <button (click)="onRoleDeleted(role)" mat-button>
+            <span class="material-icons text-warn"> delete_outline </span>
+          </button>
+          <ng-template [appCanAccessFeature]="canEditRolePermission">
+            <button (click)="onRoleEdited(role)" mat-button class="ml-4">
+              <span class="material-icons text-accent"> edit </span>
+            </button>
+          </ng-template>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-role>
+    <tr>
+      <td class="sub-table" colspan="7">
+        <div>
+          <p-table
+            class="sub-table"
+            [value]="role.claimList?.claims"
+            [totalRecords]="role.claimList?.totalCount"
+            dataKey="id"
+            [rows]="4"
+            [paginator]="true"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="sub-table-header"></th>
+                <th class="sub-table-header">
+                  <p-columnFilter
+                    [showMenu]="false"
+                    type="text"
+                    placeholder="module"
+                    [showClearButton]="false"
+                    field="claimType"
+                  >
+                  </p-columnFilter>
+                </th>
+                <th class="sub-table-header">
+                  <p-columnFilter
+                    [showMenu]="false"
+                    type="text"
+                    placeholder="claims"
+                    [showClearButton]="false"
+                    field="claimValue"
+                  >
+                  </p-columnFilter>
+                </th>
+                <th class="sub-table-header">
+                  <p-columnFilter
+                    [showMenu]="false"
+                    type="text"
+                    placeholder="description"
+                    [showClearButton]="false"
+                    field="description"
+                  >
+                  </p-columnFilter>
+                </th>
+                <th class="sub-table-header text-xxs" style="width: 10%">
+                  Action
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-claim>
+              <tr>
+                <td class="sub-table-header"></td>
+                <td class="text-xxs sub-table-header pl-4">
+                  {{ claim.claimType }}
+                </td>
+                <td class="text-xxs sub-table-header pl-4">
+                  {{ claim.claimValue }}
+                </td>
+                <td class="text-xxs sub-table-header pl-4">
+                  {{ claim.description }}
+                </td>
+                <td class="flex justify-end sub-table-header">
+                  <button mat-button (click)="removeClaimFromRole(claim)">
                     <span class="material-icons text-accent">
-                        highlight_off
+                      highlight_off
                     </span>
-                </button>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
-</div>
-</td>
-</tr>
-</ng-template>
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
