@@ -4,6 +4,7 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { PayableModel } from '../../model/payable.model';
+import { WireTransferModel } from '../../model/wire-transfer.model';
 
 @Component({
   selector: 'app-payable-status',
@@ -134,6 +135,122 @@ export class PayableStatusComponent implements OnInit {
     },
   ];
 
+  tableColumns1: TableColumn[] = [
+    {
+      translationKey: 'EIN',
+      property: 'ein',
+      type: 'text',
+      svgIcon: '',
+      cssClasses: () => '',
+      dataCssClasses: () => 'underline text-accent',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: false,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Name',
+      property: 'name',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Date',
+      property: 'date',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Date,
+      },
+    },
+    {
+      translationKey: 'Ref No',
+      property: 'refno',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Currency',
+      property: 'currency',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Amount',
+      property: 'amount',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Status',
+      property: 'status',
+      type: 'number',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+  ];
+
   pageSize = 15;
 
   tableSettings = new TableSettings({
@@ -145,7 +262,15 @@ export class PayableStatusComponent implements OnInit {
   tableConfiguration: TableConfiguration<PayableModel> = {
     tableRowsActionsList: [],
     columns: this.tableColumns,
-    data: this.payableList,
+    data: [],
+    dataCount: null,
+    settings: this.tableSettings,
+  };
+
+  tableConfiguration1: TableConfiguration<WireTransferModel> = {
+    tableRowsActionsList: [],
+    columns: this.tableColumns1,
+    data: [],
     dataCount: null,
     settings: this.tableSettings,
   };
