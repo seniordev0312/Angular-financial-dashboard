@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
+import { PolicyRenewalsTicketsRepository } from '../store/policy-renewals-tickets.repository';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PolicyCardService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
+  ) {}
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -29,17 +32,21 @@ export class PolicyCardService {
   apiPutURL = `${this.customerServiceServerURL}/PolicyRenewalTicket`;
 
   // HttpClient API post() method => Get PolicyRenewalTickets
-  getPolicyRenewalTickets(): Observable<any> {
-    return this.http
+  getPolicyRenewalTickets() {
+    this.http
       .post<PolicyCard>(this.apiFilterURL, {}, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      .subscribe((data) => {
+        this.policyRenewalsTicketsRepository.updateTickets(data);
+      });
   }
 
   // HttpClient API post() method => create PolicyRenewalTickets
-  filterPolicyRenewalTickets(option: {}): Observable<any> {
-    return this.http
+  filterPolicyRenewalTickets(option: {}) {
+    this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      .subscribe((data) => {
+        this.policyRenewalsTicketsRepository.updateTickets(data);
+      });
   }
 
   // HttpClient API put() method => update PolicyRenewalTickets

@@ -11,12 +11,24 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
+import { PolicyFilterComponent } from '../customer-service-shared/components/policy-filter/policy-filter.component';
+import { Permission } from '@root/shared/models/enums/permissions.enum';
+import { SecurityGuard } from '@root/shared/guards/security.guard';
 
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
     component: PolicyRenewalsComponent,
     canLoad: [AutoLoginAllRoutesGuard],
+  },
+  {
+    path: `${ApplicationRoutes.Filter}/:ticketType`,
+    component: PolicyFilterComponent,
+    outlet: 'sidenav',
+    data: {
+      permission: Permission.CanAddGeneralSystemSetup,
+    },
+    canActivate: [SecurityGuard],
   },
 ];
 

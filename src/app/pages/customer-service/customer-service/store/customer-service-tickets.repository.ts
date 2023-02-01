@@ -11,11 +11,11 @@ import {
 export class CustomerServiceTicketsRepository {
   constructor(
     @Inject(CUSTOMER_SERVICE_TICKETS_STORE)
-    private generalSystemSettingsStore: CustomerServiceTicketsStore
+    private customerServiceTicketsStore: CustomerServiceTicketsStore
   ) {}
 
   updateTickets(tickets: any) {
-    this.generalSystemSettingsStore.update((state) => ({
+    this.customerServiceTicketsStore.update((state) => ({
       ...state,
       tickets: tickets,
     }));
