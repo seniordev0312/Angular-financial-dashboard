@@ -13,7 +13,7 @@ import { PayableModel } from '../../model/payable.model';
 })
 export class PayableStatusComponent implements OnInit {
   checksImage: string =
-    '../../../../../../assets/images/accounting-payable/checks.png';
+    '../../../../../../assets/images/accounting-payable/Checks.png';
   wireTransferImage: string =
     '../../../../../../assets/images/accounting-payable/wire-transfer.png';
 
