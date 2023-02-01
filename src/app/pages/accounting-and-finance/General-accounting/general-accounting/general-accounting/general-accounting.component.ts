@@ -1,5 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,14 +25,16 @@ import { JournalList$, JournalTotal$ } from '../general-accounting.store';
 import { JournalTotalsModel } from '../model/journal-totals.model';
 import { JournalModel } from '../model/journal.model';
 
-
 @Component({
   selector: 'app-general-accounting',
   templateUrl: './general-accounting.component.html',
   styleUrls: ['./general-accounting.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GeneralAccountingComponent extends BaseComponent implements OnInit {
+export class GeneralAccountingComponent
+  extends BaseComponent
+  implements OnInit
+{
   journalList: JournalModel[] = [];
   journalTotal: JournalTotalsModel;
   startDateFormControl = new FormControl();
@@ -35,48 +43,61 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<JournalModel>;
-  constructor(private router:
-    Router, private layoutService: LayoutService,
-    private generalAccountingService: GeneralAccountingService, private cdr: ChangeDetectorRef, public dialog: MatDialog) { super(); }
+  constructor(
+    private router: Router,
+    private layoutService: LayoutService,
+    private generalAccountingService: GeneralAccountingService,
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog
+  ) {
+    super();
+  }
 
   ///
   ngOnInit(): void {
     this.generalAccountingService.getJournalItems('2022-01-01', '2022-12-31');
-    this.generalAccountingService.getJournalItemTotals('2022-01-01', '2022-12-31');
+    this.generalAccountingService.getJournalItemTotals(
+      '2022-01-01',
+      '2022-12-31'
+    );
     this.layoutService.updateBreadCrumbsRouter({
       crumbs: [
         {
           route: ApplicationRoutes.GeneralAccounting,
-          translationKey: 'accounting-add-finance.general-accounting.general-accounting'
-        }
+          translationKey:
+            'accounting-add-finance.general-accounting.general-accounting',
+        },
       ],
     });
 
-    this.subscriptions.add(JournalList$.subscribe(data => {
-      this.journalList = [];
-      for (var item of data) {
-        item.postingDate = this.pipe.transform(item.postingDate, 'yyyy-MM-dd ');
-        this.journalList.push(item);
-      }
+    this.subscriptions.add(
+      JournalList$.subscribe((data) => {
+        this.journalList = [];
+        for (var item of data) {
+          item.postingDate = this.pipe.transform(
+            item.postingDate,
+            'yyyy-MM-dd '
+          );
+          this.journalList.push(item);
+        }
 
-      this.tableConfiguration.data = this.journalList;
-      this.tableConfiguration.dataCount = data.length;
-      this.cdr.detectChanges();
-      this.table.refresh();
-    }));
+        this.tableConfiguration.data = this.journalList;
+        this.tableConfiguration.dataCount = data.length;
+        this.cdr.detectChanges();
+        this.table.refresh();
+      })
+    );
 
-    this.subscriptions.add(JournalTotal$.subscribe(data => {
-      this.journalTotal = data;
-      this.cdr.detectChanges();
-    }));
-    this.journalTotal = { totalDebit: 0, totalCredit: 0, totalBalance: 0 }
+    this.subscriptions.add(
+      JournalTotal$.subscribe((data) => {
+        this.journalTotal = data;
+        this.cdr.detectChanges();
+      })
+    );
+    this.journalTotal = { totalDebit: 0, totalCredit: 0, totalBalance: 0 };
   }
 
-
-  /// 
-
-
-
+  ///
 
   tableColumns: TableColumn[] = [
     {
@@ -93,8 +114,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Date
-      }
+        filterType: TableColumnFilterDataType.Date,
+      },
     },
     {
       translationKey: 'Account',
@@ -109,8 +130,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
     {
       translationKey: 'Doc No.',
@@ -125,8 +146,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
     {
       translationKey: 'Ref No.',
@@ -141,8 +162,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
     {
       translationKey: 'Debit.',
@@ -157,8 +178,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
     {
       translationKey: 'Credit',
@@ -173,8 +194,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
     // {
     //   translationKey: 'Balance',
@@ -205,8 +226,8 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
     {
       translationKey: 'Name',
@@ -221,19 +242,26 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
       hasToolTip: false,
       showText: true,
       filter: {
-        filterType: TableColumnFilterDataType.Text
-      }
+        filterType: TableColumnFilterDataType.Text,
+      },
     },
   ];
 
   pageSize = 15;
 
-  tableSettings = new TableSettings({ actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true });
+  tableSettings = new TableSettings({
+    actionsMode: 'inline',
+    pageSize: this.pageSize,
+    isLocalPaging: true,
+  });
 
   editAction: TableRowAction<JournalModel> = {
     action: (data) => {
-      this.router.navigate([`${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.AddJournal}`,
-      { id: data.journalEntryId }])
+      console.log('general table-==================', data);
+      this.router.navigate([
+        `${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.AddJournal}`,
+        { id: data.journalEntryId },
+      ]);
     },
     cssClasses: 'text-black',
     iconName: 'drive_file_rename_outline',
@@ -244,7 +272,9 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
   };
 
   copyAction: TableRowAction<JournalModel> = {
-    action: (data) => { console.log(data) },
+    action: (data) => {
+      console.log(data);
+    },
     cssClasses: 'text-black',
     iconName: 'content_copy',
     translationKey: '',
@@ -255,7 +285,7 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
 
   printAction: TableRowAction<JournalModel> = {
     action: (data) => {
-      console.log(data)
+      console.log(data);
       this.dialog.open(PrintJournalComponent, {
         width: '70%',
       });
@@ -276,24 +306,40 @@ export class GeneralAccountingComponent extends BaseComponent implements OnInit 
     settings: this.tableSettings,
   };
 
-
   onStartSearch() {
-    this.generalAccountingService.getJournalItems(this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd  h:mm:ss'), this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd'));
-    this.generalAccountingService.getJournalItemTotals(this.pipe.transform(this.startDateFormControl.value, 'yyyy-MM-dd  h:mm:ss'), this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd'));
+    this.generalAccountingService.getJournalItems(
+      this.pipe.transform(
+        this.startDateFormControl.value,
+        'yyyy-MM-dd  h:mm:ss'
+      ),
+      this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd')
+    );
+    this.generalAccountingService.getJournalItemTotals(
+      this.pipe.transform(
+        this.startDateFormControl.value,
+        'yyyy-MM-dd  h:mm:ss'
+      ),
+      this.pipe.transform(this.endDateFormControl.value, 'yyyy-MM-dd')
+    );
     this.startDateFormControl.reset();
     this.endDateFormControl.reset();
   }
   //
   currencyEditorClick() {
-    this.router.navigate([`${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.CurrencyEditor}`])
+    this.router.navigate([
+      `${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.CurrencyEditor}`,
+    ]);
   }
 
   accountsClick() {
-    this.router.navigate([`${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.Accounts}`])
+    this.router.navigate([
+      `${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.Accounts}`,
+    ]);
   }
 
   addJournalEntryClick() {
-    this.router.navigate([`${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.AddJournal}`])
+    this.router.navigate([
+      `${ApplicationRoutes.GeneralAccounting}/${ApplicationRoutes.AddJournal}`,
+    ]);
   }
-
 }

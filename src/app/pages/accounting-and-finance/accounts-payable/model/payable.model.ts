@@ -1,7 +1,8 @@
 export interface PayableModel {
-    ein: string,
-    name: string,
-    currency: string,
-    amount: number,
-    amountnotdue: number,
+  id: number;
+  ein: string;
+  name: string;
+  currency: string;
+  amount: number;
+  amountnotdue: number;
 }

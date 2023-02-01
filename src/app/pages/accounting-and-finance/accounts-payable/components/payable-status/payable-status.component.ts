@@ -19,25 +19,28 @@ export class PayableStatusComponent implements OnInit {
 
   payableList: PayableModel[] = [
     {
-      ein: '779722',
-      name: 'Taanayel Hospital',
+      id: 1,
+      ein: '7797221',
+      name: 'Taanayel Hospital1',
       currency: 'USD',
-      amount: 21592.0,
-      amountnotdue: 12100.0,
+      amount: 215921.0,
+      amountnotdue: 121001.0,
     },
     {
-      ein: '779722',
-      name: 'Taanayel Hospital',
+      id: 2,
+      ein: '7797222',
+      name: 'Taanayel Hospital2',
       currency: 'USD',
-      amount: 21592.0,
-      amountnotdue: 12100.0,
+      amount: 215922.0,
+      amountnotdue: 121002.0,
     },
     {
-      ein: '779722',
-      name: 'Taanayel Hospital',
+      id: 3,
+      ein: '7797223',
+      name: 'Taanayel Hospital3',
       currency: 'USD',
-      amount: 21592.0,
-      amountnotdue: 12100.0,
+      amount: 215923.0,
+      amountnotdue: 121003.0,
     },
   ];
 
