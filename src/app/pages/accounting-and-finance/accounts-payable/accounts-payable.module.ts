@@ -15,6 +15,7 @@ import { AccountsPayableComponent } from './components/accounts-payable/accounts
 import { AddPaymentComponent } from './components/add-payment/add-payment.component';
 import { PayableStatusComponent } from './components/payable-status/payable-status.component';
 import { VendorInvoiceComponent } from './components/vendor-invoice/vendor-invoice.component';
+import { ProcessingPaymentComponent } from './components/processing-payment/processing-payment.component';
 
 const routes: Route[] = [
   {
@@ -37,6 +38,7 @@ const routes: Route[] = [
     AddPaymentComponent,
     PayableStatusComponent,
     VendorInvoiceComponent,
+    ProcessingPaymentComponent,
   ],
   imports: [
     CommonModule,
