@@ -5,6 +5,8 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { PayableModel } from '../../model/payable.model';
 import { WireTransferModel } from '../../model/wire-transfer.model';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-payable-status',
@@ -47,9 +49,23 @@ export class PayableStatusComponent implements OnInit {
 
   tab: number = 1;
 
-  constructor() {}
+  constructor(private layoutService: LayoutService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.AccountsPayable,
+          translationKey:
+            'accounting-add-finance.accounts-payable.accounts-payable',
+        },
+        {
+          route: ApplicationRoutes.PayableStatus,
+          translationKey: 'Payable Status',
+        },
+      ],
+    });
+  }
 
   tableColumns: TableColumn[] = [
     {
