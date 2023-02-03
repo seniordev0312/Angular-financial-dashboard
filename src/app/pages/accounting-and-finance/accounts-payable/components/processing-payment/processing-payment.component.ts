@@ -14,7 +14,8 @@ export class ProcessingPaymentComponent implements OnInit {
     '../../../../../../assets/images/accounting-payable/wire-transfer.png';
   unlockImage: string =
     '../../../../../../assets/images/accounting-payable/unlock.png';
-
+  medgulfImage: string =
+    '../../../../../../assets/images/accounting-payable/Group-25.png';
   tab: number = 1;
   constructor(public dialogRef: MatDialogRef<ProcessingPaymentComponent>) {}
 

@@ -27,10 +27,10 @@
         [style.display]="tab === 1 ? '' : 'none'"
         class="flex flex-col justify-center items-center"
       >
-        <div class="flex flex-col w-[53%] justify-center items-center">
-          <div class="flex flex-row items-center">
+        <div class="flex flex-col w-[55%] justify-center items-center">
+          <div class="flex flex-row items-center w-full">
             <div
-              class="bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center p-1"
+              class="bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center p-1 w-[35%]"
             >
               <div class="w-[30%] flex justify-center">
                 <p class="text-[13px] font-normal">Currency</p>
@@ -40,7 +40,7 @@
               </div>
             </div>
             <div
-              class="py-6 px-4 ml-[10px] bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center"
+              class="py-6 px-4 ml-[10px] bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center w-[50%]"
             >
               <div class="w-[30%] flex justify-center items-center">
                 <p class="mr-4 text-[13px] font-medium">Amount</p>
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div
-              class="flex justify-center items-center h-full p-4 ml-[10px] bg-[#fafafa] rounded-[12px]"
+              class="flex justify-center items-center h-full p-4 ml-[10px] bg-[#fafafa] rounded-[12px] w-[13%]"
             >
               <img
                 class="h-[26px] w-[26px] object-contain"
@@ -87,8 +87,147 @@
         </div>
 
         <div class="flex flex-row justify-between items-center w-full my-4">
-          <div class="w-[49%] h-[250px] p-4 bg-[#fafafa] rounded-[12px]"></div>
-          <div class="flex flex-wrap w-[49%] p-4 bg-[#fafafa] rounded-[12px]">
+          <div class="flex flex-col w-[49%] p-5 bg-[#fafafa] rounded-[12px]">
+            <div class="flex flex-row justify-between items-center w-full">
+              <div>
+                <img
+                  class="h-[15px] w-[115px] object-contain"
+                  src="{{ medgulfImage }}"
+                />
+              </div>
+              <div class="flex flex-row justify-center items-center">
+                <span class="text-[24px] font-normal pr-2">L.B.P</span>
+                <span class="border-[1px] px-[18px] py-[10px]"
+                  >*****209,054.00</span
+                >
+              </div>
+            </div>
+            <div class="w-full flex flex-row justify-between items-center pt-3">
+              <div>
+                <p class="text-[13px] font-normal">Pay against this check</p>
+              </div>
+              <div>
+                <p class="text-[10px] font-normal">بموجب هذا الشيك ادفعوا</p>
+              </div>
+            </div>
+            <div class="w-full flex flex-row justify-around items-center pt-3">
+              <div class="w-[20%]">
+                <p class="text-[13px] font-normal">To the order of</p>
+              </div>
+              <div class="flex flex-col w-[65%]">
+                <div class="flex flex-row w-full">
+                  <input
+                    class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                    placeholder="M/s. HEALTH MEDICAL AVENUE CENTER"
+                    type="number"
+                  />
+                </div>
+                <div class="pt-1">
+                  <hr />
+                </div>
+              </div>
+              <div class="w-[10%]">
+                <p class="text-[10px] font-normal">مبلغ</p>
+              </div>
+            </div>
+            <div class="w-full flex flex-row justify-around items-center pt-3">
+              <div class="w-[20%]">
+                <p class="text-[13px] font-normal">The sum of</p>
+              </div>
+              <div class="flex flex-col w-[75%]">
+                <div class="flex flex-row w-full">
+                  <input
+                    class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                    placeholder="ONLY TWO HUNDRED NINE THOUSAND FIFTY FOUR LEBANESE POUNDS"
+                    type="number"
+                  />
+                </div>
+                <div class="pt-1">
+                  <hr />
+                </div>
+              </div>
+              <div class="w-[3%]">
+                <p class="text-[10px] font-normal text-center">مبلغ</p>
+              </div>
+            </div>
+            <div class="w-full flex flex-row justify-around items-center pt-3">
+              <div class="flex flex-col w-full">
+                <div class="flex flex-row w-full">
+                  <input
+                    class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                    placeholder=""
+                    type="text"
+                  />
+                </div>
+                <div class="pt-1">
+                  <hr />
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-row justify-around items-center pt-3">
+              <div class="flex flex-row items-center w-[25%]">
+                <span class="text-[13px] font-normal">Payable at</span> /
+                <span class="text-[13px] font-normal">يدفع في</span>
+              </div>
+              <div class="w-[70%] flex flex-row justify-around items-center">
+                <div class="flex flex-col w-[30%]">
+                  <div class="flex flex-row w-full">
+                    <input
+                      class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                      placeholder="BEIRUT"
+                      type="text"
+                    />
+                  </div>
+                  <div class="pt-1">
+                    <hr />
+                  </div>
+                </div>
+                <div class="flex flex-col w-[30%]">
+                  <div class="flex flex-row w-full">
+                    <input
+                      class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                      placeholder="13-09-2022"
+                      type="text"
+                    />
+                  </div>
+                  <div class="pt-1">
+                    <hr />
+                  </div>
+                </div>
+                <div class="w-[30%] flex justify-center items-center">
+                  <p class="w-full text-center text-[10px]">Signature</p>
+                </div>
+              </div>
+              <div class="w-[3%] flex items-center justify-center">
+                <p class="text-[10px] text-center">الإمضاء</p>
+              </div>
+            </div>
+            <div class="w-full flex flex-col pt-3">
+              <div class="w-full pt-1">
+                <p class="text-[13px] font-normal">
+                  يي بنك الاعتماد الوطني ش.م.ل
+                </p>
+              </div>
+              <div class="w-full pt-1">
+                <p class="text-[13px] font-normal">
+                  Banque de Credit National S.A.L
+                </p>
+              </div>
+              <div class="w-full pt-1">
+                <p class="text-[10px] font-normal opacity-[0.53]">
+                  Patriarch Howayek Branch-Solidere
+                </p>
+              </div>
+              <div class="w-full pt-1">
+                <p class="text-[10px] font-normal text-center">
+                  THE MEDITERRANEAN & GULF INSURNCE &REINS.Co. SAL (MEDGULF)
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex flex-wrap w-[49%] p-4 h-full bg-[#fafafa] rounded-[12px]"
+          >
             <div class="flex flex-row justify-start items-center w-1/2 p-5">
               <div class="w-[30%] pr-3">
                 <p class="pr-4 text-sm font-medium">EIN *</p>
@@ -220,6 +359,7 @@
             </div>
           </div>
         </div>
+
         <div class="flex justify-end items-center w-full">
           <div class="pt-4 flex flex-row justify-between items-center">
             <app-button
