@@ -27,10 +27,10 @@
         [style.display]="tab === 1 ? '' : 'none'"
         class="flex flex-col justify-center items-center"
       >
-        <div class="flex flex-col w-[40%] justify-center items-center">
+        <div class="flex flex-col w-[53%] justify-center items-center">
           <div class="flex flex-row items-center">
             <div
-              class="py-6 px-4 bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center"
+              class="bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center p-1"
             >
               <div class="w-[30%] flex justify-center">
                 <p class="text-[13px] font-normal">Currency</p>
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div
-              class="flex justify-center items-center p-4 ml-[10px] bg-[#fafafa] rounded-[12px]"
+              class="flex justify-center items-center h-full p-4 ml-[10px] bg-[#fafafa] rounded-[12px]"
             >
               <img
                 class="h-[26px] w-[26px] object-contain"
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div
-            class="flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] w-full py-6 px-6"
+            class="flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] w-full py-6 px-6 mt-3"
           >
             <div class="flex items-center justify-center w-[30%]">
               <p class="mr-4 text-[13px] font-normal">Bank Account...</p>
@@ -90,12 +90,14 @@
           <div class="w-[49%] h-[250px] p-4 bg-[#fafafa] rounded-[12px]"></div>
           <div class="flex flex-wrap w-[49%] p-4 bg-[#fafafa] rounded-[12px]">
             <div class="flex flex-row justify-start items-center w-1/2 p-5">
-              <p class="mr-4 text-sm font-medium">EIN *</p>
+              <div class="w-[30%] pr-3">
+                <p class="pr-4 text-sm font-medium">EIN *</p>
+              </div>
               <div class="flex flex-col w-[70%]">
                 <div class="flex flex-row w-full">
                   <input
                     class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                    type="number"
+                    type="text"
                   />
                 </div>
                 <div class="pt-2">
@@ -104,12 +106,14 @@
               </div>
             </div>
             <div class="flex flex-row justify-start items-center w-1/2 p-5">
-              <p class="mr-4 text-sm font-medium">Invoice #</p>
+              <div class="w-[30%] pr-3">
+                <p class="pr-4 text-sm font-medium">Invoice #</p>
+              </div>
               <div class="flex flex-col w-[70%]">
                 <div class="flex flex-row w-full">
                   <input
                     class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                    type="number"
+                    type="text"
                   />
                 </div>
                 <div class="pt-2">
@@ -118,12 +122,14 @@
               </div>
             </div>
             <div class="flex flex-row justify-start items-center w-1/2 p-5">
-              <p class="mr-4 text-sm font-medium">Name</p>
+              <div class="w-[30%] pr-3">
+                <p class="pr-4 text-sm font-medium">Name</p>
+              </div>
               <div class="flex flex-col w-[70%]">
                 <div class="flex flex-row w-full">
                   <input
                     class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                    type="number"
+                    type="text"
                   />
                 </div>
                 <div class="pt-2">
@@ -132,12 +138,14 @@
               </div>
             </div>
             <div class="flex flex-row justify-start items-center w-1/2 p-5">
-              <p class="mr-4 text-sm font-medium">Invoice Date</p>
+              <div class="w-[30%] pr-3">
+                <p class="pr-4 text-sm font-medium">Invoice Date</p>
+              </div>
               <div class="flex flex-col w-[70%]">
                 <div class="flex flex-row w-full">
                   <input
                     class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                    type="number"
+                    type="Date"
                   />
                 </div>
                 <div class="pt-2">
@@ -146,12 +154,14 @@
               </div>
             </div>
             <div class="flex flex-row justify-start items-center w-1/2 p-5">
-              <p class="mr-4 text-sm font-medium">Due Date</p>
+              <div class="w-[30%] pr-3">
+                <p class="pr-4 text-sm font-medium">Due Date</p>
+              </div>
               <div class="flex flex-col w-[70%]">
                 <div class="flex flex-row w-full">
                   <input
                     class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                    type="number"
+                    type="Date"
                   />
                 </div>
                 <div class="pt-2">
