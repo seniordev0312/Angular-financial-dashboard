@@ -2,7 +2,7 @@
   <div class="flex flex-row justify-end items-center w-full">
     <div class="pl-6">
       <app-button
-        routerLink="/accounts-payable/payable-status"
+        (click)="payableStatusClick()"
         classes="px-12 py-4 text-[12px] leading-none text-center flex justify-center items-center  bg-primary text-white  color-white"
         text="status"
       ></app-button>
