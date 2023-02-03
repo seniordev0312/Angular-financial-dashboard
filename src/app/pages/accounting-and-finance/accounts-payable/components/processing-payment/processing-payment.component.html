@@ -1,11 +1,11 @@
 <app-dialog-header label="Processing Payment"></app-dialog-header>
 <!-- <mat-dialog-content> -->
-<div class="min-w-[50rem] h-full flex flex-row border-2 border-gray-light1">
+<div class="min-w-[50rem] h-[90%] flex flex-row border-2 border-gray-light1">
   <div class="flex flex-col w-[10%] border-2 border-gray-light1">
     <div
       (click)="tabSelection(0)"
       class="w-full flex flex-col justify-center items-center border-b-2 border-gray-light1"
-      [style]="tab === 0 ? 'height: 83%' : 'height: 17%'"
+      [style]="tab === 0 ? 'height: 73%' : 'height: 17%'"
     >
       <img
         class="h-[25px] w-[35px] object-contain"
@@ -16,13 +16,13 @@
     <div
       (click)="tabSelection(1)"
       class="w-full flex flex-col justify-center items-center"
-      [style]="tab === 1 ? 'height: 83%' : 'height: 17%'"
+      [style]="tab === 1 ? 'height: 73%' : 'height: 17%'"
     >
       <img class="h-[25px] w-[35px] object-contain" src="{{ checksImage }}" />
       <h3>Checks</h3>
     </div>
   </div>
-  <div class="flex flex-col w-[90%] p-10">
+  <div class="flex flex-col w-[90%] p-10 overflow-y-auto">
     <div
       [style.display]="tab === 1 ? '' : 'none'"
       class="flex flex-col justify-center items-center"
