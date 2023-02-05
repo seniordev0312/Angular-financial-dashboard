@@ -1,0 +1,381 @@
+<app-dialog-header label="Processing Payment"></app-dialog-header>
+<!-- <mat-dialog-content> -->
+<div class="min-w-[50rem] h-[90%] flex flex-row border-2 border-gray-light1">
+  <div class="flex flex-col w-[10%] border-2 border-gray-light1">
+    <div
+      (click)="tabSelection(0)"
+      class="w-full flex flex-col justify-center items-center border-b-2 border-gray-light1"
+      [style]="tab === 0 ? 'height: 73%' : 'height: 17%'"
+    >
+      <img
+        class="h-[25px] w-[35px] object-contain"
+        src="{{ wireTransferImage }}"
+      />
+      <h3 class="text-center">Wire Transfer</h3>
+    </div>
+    <div
+      (click)="tabSelection(1)"
+      class="w-full flex flex-col justify-center items-center"
+      [style]="tab === 1 ? 'height: 73%' : 'height: 17%'"
+    >
+      <img class="h-[25px] w-[35px] object-contain" src="{{ checksImage }}" />
+      <h3>Checks</h3>
+    </div>
+  </div>
+  <div class="flex flex-col w-[90%] p-10 overflow-y-auto">
+    <div
+      [style.display]="tab === 1 ? '' : 'none'"
+      class="flex flex-col justify-center items-center"
+    >
+      <div class="flex flex-col w-[55%] justify-center items-center">
+        <div class="flex flex-row items-center w-full">
+          <div
+            class="bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center p-1 w-[35%]"
+          >
+            <div class="w-[30%] flex justify-center">
+              <p class="text-[13px] font-normal">Currency</p>
+            </div>
+            <div class="w-[70%] justify-center">
+              <app-select-list></app-select-list>
+            </div>
+          </div>
+          <div
+            class="py-6 px-4 ml-[10px] bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center w-[50%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">Amount</p>
+            </div>
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="number"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex justify-center items-center h-full p-4 ml-[10px] bg-[#fafafa] rounded-[12px] w-[13%]"
+          >
+            <img
+              class="h-[26px] w-[26px] object-contain"
+              src="{{ unlockImage }}"
+            />
+          </div>
+        </div>
+        <div
+          class="flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] w-full py-6 px-6 mt-3"
+        >
+          <div class="flex items-center justify-center w-[30%]">
+            <p class="mr-4 text-[13px] font-normal">Bank Account...</p>
+          </div>
+          <div class="flex flex-col w-[70%]">
+            <div class="flex flex-row w-full">
+              <input
+                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                type="number"
+              />
+            </div>
+            <div class="pt-2">
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-row justify-between items-center w-full my-4">
+        <div class="flex flex-col w-[49%] p-5 bg-[#fafafa] rounded-[12px]">
+          <div class="flex flex-row justify-between items-center w-full">
+            <div>
+              <img
+                class="h-[15px] w-[115px] object-contain"
+                src="{{ medgulfImage }}"
+              />
+            </div>
+            <div class="flex flex-row justify-center items-center">
+              <span class="text-[24px] font-normal pr-2">L.B.P</span>
+              <span class="border-[1px] px-[18px] py-[10px]"
+                >*****209,054.00</span
+              >
+            </div>
+          </div>
+          <div class="w-full flex flex-row justify-between items-center pt-3">
+            <div>
+              <p class="text-[13px] font-normal">Pay against this check</p>
+            </div>
+            <div>
+              <p class="text-[10px] font-normal">بموجب هذا الشيك ادفعوا</p>
+            </div>
+          </div>
+          <div class="w-full flex flex-row justify-around items-center pt-3">
+            <div class="w-[20%]">
+              <p class="text-[13px] font-normal">To the order of</p>
+            </div>
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  placeholder="M/s. HEALTH MEDICAL AVENUE CENTER"
+                  type="number"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+            <div class="w-[10%]">
+              <p class="text-[10px] font-normal">مبلغ</p>
+            </div>
+          </div>
+          <div class="w-full flex flex-row justify-around items-center pt-3">
+            <div class="w-[20%]">
+              <p class="text-[13px] font-normal">The sum of</p>
+            </div>
+            <div class="flex flex-col w-[75%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  placeholder="ONLY TWO HUNDRED NINE THOUSAND FIFTY FOUR LEBANESE POUNDS"
+                  type="number"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+            <div class="w-[3%]">
+              <p class="text-[10px] font-normal text-center">مبلغ</p>
+            </div>
+          </div>
+          <div class="w-full flex flex-row justify-around items-center pt-3">
+            <div class="flex flex-col w-full">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  placeholder=""
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="w-full flex flex-row justify-around items-center pt-3">
+            <div class="flex flex-row items-center w-[25%]">
+              <span class="text-[13px] font-normal">Payable at</span> /
+              <span class="text-[13px] font-normal">يدفع في</span>
+            </div>
+            <div class="w-[70%] flex flex-row justify-around items-center">
+              <div class="flex flex-col w-[30%]">
+                <div class="flex flex-row w-full">
+                  <input
+                    class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                    placeholder="BEIRUT"
+                    type="text"
+                  />
+                </div>
+                <div class="pt-1">
+                  <hr />
+                </div>
+              </div>
+              <div class="flex flex-col w-[30%]">
+                <div class="flex flex-row w-full">
+                  <input
+                    class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                    placeholder="13-09-2022"
+                    type="text"
+                  />
+                </div>
+                <div class="pt-1">
+                  <hr />
+                </div>
+              </div>
+              <div class="w-[30%] flex justify-center items-center">
+                <p class="w-full text-center text-[10px]">Signature</p>
+              </div>
+            </div>
+            <div class="w-[3%] flex items-center justify-center">
+              <p class="text-[10px] text-center">الإمضاء</p>
+            </div>
+          </div>
+          <div class="w-full flex flex-col pt-3">
+            <div class="w-full pt-1">
+              <p class="text-[13px] font-normal">
+                يي بنك الاعتماد الوطني ش.م.ل
+              </p>
+            </div>
+            <div class="w-full pt-1">
+              <p class="text-[13px] font-normal">
+                Banque de Credit National S.A.L
+              </p>
+            </div>
+            <div class="w-full pt-1">
+              <p class="text-[10px] font-normal opacity-[0.53]">
+                Patriarch Howayek Branch-Solidere
+              </p>
+            </div>
+            <div class="w-full pt-1">
+              <p class="text-[10px] font-normal text-center">
+                THE MEDITERRANEAN & GULF INSURNCE &REINS.Co. SAL (MEDGULF)
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-wrap w-[49%] p-4 h-full bg-[#fafafa] rounded-[12px]"
+        >
+          <div class="flex flex-row justify-start items-center w-1/2 p-5">
+            <div class="w-[30%] pr-3">
+              <p class="pr-4 text-sm font-medium">EIN *</p>
+            </div>
+            <div class="flex flex-col w-[70%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-2">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row justify-start items-center w-1/2 p-5">
+            <div class="w-[30%] pr-3">
+              <p class="pr-4 text-sm font-medium">Invoice #</p>
+            </div>
+            <div class="flex flex-col w-[70%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-2">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row justify-start items-center w-1/2 p-5">
+            <div class="w-[30%] pr-3">
+              <p class="pr-4 text-sm font-medium">Name</p>
+            </div>
+            <div class="flex flex-col w-[70%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-2">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row justify-start items-center w-1/2 p-5">
+            <div class="w-[30%] pr-3">
+              <p class="pr-4 text-sm font-medium">Invoice Date</p>
+            </div>
+            <div class="flex flex-col w-[70%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="Date"
+                />
+              </div>
+              <div class="pt-2">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row justify-start items-center w-1/2 p-5">
+            <div class="w-[30%] pr-3">
+              <p class="pr-4 text-sm font-medium">Due Date</p>
+            </div>
+            <div class="flex flex-col w-[70%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="Date"
+                />
+              </div>
+              <div class="pt-2">
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-row w-full items-center justify-between">
+        <div
+          class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden"
+        >
+          <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+            <p class="text-white text-[16px]">Notes</p>
+          </div>
+          <div class="flex flex-col w-full p-7 pb-0">
+            <div class="flex flex-row w-full">
+              <input
+                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                type="number"
+              />
+            </div>
+            <div class="pt-2">
+              <hr />
+            </div>
+          </div>
+          <div class="flex flex-col w-full p-7">
+            <div class="flex flex-row w-full">
+              <input
+                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                type="number"
+              />
+            </div>
+            <div class="pt-2">
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div
+          class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden h-full"
+        >
+          <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+            <p class="text-white text-[16px]">
+              Total Advance Payments Available
+            </p>
+          </div>
+          <div class="w-full flex justify-between items-center p-10">
+            <span class="font-bold text-[17px]">45,000,000.00</span>
+            <span class="text-[17px] font-normal opacity-40">LBP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end items-center w-full">
+        <div class="pt-4 flex flex-row justify-between items-center">
+          <app-button
+            classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+                 justify-center items-center bg-white border-[1px] border-[#275e80] text-[#275e80]  color-white"
+            text="Cancel"
+          ></app-button>
+          <app-button
+            classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+                 justify-center items-center bg-primary text-white  color-white"
+            text="Request Authorization"
+          ></app-button>
+        </div>
+      </div>
+
+      <div class="h-10"></div>
+    </div>
+    <div [style.display]="tab === 0 ? '' : 'none'" class="py-[60px] px-[26px]">
+      <p>works!</p>
+    </div>
+  </div>
+</div>
+<!-- </mat-dialog-content> -->
