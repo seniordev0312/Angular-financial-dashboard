@@ -215,4 +215,10 @@ export class AccountsPayableComponent implements OnInit {
       height: '90%',
     });
   }
+
+  payableStatusClick() {
+    this.router.navigate([
+      `${ApplicationRoutes.AccountsPayable}/${ApplicationRoutes.PayableStatus}`,
+    ]);
+  }
 }
