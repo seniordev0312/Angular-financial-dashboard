@@ -14,7 +14,7 @@ export class CustomerCardService {
   constructor(
     private http: HttpClient,
     private customerServiceTicketsRepository: CustomerServiceTicketsRepository
-  ) {}
+  ) { }
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -27,7 +27,7 @@ export class CustomerCardService {
     }),
   };
 
-  customerServiceServerURL = `${environment.customerServer}/api`;
+  customerServiceServerURL = `${environment.customerService}/api`;
 
   // Define API route
   apiFilterURL = `${this.customerServiceServerURL}/CustomerServiceTicket/Filter`;

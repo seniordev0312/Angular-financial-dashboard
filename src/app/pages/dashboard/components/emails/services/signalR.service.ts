@@ -10,7 +10,7 @@ import { EmailsService } from './emails.service';
     providedIn: 'root'
 })
 export class SignalRService {
-    private readonly baseUrl = `${environment.signalRHub}`;
+    private readonly baseUrl = `${environment.customerServiceSignalRHub}`;
     private options: signalR.IHttpConnectionOptions;
     private hubConnection: signalR.HubConnection;
 

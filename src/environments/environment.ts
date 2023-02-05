@@ -1,9 +1,8 @@
 export const environment = {
   production: window[<any>"env"][<any>"production"] || true,
-  apiUrl: window[<any>"env"][<any>"apiUrl"] || "default",
   identityAPIServerURL: window[<any>"env"][<any>"identityAPIServerURL"] || "default",
-  signalRHub: window[<any>"env"][<any>"signalRHub"] || "default",
-  customerServer: window[<any>"env"][<any>"customerServer"] || "default",
+  customerServiceSignalRHub: window[<any>"env"][<any>"customerServiceSignalRHub"] || "default",
+  customerService: window[<any>"env"][<any>"customerService"] || "default",
   identityServerURL: window[<any>"env"][<any>"identityServerURL"] || "default",
   systemSetupApiUrl: window[<any>"env"][<any>"systemSetupApiUrl"] || "default",
   accountingUrl: window[<any>"env"][<any>"accountingUrl"] || "default",
