@@ -1,12 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
+import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
-import { PayableModel } from '../../model/payable.model';
-import { WireTransferModel } from '../../model/wire-transfer.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { PayableStatusModel } from '../../model/payable-status.model';
+import { WireTransferModel } from '../../model/wire-transfer.model';
+import { PrintStatusComponent } from '../print-status/print-status.component';
 
 @Component({
   selector: 'app-payable-status',
@@ -20,36 +28,49 @@ export class PayableStatusComponent implements OnInit {
   wireTransferImage: string =
     '../../../../../../assets/images/accounting-payable/wire-transfer.png';
 
-  payableList: PayableModel[] = [
+  payableList: PayableStatusModel[] = [
     {
       id: 1,
       ein: '7797221',
       name: 'Taanayel Hospital1',
+      date: '11-03-2022',
+      checkno: 123,
       currency: 'USD',
       amount: 215921.0,
-      amountnotdue: 121001.0,
+      status: 1,
     },
     {
       id: 2,
       ein: '7797222',
       name: 'Taanayel Hospital2',
+      date: '11-03-2022',
+      checkno: 123,
       currency: 'USD',
       amount: 215922.0,
-      amountnotdue: 121002.0,
+      status: 3,
     },
     {
       id: 3,
       ein: '7797223',
       name: 'Taanayel Hospital3',
+      date: '11-03-2022',
+      checkno: 123,
       currency: 'USD',
       amount: 215923.0,
-      amountnotdue: 121003.0,
+      status: 2,
     },
   ];
 
   tab: number = 1;
 
-  constructor(private layoutService: LayoutService) {}
+  @ViewChild(WidgetTableComponent)
+  table: WidgetTableComponent<PayableStatusModel>;
+
+  constructor(
+    private layoutService: LayoutService,
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -65,6 +86,11 @@ export class PayableStatusComponent implements OnInit {
         },
       ],
     });
+
+    this.tableConfiguration.data = this.payableList;
+    this.tableConfiguration.dataCount = this.payableList.length;
+    this.cdr.detectChanges();
+    this.table.refresh();
   }
 
   tableColumns: TableColumn[] = [
@@ -89,6 +115,38 @@ export class PayableStatusComponent implements OnInit {
       translationKey: 'Name',
       property: 'name',
       type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Date',
+      property: 'date',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Date,
+      },
+    },
+    {
+      translationKey: 'Check No',
+      property: 'checkno',
+      type: 'number',
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
@@ -134,8 +192,8 @@ export class PayableStatusComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Amount Not Due',
-      property: 'amountnotdue',
+      translationKey: 'Status',
+      property: 'status',
       type: 'number',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -267,6 +325,22 @@ export class PayableStatusComponent implements OnInit {
     },
   ];
 
+  printAction: TableRowAction<PayableStatusModel> = {
+    action: (data) => {
+      console.log(data);
+      this.dialog.open(PrintStatusComponent, {
+        width: '70%',
+        height: '95%',
+      });
+    },
+    cssClasses: 'text-black',
+    iconName: 'print',
+    translationKey: '',
+    alwaysShow: true,
+    showConditionProperty: null,
+    isIconButton: true,
+  };
+
   pageSize = 15;
 
   tableSettings = new TableSettings({
@@ -275,8 +349,8 @@ export class PayableStatusComponent implements OnInit {
     isLocalPaging: true,
   });
 
-  tableConfiguration: TableConfiguration<PayableModel> = {
-    tableRowsActionsList: [],
+  tableConfiguration: TableConfiguration<PayableStatusModel> = {
+    tableRowsActionsList: [this.printAction],
     columns: this.tableColumns,
     data: [],
     dataCount: null,
