@@ -1,7 +1,9 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -37,7 +39,7 @@ export class PayableStatusComponent implements OnInit {
       checkno: 123,
       currency: 'USD',
       amount: 215921.0,
-      status: 'Qualitified',
+      status: 'Pending',
     },
     {
       id: 2,
@@ -47,7 +49,7 @@ export class PayableStatusComponent implements OnInit {
       checkno: 123,
       currency: 'USD',
       amount: 215922.0,
-      status: 'NEW',
+      status: 'Authorized',
     },
     {
       id: 3,
@@ -57,7 +59,7 @@ export class PayableStatusComponent implements OnInit {
       checkno: 123,
       currency: 'USD',
       amount: 215923.0,
-      status: 'PROPOSAL',
+      status: 'Rejected',
     },
   ];
 
