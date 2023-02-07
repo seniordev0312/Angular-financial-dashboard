@@ -6,5 +6,5 @@ export interface PayableStatusModel {
   checkno: number;
   currency: string;
   amount: number;
-  status: number;
+  status: string;
 }
