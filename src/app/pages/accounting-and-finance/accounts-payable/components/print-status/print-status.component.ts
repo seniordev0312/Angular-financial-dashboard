@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-print-status',
@@ -10,7 +11,12 @@ export class PrintStatusComponent implements OnInit {
   printImage: string =
     '../../../../../../assets/images/accounting-payable/print.png';
 
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  onClose() : void {
+    this.dialog.closeAll();
+  }
 }
