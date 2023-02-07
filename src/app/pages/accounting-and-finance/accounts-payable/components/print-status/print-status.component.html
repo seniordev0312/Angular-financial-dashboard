@@ -52,7 +52,10 @@
   <img class="h-[250px] w-[80%] object-contain" src="{{ printImage }}" />
 </div>
 <div class="pt-[30px] flex flex-row justify-end items-end w-full">
-  <div class="pr-[50px] py-[18px] flex flex-row items-center justify-center">
+  <div
+    (click)="exportExcel()"
+    class="pr-[50px] py-[18px] flex flex-row items-center justify-center"
+  >
     <p class="text-[20px] font-bold text-[#186aa5]">> Detail_File.xlsx</p>
   </div>
   <app-button

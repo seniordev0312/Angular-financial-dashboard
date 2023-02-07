@@ -331,6 +331,7 @@ export class PayableStatusComponent implements OnInit {
       this.dialog.open(PrintStatusComponent, {
         width: '70%',
         height: '95%',
+        data: data,
       });
     },
     cssClasses: 'text-black',
