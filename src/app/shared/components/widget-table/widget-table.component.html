@@ -243,6 +243,11 @@
               </mat-icon>
               <span
                 class="text-sm"
+                [class]="
+                  column.property === 'status'
+                    ? 'customer-badge status-' + row[column.property]
+                    : ''
+                "
                 *ngIf="column.showText"
                 [matTooltipDisabled]="!column?.hasToolTip"
                 [matTooltip]="
