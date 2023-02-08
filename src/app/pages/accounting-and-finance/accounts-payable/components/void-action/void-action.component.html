@@ -1,0 +1,21 @@
+<app-dialog-header label="Print Preview"></app-dialog-header>
+<div class="py-[100px] px-[70px]">
+  <p class="font-bold text-[40px]">Warning:</p>
+  <p class="text-[30px] font-normal py-[30px]">
+    Voiding this transaction may cause discrepancies in the General Ledger.
+    Confirmation and authorization is required from management.
+  </p>
+  <div class="pt-[50px] flex flex-row items-center justify-center">
+    <app-button
+      classes="px-12 py-6 text-[20px] leading-none text-center flex
+                 justify-center items-center  border-[#186aa5] border-2 text-primary  color-white mr-[200px]"
+      (click)="onClose()"
+      text="Cancel"
+    ></app-button>
+    <app-button
+      classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+                 justify-center items-center  bg-primary text-white  color-white"
+      text="Print"
+    ></app-button>
+  </div>
+</div>
