@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -345,7 +345,7 @@ export class PayableStatusComponent implements OnInit {
     isIconButton: true,
   };
 
-    voidAction: TableRowAction<PayableStatusModel> = {
+  voidAction: TableRowAction<PayableStatusModel> = {
     action: (data) => {
       console.log(data);
       this.dialog.open(VoidActionComponent, {
@@ -355,7 +355,7 @@ export class PayableStatusComponent implements OnInit {
       });
     },
     cssClasses: 'text-black',
-    iconName: 'void',
+    iconName: 'assignment',
     translationKey: '',
     alwaysShow: true,
     showConditionProperty: null,
