@@ -3,7 +3,7 @@
     class="flex flex-row w-[100%] h-36 rounded-md shadow-md relative bg-white min-w-[200px]"
   >
     <div
-      class="flex flex-col items-center relative h-full w-[10%] text-[12px] text-[#FFFFFF] rounded-l-md {{
+      class="flex flex-col items-center relative h-full w-[14%] text-[12px] text-[#FFFFFF] rounded-l-md {{
         cardInfo.leftSideBackground
       }}"
     >
@@ -14,14 +14,14 @@
         <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" />
       </div>
     </div>
-    <div class="flex flex-col h-full w-[90%] p-0">
+    <div class="flex flex-col h-full w-[86%] p-0">
       <div
         class="flex justify-end items-center w-full h-[10%] mt-2 pr-4 text-[10px]"
       >
         {{ cardInfo.dateCreated }}
       </div>
       <div
-        class="flex justify-end items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[7px]"
+        class="flex justify-end font-black items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[7px]"
       >
         {{ cardInfo.ticketCode }}
       </div>
@@ -61,12 +61,12 @@
           class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[60%] h-full"
         >
           <div *ngIf="cardInfo.assignedToName">
-            <span class="text-[9px] pl-1">
+            <span class="text-[9px] pl-1 align-middle">
               {{ "assigned to " + cardInfo.assignedToName }}</span
             >
           </div>
           <div *ngIf="cardInfo.assignedToName == null">
-            <span class="text-[9px] pl-1"> Unassigned </span>
+            <span class="text-[9px] pl-1 align-middle"> Unassigned </span>
           </div>
         </div>
       </div>

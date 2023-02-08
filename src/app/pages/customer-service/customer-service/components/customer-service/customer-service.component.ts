@@ -80,8 +80,10 @@ export class CustomerServiceComponent implements OnInit {
 
   openDialog(card: {}): void {
     this.dialog.open(CustomerServiceTicketComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
       height: '90%',
-      width: '90%',
+      width: '95%',
       data: {
         dataKey: card,
       },

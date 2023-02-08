@@ -2,12 +2,6 @@
   width: 100% !important;
 }
 
-.BadgeAddtionClass {
-  right: 28px;
-  bottom: -22px;
-  border-radius: 20px;
-}
-
 ::ng-deep {
   .mat-form-field {
     display: flex;
@@ -16,6 +10,11 @@
 
 .set-opacity {
   opacity: 0.5;
+}
+
+.chat-icon-buttons {
+  width: 65px !important;
+  height: 65px !important;
 }
 
 ::ng-deep .labelSize {
@@ -42,3 +41,6 @@
   padding: 0px;
 }
 
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0.25em 0 0.5em 0 !important;
+}

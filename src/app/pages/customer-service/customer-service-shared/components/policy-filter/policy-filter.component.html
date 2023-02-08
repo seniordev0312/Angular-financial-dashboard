@@ -1,5 +1,5 @@
-<div class="h-[90vh] bg-[#fafafa] w-96 p-9">
-  <div class="h-[100%] w-[100%] flex flex-col justify-between">
+<div class="h-[90vh] bg-[#fafafa] w-80 p-9">
+  <div class="h-[100%] w-[100%] flex flex-col pb-8">
     <div class="w-[100%] flex flex-col pr-10">
       <div class="pb-5">
         <span class="font-bold text-[15px]">Filter By :</span>
@@ -11,28 +11,28 @@
         ></app-select-list>
       </div>
       <div class="pb-5">
-        <p class="font-bold text-[13px] pl-3">From Date Created:</p>
+        <p class="font-bold text-[10px]">From Date Created:</p>
         <app-date-picker-input
           [(dateValue)]="fromDateCreated"
           value="{{ fromDateCreated }}"
         ></app-date-picker-input>
       </div>
-      <div>
-        <p class="font-bold text-[13px] pl-3">To Date Created:</p>
+      <div class="pb-5">
+        <p class="font-bold text-[10px]">To Date Created:</p>
         <app-date-picker-input
           [(dateValue)]="toDateCreated"
           value="{{ toDateCreated }}"
         ></app-date-picker-input>
       </div>
-      <div>
-        <p class="font-bold text-[13px] pl-3">From Date Modified:</p>
+      <div class="pb-5">
+        <p class="font-bold text-[10px]">From Date Modified:</p>
         <app-date-picker-input
           [(dateValue)]="fromDateModified"
           value="{{ fromDateModified }}"
         ></app-date-picker-input>
       </div>
       <div class="pb-5">
-        <p class="font-bold text-[13px] pl-3">To Date Modified:</p>
+        <p class="font-bold text-[10px]">To Date Modified:</p>
         <app-date-picker-input
           [(dateValue)]="toDateModified"
           value="{{ toDateModified }}"
@@ -52,7 +52,7 @@
         ></app-select-list>
       </div>
     </div>
-    <div class="w-[100%] flex justify-between">
+    <div class="w-[100%] flex justify-between pb-4">
       <app-button
         text="Cancel"
         (click)="onCancel()"

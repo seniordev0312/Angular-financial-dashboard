@@ -8,7 +8,7 @@
     </div>
     <div class="w-[20%] flex justify-end">
       <div class="flex flex-col px-2">
-        <div *ngIf="!arrow">
+        <div *ngIf="!arrow" class="cursor-pointer">
           <img
             (click)="ascending()"
             src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
@@ -20,7 +20,7 @@
             class="pb-1 w-[18px] h-[13px]"
           />
         </div>
-        <div *ngIf="arrow">
+        <div *ngIf="arrow" class="cursor-pointer">
           <img
             (click)="ascending()"
             src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"

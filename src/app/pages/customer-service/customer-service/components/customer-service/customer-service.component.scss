@@ -12,6 +12,10 @@
   width: 140px;
 }
 
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0.25em 0 0 0;
+}
+
 ::ng-deep .mat-form-field-infix {
   border-top: 0px !important;
 }
@@ -63,6 +67,7 @@ mat-drawer-content {
 
 ::ng-deep .mat-drawer-content {
   overflow: hidden;
+  background-color: white !important;
 }
 
 ::ng-deep .mat-dialog-container {

@@ -1,10 +1,8 @@
-<div
-  class="flex flex-col bg-white pt-2.5 pb-5 pl-18 pr-5 border-none h-[270px]"
->
+<div class="flex flex-col bg-white pt-6 pb-5 pl-18 pr-5 border-none h-[270px]">
   <div class="flex flex-row">
     <div class="w-[35%]">
       <p class="text-[11px] font-bold">Response:</p>
-      <div class="flex flex-row pl-1.5">
+      <div class="flex flex-row pt-2">
         <div class="mx-1">
           <div *ngIf="response == 0">
             <mat-icon
@@ -13,26 +11,9 @@
             ></mat-icon>
           </div>
           <div *ngIf="response !== 0">
-            <img
+            <mat-icon
               (click)="getResponse(0)"
-              height="24px"
-              width="24px"
-              src="../../../../../../../assets/images/customer-service-icons/nocolor-happy-icon.png"
-              alt=""
-            />
-          </div>
-        </div>
-        <div class="mx-1">
-          <div *ngIf="response == 1">
-            <mat-icon
-              (click)="getResponse(1)"
-              svgIcon="customer-service-sad-color-1"
-            ></mat-icon>
-          </div>
-          <div *ngIf="response !== 1">
-            <mat-icon
-              (click)="getResponse(1)"
-              svgIcon="customer-service-sad-nocolor-icon"
+              svgIcon="customer-service-happy-nocolor-icon"
             ></mat-icon>
           </div>
         </div>
@@ -40,13 +21,27 @@
           <div *ngIf="response == 2">
             <mat-icon
               (click)="getResponse(2)"
-              svgIcon="customer-service-sad-color-2"
+              svgIcon="customer-service-sad-icon"
             ></mat-icon>
           </div>
           <div *ngIf="response !== 2">
             <mat-icon
               (click)="getResponse(2)"
               svgIcon="customer-service-sad-nocolor-1-icon"
+            ></mat-icon>
+          </div>
+        </div>
+        <div class="mx-1">
+          <div *ngIf="response == 1">
+            <mat-icon
+              (click)="getResponse(1)"
+              svgIcon="customer-service-sad-1-icon"
+            ></mat-icon>
+          </div>
+          <div *ngIf="response !== 1">
+            <mat-icon
+              (click)="getResponse(1)"
+              svgIcon="customer-service-sad-nocolor-icon"
             ></mat-icon>
           </div>
         </div>
@@ -64,80 +59,83 @@
     </div>
   </div>
   <div class="mt-8">
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between pb-4">
       <div *ngIf="pageFlag == 'request'" class="flex flex-row justify-between">
         <app-button
           (click)="pageEvent('request')"
-          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center  bg-primary color-white"
+          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-primary text-white color-white"
           text="Request Renewal Policy - Underwriting"
         ></app-button>
         <app-button
           (click)="pageEvent('send')"
-          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-gray-100"
+          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
           text="Send Renewed Policy - Same Terms"
         ></app-button>
       </div>
       <div *ngIf="pageFlag == 'send'" class="flex flex-row justify-between">
         <app-button
           (click)="pageEvent('request')"
-          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-gray-100"
+          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
           text="Request Renewal Policy - Underwriting"
         ></app-button>
         <app-button
           (click)="pageEvent('send')"
-          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-primary color-white"
+          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center text-white bg-primary color-white"
           text="Send Renewed Policy - Same Terms"
         ></app-button>
       </div>
       <div *ngIf="pageFlag == 'main'" class="flex flex-row justify-between">
         <app-button
           (click)="pageEvent('request')"
-          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-gray-100"
+          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
           text="Request Renewal Policy - Underwriting"
         ></app-button>
         <app-button
           (click)="pageEvent('send')"
-          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-gray-100"
+          classes="px-12 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
           text="Send Renewed Policy - Same Terms"
         ></app-button>
       </div>
     </div>
-    <div *ngIf="pageFlag == 'request'">
-      <div class="mt-8 w-[68%]">
-        <div class="colorflag">
-          <p class="text-[11px] font-bold">
-            Additional Details for Underwriting Support:
-          </p>
-          <div class="border border-t-0 border-x-0 border-b h-[33px]">
-            <app-input-field
-              [(inputValue)]="additionalDetailContent"
-              value="{{ additionalDetailContent }}"
-              class="flex widthFlag"
-            ></app-input-field>
+
+    <div class="flex">
+      <div *ngIf="pageFlag == 'request'">
+        <div class="mt-8">
+          <div class="colorflag">
+            <p class="text-[11px] font-bold">
+              Additional Details for Underwriting Support:
+            </p>
+            <div class="border border-t-0 border-x-0 border-b h-[33px]">
+              <app-input-field
+                [(inputValue)]="additionalDetailContent"
+                value="{{ additionalDetailContent }}"
+                class="flex widthFlag"
+              ></app-input-field>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="pageFlag == 'send'">
-      <div class="mt-8 w-[32%]">
-        <div class="colorflag">
-          <p class="text-[11px] font-bold">Policy Agreed Premium Price:</p>
-          <div class="border border-t-0 border-x-0 border-b h-[33px]">
-            <app-input-field
-              [(inputValue)]="policyPrice"
-              value="{{ policyPrice }}"
-              class="flex widthFlag"
-            ></app-input-field>
+      <div *ngIf="pageFlag == 'send'">
+        <div class="mt-8">
+          <div class="colorflag">
+            <p class="text-[11px] font-bold">Policy Agreed Premium Price:</p>
+            <div class="border border-t-0 border-x-0 border-b h-[33px]">
+              <app-input-field
+                [(inputValue)]="policyPrice"
+                value="{{ policyPrice }}"
+                class="flex widthFlag"
+              ></app-input-field>
+            </div>
           </div>
         </div>
       </div>
+      <div class="flex-1 flex items-end justify-end mb-1">
+        <app-button
+          (click)="saveHistory()"
+          classes="ml-auto px-8 py-3 text-[15px] bg-primary text-white rounded-md"
+          text="Save"
+        ></app-button>
+      </div>
     </div>
-  </div>
-  <div class="flex-1 flex items-end justify-end mb-1">
-    <app-button
-      (click)="saveHistory()"
-      classes="ml-auto px-8 py-3 text-[15px] bg-primary text-white rounded-md"
-      text="save"
-    ></app-button>
   </div>
 </div>
