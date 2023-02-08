@@ -190,6 +190,7 @@ export class HistoryListComponent
 
   // get icon name according to the response value.
   displayIcon(response: number) {
+    console.log(response)
     switch (response) {
       case 0:
         return 'customer-service-happy-icon';

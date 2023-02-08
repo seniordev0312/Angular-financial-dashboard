@@ -75,6 +75,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         // this.isLoading = false;
         this.ref.detectChanges();
       });
+    console.log(this.data);
   }
 
   openNote() {

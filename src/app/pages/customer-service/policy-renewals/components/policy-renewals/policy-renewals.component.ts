@@ -81,8 +81,10 @@ export class PolicyRenewalsComponent implements OnInit {
 
   openDialog(card: {}): void {
     this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
+    maxWidth: '100vw',
+      maxHeight: '100vh',
       height: '90%',
-      width: '90%',
+      width: '95%',
       data: {
         dataKey: card,
       },
