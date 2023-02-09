@@ -367,6 +367,28 @@
       </span>
       <span translate>{{ action.translationKey }}</span>
     </button>
+    <button
+      *ngIf="!action.alwaysShow && row['status'] === 'Pending'"
+      [ngClass]="action?.cssClasses"
+      class="text-md mx-2"
+      (click)="action.action(row)"
+      mat-raised-button
+    >
+      <span class="material-icons-outlined ltr:mr-2 rtl:mr-0 rtl:ml-2">
+        assignment
+      </span>
+    </button>
+    <button
+      *ngIf="!action.alwaysShow && row['status'] !== 'Pending'"
+      [ngClass]="action?.cssClasses"
+      class="text-md mx-2"
+      (click)="action.action(row)"
+      mat-raised-button
+    >
+      <span class="material-icons-outlined ltr:mr-2 rtl:mr-0 rtl:ml-2">
+        print
+      </span>
+    </button>
   </ng-container>
   <mat-slide-toggle
     [checked]="row[tableConfiguration.settings.slideActionProperty]"

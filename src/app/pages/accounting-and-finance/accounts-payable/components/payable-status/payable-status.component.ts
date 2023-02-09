@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -340,7 +340,7 @@ export class PayableStatusComponent implements OnInit {
     cssClasses: 'text-black',
     iconName: 'print',
     translationKey: '',
-    alwaysShow: true,
+    alwaysShow: false,
     showConditionProperty: null,
     isIconButton: true,
   };
@@ -357,7 +357,7 @@ export class PayableStatusComponent implements OnInit {
     cssClasses: 'text-black',
     iconName: 'assignment',
     translationKey: '',
-    alwaysShow: true,
+    alwaysShow: false,
     showConditionProperty: null,
     isIconButton: true,
   };
