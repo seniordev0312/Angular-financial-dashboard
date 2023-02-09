@@ -368,6 +368,11 @@
       <span translate>{{ action.translationKey }}</span>
     </button>
     <button
+      [style.display]="
+        action.iconName === 'assignment' && row['status'] === 'Pending'
+          ? ''
+          : 'none'
+      "
       *ngIf="!action.alwaysShow && row['status'] === 'Pending'"
       [ngClass]="action?.cssClasses"
       class="text-md mx-2"
@@ -379,6 +384,11 @@
       </span>
     </button>
     <button
+      [style.display]="
+        action.iconName !== 'assignment' && row['status'] !== 'Pending'
+          ? ''
+          : 'none'
+      "
       *ngIf="!action.alwaysShow && row['status'] !== 'Pending'"
       [ngClass]="action?.cssClasses"
       class="text-md mx-2"
