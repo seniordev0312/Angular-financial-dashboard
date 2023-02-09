@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { CustomizeColumnModel } from '../../model/customize-column.model';
 
 @Component({
   selector: 'app-customize-columns',
   templateUrl: './customize-columns.component.html',
   styleUrls: ['./customize-columns.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomizeColumnsComponent implements OnInit {
-
-  Columns: [
+  Columns: CustomizeColumnModel[] = [
     { name: 'Agent', completed: false },
     { name: 'Name', completed: false },
     { name: 'Commission', completed: false },
@@ -26,9 +26,7 @@ export class CustomizeColumnsComponent implements OnInit {
     { name: 'Status', completed: false },
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

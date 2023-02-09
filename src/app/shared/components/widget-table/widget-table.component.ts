@@ -8,7 +8,7 @@ import {
   Input,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomizeColumnsComponent } from '@root/pages/accounting-and-finance/accounts-payable/components/customize-columns/customize-columns.component';
@@ -56,7 +56,7 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     private clipboard: Clipboard,
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -149,8 +149,8 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   openCustomizingColumns() {
     this.dialog.open(CustomizeColumnsComponent, {
       width: '800px',
-      height: '30%',
-      position: {right: '75px'}
+      height: '350px',
+      position: { right: '75px' },
     });
   }
 }

@@ -1,6 +1,10 @@
-<app-dialog-header label=""></app-dialog-header>
-<div class="flex flex-row" *ngFor="let column of Columns">
-  <mat-checkbox [(ngModel)]="column.completed">
-    {{ column.name }}
-  </mat-checkbox>
-</div>
+<app-dialog-header label="Customize columns"></app-dialog-header>
+<section class="example-section">
+  <span *ngFor="let item of Columns">
+    <div class="p-3 w-[248px]">
+      <input class="mr-3" type="checkbox" [(ngModel)]="item.completed" />{{
+        item.name
+      }}
+    </div>
+  </span>
+</section>
