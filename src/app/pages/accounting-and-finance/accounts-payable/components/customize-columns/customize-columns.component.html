@@ -1,1 +1,6 @@
-<p>customize-columns works!</p>
+<app-dialog-header label=""></app-dialog-header>
+<div class="flex flex-row" *ngFor="let column of Columns">
+  <mat-checkbox [(ngModel)]="column.completed">
+    {{ column.name }}
+  </mat-checkbox>
+</div>

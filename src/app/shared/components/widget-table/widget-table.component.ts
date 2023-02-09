@@ -148,8 +148,9 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
   openCustomizingColumns() {
     this.dialog.open(CustomizeColumnsComponent, {
-      width: '90%',
-      height: '90%',
+      width: '800px',
+      height: '30%',
+      position: {right: '75px'}
     });
   }
 }
