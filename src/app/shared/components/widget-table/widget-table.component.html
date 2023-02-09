@@ -170,7 +170,17 @@
           </th>
         </ng-container>
         <th *ngIf="tableConfiguration.settings.enableActions">
-          <span class="bg-white text-[#a4aab5] p-[12px] rounded-md font-medium text-[0.7rem]">Actions</span>
+          <span
+            class="bg-white text-[#a4aab5] p-[12px] rounded-md font-medium text-[0.7rem]"
+            >Actions</span
+          >
+        </th>
+        <th *ngIf="tableConfiguration.settings.enableCustomizingColumns">
+          <mat-icon
+            class="cursor-pointer"
+            (click)="openCustomizingColumns()"
+            svgIcon="policy-filter"
+          ></mat-icon>
         </th>
       </tr>
     </ng-template>

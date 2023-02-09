@@ -1,13 +1,11 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewChild,
-  OnInit,
-  ChangeDetectorRef,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild
 } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
@@ -16,8 +14,6 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PayableModel } from '../../model/payable.model';
 import { AddPaymentComponent } from '../add-payment/add-payment.component';
-import { Router } from '@angular/router';
-import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { VendorInvoiceComponent } from '../vendor-invoice/vendor-invoice.component';
 
 @Component({
@@ -197,6 +193,7 @@ export class AccountsPayableComponent implements OnInit {
     pageSize: this.pageSize,
     isLocalPaging: true,
     isRowSelectable: true,
+    enableCustomizingColumns: true,
   });
 
   tableConfiguration: TableConfiguration<PayableModel> = {
