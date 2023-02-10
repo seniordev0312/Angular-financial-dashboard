@@ -63,10 +63,116 @@ export class PayableStatusComponent implements OnInit {
     },
   ];
 
+  wireTransferList: WireTransferModel[] = [
+    {
+      id: 0,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 1,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 2,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 3,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 4,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 5,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 6,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 7,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 8,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+    {
+      id: 9,
+      ein: '0779722',
+      name: 'Taanayel Hospital',
+      date: '01/2022',
+      refno: 1234,
+      currency: 'USD',
+      amount: 21592.0,
+      status: 'pending',
+    },
+  ];
+
   tab: number = 1;
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<PayableStatusModel>;
+
+  @ViewChild(WidgetTableComponent)
+  table1: WidgetTableComponent<WireTransferModel>;
 
   constructor(
     private layoutService: LayoutService,
