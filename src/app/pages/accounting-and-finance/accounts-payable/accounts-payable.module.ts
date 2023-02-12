@@ -20,6 +20,7 @@ import { PrintStatusComponent } from './components/print-status/print-status.com
 import { StatusWiretransferComponent } from './components/status-wiretransfer/status-wiretransfer.component';
 import { EditWiretransferComponent } from './components/edit-wiretransfer/edit-wiretransfer.component';
 import { CustomizeColumnsComponent } from './components/customize-columns/customize-columns.component';
+import { WiretransferAuthorizationComponent } from './components/wiretransfer-authorization/wiretransfer-authorization.component';
 
 const routes: Route[] = [
   {
@@ -47,6 +48,7 @@ const routes: Route[] = [
     StatusWiretransferComponent,
     EditWiretransferComponent,
     CustomizeColumnsComponent,
+    WiretransferAuthorizationComponent,
   ],
   imports: [
     CommonModule,
