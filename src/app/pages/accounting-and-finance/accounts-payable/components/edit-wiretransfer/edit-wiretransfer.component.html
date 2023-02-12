@@ -1,92 +1,164 @@
 <app-dialog-header label="Payment"></app-dialog-header>
 
-<div class="flex flex-col justify-center items-center py-[30px]">
-  <div class="flex flex-col w-[55%] justify-center items-center">
-    <div class="flex flex-row items-center w-full">
-      <div
-        class="bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center py-1 px-3 w-[35%]"
-      >
-        <div class="w-[30%] flex justify-center">
-          <p class="text-[13px] font-normal">Currency</p>
+<div class="w-full h-fit flex flex-row justify-between">
+  <div
+    class="flex justify-center items-center w-[10%] border-2 border-gray-light1"
+  >
+    <div class="w-full flex flex-col justify-center items-center">
+      <img
+        class="h-[25px] w-[35px] object-contain"
+        src="{{ wireTransferImage }}"
+      />
+      <h3 class="text-center">Wire Transfer</h3>
+    </div>
+  </div>
+  <div class="flex flex-col justify-center items-center py-[30px] w-[90%] pl-4">
+    <div class="flex flex-col w-[55%] justify-center items-center">
+      <div class="flex flex-row items-center w-full">
+        <div
+          class="bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center py-1 px-3 w-[35%]"
+        >
+          <div class="w-[30%] flex justify-center">
+            <p class="text-[13px] font-normal">Currency</p>
+          </div>
+          <div class="w-[70%] justify-center">
+            <app-select-list></app-select-list>
+          </div>
         </div>
-        <div class="w-[70%] justify-center">
-          <app-select-list></app-select-list>
+        <div
+          class="py-6 px-4 ml-[10px] bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center w-[50%]"
+        >
+          <div class="w-[30%] flex justify-center items-center">
+            <p class="mr-4 text-[13px] font-medium">Amount</p>
+          </div>
+          <div class="flex flex-col w-[65%]">
+            <div class="flex flex-row w-full">
+              <input
+                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                type="number"
+              />
+            </div>
+            <div class="pt-1">
+              <hr />
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex justify-center items-center h-full p-4 ml-[10px] bg-[#fafafa] rounded-[12px] w-[13%]"
+        >
+          <img
+            class="h-[26px] w-[26px] object-contain"
+            src="{{ unlockImage }}"
+          />
         </div>
       </div>
       <div
-        class="py-6 px-4 ml-[10px] bg-[#fafafa] rounded-[12px] flex flex-row justify-between items-center w-[50%]"
+        class="flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] w-full py-6 px-6 mt-3"
       >
-        <div class="w-[30%] flex justify-center items-center">
-          <p class="mr-4 text-[13px] font-medium">Amount</p>
+        <div class="flex items-center justify-center w-[30%]">
+          <p class="mr-4 text-[13px] font-normal">Bank Account...</p>
         </div>
-        <div class="flex flex-col w-[65%]">
+        <div class="flex flex-col w-[70%]">
           <div class="flex flex-row w-full">
             <input
               class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
               type="number"
             />
           </div>
-          <div class="pt-1">
+          <div class="pt-2">
             <hr />
           </div>
         </div>
       </div>
-      <div
-        class="flex justify-center items-center h-full p-4 ml-[10px] bg-[#fafafa] rounded-[12px] w-[13%]"
-      >
-        <img class="h-[26px] w-[26px] object-contain" src="{{ unlockImage }}" />
-      </div>
     </div>
-    <div
-      class="flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] w-full py-6 px-6 mt-3"
-    >
-      <div class="flex items-center justify-center w-[30%]">
-        <p class="mr-4 text-[13px] font-normal">Bank Account...</p>
-      </div>
-      <div class="flex flex-col w-[70%]">
-        <div class="flex flex-row w-full">
-          <input
-            class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-            type="number"
-          />
-        </div>
-        <div class="pt-2">
-          <hr />
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="flex flex-row justify-between w-full py-6">
-    <div
-      class="flex flex-col justify-center items-center w-[49%] bg-[#fafafa] rounded-[12px] px-4"
-    >
-      <div class="w-full flex flex-row justify-between items-center">
-        <div
-          class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
-        >
-          <div class="w-[30%] flex justify-center items-center">
-            <p class="mr-4 text-[13px] font-medium">Bank branch</p>
-          </div>
-          <div class="flex flex-col w-[65%]">
-            <div class="flex flex-row w-full">
-              <input
-                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                type="text"
-              />
+    <div class="flex flex-row justify-between w-full py-6">
+      <div
+        class="flex flex-col justify-center items-center w-[49%] bg-[#fafafa] rounded-[12px] px-4"
+      >
+        <div class="w-full flex flex-row justify-between items-center">
+          <div
+            class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">Bank branch</p>
             </div>
-            <div class="pt-1">
-              <hr />
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div
+            class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">Account #</p>
+            </div>
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full flex flex-row justify-between items-center">
+          <div
+            class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">SWIFT Code</p>
+            </div>
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div
+            class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">IBAN</p>
+            </div>
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          class="py-6 px-4 flex flex-row justify-between items-center w-full"
         >
-          <div class="w-[30%] flex justify-center items-center">
-            <p class="mr-4 text-[13px] font-medium">Account #</p>
+          <div class="w-[20%] flex justify-center items-center">
+            <p class="mr-4 text-[13px] w-full text-left font-medium">Address</p>
           </div>
-          <div class="flex flex-col w-[65%]">
+          <div class="flex flex-col w-[75%]">
             <div class="flex flex-row w-full">
               <input
                 class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
@@ -99,192 +171,144 @@
           </div>
         </div>
       </div>
-      <div class="w-full flex flex-row justify-between items-center">
+      <div class="flex flex-col justify-center items-center w-[49%]">
         <div
-          class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          class="w-full flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] mb-5"
         >
-          <div class="w-[30%] flex justify-center items-center">
-            <p class="mr-4 text-[13px] font-medium">SWIFT Code</p>
-          </div>
-          <div class="flex flex-col w-[65%]">
-            <div class="flex flex-row w-full">
-              <input
-                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                type="text"
-              />
+          <div
+            class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">EIN</p>
             </div>
-            <div class="pt-1">
-              <hr />
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div
+            class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          >
+            <div class="w-[30%] flex justify-center items-center">
+              <p class="mr-4 text-[13px] font-medium">Invoice #</p>
+            </div>
+            <div class="flex flex-col w-[65%]">
+              <div class="flex flex-row w-full">
+                <input
+                  class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+                  type="text"
+                />
+              </div>
+              <div class="pt-1">
+                <hr />
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
+          class="drop-shadow-lg w-full bg-white rounded-[13px] overflow-hidden h-full"
         >
-          <div class="w-[30%] flex justify-center items-center">
-            <p class="mr-4 text-[13px] font-medium">IBAN</p>
+          <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+            <p class="text-white text-[16px]">
+              Total Advance Payments Available
+            </p>
           </div>
-          <div class="flex flex-col w-[65%]">
-            <div class="flex flex-row w-full">
-              <input
-                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                type="text"
-              />
-            </div>
-            <div class="pt-1">
-              <hr />
-            </div>
+          <div class="w-full flex justify-between items-center p-10">
+            <span class="font-bold text-[17px]">45,000,000.00</span>
+            <span class="text-[17px] font-normal opacity-40">LBP</span>
           </div>
         </div>
       </div>
-      <div class="py-6 px-4 flex flex-row justify-between items-center w-full">
-        <div class="w-[20%] flex justify-center items-center">
-          <p class="mr-4 text-[13px] w-full text-left font-medium">Address</p>
+    </div>
+
+    <div class="flex flex-row w-full items-center justify-between">
+      <div
+        class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden"
+      >
+        <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+          <p class="text-white text-[16px]">Description</p>
         </div>
-        <div class="flex flex-col w-[75%]">
+        <div class="flex flex-col w-full p-7 pb-0">
           <div class="flex flex-row w-full">
             <input
               class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-              type="text"
+              type="number"
             />
           </div>
-          <div class="pt-1">
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+        <div class="flex flex-col w-full p-7">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div
+        class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden"
+      >
+        <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+          <p class="text-white text-[16px]">Notes</p>
+        </div>
+        <div class="flex flex-col w-full p-7 pb-0">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+        <div class="flex flex-col w-full p-7">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+            />
+          </div>
+          <div class="pt-2">
             <hr />
           </div>
         </div>
       </div>
     </div>
-    <div class="flex flex-col justify-center items-center w-[49%]">
-      <div
-        class="w-full flex flex-row justify-between items-center bg-[#fafafa] rounded-[12px] mb-5"
-      >
-        <div
-          class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
-        >
-          <div class="w-[30%] flex justify-center items-center">
-            <p class="mr-4 text-[13px] font-medium">EIN</p>
-          </div>
-          <div class="flex flex-col w-[65%]">
-            <div class="flex flex-row w-full">
-              <input
-                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                type="text"
-              />
-            </div>
-            <div class="pt-1">
-              <hr />
-            </div>
-          </div>
-        </div>
-        <div
-          class="py-6 px-4 flex flex-row justify-between items-center w-[48%]"
-        >
-          <div class="w-[30%] flex justify-center items-center">
-            <p class="mr-4 text-[13px] font-medium">Invoice #</p>
-          </div>
-          <div class="flex flex-col w-[65%]">
-            <div class="flex flex-row w-full">
-              <input
-                class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-                type="text"
-              />
-            </div>
-            <div class="pt-1">
-              <hr />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="drop-shadow-lg w-full bg-white rounded-[13px] overflow-hidden h-full"
-      >
-        <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
-          <p class="text-white text-[16px]">Total Advance Payments Available</p>
-        </div>
-        <div class="w-full flex justify-between items-center p-10">
-          <span class="font-bold text-[17px]">45,000,000.00</span>
-          <span class="text-[17px] font-normal opacity-40">LBP</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="flex flex-row w-full items-center justify-between">
-    <div class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden">
-      <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
-        <p class="text-white text-[16px]">Description</p>
-      </div>
-      <div class="flex flex-col w-full p-7 pb-0">
-        <div class="flex flex-row w-full">
-          <input
-            class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-            type="number"
-          />
-        </div>
-        <div class="pt-2">
-          <hr />
-        </div>
-      </div>
-      <div class="flex flex-col w-full p-7">
-        <div class="flex flex-row w-full">
-          <input
-            class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-            type="number"
-          />
-        </div>
-        <div class="pt-2">
-          <hr />
-        </div>
-      </div>
-    </div>
-    <div class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden">
-      <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
-        <p class="text-white text-[16px]">Notes</p>
-      </div>
-      <div class="flex flex-col w-full p-7 pb-0">
-        <div class="flex flex-row w-full">
-          <input
-            class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-            type="number"
-          />
-        </div>
-        <div class="pt-2">
-          <hr />
-        </div>
-      </div>
-      <div class="flex flex-col w-full p-7">
-        <div class="flex flex-row w-full">
-          <input
-            class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-            type="number"
-          />
-        </div>
-        <div class="pt-2">
-          <hr />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="flex justify-end items-center w-full">
-    <div class="pt-4 flex flex-row justify-between items-center">
-      <app-button
-        classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+    <div class="flex justify-end items-center w-full">
+      <div class="pt-4 flex flex-row justify-between items-center">
+        <app-button
+          classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
                  justify-center items-center bg-white border-[1px] border-[#275e80] text-[#275e80]  color-white"
-        text="Cancel"
-        (click)="onClose()"
-      ></app-button>
-      <app-button
-        classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+          text="Cancel"
+          (click)="onClose()"
+        ></app-button>
+        <app-button
+          classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
                  justify-center items-center bg-white border-[1px] border-[#275e80] text-[#275e80]  color-white"
-        text="Edit Details"
-        (click)="openVendorInvoice()"
-      ></app-button>
-      <app-button
-        classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+          text="Edit Details"
+          (click)="openVendorInvoice()"
+        ></app-button>
+        <app-button
+          classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
                  justify-center items-center bg-primary text-white  color-white"
-        text="Request Authorization"
-      ></app-button>
+          text="Request Authorization"
+        ></app-button>
+      </div>
     </div>
   </div>
 </div>

@@ -11,6 +11,8 @@ import { VendorInvoiceComponent } from '../vendor-invoice/vendor-invoice.compone
 export class EditWiretransferComponent implements OnInit {
   unlockImage: string =
     '../../../../../../assets/images/accounting-payable/unlock.png';
+  wireTransferImage: string =
+    '../../../../../../assets/images/accounting-payable/wire-transfer.png';
 
   constructor(public dialog: MatDialog) {}
 
