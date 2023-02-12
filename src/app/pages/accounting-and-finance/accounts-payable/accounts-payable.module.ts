@@ -19,6 +19,7 @@ import { ProcessingPaymentComponent } from './components/processing-payment/proc
 import { PrintStatusComponent } from './components/print-status/print-status.component';
 import { StatusWiretransferComponent } from './components/status-wiretransfer/status-wiretransfer.component';
 import { EditWiretransferComponent } from './components/edit-wiretransfer/edit-wiretransfer.component';
+import { CustomizeColumnsComponent } from './components/customize-columns/customize-columns.component';
 
 const routes: Route[] = [
   {
@@ -45,6 +46,7 @@ const routes: Route[] = [
     PrintStatusComponent,
     StatusWiretransferComponent,
     EditWiretransferComponent,
+    CustomizeColumnsComponent,
   ],
   imports: [
     CommonModule,
@@ -57,4 +59,4 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
   ],
 })
-export class AccountsPayableModule {}
+export class AccountsPayableModule { }

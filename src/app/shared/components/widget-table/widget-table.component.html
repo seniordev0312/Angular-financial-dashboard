@@ -175,6 +175,13 @@
             >Actions</span
           >
         </th>
+        <th *ngIf="tableConfiguration.settings.enableCustomizingColumns">
+          <mat-icon
+            class="cursor-pointer"
+            (click)="openCustomizingColumns()"
+            svgIcon="policy-filter"
+          ></mat-icon>
+        </th>
       </tr>
     </ng-template>
     <ng-template [pTemplate]="'body'" let-row>

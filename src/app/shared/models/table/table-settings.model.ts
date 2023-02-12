@@ -1,6 +1,7 @@
 export class TableSettings {
     enableActions: boolean;
     enablePaging: boolean;
+    enableCustomizingColumns: boolean;
     enableExport: boolean;
     pageSize: number;
     cssClasses: string;
@@ -21,6 +22,7 @@ export class TableSettings {
         this.slideActionProperty = data.slideActionProperty;
         this.hasSlideAction = data.hasSlideAction ?? false;
         this.enableActions = data?.enableActions ?? true;
+        this.enableCustomizingColumns = data?.enableCustomizingColumns ?? true;
         this.enablePaging = data?.enablePaging ?? true;
         this.enableExport = data?.enableExport ?? true;
         this.actionsMode = data?.actionsMode ?? 'menu';
