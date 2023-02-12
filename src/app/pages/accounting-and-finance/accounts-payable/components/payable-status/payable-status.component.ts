@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -17,6 +17,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { PayableStatusModel } from '../../model/payable-status.model';
 import { WireTransferModel } from '../../model/wire-transfer.model';
 import { PrintStatusComponent } from '../print-status/print-status.component';
+import { VoidActionComponent } from '../void-action/void-action.component';
 
 @Component({
   selector: 'app-payable-status',
@@ -445,7 +446,24 @@ export class PayableStatusComponent implements OnInit {
     cssClasses: 'text-black',
     iconName: 'print',
     translationKey: '',
-    alwaysShow: true,
+    alwaysShow: false,
+    showConditionProperty: null,
+    isIconButton: true,
+  };
+
+  voidAction: TableRowAction<PayableStatusModel> = {
+    action: (data) => {
+      console.log(data);
+      this.dialog.open(VoidActionComponent, {
+        width: '70%',
+        height: '95%',
+        data: data,
+      });
+    },
+    cssClasses: 'text-black',
+    iconName: 'assignment',
+    translationKey: '',
+    alwaysShow: false,
     showConditionProperty: null,
     isIconButton: true,
   };
@@ -459,7 +477,7 @@ export class PayableStatusComponent implements OnInit {
   });
 
   tableConfiguration: TableConfiguration<PayableStatusModel> = {
-    tableRowsActionsList: [this.printAction],
+    tableRowsActionsList: [this.printAction, this.voidAction],
     columns: this.tableColumns,
     data: [],
     dataCount: null,
