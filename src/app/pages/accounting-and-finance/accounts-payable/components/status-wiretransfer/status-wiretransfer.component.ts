@@ -14,6 +14,7 @@ import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PrintStatusComponent } from '../print-status/print-status.component';
+import { EditWiretransferComponent } from '../edit-wiretransfer/edit-wiretransfer.component';
 
 @Component({
   selector: 'app-status-wiretransfer',
@@ -256,7 +257,7 @@ export class StatusWiretransferComponent implements OnInit {
 
   editAction: TableRowAction<WireTransferModel> = {
     action: () => {
-      this.dialog.open(PrintStatusComponent, {
+      this.dialog.open(EditWiretransferComponent, {
         width: '70%',
         height: '95%',
       });

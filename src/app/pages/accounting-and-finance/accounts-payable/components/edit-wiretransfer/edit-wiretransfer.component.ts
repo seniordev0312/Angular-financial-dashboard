@@ -1,16 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { VendorInvoiceComponent } from '../vendor-invoice/vendor-invoice.component';
 
 @Component({
   selector: 'app-edit-wiretransfer',
   templateUrl: './edit-wiretransfer.component.html',
   styleUrls: ['./edit-wiretransfer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditWiretransferComponent implements OnInit {
+  unlockImage: string =
+    '../../../../../../assets/images/accounting-payable/unlock.png';
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onClose(): void {
+    this.dialog.closeAll();
   }
 
+  openVendorInvoice() {
+    this.dialog.open(VendorInvoiceComponent, {
+      width: '70%',
+      height: '95%',
+    });
+  }
 }
