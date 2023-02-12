@@ -18,6 +18,7 @@ import { VendorInvoiceComponent } from './components/vendor-invoice/vendor-invoi
 import { ProcessingPaymentComponent } from './components/processing-payment/processing-payment.component';
 import { PrintStatusComponent } from './components/print-status/print-status.component';
 import { VoidActionComponent } from './components/void-action/void-action.component';
+import { CustomizeColumnsComponent } from './components/customize-columns/customize-columns.component';
 
 const routes: Route[] = [
   {
@@ -43,6 +44,7 @@ const routes: Route[] = [
     ProcessingPaymentComponent,
     PrintStatusComponent,
     VoidActionComponent,
+    CustomizeColumnsComponent,
   ],
   imports: [
     CommonModule,
@@ -55,4 +57,4 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
   ],
 })
-export class AccountsPayableModule {}
+export class AccountsPayableModule { }

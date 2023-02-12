@@ -1,4 +1,5 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
+import { Clipboard } from '@angular/cdk/clipboard';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -9,18 +10,19 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PrimeNGConfig } from 'primeng/api';
-import { PagingConfig } from '@root/shared/models/table/page-configuration.model';
-import { Clipboard } from '@angular/cdk/clipboard';
-import { Table } from 'primeng/table';
-import { BaseComponent } from '../base-component/base-component';
-import { TableColumn } from '@root/shared/models/table/table-column.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CustomizeColumnsComponent } from '@root/pages/accounting-and-finance/accounts-payable/components/customize-columns/customize-columns.component';
 import { Filter } from '@root/shared/models/table/filter.model';
+import { PagingConfig } from '@root/shared/models/table/page-configuration.model';
+import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { SortItem } from '@root/shared/models/table/table-sort.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
+import { PrimeNGConfig } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Observable } from 'rxjs';
+import { BaseComponent } from '../base-component/base-component';
 
 @Component({
   selector: 'app-widget-table',
@@ -53,7 +55,8 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     private primengConfig: PrimeNGConfig,
     private clipboard: Clipboard,
     private layoutService: LayoutService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -141,5 +144,13 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
   onRowSelect(event: any) {
     this.onRowSelection.emit(event.data);
+  }
+
+  openCustomizingColumns() {
+    this.dialog.open(CustomizeColumnsComponent, {
+      width: '800px',
+      height: '350px',
+      position: { right: '75px' },
+    });
   }
 }
