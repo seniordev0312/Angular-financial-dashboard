@@ -13,8 +13,8 @@ import { TableConfiguration } from '@root/shared/models/table/table-configuratio
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { MatDialog } from '@angular/material/dialog';
-import { PrintStatusComponent } from '../print-status/print-status.component';
 import { EditWiretransferComponent } from '../edit-wiretransfer/edit-wiretransfer.component';
+import { WiretransferAuthorizationComponent } from '../wiretransfer-authorization/wiretransfer-authorization.component';
 
 @Component({
   selector: 'app-status-wiretransfer',
@@ -272,7 +272,7 @@ export class StatusWiretransferComponent implements OnInit {
 
   processAction: TableRowAction<WireTransferModel> = {
     action: () => {
-      this.dialog.open(PrintStatusComponent, {
+      this.dialog.open(WiretransferAuthorizationComponent, {
         width: '80%',
         height: '95%',
       });
