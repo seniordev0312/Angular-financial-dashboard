@@ -258,7 +258,7 @@ export class StatusWiretransferComponent implements OnInit {
   editAction: TableRowAction<WireTransferModel> = {
     action: () => {
       this.dialog.open(EditWiretransferComponent, {
-        width: '70%',
+        width: '80%',
         height: '95%',
       });
     },
@@ -273,7 +273,7 @@ export class StatusWiretransferComponent implements OnInit {
   processAction: TableRowAction<WireTransferModel> = {
     action: () => {
       this.dialog.open(PrintStatusComponent, {
-        width: '70%',
+        width: '80%',
         height: '95%',
       });
     },
