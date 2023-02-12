@@ -19,6 +19,9 @@ import { ProcessingPaymentComponent } from './components/processing-payment/proc
 import { PrintStatusComponent } from './components/print-status/print-status.component';
 import { VoidActionComponent } from './components/void-action/void-action.component';
 import { CustomizeColumnsComponent } from './components/customize-columns/customize-columns.component';
+import { EditWiretransferComponent } from './components/edit-wiretransfer/edit-wiretransfer.component';
+import { StatusWiretransferComponent } from './components/status-wiretransfer/status-wiretransfer.component';
+import { WiretransferAuthorizationComponent } from './components/wiretransfer-authorization/wiretransfer-authorization.component';
 
 const routes: Route[] = [
   {
@@ -43,8 +46,11 @@ const routes: Route[] = [
     VendorInvoiceComponent,
     ProcessingPaymentComponent,
     PrintStatusComponent,
+    StatusWiretransferComponent,
+    EditWiretransferComponent,
     VoidActionComponent,
     CustomizeColumnsComponent,
+    WiretransferAuthorizationComponent,
   ],
   imports: [
     CommonModule,
