@@ -22,6 +22,7 @@ import { CustomizeColumnsComponent } from './components/customize-columns/custom
 import { EditWiretransferComponent } from './components/edit-wiretransfer/edit-wiretransfer.component';
 import { StatusWiretransferComponent } from './components/status-wiretransfer/status-wiretransfer.component';
 import { WiretransferAuthorizationComponent } from './components/wiretransfer-authorization/wiretransfer-authorization.component';
+import { RejectedWiretransferComponent } from './components/rejected-wiretransfer/rejected-wiretransfer.component';
 
 const routes: Route[] = [
   {
@@ -51,6 +52,7 @@ const routes: Route[] = [
     VoidActionComponent,
     CustomizeColumnsComponent,
     WiretransferAuthorizationComponent,
+    RejectedWiretransferComponent,
   ],
   imports: [
     CommonModule,
