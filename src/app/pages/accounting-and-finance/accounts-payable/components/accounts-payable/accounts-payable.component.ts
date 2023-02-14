@@ -1,5 +1,9 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
@@ -104,7 +108,7 @@ export class AccountsPayableComponent implements OnInit {
 
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'ein',
+      translationKey: 'EIN',
       property: 'ein',
       type: 'text',
       svgIcon: '',
@@ -121,7 +125,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'name',
+      translationKey: 'Name',
       property: 'name',
       type: 'text',
       cssClasses: () => '',
@@ -137,7 +141,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'currency',
+      translationKey: 'Currency',
       property: 'currency',
       type: 'text',
       cssClasses: () => '',
@@ -153,7 +157,7 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'amount',
+      translationKey: 'Amount',
       property: 'amount',
       type: 'number',
       cssClasses: () => '',
@@ -169,10 +173,10 @@ export class AccountsPayableComponent implements OnInit {
       },
     },
     {
-      translationKey: 'amountnotdue',
+      translationKey: 'Amount Not Due',
       property: 'amountnotdue',
       type: 'number',
-      cssClasses: () => '',
+      cssClasses: () => 'pr-2',
       dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
