@@ -11,12 +11,9 @@
         class="h-[25px] w-[35px] object-contain"
         src="{{ wireTransferImage }}"
       />
-      <div *ngif="tab">
-        <h3 class="text-center" style="color: #455b77">Wire Transfer</h3>
-      </div>
-      <div *ngif="!tab">
-        <h3 class="text-center">Wire Transfer</h3>
-      </div>
+      <h3 class="text-center" [ngStyle]="{ color: tab === 0 ? '#455b77' : '' }">
+        Wire Transfer
+      </h3>
     </div>
     <div
       (click)="tabSelection(1)"
@@ -24,12 +21,7 @@
       [style]="tab === 1 ? 'height: 83%' : 'height: 17%'"
     >
       <img class="h-[25px] w-[35px] object-contain" src="{{ checksImage }}" />
-      <div *ngif="tab">
-        <h3 style="color: #455b77">Checks</h3>
-      </div>
-      <div *ngif="!tab">
-        <h3>Checks</h3>
-      </div>
+      <h3 [ngStyle]="{ color: tab === 1 ? '#455b77' : '' }">Checks</h3>
     </div>
   </div>
   <div class="flex flex-col w-[90%] px-3">
