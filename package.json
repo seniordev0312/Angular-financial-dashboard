@@ -35,7 +35,6 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "angular-auth-oidc-client": "15.0.2",
     "dayjs": "^1.11.6",
-    "file-saver": "^2.0.5",
     "ng-qrcode": "^7.0.0",
     "ngx-mat-select-search": "^4.2.1",
     "ngx-plyr": "^3.0.1",

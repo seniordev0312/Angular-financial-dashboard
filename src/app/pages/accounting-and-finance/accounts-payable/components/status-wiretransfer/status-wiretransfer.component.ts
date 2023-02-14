@@ -1,18 +1,19 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ChangeDetectionStrategy,
+  Component,
   OnInit,
-  ViewChild
+  ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
+import { WireTransferModel } from '../../model/wire-transfer.model';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
-import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
-import { WireTransferModel } from '../../model/wire-transfer.model';
+import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
+import { MatDialog } from '@angular/material/dialog';
 import { EditWiretransferComponent } from '../edit-wiretransfer/edit-wiretransfer.component';
-import { RejectedWiretransferComponent } from '../rejected-wiretransfer/rejected-wiretransfer.component';
 import { WiretransferAuthorizationComponent } from '../wiretransfer-authorization/wiretransfer-authorization.component';
 
 @Component({
@@ -278,21 +279,6 @@ export class StatusWiretransferComponent implements OnInit {
     },
     cssClasses: 'text-black',
     iconName: 'cached',
-    translationKey: '',
-    alwaysShow: false,
-    showConditionProperty: null,
-    isIconButton: true,
-  };
-
-    copyAction: TableRowAction<WireTransferModel> = {
-    action: () => {
-      this.dialog.open(RejectedWiretransferComponent, {
-        width: '80%',
-        height: '95%',
-      });
-    },
-    cssClasses: 'text-black',
-    iconName: 'photo_filter',
     translationKey: '',
     alwaysShow: false,
     showConditionProperty: null,
