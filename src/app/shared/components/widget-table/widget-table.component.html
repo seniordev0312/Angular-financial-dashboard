@@ -19,11 +19,12 @@
     [selectionPageOnly]="true"
     selectionMode="single"
     [(selection)]="selectedRow"
-    [showCurrentPageReport]="true"
-    currentPageReportTemplate="{totalRecords}"
-    [rowsPerPageOptions]="[10, 25, 50]"
+    panelStyleClass="dropDownStyle"
     (onRowSelect)="onRowSelect($event)"
     (selectionChange)="onRowsSelectedChanged()"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{totalRecords} records"
+    [rowsPerPageOptions]="[25, 50, 'All']"
     [showFirstLastIcon]="false"
     [showPageLinks]="true"
     loadingIcon="pi pi-spin pi-spinner loading-icon-size"
@@ -120,6 +121,7 @@
                     </ng-template>
                   </p-columnFilter>
                   <!--dropdown-->
+
                   <p-columnFilter
                     *ngSwitchCase="'dropDown'"
                     [showMenu]="false"
@@ -315,6 +317,18 @@
         </td>
       </tr>
     </ng-template>
+    <!-- <ng-template pTemplate="paginatorleft" let-state>
+      <button type="button" (onClick)="filterData('25')" pButton>25</button>
+      <button type="button" (onClick)="filterData('50')" pButton>50</button>
+      <button type="button" (onClick)="filterData('25')" pButton>All</button>
+      {{ state.totalRecords }}
+      <button type="button" pButton icon="pi-refresh"></button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright" let-state>
+      {{ state.totalRecords }} records
+      {{ state.row }}
+      <button type="button" pButton icon="pi-cloud-upload"></button>
+    </ng-template> -->
     <ng-template pTemplate="emptymessage">
       <tr>
         <td colspan="8">
