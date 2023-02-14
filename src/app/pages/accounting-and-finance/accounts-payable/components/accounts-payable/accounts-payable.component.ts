@@ -1,5 +1,9 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
@@ -84,7 +88,7 @@ export class AccountsPayableComponent implements OnInit {
   openAddingPayment() {
     this.dialog.open(AddPaymentComponent, {
       width: '90%',
-      height: '90%',
+      height: '75%',
     });
   }
 
