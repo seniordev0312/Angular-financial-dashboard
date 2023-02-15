@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { SharedModule } from '@root/shared/shared.module';
 
 const routes: Route[] = [
   {
@@ -27,6 +28,7 @@ const routes: Route[] = [
   declarations: [AccountsReceivableComponent],
   imports: [
     CommonModule,
+    SharedModule,
     MatOptionModule,
     MatIconModule,
     MatSelectModule,
