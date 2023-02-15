@@ -6,6 +6,11 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Route[] = [
   {
@@ -20,6 +25,14 @@ const routes: Route[] = [
 
 @NgModule({
   declarations: [AccountsReceivableComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [
+    CommonModule,
+    MatOptionModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    RouterModule.forChild(routes),
+  ],
 })
 export class AccountsReceivableModule {}
