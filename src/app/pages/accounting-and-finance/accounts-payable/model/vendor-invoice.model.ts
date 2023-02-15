@@ -2,7 +2,7 @@ export interface VendorInvoiceModel {
   id: number;
   policyno: string;
   name: string;
-  duedate: Date;
+  duedate: string;
   totalunpaidnotdue: number;
   totalunpaiddue: number;
   currency: string;
