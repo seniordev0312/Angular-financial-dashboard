@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
@@ -195,6 +195,18 @@ export class PayableStatusComponent implements OnInit {
         },
       ],
     });
+
+    if (this.tab === 0) {
+      this.wireTransferImage =
+        '../../../../../../assets/images/accounting-payable/wire-transfer-clicked.png';
+      this.checksImage =
+        '../../../../../../assets/images/accounting-payable/Checks.png';
+    } else {
+      this.wireTransferImage =
+        '../../../../../../assets/images/accounting-payable/wire-transfer.png';
+      this.checksImage =
+        '../../../../../../assets/images/accounting-payable/Checks-clicked.png';
+    }
 
     this.tableConfiguration.data = this.payableList;
     this.tableConfiguration.dataCount = this.payableList.length;
@@ -494,5 +506,17 @@ export class PayableStatusComponent implements OnInit {
 
   tabSelection(currentTab: number): void {
     this.tab = currentTab;
+    if (this.tab === 0) {
+      this.wireTransferImage =
+        '../../../../../../assets/images/accounting-payable/wire-transfer-clicked.png';
+      this.checksImage =
+        '../../../../../../assets/images/accounting-payable/Checks.png';
+    } else {
+      this.wireTransferImage =
+        '../../../../../../assets/images/accounting-payable/wire-transfer.png';
+      this.checksImage =
+        '../../../../../../assets/images/accounting-payable/Checks-clicked.png';
+    }
+    console.log(this.tab);
   }
 }
