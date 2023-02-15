@@ -29,7 +29,7 @@ export class AccountsReceivableComponent implements OnInit {
   constructor(
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -58,7 +58,7 @@ export class AccountsReceivableComponent implements OnInit {
         ein: '047972210',
         name: 'Mohamad Al Srouji',
         commission: 300.0,
-        status: 'Good',
+        status: '30 daysoverdue',
         currency: 'USD',
         ytd: 3000.0,
         premiumdue: 3000.0,
@@ -69,7 +69,7 @@ export class AccountsReceivableComponent implements OnInit {
         ein: '047972210',
         name: 'Mohamad Al Srouji',
         commission: 300.0,
-        status: 'Good',
+        status: '60 days Overdue',
         currency: 'USD',
         ytd: 3000.0,
         premiumdue: 3000.0,
@@ -80,7 +80,7 @@ export class AccountsReceivableComponent implements OnInit {
         ein: '047972210',
         name: 'Mohamad Al Srouji',
         commission: 300.0,
-        status: 'Good',
+        status: 'Requires Provision',
         currency: 'USD',
         ytd: 3000.0,
         premiumdue: 3000.0,
