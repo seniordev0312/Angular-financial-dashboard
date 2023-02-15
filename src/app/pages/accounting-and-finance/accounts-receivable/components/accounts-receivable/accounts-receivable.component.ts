@@ -11,6 +11,8 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { ReceivableModel } from '../../model/receivable.model';
+import { LayoutService } from '@root/shared/services/layout.service';
+import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 
 @Component({
   selector: 'app-accounts-receivable',
@@ -24,9 +26,21 @@ export class AccountsReceivableComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<ReceivableModel>;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private layoutService: LayoutService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
+    this.layoutService.updateBreadCrumbsRouter({
+      crumbs: [
+        {
+          route: ApplicationRoutes.AccountsReceivable,
+          translationKey:
+            'accounting-add-finance.accounts-receivable.accounts-receivable',
+        },
+      ],
+    });
     this.receivableList = [
       {
         id: 0,

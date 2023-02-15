@@ -92,6 +92,9 @@
         "accounts-payable": {
             "accounts-payable": "Accounts Payable"
         },
+        "accounts-receivable": {
+            "accounts-receivable": "Accounts Receivable"
+        },
         "cashier": {
             "cashier": "Cashier"
         },
