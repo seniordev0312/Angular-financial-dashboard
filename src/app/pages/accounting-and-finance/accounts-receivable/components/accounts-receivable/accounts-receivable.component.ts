@@ -13,6 +13,8 @@ import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { ReceivableModel } from '../../model/receivable.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
+import { MatDialog } from '@angular/material/dialog';
+import { CustomerPolicyComponent } from '../customer-policy/customer-policy.component';
 
 @Component({
   selector: 'app-accounts-receivable',
@@ -28,8 +30,9 @@ export class AccountsReceivableComponent implements OnInit {
 
   constructor(
     private layoutService: LayoutService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -243,4 +246,13 @@ export class AccountsReceivableComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
+
+  onRowSelection(data: any) {
+    console.log('1111111111', data);
+
+    this.dialog.open(CustomerPolicyComponent, {
+      width: '90%',
+      height: '90%',
+    });
+  }
 }

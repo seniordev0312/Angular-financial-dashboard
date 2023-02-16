@@ -1,0 +1,66 @@
+<app-dialog-header label="Policies"></app-dialog-header>
+<mat-dialog-content>
+  <div class="flex flex-col justify-center items-center">
+    <div class="flex flex-row items-center w-[95%]">
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8 px-2">
+        <p class="mr-4 text-sm font-medium">Type</p>
+        <div class="flex flex-col w-[70%]">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+              placeholder="Agent"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8 px-2">
+        <p class="mr-4 text-sm font-medium">Total Premium Due(gross)</p>
+        <div class="flex flex-col w-[70%]">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+              placeholder="$6600.00"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row justify-start items-center w-1/4 pt-8 px-2">
+        <p class="mr-4 text-sm font-medium">Total Premium Due(Next)</p>
+        <div class="flex flex-col w-[70%]">
+          <div class="flex flex-row w-full">
+            <input
+              class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
+              type="number"
+              placeholder="$4980.00"
+            />
+          </div>
+          <div class="pt-2">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row w-1 4">
+        <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+          <p class="text-white text-[10px]">Accrued Commissions</p>
+        </div>
+        <div class="w-full flex justify-between items-center p-4">
+          <span class="font-bold text-[10px]">5,430.00</span>
+          <span class="text-[10px] font-normal opacity-40">USD</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row justify-between w-[95%] pt-5">
+      <app-widget-table
+        [tableConfiguration]="tableConfiguration"
+      ></app-widget-table>
+    </div>
+  </div>
+</mat-dialog-content>
