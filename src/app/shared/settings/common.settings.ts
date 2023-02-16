@@ -21,6 +21,7 @@ export const enum ApplicationRoutes {
   MotorInsuranceUnderwriting = 'motor-insurance-underwriting',
   Payroll = 'payroll',
   AccountsPayable = 'accounts-payable',
+  AccountsReceivable = 'accounts-receivable',
   Cashier = 'cashier',
   FinanceAndReporting = 'finance-and-reporting',
   GeneralAccounting = 'general-accounting',
