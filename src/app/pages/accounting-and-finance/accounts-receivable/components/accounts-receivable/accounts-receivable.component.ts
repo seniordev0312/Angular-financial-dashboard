@@ -32,7 +32,7 @@ export class AccountsReceivableComponent implements OnInit {
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -252,7 +252,7 @@ export class AccountsReceivableComponent implements OnInit {
 
     this.dialog.open(CustomerPolicyComponent, {
       width: '90%',
-      height: '90%',
+      height: '80%',
     });
   }
 }

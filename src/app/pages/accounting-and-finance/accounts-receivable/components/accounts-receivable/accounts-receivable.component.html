@@ -32,4 +32,5 @@
     <p class="text-sm font-medium mt-2">Search</p>
   </button>
 </div>
-<app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+<app-widget-table [tableConfiguration]="tableConfiguration"
+  (onRowSelection)="onRowSelection($event)"></app-widget-table>

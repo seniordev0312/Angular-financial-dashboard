@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
+  ViewChild,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
@@ -19,12 +20,15 @@ import { PolicyModel } from '../../model/policy.model';
 })
 export class CustomerPolicyComponent implements OnInit {
   payList: PolicyModel[] = [];
+  @ViewChild(WidgetTableComponent)
+
   table: WidgetTableComponent<PolicyModel>;
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.payList = [
       {
+        id: 0,
         no: 'MGW196389',
         type: 'Fire',
         ein: '017797229',
@@ -40,6 +44,7 @@ export class CustomerPolicyComponent implements OnInit {
         expirydate: '01/01/2020',
       },
       {
+        id: 1,
         no: 'MGW196389',
         type: 'Fire',
         ein: '017797229',
@@ -55,6 +60,7 @@ export class CustomerPolicyComponent implements OnInit {
         expirydate: '01/01/2020',
       },
       {
+        id: 2,
         no: 'MGW196389',
         type: 'Fire',
         ein: '017797229',
@@ -70,6 +76,7 @@ export class CustomerPolicyComponent implements OnInit {
         expirydate: '01/01/2020',
       },
       {
+        id: 3,
         no: 'MGW196389',
         type: 'Fire',
         ein: '017797229',
@@ -85,6 +92,7 @@ export class CustomerPolicyComponent implements OnInit {
         expirydate: '01/01/2020',
       },
       {
+        id: 4,
         no: 'MGW196389',
         type: 'Fire',
         ein: '017797229',
@@ -100,6 +108,7 @@ export class CustomerPolicyComponent implements OnInit {
         expirydate: '01/01/2020',
       },
       {
+        id: 5,
         no: 'MGW196389',
         type: 'Fire',
         ein: '017797229',
@@ -118,6 +127,7 @@ export class CustomerPolicyComponent implements OnInit {
 
     this.tableConfiguration.data = this.payList;
     this.tableConfiguration.dataCount = this.payList.length;
+    console.log(this.tableConfiguration.data);
     this.cdr.detectChanges();
     this.table.refresh();
   }
@@ -126,10 +136,10 @@ export class CustomerPolicyComponent implements OnInit {
     {
       translationKey: 'Policy No',
       property: 'no',
-      type: 'number',
+      type: 'text',
       svgIcon: '',
       cssClasses: () => '',
-      dataCssClasses: () => 'underline text-accent',
+      dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -157,27 +167,11 @@ export class CustomerPolicyComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Commission',
-      property: 'commission',
-      type: 'text',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-    {
       translationKey: 'Policy header EIN',
       property: 'ein',
-      type: 'number',
+      type: 'text',
       cssClasses: () => '',
-      dataCssClasses: () => '',
+      dataCssClasses: () => 'underline text-accent',
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -207,7 +201,7 @@ export class CustomerPolicyComponent implements OnInit {
     {
       translationKey: 'Currency',
       property: 'currency',
-      type: 'number',
+      type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
@@ -239,7 +233,7 @@ export class CustomerPolicyComponent implements OnInit {
     {
       translationKey: 'Premiums Due (Gross)',
       property: 'dueGrossdate',
-      type: 'text',
+      type: 'number',
       cssClasses: () => 'pr-2',
       dataCssClasses: () => '',
       enableSort: true,
@@ -255,7 +249,7 @@ export class CustomerPolicyComponent implements OnInit {
     {
       translationKey: 'Premiums Due (Net)',
       property: 'dueNetdate',
-      type: 'text',
+      type: 'number',
       cssClasses: () => 'pr-2',
       dataCssClasses: () => '',
       enableSort: true,
@@ -271,7 +265,7 @@ export class CustomerPolicyComponent implements OnInit {
     {
       translationKey: 'Agent Commissions',
       property: 'agentcommission',
-      type: 'text',
+      type: 'number',
       cssClasses: () => 'pr-2',
       dataCssClasses: () => '',
       enableSort: true,

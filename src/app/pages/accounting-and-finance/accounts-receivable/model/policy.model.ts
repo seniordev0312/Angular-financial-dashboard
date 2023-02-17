@@ -1,4 +1,5 @@
 export interface PolicyModel {
+  id: number;
   no: string;
   type: string;
   ein: string;

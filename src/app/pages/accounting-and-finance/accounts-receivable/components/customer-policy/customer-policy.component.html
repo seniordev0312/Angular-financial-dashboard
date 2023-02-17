@@ -1,66 +1,65 @@
 <app-dialog-header label="Policies"></app-dialog-header>
-<mat-dialog-content>
-  <div class="flex flex-col justify-center items-center">
-    <div class="flex flex-row items-center w-[95%]">
-      <div class="flex flex-row justify-start items-center w-1/4 pt-8 px-2">
+
+<div class="flex flex-col justify-center items-center">
+  <div class="flex flex-row items-center w-[95%] mt-[20px]">
+    <div class="flex flex-row w-4/5 items-center bg-[#fafafa] py-[36px]">
+      <div class="flex flex-row justify-start items-center w-1/3 pt-8 px-2">
         <p class="mr-4 text-sm font-medium">Type</p>
         <div class="flex flex-col w-[70%]">
           <div class="flex flex-row w-full">
             <input
               class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-              type="number"
-              placeholder="Agent"
-            />
+              type="number" placeholder="Agent" />
           </div>
           <div class="pt-2">
             <hr />
           </div>
         </div>
       </div>
-      <div class="flex flex-row justify-start items-center w-1/4 pt-8 px-2">
+      <div class="flex flex-row justify-start items-center w-1/3 pt-8 px-2">
         <p class="mr-4 text-sm font-medium">Total Premium Due(gross)</p>
         <div class="flex flex-col w-[70%]">
           <div class="flex flex-row w-full">
             <input
               class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-              type="number"
-              placeholder="$6600.00"
-            />
+              type="number" placeholder="$6600.00" />
           </div>
           <div class="pt-2">
             <hr />
           </div>
         </div>
       </div>
-      <div class="flex flex-row justify-start items-center w-1/4 pt-8 px-2">
+      <div class="flex flex-row justify-start items-center w-1/3 pt-8 px-2">
         <p class="mr-4 text-sm font-medium">Total Premium Due(Next)</p>
         <div class="flex flex-col w-[70%]">
           <div class="flex flex-row w-full">
             <input
               class="h-full bg-transparent flex justify-center items-center outline-none w-full px-1 text-sm xl:text-base font-light"
-              type="number"
-              placeholder="$4980.00"
-            />
+              type="number" placeholder="$4980.00" />
           </div>
           <div class="pt-2">
             <hr />
           </div>
         </div>
       </div>
-      <div class="flex flex-row w-1 4">
-        <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
-          <p class="text-white text-[10px]">Accrued Commissions</p>
+    </div>
+
+    <div class="flex flex-row w-1/5 bg-[#fafafa] ml-[20px]">
+      <div class="w-full">
+        <div class="bg-[#275e80] text-center rounded-tr-2xl rounded-tl-2xl py-[9px] pl-[29px]">
+          Accrued Commissions
         </div>
-        <div class="w-full flex justify-between items-center p-4">
-          <span class="font-bold text-[10px]">5,430.00</span>
-          <span class="text-[10px] font-normal opacity-40">USD</span>
+        <div class="flex flex-row py-[40px] pl-[33px] pr-[17px]">
+          <div class="justify-start text-[11px] flex-1">5,430.00</div>
+          <div class="text-[11px]">USD</div>
         </div>
       </div>
     </div>
-    <div class="flex flex-row justify-between w-[95%] pt-5">
-      <app-widget-table
-        [tableConfiguration]="tableConfiguration"
-      ></app-widget-table>
-    </div>
   </div>
-</mat-dialog-content>
+  <div class="flex flex-row justify-between w-[95%] pt-5">
+    <app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+  </div>
+  <div class="flex flex-row justify-end self-end w-[95%] mt-[20px]">
+    <button class="text-[18px] py-[18px] px-[52px] text-[#495A75] border-2 border-[#495A75] rounded-xl">Exist</button>
+  </div>
+</div>
