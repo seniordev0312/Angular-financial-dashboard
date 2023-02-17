@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '@root/shared/shared.module';
+import { CustomerPolicyComponent } from './components/customer-policy/customer-policy.component';
 
 const routes: Route[] = [
   {
@@ -25,7 +26,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [AccountsReceivableComponent],
+  declarations: [AccountsReceivableComponent, CustomerPolicyComponent],
   imports: [
     CommonModule,
     SharedModule,
