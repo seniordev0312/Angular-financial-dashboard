@@ -366,12 +366,12 @@ export class IconSvgModule {
       )
       .addSvgIcon(
         'cashier-check-icon',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/images/check-icon.svg')
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/cashier-icons/check-icon.svg')
       )
       .addSvgIcon(
         'cashier-uncheck-icon',
         sanitizer.bypassSecurityTrustResourceUrl(
-          'assets/images/uncheck-icon.svg'
+          'assets/images/cashier-icons/uncheck-icon.svg'
         )
       );
   }

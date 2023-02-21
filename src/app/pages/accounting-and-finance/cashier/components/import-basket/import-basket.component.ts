@@ -7,17 +7,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImportBasketComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
   checkList = [
-    {
-      state: true,
-      content: 'MGW196389',
-    },
-    {
-      state: true,
-      content: 'MGW196389',
-    },
     {
       state: true,
       content: 'MGW196389',
@@ -48,5 +40,5 @@ export class ImportBasketComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

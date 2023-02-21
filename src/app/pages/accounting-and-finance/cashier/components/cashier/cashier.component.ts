@@ -32,7 +32,7 @@ export class CashierComponent implements OnInit {
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
