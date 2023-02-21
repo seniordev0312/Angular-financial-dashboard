@@ -363,6 +363,16 @@ export class IconSvgModule {
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/svg-icons/journal-edit-icon.svg'
         )
+      )
+      .addSvgIcon(
+        'cashier-check-icon',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/check-icon.svg')
+      )
+      .addSvgIcon(
+        'cashier-uncheck-icon',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/uncheck-icon.svg'
+        )
       );
   }
 }

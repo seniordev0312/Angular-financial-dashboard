@@ -1,0 +1,27 @@
+<app-dialog-header class="text-bold" label="Policies"></app-dialog-header>
+
+<div>
+  <input
+    class="p-5"
+    type="text"
+    placeholder="Please list the policy numbers you would like to add to the basket"
+  />
+  <div>
+    <div *ngFor="let i; in: checkList">
+      <div
+        *ngIf="checkList[i].state === true"
+        class="flex border-[1px] border-[#707070]"
+      >
+        <mat-icon svgIcon="cashier-check-icon"></mat-icon>
+        <div>{{ checkList[i].content }}</div>
+      </div>
+      <div *ngIf="checkList[i].state === true" class="flex bg-[#F43434]">
+        <mat-icon svgIcon="cashier-check-icon"></mat-icon>
+        <div>{{ checkList[i].content }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <button class="bg-[#275E80] p-4 text-[17px]">Add to Busket</button>
+  </div>
+</div>
