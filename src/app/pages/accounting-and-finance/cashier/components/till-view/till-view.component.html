@@ -1,0 +1,199 @@
+<app-dialog-header label="Till"></app-dialog-header>
+<mat-dialog-content>
+  <div>
+    <div class="flex justify-end">
+      <app-button icon="add-icon" text="Add New Currency"></app-button>
+    </div>
+    <div>
+      <div class="w-1/5">
+        <p>Start of Shift</p>
+        <app-select-list
+          [optionsList]="currencyList"
+          label="Currency"
+        ></app-select-list>
+        <app-input-field label="Amount"></app-input-field>
+        <mat-icon svgIcon="check-till"></mat-icon>
+      </div>
+      <div class="w-4/5">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="3" class="text-center bg-[#275E80]">8,600.00 USD</th>
+              <th class="text-center bg-[#ED6A5F]">2,000 USD</th>
+              <th class="text-center bg-[#F2F2F3]" colspan="3">
+                Current Balance
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/money.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Cash</div>
+                <div class="text-[13px] font-bold">2,200.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/check-book.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Credit</div>
+                <div class="text-[13px] font-bold">3,200.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/credit-cards.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Card</div>
+                <div class="text-[13px] font-bold">4,100.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/money.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Cash</div>
+                <div class="text-[13px] font-bold">2,000.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/money.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Cash</div>
+                <div class="text-[13px] font-bold">1,700.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/check-book.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Credit</div>
+                <div class="text-[13px] font-bold">3,200.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/credit-cards.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Card</div>
+                <div class="text-[13px] font-bold">4,100.00</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="w-1/5">
+        <p>Start of Shift</p>
+        <app-select-list
+          [optionsList]="currencyList"
+          label="Currency"
+        ></app-select-list>
+        <app-input-field label="Amount"></app-input-field>
+        <mat-icon svgIcon="check-till"></mat-icon>
+      </div>
+      <div class="w-4/5">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="3" class="text-center bg-[#275E80]">8,600.00 USD</th>
+              <th class="text-center bg-[#ED6A5F]">2,000 USD</th>
+              <th class="text-center bg-[#F2F2F3]" colspan="3">
+                Current Balance
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/money.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Cash</div>
+                <div class="text-[13px] font-bold">2,200.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/check-book.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Credit</div>
+                <div class="text-[13px] font-bold">3,200.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/credit-cards.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Card</div>
+                <div class="text-[13px] font-bold">4,100.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/money.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Cash</div>
+                <div class="text-[13px] font-bold">2,000.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/money.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Cash</div>
+                <div class="text-[13px] font-bold">1,700.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/check-book.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Credit</div>
+                <div class="text-[13px] font-bold">3,200.00</div>
+              </td>
+              <td>
+                <img
+                  src="../../../../../../assets/images/cashier-icons/credit-cards.png"
+                  alt=""
+                />
+                <div class="text-[8px]">Card</div>
+                <div class="text-[13px] font-bold">4,100.00</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <div class="w-[40%] drop-shadow-lg">
+        <div
+          class="bg-[#275E80] rounded-t-xl w-full text-[18px] text-center py-3 text-[#FFFFFF]"
+        >
+          End Of Shift
+        </div>
+        <div class="flex">
+          <div class="w-1/2 flex flex-col">
+            <app-input-field label="Currency" value="USD"></app-input-field>
+            <app-input-field label="Currency" value="LBP"></app-input-field>
+          </div>
+          <div class="w-1/2 flex flex-col">
+            <app-input-field label="Amount"></app-input-field>
+            <app-input-field label="Amount"></app-input-field>
+          </div>
+        </div>
+      </div>
+      <div class="w-[40%] flex">
+        <app-button text="Till Management"></app-button>
+        <app-button classes="ml-auto" text="End Shift"></app-button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

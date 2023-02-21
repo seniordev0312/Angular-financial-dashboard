@@ -12,6 +12,7 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { TillViewComponent } from './components/till-view/till-view.component';
 
 const routes: Route[] = [
   {
@@ -25,7 +26,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [CashierComponent],
+  declarations: [CashierComponent, TillViewComponent],
   imports: [
     CommonModule,
     SharedModule,

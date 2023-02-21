@@ -363,6 +363,18 @@ export class IconSvgModule {
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/svg-icons/journal-edit-icon.svg'
         )
+      )
+      .addSvgIcon(
+        'check-till',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/svg-icons/check-till.svg'
+        )
+      )
+      .addSvgIcon(
+        'add-icon',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/svg-icons/add-icon.svg'
+        )
       );
   }
 }

@@ -13,6 +13,8 @@ import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { CashierModel } from '../../model/casher.model';
+import { MatDialog } from '@angular/material/dialog';
+import { TillViewComponent } from '../till-view/till-view.component';
 
 @Component({
   selector: 'app-cashier',
@@ -28,7 +30,8 @@ export class CashierComponent implements OnInit {
 
   constructor(
     private layoutService: LayoutService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog2: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -92,6 +95,13 @@ export class CashierComponent implements OnInit {
     this.tableConfiguration.dataCount = this.cashierList.length;
     this.cdr.detectChanges();
     this.table.refresh();
+  }
+
+  openTillModal() {
+    this.dialog2.open(TillViewComponent, {
+      height: '65%',
+      width: '60%',
+    });
   }
 
   tableColumns: TableColumn[] = [
