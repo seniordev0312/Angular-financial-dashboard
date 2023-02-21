@@ -26,7 +26,7 @@ export class ViewBasketComponent implements OnInit {
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.invoicelist = [
@@ -76,34 +76,8 @@ export class ViewBasketComponent implements OnInit {
       },
     ];
 
-    this.paymentlist = [
-      {
-        ein: 0o21234567,
-        datapaid: '09/01/2022',
-        totalremaining: 10000.0,
-        currency: 'USD',
-        custome: 0.0,
-      },
-      {
-        ein: 0o21234567,
-        datapaid: '09/01/2022',
-        totalremaining: 10000.0,
-        currency: 'USD',
-        custome: 0.0,
-      },
-      {
-        ein: 0o21234567,
-        datapaid: '09/01/2022',
-        totalremaining: 10000.0,
-        currency: 'USD',
-        custome: 0.0,
-      },
-    ];
-
     this.tableConfiguration.data = this.invoicelist;
     this.tableConfiguration.dataCount = this.invoicelist.length;
-    this.tableConfiguration1.data = this.paymentlist;
-    this.tableConfiguration1.dataCount = this.paymentlist.length;
     this.cdr.detectChanges();
     this.table.refresh();
   }
@@ -239,101 +213,11 @@ export class ViewBasketComponent implements OnInit {
       },
     },
   ];
-  tableColumns1: TableColumn[] = [
-    {
-      translationKey: 'EIN',
-      property: 'ein',
-      type: 'text',
-      svgIcon: '',
-      cssClasses: () => '',
-      dataCssClasses: () => 'underline text-accent',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: false,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-    {
-      translationKey: 'Data Paid',
-      property: 'datapaid',
-      type: 'text',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Date,
-      },
-    },
-    {
-      translationKey: 'Total Remaining',
-      property: 'totalremaining',
-      type: 'text',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-    {
-      translationKey: 'Currency',
-      property: 'currency',
-      type: 'text',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-    {
-      translationKey: 'Custome',
-      property: 'custome',
-      type: 'number',
-      cssClasses: () => '',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-  ];
+
 
   pageSize = 15;
 
   tableSettings = new TableSettings({
-    actionsMode: 'inline',
-    pageSize: this.pageSize,
-    isLocalPaging: true,
-    isRowSelectable: true,
-  });
-
-  tableSettings1 = new TableSettings({
-    actionsMode: 'inline',
     pageSize: this.pageSize,
     isLocalPaging: true,
     isRowSelectable: true,
@@ -347,11 +231,4 @@ export class ViewBasketComponent implements OnInit {
     settings: this.tableSettings,
   };
 
-  tableConfiguration1: TableConfiguration<AdvancePaymentModel> = {
-    tableRowsActionsList: [],
-    columns: this.tableColumns1,
-    data: [],
-    dataCount: 0,
-    settings: this.tableSettings1,
-  };
 }
