@@ -1,12 +1,22 @@
-<div class="flex items-stretch my-6 h-fit py-[30px] shadow rounded-[14px] justify-between w-full mt-20">
+<div
+  class="flex items-stretch my-6 h-fit py-[30px] shadow rounded-[14px] justify-between w-full mt-20"
+>
   <div class="flex flex-col w-4/5">
     <div class="flex flex-row justify-between items-center w-full px-5">
       <div class="flex pl-8 justify-end items-center w-full">
         <p class="mr-4 text-base">Due Date From</p>
         <div class="w-full">
           <div class="flex flex-row justify-center items-center w-full">
-            <input class="w-full" placeholder="xx/xx/2022" [readOnly]="true" [matDatepicker]="startDatePicker" />
-            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <input
+              class="w-full"
+              placeholder="xx/xx/2022"
+              [readOnly]="true"
+              [matDatepicker]="startDatePicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #startDatePicker></mat-datepicker>
           </div>
           <div class="pr-4">
@@ -18,8 +28,16 @@
         <p class="mr-4 text-base">Due Date To</p>
         <div class="w-full">
           <div class="flex flex-row justify-center items-center w-full">
-            <input class="w-full" placeholder="xx/xx/2022" [readOnly]="true" [matDatepicker]="endDatePicker" />
-            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <input
+              class="w-full"
+              placeholder="xx/xx/2022"
+              [readOnly]="true"
+              [matDatepicker]="endDatePicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #endDatePicker></mat-datepicker>
           </div>
           <div class="pr-4">
@@ -33,8 +51,16 @@
         <p class="mr-4 text-base">Due Date From</p>
         <div class="w-full">
           <div class="flex flex-row justify-center items-center w-full">
-            <input class="w-full" placeholder="xx/xx/2022" [readOnly]="true" [matDatepicker]="startDatePicker1" />
-            <mat-datepicker-toggle matSuffix [for]="startDatePicker1"></mat-datepicker-toggle>
+            <input
+              class="w-full"
+              placeholder="xx/xx/2022"
+              [readOnly]="true"
+              [matDatepicker]="startDatePicker1"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDatePicker1"
+            ></mat-datepicker-toggle>
             <mat-datepicker #startDatePicker1></mat-datepicker>
           </div>
           <div class="pr-4">
@@ -46,8 +72,16 @@
         <p class="mr-4 text-base">Due Date To</p>
         <div class="w-full">
           <div class="flex flex-row justify-center items-center w-full">
-            <input class="w-full" placeholder="xx/xx/2022" [readOnly]="true" [matDatepicker]="endDatePicker1" />
-            <mat-datepicker-toggle matSuffix [for]="endDatePicker1"></mat-datepicker-toggle>
+            <input
+              class="w-full"
+              placeholder="xx/xx/2022"
+              [readOnly]="true"
+              [matDatepicker]="endDatePicker1"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDatePicker1"
+            ></mat-datepicker-toggle>
             <mat-datepicker #endDatePicker1></mat-datepicker>
           </div>
           <div class="pr-4">
@@ -58,29 +92,37 @@
     </div>
   </div>
   <div class="w-1/5 flex">
-    <button class="flex flex-col justify-center items-center w-24 h-full bg-primary text-white rounded-r-[14px]">
+    <button
+      class="flex flex-col justify-center items-center w-24 h-full bg-primary text-white rounded-r-[14px]"
+    >
       <span class="material-icons"> search </span>
       <p class="text-sm font-medium mt-2">Search</p>
     </button>
     <div class="flex flex-col justify-evenly">
       <div class="flex justify-evenly items-stretch">
-        <button class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
+       <button class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
           style="height: 40px; margin-left: 10px; margin-right: 5px">#Till</button>
         <button class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
           style="height: 40px; margin-right: 10px; margin-left: 5px" (click)="openViewBusket()">View
           Basket</button>
+
       </div>
       <div class="flex justify-evenly items-stretch">
-        <button class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
-          style="height: 40px;  margin-left: 10px; margin-right: 5px">Import
-          to
-          Basket</button>
-        <button class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
-          style="height: 40px;  margin-right: 10px; margin-left: 5px">+ New
-          Transaction</button>
+        <button
+          class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
+          style="height: 40px; margin-left: 10px; margin-right: 5px"
+          (click)="openBasketModal()"
+        >
+          Import to Basket
+        </button>
+        <button
+          class="justify-center items-center w-16 h-14 text-[9px] h-full bg-primary text-white rounded-[14px]"
+          style="height: 40px; margin-right: 10px; margin-left: 5px"
+        >
+          + New Transaction
+        </button>
       </div>
     </div>
   </div>
-
 </div>
 <app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>

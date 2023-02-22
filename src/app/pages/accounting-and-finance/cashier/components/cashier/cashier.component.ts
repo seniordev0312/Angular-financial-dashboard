@@ -13,8 +13,10 @@ import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { CashierModel } from '../../model/casher.model';
-import { MatDialog } from '@angular/material/dialog';
+
 import { ViewBasketComponent } from '../view-basket/view-basket.component';
+import { ImportBasketComponent } from '../import-basket/import-basket.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cashier',
@@ -32,6 +34,7 @@ export class CashierComponent implements OnInit {
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
     private dialog1: MatDialog,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -246,7 +249,6 @@ export class CashierComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
-
   openViewBusket() {
     this.dialog1.open(ViewBasketComponent, {
       width: '90%',
@@ -255,4 +257,10 @@ export class CashierComponent implements OnInit {
   }
 
 
+  openBasketModal() {
+    this.dialog.open(ImportBasketComponent, {
+      width: '30%',
+      height: '70%',
+    });
+  }
 }
