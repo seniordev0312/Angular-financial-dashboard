@@ -32,7 +32,7 @@ export class CashierComponent implements OnInit {
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
     private dialog2: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -99,8 +99,8 @@ export class CashierComponent implements OnInit {
 
   openTillModal() {
     this.dialog2.open(TillViewComponent, {
-      height: '65%',
-      width: '60%',
+      height: '75%',
+      width: '80%',
     });
   }
 
