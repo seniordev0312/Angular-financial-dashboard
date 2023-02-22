@@ -1,106 +1,91 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
-import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
+import { VendorInvoiceModel } from '@root/pages/accounting-and-finance/accounts-payable/model/vendor-invoice.model';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
+import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
-import { LayoutService } from '@root/shared/services/layout.service';
-import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { CashierModel } from '../../model/casher.model';
-import { MatDialog } from '@angular/material/dialog';
-import { ViewBasketComponent } from '../view-basket/view-basket.component';
+import { AdvancePaymentModel } from '@root/pages/accounting-and-finance/accounts-payable/model/advance-payment.model';
 
 @Component({
-  selector: 'app-cashier',
-  templateUrl: './cashier.component.html',
-  styleUrls: ['./cashier.component.scss'],
+  selector: 'app-view-basket',
+  templateUrl: './view-basket.component.html',
+  styleUrls: ['./view-basket.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CashierComponent implements OnInit {
-  cashierList: CashierModel[] = [];
-
+export class ViewBasketComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<CashierModel>;
+  table: WidgetTableComponent<VendorInvoiceModel>;
+  table1: WidgetTableComponent<AdvancePaymentModel>;
+  invoicelist: VendorInvoiceModel[] = [];
+  paymentlist: AdvancePaymentModel[] = [];
 
-  constructor(
-    private layoutService: LayoutService,
-    private cdr: ChangeDetectorRef,
-    private dialog1: MatDialog,
-  ) { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.layoutService.updateBreadCrumbsRouter({
-      crumbs: [
-        {
-          route: ApplicationRoutes.Cashier,
-          translationKey: 'accounting-add-finance.cashier.cashier',
-        },
-      ],
-    });
-
-    this.cashierList = [
-      {
-        id: 0,
-        ein: '047972210',
-        name: 'Mohamad Al Srouji',
-        commission: 300.0,
-        status: 'Good',
-        currency: 'USD',
-        ytd: 3000.0,
-        premiumdue: 3000.0,
-        duedate: '11/05/2022',
-      },
+    this.invoicelist = [
       {
         id: 1,
-        ein: '047972210',
-        name: 'Mohamad Al Srouji',
-        commission: 300.0,
-        status: '30 daysoverdue',
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
         currency: 'USD',
-        ytd: 3000.0,
-        premiumdue: 3000.0,
-        duedate: '11/05/2022',
+        invoicetype: '',
+        custom: 1400,
       },
       {
         id: 2,
-        ein: '047972210',
-        name: 'Mohamad Al Srouji',
-        commission: 300.0,
-        status: '60 days Overdue',
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
         currency: 'USD',
-        ytd: 3000.0,
-        premiumdue: 3000.0,
-        duedate: '11/05/2022',
+        invoicetype: '',
+        custom: 4000,
       },
       {
         id: 3,
-        ein: '047972210',
-        name: 'Mohamad Al Srouji',
-        commission: 300.0,
-        status: 'Requires Provision',
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
         currency: 'USD',
-        ytd: 3000.0,
-        premiumdue: 3000.0,
-        duedate: '11/05/2022',
+        invoicetype: '',
+        custom: 6000,
+      },
+      {
+        id: 4,
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
+        currency: 'USD',
+        invoicetype: '',
+        custom: 400,
       },
     ];
 
-    this.tableConfiguration.data = this.cashierList;
-    this.tableConfiguration.dataCount = this.cashierList.length;
+    this.tableConfiguration.data = this.invoicelist;
+    this.tableConfiguration.dataCount = this.invoicelist.length;
     this.cdr.detectChanges();
     this.table.refresh();
   }
 
   tableColumns: TableColumn[] = [
     {
-      translationKey: 'EIN',
-      property: 'ein',
+      translationKey: 'Policy No',
+      property: 'policyno',
       type: 'text',
       svgIcon: '',
       cssClasses: () => '',
@@ -132,9 +117,25 @@ export class CashierComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Commission',
-      property: 'commission',
+      translationKey: 'Due Date',
+      property: 'duedate',
       type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => '',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Date,
+      },
+    },
+    {
+      translationKey: 'Total Unpaid Due',
+      property: 'totalunpaiddue',
+      type: 'number',
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
@@ -148,9 +149,9 @@ export class CashierComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Status',
-      property: 'status',
-      type: 'text',
+      translationKey: 'Total Unpaid Not Due',
+      property: 'totalunpaidnotdue',
+      type: 'number',
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
@@ -180,9 +181,9 @@ export class CashierComponent implements OnInit {
       },
     },
     {
-      translationKey: 'High on Account YTD',
-      property: 'ytd',
-      type: 'number',
+      translationKey: 'Invoice Type',
+      property: 'invoicetype',
+      type: 'text',
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
@@ -196,26 +197,10 @@ export class CashierComponent implements OnInit {
       },
     },
     {
-      translationKey: 'Current Premiums Due',
-      property: 'premiumdue',
+      translationKey: 'Custome',
+      property: 'custom',
       type: 'number',
-      cssClasses: () => 'pr-2',
-      dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
-      visible: true,
-      displayInFilterList: true,
-      hasToolTip: false,
-      showText: true,
-      filter: {
-        filterType: TableColumnFilterDataType.Text,
-      },
-    },
-    {
-      translationKey: 'Due Date',
-      property: 'duedate',
-      type: 'text',
-      cssClasses: () => 'pr-2',
+      cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
@@ -229,30 +214,21 @@ export class CashierComponent implements OnInit {
     },
   ];
 
+
   pageSize = 15;
 
   tableSettings = new TableSettings({
-    actionsMode: 'inline',
     pageSize: this.pageSize,
     isLocalPaging: true,
     isRowSelectable: true,
-    enableCustomizingColumns: true,
   });
 
-  tableConfiguration: TableConfiguration<CashierModel> = {
+  tableConfiguration: TableConfiguration<VendorInvoiceModel> = {
     tableRowsActionsList: [],
     columns: this.tableColumns,
     data: [],
     dataCount: 0,
     settings: this.tableSettings,
   };
-
-  openViewBusket() {
-    this.dialog1.open(ViewBasketComponent, {
-      width: '90%',
-      height: '80%'
-    })
-  }
-
 
 }

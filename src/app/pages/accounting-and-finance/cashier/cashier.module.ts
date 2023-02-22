@@ -12,6 +12,8 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { ViewBasketComponent } from './components/view-basket/view-basket.component';
+import { ViewBasketAdvancedComponent } from './components/view-basket-advanced/view-basket-advanced.component';
 
 const routes: Route[] = [
   {
@@ -25,7 +27,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [CashierComponent],
+  declarations: [CashierComponent, ViewBasketComponent, ViewBasketAdvancedComponent],
   imports: [
     CommonModule,
     SharedModule,
