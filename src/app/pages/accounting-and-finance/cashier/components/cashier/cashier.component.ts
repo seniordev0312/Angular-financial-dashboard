@@ -244,6 +244,7 @@ export class CashierComponent implements OnInit {
     isLocalPaging: true,
     isRowSelectable: true,
     enableCustomizingColumns: true,
+    isRowsSelectionAvailable: true
   });
 
   tableConfiguration: TableConfiguration<CashierModel> = {

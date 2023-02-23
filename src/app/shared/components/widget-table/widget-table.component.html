@@ -3,13 +3,16 @@
     [lazy]="!tableConfiguration.settings.isLocalPaging" [totalRecords]="tableConfiguration?.dataCount"
     [paginator]="tableConfiguration.settings.enablePaging" (onLazyLoad)="onLazyLoad($event)"
     (onFilter)="onFilterEmitted($event)" [dataKey]="tableConfiguration.settings.dataKey" [filterDelay]="0"
-    styleClass="p-datatable-sm p-datatable-gridlines" [selectionPageOnly]="true" selectionMode="single"
+    styleClass="p-datatable-sm p-datatable-gridlines" [selectionPageOnly]="true" selectionMode="multiple"
     [(selection)]="selectedRow" (onRowSelect)="onRowSelect($event)" (selectionChange)="onRowsSelectedChanged()"
     [showFirstLastIcon]="false" [showPageLinks]="true" loadingIcon="pi pi-spin pi-spinner loading-icon-size">
     <ng-template pTemplate="header">
       <tr>
-        <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable"></td>
+        <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable" style="width: 2.25em">
+          <p-tableHeaderCheckbox class="ml-1"></p-tableHeaderCheckbox>
+        </td>
         <ng-container *ngFor="let column of tableConfiguration.columns">
+
           <th *ngIf="column.visible" [ngClass]="column.cssClasses(column.property)" scope="cols">
             <!--check-->
             <div class="flex justify-center text-sm items-center">
