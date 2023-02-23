@@ -26,6 +26,10 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CashierComponent implements OnInit {
   cashierList: CashierModel[] = [];
+  issueFrom: Date;
+  issueTo: Date;
+  expiryFrom: Date;
+  expiryTo: Date;
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<CashierModel>;
@@ -256,6 +260,17 @@ export class CashierComponent implements OnInit {
     })
   }
 
+  searchField() {
+    console.log(this.issueFrom);
+    console.log(this.issueTo);
+    console.log(this.expiryFrom);
+    console.log(this.expiryTo);
+    this.cashierList = this.cashierList.filter(list => new Date(list.duedate) > this.issueFrom && new Date(list.duedate) < this.issueTo);
+    this.tableConfiguration.data = this.cashierList;
+    this.tableConfiguration.dataCount = this.cashierList.length;
+    this.cdr.detectChanges();
+    this.table.refresh();
+  }
 
   openBasketModal() {
     this.dialog.open(ImportBasketComponent, {
