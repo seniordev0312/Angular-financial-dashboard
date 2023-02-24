@@ -26,7 +26,7 @@ export class ViewBasketComponent implements OnInit {
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.invoicelist = [
@@ -214,13 +214,13 @@ export class ViewBasketComponent implements OnInit {
     },
   ];
 
-
   pageSize = 15;
 
   tableSettings = new TableSettings({
     pageSize: this.pageSize,
     isLocalPaging: true,
     isRowSelectable: true,
+    enableTrash: true,
   });
 
   tableConfiguration: TableConfiguration<VendorInvoiceModel> = {
@@ -230,5 +230,4 @@ export class ViewBasketComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
-
 }
