@@ -30,7 +30,7 @@
         <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable"></td>
         <td *ngIf="tableConfiguration.settings.enableTrash"></td>
         <ng-container *ngFor="let column of tableConfiguration.columns">
-          <td pEditableColumn>
+          <th *ngIf="column.editable" pEditableColumn>
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <input type="text" [(ngModel)]="column.property" />
@@ -39,7 +39,7 @@
                 {{ column.property }}
               </ng-template>
             </p-cellEditor>
-          </td>
+          </th>
           <th
             *ngIf="column.visible"
             [ngClass]="column.cssClasses(column.property)"
