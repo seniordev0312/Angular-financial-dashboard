@@ -126,8 +126,10 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     this.dataTable.filters = {};
   }
 
-  trashRowAction(index: number) {
-    this.tableConfiguration.data.slice(index, index + 1);
+  trashRowAction(rowData: any) {
+    console.log(rowData);
+    this.data.slice(rowData.id - 1, rowData.id);
+    this.cdr.detectChanges();
   }
 
   onSlideToggleChanged(item: T, checked: boolean) {
