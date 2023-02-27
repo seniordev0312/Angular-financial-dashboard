@@ -46,10 +46,10 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   pageSize = 50;
   currentPageIndex = 0;
   isSpinning$: Observable<boolean>;
-  data: T[];
+  data: any[];
   isDesktop$ = this.layoutService.isDesktop$;
   isMobile$ = this.layoutService.isMobile$;
-  selectedRow: T;
+  selectedRow: any;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -128,7 +128,12 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
   trashRowAction(rowData: any) {
     console.log(rowData);
-    this.data.slice(rowData.id - 1, rowData.id);
+    console.log(rowData.id, typeof rowData.id);
+    this.data = this.data.slice(rowData.id, this.data.length);
+    for (let i = 0; i < this.data.length; i++) {
+      this.data[i].id = i + 1;
+    }
+    console.log(this.data);
     this.cdr.detectChanges();
   }
 
