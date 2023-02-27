@@ -139,6 +139,7 @@ export class ViewBasketComponent implements OnInit {
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
+      editable: true,
       hasFilter: true,
       visible: true,
       displayInFilterList: true,
