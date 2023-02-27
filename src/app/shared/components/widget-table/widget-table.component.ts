@@ -129,11 +129,12 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   trashRowAction(rowData: any) {
     console.log(rowData);
     console.log(rowData.id, typeof rowData.id);
-    this.data = this.data.slice(rowData.id, this.data.length);
+    this.data.splice(rowData.id - 1, 1);
+    console.log(this.data);
+
     for (let i = 0; i < this.data.length; i++) {
       this.data[i].id = i + 1;
     }
-    console.log(this.data);
     this.cdr.detectChanges();
   }
 
