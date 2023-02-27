@@ -9,6 +9,7 @@
     <ng-template pTemplate="header">
       <tr>
         <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable"></td>
+        <td *ngIf="tableConfiguration.settings.enableTrash"></td>
         <ng-container *ngFor="let column of tableConfiguration.columns">
           <th *ngIf="column.visible" [ngClass]="column.cssClasses(column.property)" scope="cols">
             <!--check-->
@@ -102,7 +103,12 @@
         <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable">
           <p-tableCheckbox [value]="row"></p-tableCheckbox>
         </td>
-        <ng-container *ngFor="let column of tableConfiguration.columns">
+        <td *ngIf="tableConfiguration.settings.enableTrash">
+          <button (click)="trashRowAction(row)">
+            <mat-icon>restore_from_trash</mat-icon>
+          </button>
+        </td>
+        <ng-container *ngFor="let column of tableConfiguration.columns; let i = index">
           <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
             <div class="flex justify-center">
               <mat-icon *ngSwitchCase="'bool'" class="cursor-pointer"
