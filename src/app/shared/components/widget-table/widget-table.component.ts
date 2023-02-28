@@ -32,6 +32,8 @@ import { BaseComponent } from '../base-component/base-component';
 })
 export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   @Input() tableConfiguration: TableConfiguration<T>;
+  @Input() changedDueUnPaid: number;
+  @Output() changedDueUnPaidChange = new EventEmitter<number>();
   @Output() onPaging = new EventEmitter<PagingConfig>();
   @Output() onSlideToggle = new EventEmitter<{ value: boolean; item: T }>();
   @Output() onSort = new EventEmitter<SortItem>();
@@ -164,5 +166,9 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
       height: '350px',
       position: { right: '75px' },
     });
+  }
+
+  emitChangedValue() {
+    console.log(111);
   }
 }

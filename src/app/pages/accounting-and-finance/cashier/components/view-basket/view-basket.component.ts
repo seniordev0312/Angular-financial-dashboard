@@ -25,8 +25,9 @@ export class ViewBasketComponent implements OnInit {
   table1: WidgetTableComponent<AdvancePaymentModel>;
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
+  dueUnPaidPrice: number;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.invoicelist = [
@@ -77,6 +78,7 @@ export class ViewBasketComponent implements OnInit {
     ];
 
     this.tableConfiguration.data = this.invoicelist;
+    console.log(this.invoicelist);
     this.tableConfiguration.dataCount = this.invoicelist.length;
     this.cdr.detectChanges();
     this.table.refresh();
@@ -139,6 +141,7 @@ export class ViewBasketComponent implements OnInit {
       cssClasses: () => '',
       dataCssClasses: () => '',
       enableSort: true,
+      editable: true,
       hasFilter: true,
       visible: true,
       displayInFilterList: true,
@@ -219,7 +222,6 @@ export class ViewBasketComponent implements OnInit {
   tableSettings = new TableSettings({
     pageSize: this.pageSize,
     isLocalPaging: true,
-    isRowSelectable: true,
     enableTrash: true,
   });
 

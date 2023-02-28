@@ -9,7 +9,6 @@
     <ng-template pTemplate="header">
       <tr>
         <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable"></td>
-        <td *ngIf="tableConfiguration.settings.enableTrash"></td>
         <ng-container *ngFor="let column of tableConfiguration.columns">
           <th *ngIf="column.visible" [ngClass]="column.cssClasses(column.property)" scope="cols">
             <!--check-->
@@ -108,8 +107,21 @@
             <mat-icon>restore_from_trash</mat-icon>
           </button>
         </td>
+
         <ng-container *ngFor="let column of tableConfiguration.columns; let i = index">
-          <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible" [ngSwitch]="column.type">
+          <td *ngIf="column.visible && column.editable" pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input type="text" [(ngModel)]="row[column.property]" (onChange)="emitChangedValue()" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{row[column.property] }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td [ngClass]="column.cssClasses(column.property)" *ngIf="column.visible && !column.editable"
+            [ngSwitch]="column.type">
             <div class="flex justify-center">
               <mat-icon *ngSwitchCase="'bool'" class="cursor-pointer"
                 [svgIcon]="row[column.property] ? 'true' : 'false'">
