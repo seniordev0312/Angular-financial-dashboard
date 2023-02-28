@@ -1,8 +1,9 @@
 <app-dialog-header class="text-bold" label="Import to Basket"></app-dialog-header>
 
 <div>
-  <input class="p-5 w-full" type="text"
-    placeholder="Please list the policy numbers you would like to add to the basket" />
+  <input class="p-5 w-full" type="text" placeholder="Please list the policy numbers you would like to add to the basket"
+    [(ngModel)]="policyNumber" />
+  <p class="text-red-600 pl-5 pb-2">{{warnText}}</p>
   <div>
     <div *ngFor="let list of checkList">
       <div *ngIf="list.state === true" class="flex border-t-[1px] border-[#707070] py-[5px]">
@@ -16,6 +17,6 @@
     </div>
   </div>
   <div class="flex justify-end">
-    <button class="bg-[#275E80] p-4 text-[17px] rounded-[14px]">Add to Busket</button>
+    <button class="bg-[#275E80] p-4 text-[17px] rounded-[14px]" (click)="addBusket()">Add to Busket</button>
   </div>
 </div>
