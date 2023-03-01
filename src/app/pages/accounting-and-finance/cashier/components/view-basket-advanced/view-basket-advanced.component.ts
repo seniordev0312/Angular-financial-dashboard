@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Input,
   ViewChild,
   ChangeDetectorRef,
 } from '@angular/core';
@@ -19,6 +20,7 @@ import { AdvancePaymentModel } from '@root/pages/accounting-and-finance/accounts
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewBasketAdvancedComponent implements OnInit {
+  @Input() paymentStatus: number;
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<AdvancePaymentModel>;
   paymentlist: AdvancePaymentModel[] = [];
@@ -129,6 +131,7 @@ export class ViewBasketAdvancedComponent implements OnInit {
       dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
+      editable: true,
       visible: true,
       displayInFilterList: true,
       hasToolTip: false,

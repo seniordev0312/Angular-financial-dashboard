@@ -26,8 +26,13 @@ export class ViewBasketComponent implements OnInit {
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
   dueUnPaidPrice: number;
+  paymentStatusFlag: boolean = true;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  changePaymentStatus() {
+    this.paymentStatusFlag = !this.paymentStatusFlag;
+  }
 
   ngOnInit(): void {
     this.invoicelist = [
