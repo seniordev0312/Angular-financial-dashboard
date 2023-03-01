@@ -26,6 +26,7 @@ export class ViewBasketComponent implements OnInit {
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
   dueUnPaidPrice: number;
+  totalPaidPrice: number;
 
   constructor(private cdr: ChangeDetectorRef) { }
 
@@ -223,6 +224,7 @@ export class ViewBasketComponent implements OnInit {
     pageSize: this.pageSize,
     isLocalPaging: true,
     enableTrash: true,
+    enableActions: false
   });
 
   tableConfiguration: TableConfiguration<VendorInvoiceModel> = {

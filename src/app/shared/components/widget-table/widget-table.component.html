@@ -112,7 +112,8 @@
           <td *ngIf="column.visible && column.editable" pEditableColumn>
             <p-cellEditor>
               <ng-template pTemplate="input">
-                <input type="text" [(ngModel)]="row[column.property]" (onChange)="emitChangedValue()" />
+                <input type="text" [(ngModel)]="row[column.property]"
+                  (input)="emitChangedValue(row[column.property])" />
               </ng-template>
               <ng-template pTemplate="output">
                 {{row[column.property] }}
