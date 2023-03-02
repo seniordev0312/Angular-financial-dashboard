@@ -207,6 +207,24 @@ export class IconSvgModule {
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/customer-service-icons/paperclip.svg'
         )
+    )
+      .addSvgIcon(
+        'customer-contact-form-location',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/location-pin.svg'
+        )
+    )
+      .addSvgIcon(
+        'customer-contact-form-image-processing',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/image-processing.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-service-color-bucket',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/color-bucket.svg'
+        )
       )
       .addSvgIcon(
         'customer-contact-form-mail',
@@ -366,7 +384,9 @@ export class IconSvgModule {
       )
       .addSvgIcon(
         'cashier-check-icon',
-        sanitizer.bypassSecurityTrustResourceUrl('assets/images/cashier-icons/check-icon.svg')
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/cashier-icons/check-icon.svg'
+        )
       )
       .addSvgIcon(
         'cashier-uncheck-icon',

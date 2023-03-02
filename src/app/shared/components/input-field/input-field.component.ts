@@ -29,7 +29,7 @@ export class InputFieldComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.control.valueChanges.subscribe((data) => this.trigger.emit(data));
   }
 

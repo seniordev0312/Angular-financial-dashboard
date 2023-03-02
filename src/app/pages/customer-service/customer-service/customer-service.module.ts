@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Route, RouterModule } from '@angular/router';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
@@ -11,6 +12,7 @@ import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { SharedModule } from '@root/shared/shared.module';
+import { MatSliderModule } from '@angular/material/slider';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { PolicyFilterComponent } from '../customer-service-shared/components/policy-filter/policy-filter.component';
 import { CustomerServiceSharedModule } from '../customer-service-shared/customer-service-shared.module';
@@ -28,6 +30,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { PendingInformaitonCardComponent } from './components/pending-informaiton-card/pending-informaiton-card.component';
 import { PolicyInformationComponent } from './components/policy-information/policy-information.component';
 import { SalesFlowComponent } from './components/sales-flow/sales-flow.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const routes: Route[] = [
   {
@@ -80,6 +83,9 @@ const routes: Route[] = [
     MatProgressSpinnerModule,
     CustomerServiceSharedModule,
     DragDropModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatDatepickerModule,
     RouterModule.forChild(routes),
   ],
   exports: [

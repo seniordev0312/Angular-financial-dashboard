@@ -1,3 +1,108 @@
 .contactviewclass {
   background-color: #fafafa;
 }
+
+.sent-message-pp {
+  right: -4%;
+  top: -14%;
+}
+
+.received-message-pp {
+  right: 89%;
+  top: -35%;
+}
+
+.sent-message-icon {
+  left: -4%;
+}
+
+.received-message-icon {
+  left: 93%;
+}
+
+:host ::ng-deep {
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .cdk-overlay-pane {
+    padding-top: 25px;
+  }
+
+  .mat-select-arrow-wrapper {
+    display: none !important;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding: 0px;
+  }
+
+  .selectCustomClass {
+    border-radius: 10% !important;
+    padding-top: 20px;
+  }
+
+  .mat-option.mat-active {
+    background-color: #ffffff;
+  }
+
+  .dropDownIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .icon {
+    width: 50px;
+    height: 33px;
+  }
+
+  .matOption {
+    height: 3rem;
+  }
+
+  .mat-form-field-infix {
+    width: 40px;
+  }
+
+  .mat-form-field-type-mat-select .mat-form-field-label {
+    width: 40px;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    border-top: solid transparent !important;
+  }
+
+  .mat-select-panel .mat-optgroup-label,
+  .mat-select-panel .mat-option {
+    height: 3rem;
+  }
+
+  .mat-slider-horizontal {
+    min-width: 251px;
+  }
+
+  .mat-slider-thumb-label {
+    background-color: #5db75d !important;
+    width: 20px !important;
+    height: 20px !important;
+    top: -27px !important;
+  }
+
+  .mat-slider-thumb-label-text {
+    color: #5db75d;
+    padding-bottom: 2.75rem;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+.chat-icon-buttons {
+  width: 65px !important;
+  height: 65px !important;
+}
+
+.selected-button {
+  background-color: white !important;
+  color: #005f83 !important;
+  border: 1px solid #005f83 !important;
+}

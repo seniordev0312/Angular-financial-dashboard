@@ -22,6 +22,7 @@ export class SelectListComponent implements OnInit {
   @Input() control: FormControl;
   @Input() isMultiple = false;
   @Input() icon: string;
+  @Input() name: string;
   @Input() isDisabled = false;
   @Input() hasSearch = false;
   @Input() optionsList: BaseListItem[] = [];

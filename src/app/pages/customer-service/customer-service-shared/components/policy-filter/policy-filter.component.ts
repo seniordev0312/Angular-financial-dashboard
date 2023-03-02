@@ -91,6 +91,14 @@ export class PolicyFilterComponent implements OnInit {
 
     this.tikcetType == 'policyRenewals'
       ? this.policyCardService.filterPolicyRenewalTickets(filterOption)
-      : this.customerCardService.filterCustomerServiceickets(filterOption);
+      : this.customerCardService.filterCustomerServiceTickets(filterOption);
+  }
+
+  onClearFilters() {
+    this.fromDateCreated = null;
+    this.toDateCreated = null; 
+    this.toDateModified = null; 
+    this.fromDateCreated = null; 
+    this.policyStatus = '';
   }
 }

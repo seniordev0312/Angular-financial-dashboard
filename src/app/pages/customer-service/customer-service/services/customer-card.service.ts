@@ -47,10 +47,14 @@ export class CustomerCardService {
   }
 
   // HttpClient API post() method => Filter customer service tickets
-  filterCustomerServiceickets(option: {}) {
+  filterCustomerServiceTickets(option: {}) {
+    console.log(option);
+    
     this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
       .subscribe((data) => {
+        console.log(data);
+        
         this.customerServiceTicketsRepository.updateTickets(data);
       });
   }

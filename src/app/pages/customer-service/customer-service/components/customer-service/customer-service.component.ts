@@ -40,8 +40,10 @@ export class CustomerServiceComponent implements OnInit {
   flag: number = 0;
   tickets: any = null;
 
+  searchBarValue: string = '';
+
   constructor(
-    public customerCardService: CustomerCardService,
+    private customerCardService: CustomerCardService,
     public dialog: MatDialog,
     private router: Router,
     private ref: ChangeDetectorRef,
@@ -111,5 +113,23 @@ export class CustomerServiceComponent implements OnInit {
       );
       this.openDialog(event.container.data[event.currentIndex]);
     }
+  }
+
+  onSearchFilter() {
+    const filterOption = {
+      searchQuery: this.searchBarValue,
+    };
+
+    this.customerCardService.filterCustomerServiceTickets(filterOption);
+  }
+
+  onClearFilter() {
+    this.searchBarValue = '';
+
+    const filterOption = {
+      searchQuery: this.searchBarValue, 
+    };
+
+    this.customerCardService.filterCustomerServiceTickets(filterOption);
   }
 }
