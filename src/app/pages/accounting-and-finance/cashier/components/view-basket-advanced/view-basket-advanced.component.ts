@@ -2,8 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Input,
   ViewChild,
+  Output,
   ChangeDetectorRef,
+  EventEmitter,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -19,12 +22,21 @@ import { AdvancePaymentModel } from '@root/pages/accounting-and-finance/accounts
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewBasketAdvancedComponent implements OnInit {
+  @Input() status: number;
+  @Output() statusChange = new EventEmitter<number>();
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<AdvancePaymentModel>;
   paymentlist: AdvancePaymentModel[] = [];
   constructor(private cdr: ChangeDetectorRef) {}
+  paymentStatus: number;
+
+  fun() {
+    console.log(11111);
+  }
 
   ngOnInit(): void {
+    console.log(this.paymentStatus);
+    // this.paymentStatusChange.emit(this.paymentStatus);
     this.paymentlist = [
       {
         ein: 0o21234567,
@@ -48,11 +60,16 @@ export class ViewBasketAdvancedComponent implements OnInit {
         custome: 0.0,
       },
     ];
+    console.log(this.paymentStatus);
 
     this.tableConfiguration.data = this.paymentlist;
     this.tableConfiguration.dataCount = this.paymentlist.length;
     this.cdr.detectChanges();
     this.table.refresh();
+  }
+
+  ngOnChanges() {
+    console.log(this.paymentStatus);
   }
 
   tableColumns: TableColumn[] = [
@@ -129,6 +146,7 @@ export class ViewBasketAdvancedComponent implements OnInit {
       dataCssClasses: () => '',
       enableSort: true,
       hasFilter: true,
+      editable: true,
       visible: true,
       displayInFilterList: true,
       hasToolTip: false,

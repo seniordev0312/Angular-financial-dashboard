@@ -33,7 +33,10 @@ import { BaseComponent } from '../base-component/base-component';
 export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   @Input() tableConfiguration: TableConfiguration<T>;
   @Input() changedDueUnPaid: number;
+  @Input() changedTotalPaid: number;
   @Output() changedDueUnPaidChange = new EventEmitter<number>();
+  @Output() changedTotalPaidChange = new EventEmitter<number>();
+
   @Output() onPaging = new EventEmitter<PagingConfig>();
   @Output() onSlideToggle = new EventEmitter<{ value: boolean; item: T }>();
   @Output() onSort = new EventEmitter<SortItem>();
@@ -168,7 +171,13 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
     });
   }
 
-  emitChangedValue() {
-    console.log(111);
+  emitChangedValue(value: any) {
+    console.log(value);
+    this.changedDueUnPaidChange.emit(value);
+    let sum = 0;
+    for (let i = 0; i < this.data.length; i++) {
+      sum += Number(this.data[i].totalunpaiddue);
+    }
+    this.changedTotalPaidChange.emit(sum);
   }
 }
