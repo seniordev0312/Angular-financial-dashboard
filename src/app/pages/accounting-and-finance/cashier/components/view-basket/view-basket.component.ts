@@ -26,6 +26,7 @@ export class ViewBasketComponent implements OnInit {
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
   dueUnPaidPrice: number;
+  // dueUnPaidPrice1: number;
   paymentStatusFlag: boolean = true;
 
   constructor(private cdr: ChangeDetectorRef) {}
@@ -35,6 +36,7 @@ export class ViewBasketComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // console.log(this.dueUnPaidPrice1);
     this.invoicelist = [
       {
         id: 1,
