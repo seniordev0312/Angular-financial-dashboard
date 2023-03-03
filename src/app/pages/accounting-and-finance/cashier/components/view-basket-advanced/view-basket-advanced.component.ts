@@ -7,6 +7,7 @@ import {
   Output,
   ChangeDetectorRef,
   EventEmitter,
+  SimpleChanges,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
@@ -30,8 +31,13 @@ export class ViewBasketAdvancedComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
   paymentStatus: number;
 
-  fun() {
-    console.log(11111);
+  emitchanges() {
+    this.statusChange.emit(this.paymentStatus);
+    console.log('done');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
 
   ngOnInit(): void {
@@ -66,10 +72,6 @@ export class ViewBasketAdvancedComponent implements OnInit {
     this.tableConfiguration.dataCount = this.paymentlist.length;
     this.cdr.detectChanges();
     this.table.refresh();
-  }
-
-  ngOnChanges() {
-    console.log(this.paymentStatus);
   }
 
   tableColumns: TableColumn[] = [
