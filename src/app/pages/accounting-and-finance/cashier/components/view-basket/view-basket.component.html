@@ -91,6 +91,7 @@
           <h1 class="p-5 font-bold text-left w-full">Advance Payments</h1>
           <app-view-basket-advanced
             [(status)]="dueUnPaidPrice"
+            [(advancedTotalPrice)]="totalAdvancePrice"
           ></app-view-basket-advanced>
         </div>
         <div class="flex flex-col items-center w-[33%]">
@@ -125,7 +126,7 @@
                 <div
                   class="border-[1px] px-[6px] py-[10px] flex justify-center rounded-[9px]"
                 >
-                  <p class="font-bold text-[11px]">$3000</p>
+                  <p class="font-bold text-[11px]">${{ totalAdvancePrice }}</p>
                 </div>
               </div>
             </div>

@@ -28,6 +28,7 @@ export class ViewBasketComponent implements OnInit {
   dueUnPaidPrice: number;
   // dueUnPaidPrice1: number;
   paymentStatusFlag: boolean = true;
+  totalAdvancePrice: number;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
