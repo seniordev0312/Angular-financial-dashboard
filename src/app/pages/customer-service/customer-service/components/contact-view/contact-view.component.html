@@ -13,7 +13,7 @@
         [ngClass]="{ '-right-[40%]': item.sent }"
       >
         <div
-          class="w-[44px] absolute"
+          class="w-[35px] absolute"
           [ngClass]="item.sent ? 'sent-message-pp' : 'received-message-pp'"
         >
           <img class="rounded-[50%]" [src]="item.profilePic" />
@@ -21,7 +21,7 @@
 
         <div
           *ngIf="!isDepartmentChat"
-          class="w-[25px] -left-[4%] -top-[2%] absolute"
+          class="w-[22px] -left-[4%] -top-[2%] absolute"
           [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
         >
           <img class="rounded-[50%]" [src]="item.sourceIconUrl" />
