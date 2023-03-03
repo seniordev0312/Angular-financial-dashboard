@@ -52,7 +52,10 @@
       <div class="h-[33px] colorflag">
         <app-input-field
           [(inputValue)]="detailContent"
+          [control]="getFormControl('details')"
+          (inputValueChange)="onChangeInputValue()"
           value="{{ detailContent }}"
+          name="details"
           class="flex p-0 text-primary"
         ></app-input-field>
       </div>
@@ -109,7 +112,10 @@
               <app-input-field
                 [(inputValue)]="additionalDetailContent"
                 value="{{ additionalDetailContent }}"
+                (inputValueChange)="onChangeInputValue()"
                 class="flex widthFlag"
+                [control]="getFormControl('additionalDetails')"
+                name="additionalDetailContent"
               ></app-input-field>
             </div>
           </div>
@@ -123,16 +129,25 @@
               <app-input-field
                 [(inputValue)]="policyPrice"
                 value="{{ policyPrice }}"
+                (inputValueChange)="onChangeInputValue()"
                 class="flex widthFlag"
+                [control]="getFormControl('policyAgreedPrice')"
+                name="policyPrice"
               ></app-input-field>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex-1 flex items-end justify-end mb-1">
+      <div class="flex-1 flex items-end justify-around mb-1">
+        <app-button
+          (click)="onBackToHistory()"
+          classes="ml-auto px-8 py-3 text-[15px] bg-white border-2 border-[#005f83] text-[#005f83] rounded-md"
+          text="Back"
+        ></app-button>
         <app-button
           (click)="saveHistory()"
-          classes="ml-auto px-8 py-3 text-[15px] bg-primary text-white rounded-md"
+          [isDisabled]="!isFormValid"
+          classes="ml-auto px-8 py-3 text-[15px] bg-primary disabled:bg-[#8d8d8d] text-white rounded-md"
           text="Save"
         ></app-button>
       </div>

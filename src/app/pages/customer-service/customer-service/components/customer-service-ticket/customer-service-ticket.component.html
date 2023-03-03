@@ -21,7 +21,8 @@
                   EIN: &nbsp;
                   <span
                     class="underline text-xs text-primary decoration-sky-100 flex items-center"
-                  >{{ this.data.dataKey.ein }}</span>
+                    >{{ this.data.dataKey.ein }}</span
+                  >
                 </div>
               </div>
             </div>
@@ -32,7 +33,7 @@
                 TICKET STATUS:
               </p>
               <div class="inProcessSelect">
-                <app-select-list></app-select-list>
+                <app-select-list name="ticketStatus"></app-select-list>
               </div>
             </div>
           </div>
@@ -42,7 +43,7 @@
           </div>
 
           <cdk-accordion class="">
-            <cdk-accordion-item
+            <!-- <cdk-accordion-item
               #contactDetailsAccordion="cdkAccordionItem"
               role="button"
               tabindex="0"
@@ -59,8 +60,44 @@
                 [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
                 [attr.id]="'accordion-body-0'"
                 [attr.aria-labelledby]="'accordion-header-0'"
-              ></div>
-            </cdk-accordion-item>
+              >
+                <div class="flex flex-wrap px-6">
+                <div class="w-1/2 pr-3.5 mb-3">
+                  <div>Test1</div>
+                  <div>Test2</div>
+                  <div>Test3</div>
+                  <div>Test4</div>
+                </div>
+                </div>
+              </div>
+            </cdk-accordion-item> -->
+
+              <cdk-accordion-item class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
+                #contactDetailsAccordion="cdkAccordionItem" role="button" tabindex="1" [attr.id]="'accordion-header-1'"
+                [attr.aria-expanded]="contactDetailsAccordion.expanded" [attr.aria-controls]="'accordion-body-1'">
+                <app-contact-details (click)="contactDetailsAccordion.toggle()"></app-contact-details>
+              
+                <div class="mt-2 bg-white" role="region" [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
+                  [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-1'">
+                  <div class="flex flex-wrap px-6">
+                    <!-- <div class="w-1/2 pr-3.5 mb-3"> -->
+
+                        <div
+                          class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center">
+                         <p class="font-semibold text-base">Test1</p> 
+                         <p class="font-semibold text-base">Test2</p> 
+                        </div>
+              
+                        <div
+                          class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center">
+                          <p class="font-semibold text-base">Test3</p>
+                          <p class="font-semibold text-base">Test4</p>
+                        </div>
+              
+                    <!-- </div> -->
+                  </div>
+                </div>
+              </cdk-accordion-item>
 
             <cdk-accordion-item
               class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
@@ -304,12 +341,15 @@
                           <div class="w-1/2 flex flex-col pr-3">
                             <app-input-field
                               label="Pricing Range Agreed On:"
+                              [control]="priceRange"
                               [(inputValue)]="priceValue"
                             ></app-input-field>
                           </div>
                           <div class="w-1/2 flex flex-col pl-3 set-opacity">
                             <app-input-field
                               label="Customer Ticket*:"
+                              name="customerTicket"
+                              [control]="customerTicket"
                               value="{{ data.dataKey.ticketCode.slice(0, 10) }}"
                             ></app-input-field>
                           </div>
@@ -453,6 +493,7 @@
                   >
                     <div class="px-10 w-full">
                       <app-input-field
+                        [control]="location"
                         label="Accident Location (Press on shared location to fill automatically or type in location):"
                         value=" "
                       ></app-input-field>
@@ -515,10 +556,10 @@
               >
                 Notes
               </div>
-              <div *ngIf="noteSectionFlag">
+              <div (click)="openNote()" *ngIf="noteSectionFlag">
                 <mat-icon svgIcon="customer-service-arrow-up-notes"></mat-icon>
               </div>
-              <div *ngIf="!noteSectionFlag">
+              <div (click)="openNote()" *ngIf="!noteSectionFlag">
                 <mat-icon
                   svgIcon="customer-service-arrow-down-notes"
                 ></mat-icon>
@@ -534,8 +575,13 @@
             <div
               class="h-[75%] w-full bgColor rounded-md shadow-md relative bg-[#FAFAFA]"
             >
-              <app-contact-view></app-contact-view>
-              <div *ngIf="productSectionFlag">
+              <app-contact-view
+                #contactViewComponent
+                [isDepartmentChat]="false"
+                [canShowCalculator]="canShowCalculator"
+              ></app-contact-view>
+
+              <!-- <div *ngIf="productSectionFlag">
   
                 <div class="absolute right-1 -bottom-9">
                   <mat-icon
@@ -549,10 +595,11 @@
                   ></mat-icon>
                 </div>
 
-              </div>
+              </div> -->
             </div>
+
             <div class="h-[25%] rounded-md shadow-md">
-              <app-contact-form></app-contact-form>
+              <app-contact-form [isDepartmentChat]="false"></app-contact-form>
             </div>
           </div>
         </div>

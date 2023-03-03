@@ -38,8 +38,12 @@ export class PolicyRenewalsComponent implements OnInit {
   ];
 
   isFilter: boolean = false;
+
   flag: number = 0;
+
   tickets: any = null;
+
+  searchBarValue: string = '';
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -81,7 +85,7 @@ export class PolicyRenewalsComponent implements OnInit {
 
   openDialog(card: {}): void {
     this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
-    maxWidth: '100vw',
+      maxWidth: '100vw',
       maxHeight: '100vh',
       height: '90%',
       width: '95%',
@@ -112,5 +116,23 @@ export class PolicyRenewalsComponent implements OnInit {
       );
       this.openDialog(event.container.data[event.currentIndex]);
     }
+  }
+
+  onSearchFilter() {
+    const filterOption = {
+      searchQuery: this.searchBarValue,
+    };
+
+    this.policyCardService.filterPolicyRenewalTickets(filterOption);
+  }
+
+  onClearFilter() {
+    this.searchBarValue = '';
+
+    const filterOption = {
+      searchQuery: this.searchBarValue,
+    };
+
+    this.policyCardService.filterPolicyRenewalTickets(filterOption);
   }
 }

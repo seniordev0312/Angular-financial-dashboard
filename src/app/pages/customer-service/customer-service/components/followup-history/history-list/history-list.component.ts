@@ -127,6 +127,7 @@ export class HistoryListComponent
   ];
 
   editAction: TableRowAction<TicketHistoryListItem> = {
+
     action: (data) => this.onTicketEdited(data),
 
     cssClasses: 'text-primary',
@@ -190,7 +191,6 @@ export class HistoryListComponent
 
   // get icon name according to the response value.
   displayIcon(response: number) {
-    console.log(response)
     switch (response) {
       case 0:
         return 'customer-service-happy-icon';
@@ -228,6 +228,7 @@ export class HistoryListComponent
   }
 
   onTicketEdited(_category: TicketHistoryListItem) {
+    console.log('onTicketEdited', _category);
     // display other pages for editing
     this.pageControlChange.emit('next');
     // send id to edit.
