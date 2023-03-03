@@ -89,10 +89,9 @@
             [(changedDueUnPaid)]="dueUnPaidPrice"
           ></app-widget-table>
           <h1 class="p-5 font-bold text-left w-full">Advance Payments</h1>
-          <!-- <app-widget-table
-              [tableConfiguration]="tableConfiguration1"
-            ></app-widget-table> -->
-          <app-view-basket-advanced></app-view-basket-advanced>
+          <app-view-basket-advanced
+            [(status)]="dueUnPaidPrice"
+          ></app-view-basket-advanced>
         </div>
         <div class="flex flex-col items-center w-[33%]">
           <div

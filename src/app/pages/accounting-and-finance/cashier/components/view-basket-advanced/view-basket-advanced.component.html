@@ -2,6 +2,9 @@
   [tableConfiguration]="tableConfiguration"
   [(changedDueUnPaid)]="paymentStatus"
 ></app-widget-table>
-<!-- <p class="hidden" (change)="">{{ paymentStatus }}</p> -->
-<!-- <input type="text" value="{{ paymentStatus }}" (change)="fun()" /> -->
-<p (change)="fun()">{{ paymentStatus }}</p>
+<input
+  class="hidden"
+  type="text"
+  [(ngModel)]="paymentStatus"
+  (input)="emitchanges()"
+/>
