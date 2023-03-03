@@ -174,6 +174,7 @@ export class HistoryListComponent
   tableSettings = new TableSettings({
     actionsMode: 'inline',
     pageSize: this.pageSize,
+    enableCustomizingColumns: false,
   });
 
   tableConfiguration: TableConfiguration<TicketHistoryListItem> = {
