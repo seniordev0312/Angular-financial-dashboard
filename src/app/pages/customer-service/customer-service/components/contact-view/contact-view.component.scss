@@ -20,6 +20,16 @@
   left: 93%;
 }
 
+.sent-message-time {
+  right: 15%;
+  top: 0%;
+}
+
+.received-message-time {
+  right: 9%;
+  top: 2%;
+}
+
 :host ::ng-deep {
   .mat-form-field-underline {
     display: none;
