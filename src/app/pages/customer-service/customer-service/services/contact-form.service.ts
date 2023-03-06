@@ -19,7 +19,6 @@ export class ContactFormService {
   ) {}
 
   getMessageHistory(chatId: number) {
-    console.log('get message history', chatId);
     let endPointUrl = `${this.customerServer}/api/Message/${chatId}`;
     let httpOptions = {
       headers: new HttpHeaders(),

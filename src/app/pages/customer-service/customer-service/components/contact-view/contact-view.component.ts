@@ -91,7 +91,6 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(
       ticketData$.subscribe((data) => {
-        console.log('ticketData in contact view', data);
         this.chatId = data.chatId;
       })
     );
@@ -190,13 +189,11 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   updateData(data: any) {
     if (data.type === 2) {
       data.body = JSON.parse(data.body);
-      // console.log(this.data);
       this.data.push(data);
       this.contactFormService.updateChat(data);
       this.cdr.detectChanges();
     } else {
       this.data.push(data);
-      // console.log(this.data);
       this.contactFormService.updateChat(data);
       this.cdr.detectChanges();
     }

@@ -33,7 +33,13 @@
                 TICKET STATUS:
               </p>
               <div class="inProcessSelect">
-                <app-select-list name="ticketStatus"></app-select-list>
+                <app-select-list
+                  (statusValueChange)="onChangeTicketStatus($event)"
+                  [selectedValue]="dataTicket.status"
+                  [optionsList]="ticketStatus"
+                  name="ticketStatus"
+                  [control]="selectedTicketStatus"
+                ></app-select-list>
               </div>
             </div>
           </div>
@@ -72,32 +78,47 @@
               </div>
             </cdk-accordion-item> -->
 
-              <cdk-accordion-item class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
-                #contactDetailsAccordion="cdkAccordionItem" role="button" tabindex="1" [attr.id]="'accordion-header-1'"
-                [attr.aria-expanded]="contactDetailsAccordion.expanded" [attr.aria-controls]="'accordion-body-1'">
-                <app-contact-details (click)="contactDetailsAccordion.toggle()"></app-contact-details>
-              
-                <div class="mt-2 bg-white" role="region" [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
-                  [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-1'">
-                  <div class="flex flex-wrap px-6">
-                    <!-- <div class="w-1/2 pr-3.5 mb-3"> -->
+            <cdk-accordion-item
+              class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
+              #contactDetailsAccordion="cdkAccordionItem"
+              role="button"
+              tabindex="1"
+              [attr.id]="'accordion-header-1'"
+              [attr.aria-expanded]="contactDetailsAccordion.expanded"
+              [attr.aria-controls]="'accordion-body-1'"
+            >
+              <app-contact-details
+                (click)="contactDetailsAccordion.toggle()"
+              ></app-contact-details>
 
-                        <div
-                          class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center">
-                         <p class="font-semibold text-base">Test1</p> 
-                         <p class="font-semibold text-base">Test2</p> 
-                        </div>
-              
-                        <div
-                          class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center">
-                          <p class="font-semibold text-base">Test3</p>
-                          <p class="font-semibold text-base">Test4</p>
-                        </div>
-              
-                    <!-- </div> -->
+              <div
+                class="mt-2 bg-white"
+                role="region"
+                [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
+                [attr.id]="'accordion-body-1'"
+                [attr.aria-labelledby]="'accordion-header-1'"
+              >
+                <div class="flex flex-wrap px-6">
+                  <!-- <div class="w-1/2 pr-3.5 mb-3"> -->
+
+                  <div
+                    class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center"
+                  >
+                    <p class="font-semibold text-base">Test1</p>
+                    <p class="font-semibold text-base">Test2</p>
                   </div>
+
+                  <div
+                    class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center"
+                  >
+                    <p class="font-semibold text-base">Test3</p>
+                    <p class="font-semibold text-base">Test4</p>
+                  </div>
+
+                  <!-- </div> -->
                 </div>
-              </cdk-accordion-item>
+              </div>
+            </cdk-accordion-item>
 
             <cdk-accordion-item
               class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
