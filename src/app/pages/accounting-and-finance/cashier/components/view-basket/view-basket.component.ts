@@ -26,6 +26,7 @@ export class ViewBasketComponent implements OnInit {
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
   dueUnPaidPrice: number;
+  totalSelected: number;
   // dueUnPaidPrice1: number;
   paymentStatusFlag: boolean = true;
 

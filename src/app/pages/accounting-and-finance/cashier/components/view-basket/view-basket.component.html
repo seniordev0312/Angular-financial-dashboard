@@ -87,6 +87,7 @@
           <app-widget-table
             [tableConfiguration]="tableConfiguration"
             [(changedDueUnPaid)]="dueUnPaidPrice"
+            [(changedTotalPaid)]="totalSelected"
           ></app-widget-table>
           <h1 class="p-5 font-bold text-left w-full">Advance Payments</h1>
           <app-view-basket-advanced
@@ -134,7 +135,7 @@
             >
               <div class="flex justify-between items-center">
                 <span class="text-[14px] font-normal">Total Selected -</span>
-                <span class="text-[14px] font-normal">$5,600.00</span>
+                <span class="text-[14px] font-normal">{{ totalSelected }}</span>
               </div>
 
               <div class="flex justify-between items-center mt-[27px]">
@@ -148,7 +149,9 @@
 
               <div class="flex justify-between items-center">
                 <span class="text-[14px] font-normal">Total</span>
-                <span class="text-[14px] font-normal">$2,600.00</span>
+                <span class="text-[14px] font-normal"
+                  >${{ totalSelected + 3000 }}</span
+                >
               </div>
             </div>
           </div>
