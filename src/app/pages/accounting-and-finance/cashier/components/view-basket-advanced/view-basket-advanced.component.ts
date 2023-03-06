@@ -24,7 +24,9 @@ import { AdvancePaymentModel } from '@root/pages/accounting-and-finance/accounts
 })
 export class ViewBasketAdvancedComponent implements OnInit {
   @Input() status: number;
+  @Input() advancedTotalPrice: number;
   @Output() statusChange = new EventEmitter<number>();
+  @Output() advancedTotalPriceChange = new EventEmitter<number>();
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<AdvancePaymentModel>;
   paymentlist: AdvancePaymentModel[] = [];
