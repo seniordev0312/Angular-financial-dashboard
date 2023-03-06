@@ -251,7 +251,7 @@
                           </div>
                           <div class="w-1/2 flex flex-col pl-3 set-opacity">
                             <app-input-field label="Customer Ticket*:" name="customerTicket" [control]="customerTicket"
-                              value="{{ data.dataKey.ticketCode.slice(0, 10) }}" [readonly]="true"></app-input-field>
+                              value="{{ data.dataKey.ticketCode }}" [readonly]="true"></app-input-field>
                           </div>
                         </div>
                         <div *ngIf="disableButton" class="pl-9">
