@@ -13,10 +13,10 @@ import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
 import { SignalRService } from '../../services/signalr.service';
 import { ContactViewComponent } from '../contact-view/contact-view.component';
-import { tickets$ } from '../../store/customer-service-tickets.store';
 import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import { FormControl, Validators } from '@angular/forms';
 import { ContactFormService } from '../../services/contact-form.service';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -71,6 +71,15 @@ export class CustomerServiceTicketComponent implements OnInit {
     emergencyType: 0,
     initiate: 0,
   };
+  ticketStatus: BaseListItem[] = [
+    { id: 0, value: 'Created/Received Queue' },
+    { id: 1, value: 'In Process' },
+    { id: 2, value: 'Processed' },
+    { id: 3, value: 'Resolved' },
+    { id: 4, value: 'Closed' },
+  ];
+
+  selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
 
   customerTicket: FormControl = new FormControl();
   priceRange: FormControl = new FormControl();
@@ -101,15 +110,26 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.ref.detectChanges();
       });
 
-    tickets$.subscribe((data: any) => {
-      this.dataTicket = data.inQueueTickets[data.inQueueTickets.length - 1];
-      this.ticketId = this.data.dataKey.id;
-      console.log('data ticket', this.dataTicket);
-      this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
-      this.signalRService.init(this.ticketId);
-    });
+    this.dataTicket = this.data.dataKey;
+    this.ticketId = this.data.dataKey.id;
+    this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
+    this.signalRService.init(this.ticketId);
+
+    this.selectedTicketStatus.setValue(
+      this.getTicketStatus(this.dataTicket.status)
+    );
 
     this.contactFormService.getMessageHistory(this.dataTicket.chatId);
+    console.log('data ticket', this.dataTicket);
+  }
+
+  getTicketStatus(statusId: number): BaseListItem {
+    if (statusId == 0) return { id: 0, value: 'Created/Received Queue' };
+    else if (statusId == 1) return { id: 1, value: 'In Process' };
+    else if (statusId == 2) return { id: 2, value: 'Processed' };
+    else if (statusId == 3) return { id: 3, value: 'Resolved' };
+    else if (statusId == 4) return { id: 4, value: 'Closed' };
+    else return null;
   }
 
   ngAfterViewInit() {
@@ -120,6 +140,12 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   openNote() {
     this.noteSectionFlag = !this.noteSectionFlag;
+  }
+
+  onChangeTicketStatus(event: Event) {
+    this.dataTicket.status = event;
+
+    this.customerCardService.updateCustomServiceTickets(this.dataTicket);
   }
 
   // move to emergency flow or sales flow section
@@ -205,12 +231,11 @@ export class CustomerServiceTicketComponent implements OnInit {
       .getEmergencyInitiateItems(emergencyTypeId)
       .subscribe((data: any) => {
         this.emergencyInitiateItems = data;
-        
+
         // this.isLoading = false;
         this.ref.detectChanges();
       });
     this.locationSectionFlag = true;
-    
   }
 
   displayEmergencyInitateSection() {
@@ -228,7 +253,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         .subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
           console.log('requiredData', this.requiredData);
-          
+
           // this.isLoading = false;
           this.ref.detectChanges();
         });

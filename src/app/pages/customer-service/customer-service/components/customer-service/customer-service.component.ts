@@ -81,15 +81,25 @@ export class CustomerServiceComponent implements OnInit {
   }
 
   openDialog(card: {}): void {
-    this.dialog.open(CustomerServiceTicketComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      height: '90%',
-      width: '95%',
-      data: {
-        dataKey: card,
-      },
-    });
+    this.dialog
+      .open(CustomerServiceTicketComponent, {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '90%',
+        width: '95%',
+        data: {
+          dataKey: card,
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.customerCardService.getCutomerServiceTickets();
+
+        this.subscription = tickets$.subscribe((data: any) => {
+          this.tickets = data;
+          this.ref.detectChanges();
+        });
+      });
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
@@ -127,7 +137,7 @@ export class CustomerServiceComponent implements OnInit {
     this.searchBarValue = '';
 
     const filterOption = {
-      searchQuery: this.searchBarValue, 
+      searchQuery: this.searchBarValue,
     };
 
     this.customerCardService.filterCustomerServiceTickets(filterOption);

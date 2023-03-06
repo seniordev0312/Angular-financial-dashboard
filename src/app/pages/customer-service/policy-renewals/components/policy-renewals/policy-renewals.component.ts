@@ -84,15 +84,25 @@ export class PolicyRenewalsComponent implements OnInit {
   }
 
   openDialog(card: {}): void {
-    this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      height: '90%',
-      width: '95%',
-      data: {
-        dataKey: card,
-      },
-    });
+    this.dialog
+      .open(PolicyRenewalsCustomerServiceTicketComponent, {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '90%',
+        width: '95%',
+        data: {
+          dataKey: card,
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.policyCardService.getPolicyRenewalTickets();
+
+        this.subscription = tickets$.subscribe((data: any) => {
+          this.tickets = data;
+          this.ref.detectChanges();
+        });
+      });
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {

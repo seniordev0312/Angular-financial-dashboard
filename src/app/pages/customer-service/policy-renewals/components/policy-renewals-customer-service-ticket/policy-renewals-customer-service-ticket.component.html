@@ -35,7 +35,10 @@
               <div class="inProcessSelect">
                 <app-select-list
                   name="ticketStatus"
-                  [optionsList]="status"
+                  [optionsList]="statusList"
+                  [selectedValue]="data.dataKey.status"
+                   [control]="selectedTicketStatus"
+                     (statusValueChange)="onChangeTicketStatus($event)"
                 ></app-select-list>
               </div>
             </div>

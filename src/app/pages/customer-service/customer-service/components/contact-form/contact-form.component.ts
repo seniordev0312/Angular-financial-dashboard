@@ -39,7 +39,6 @@ export class ContactFormComponent extends BaseComponent implements OnInit {
     this.subscriptions.add(
       ticketData$.subscribe((data) => {
         this.chatData = data;
-        console.log('Chat Data:', data);
       })
     );
     this.oidcSecurityService.getUserData().subscribe((data: any) => {
@@ -80,10 +79,6 @@ export class ContactFormComponent extends BaseComponent implements OnInit {
   // }
 
   onSend() {
-    console.log(this.chatData.chatId.toString());
-    console.log(this.userData.sub);
-    console.log(this.text);
-
     if (/\S/.test(this.text)) {
       let formData: FormData = new FormData();
       formData.append('image', this.fileBlob);
