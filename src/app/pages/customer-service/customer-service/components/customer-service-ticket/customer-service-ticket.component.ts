@@ -65,12 +65,12 @@ export class CustomerServiceTicketComponent implements OnInit {
     emergencyType: number;
     initiate: number;
   } = {
-    category: 0,
-    business: 0,
-    product: 0,
-    emergencyType: 0,
-    initiate: 0,
-  };
+      category: 0,
+      business: 0,
+      product: 0,
+      emergencyType: 0,
+      initiate: 0,
+    };
   ticketStatus: BaseListItem[] = [
     { id: 0, value: 'Created/Received Queue' },
     { id: 1, value: 'In Process' },
@@ -85,6 +85,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   priceRange: FormControl = new FormControl();
   location: FormControl = new FormControl('', Validators.required);
 
+
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
 
@@ -98,7 +99,7 @@ export class CustomerServiceTicketComponent implements OnInit {
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
     private contactFormService: ContactFormService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
@@ -118,6 +119,9 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.selectedTicketStatus.setValue(
       this.getTicketStatus(this.dataTicket.status)
     );
+
+    this.customerTicket.setValue(this.dataTicket.ticketCode);
+
 
     this.contactFormService.getMessageHistory(this.dataTicket.chatId);
     console.log('data ticket', this.dataTicket);

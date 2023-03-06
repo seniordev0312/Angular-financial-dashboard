@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+.vs/VSWorkspaceState.json
+.vs/Insurance.Powerhouse.Web/config/applicationhost.config
+.vs/Insurance.Powerhouse.Web/v17/.wsuo
