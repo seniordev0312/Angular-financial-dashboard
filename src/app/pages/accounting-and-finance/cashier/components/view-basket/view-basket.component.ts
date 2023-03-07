@@ -29,6 +29,7 @@ export class ViewBasketComponent implements OnInit {
   // dueUnPaidPrice1: number;
   paymentStatusFlag: boolean = true;
   totalAdvancePrice: number;
+  openPaymentModalFlag: string = 'no modal';
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -240,4 +241,13 @@ export class ViewBasketComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
+
+  processPayment() {
+    if (this.paymentStatusFlag) {
+      this.openPaymentModalFlag = "receive";
+    }
+    else {
+      this.openPaymentModalFlag = "pay"
+    }
+  }
 }
