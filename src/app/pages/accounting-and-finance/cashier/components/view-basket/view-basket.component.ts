@@ -244,7 +244,7 @@ export class ViewBasketComponent implements OnInit {
 
   clearBasket() {
     this.tableConfiguration.data = [];
-    this.clearTable = !this.clearTable;
+    this.clearTable = true;
     this.cdr.detectChanges();
     this.table.refresh();
   }
