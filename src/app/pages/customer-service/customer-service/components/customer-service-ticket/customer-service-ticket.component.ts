@@ -222,11 +222,6 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.emergencyFlowFlag = true;
   }
 
-  // display pending card
-  displayPendingCard() {
-    this.pendingCardFlag = true;
-  }
-
   // display location section
   displayLocationSection(emergencyTypeId: number) {
     // this.isLoading = true;
@@ -257,8 +252,6 @@ export class CustomerServiceTicketComponent implements OnInit {
         .getRequiredData()
         .subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
-          console.log('requiredData', this.requiredData);
-
           // this.isLoading = false;
           this.ref.detectChanges();
         });
