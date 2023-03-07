@@ -26,10 +26,10 @@ export class InputFieldComponent implements OnInit {
   @Input() baseListItemsList: BaseListItem[];
   @Output() trigger = new EventEmitter<void>();
   @Output() inputValueChange = new EventEmitter<string>();
+  @Input() readonly = false;
+  constructor() { }
 
-  constructor() {}
-
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.control.valueChanges.subscribe((data) => this.trigger.emit(data));
   }
 
