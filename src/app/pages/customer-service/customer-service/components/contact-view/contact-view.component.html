@@ -13,19 +13,29 @@
         [ngClass]="{ '-right-[40%]': item.sent }"
       >
         <div
-          class="w-[35px] absolute"
+          class="w-[30px] absolute"
           [ngClass]="item.sent ? 'sent-message-pp' : 'received-message-pp'"
         >
           <img class="rounded-[50%]" [src]="item.profilePic" />
         </div>
-
+    
         <div
           *ngIf="!isDepartmentChat"
-          class="w-[22px] -left-[4%] -top-[2%] absolute"
+          class="w-[19px] -left-[4%] -top-[2%] absolute"
           [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
         >
           <img class="rounded-[50%]" [src]="item.sourceIconUrl" />
         </div>
+        <div
+          class="flex absolute font-medium text-xxs"
+              [ngClass]="item.sent ? 'sent-message-time' : 'received-message-time'"
+        >
+          <div class="text-accent"></div>
+          <div class="text-right text-[#00000073]">
+            {{ item.sentOn | date : "shortTime" }}
+          </div>
+        </div>
+
         <div
           *ngIf="isDepartmentChat"
           class="w-[34px] -left-[5%] -top-[6%] absolute"
@@ -42,15 +52,8 @@
           </span>
           <!-- <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre> -->
         </div>
-        <div
-          class="flex justify-between pt-2 items-center font-medium text-xs mb-1"
-        >
-          <div class="text-accent"></div>
-          <div class="text-right pr-3 text-[#00000073]">
-            {{ item.sentOn | date : "shortTime" }}
-          </div>
-        </div>
-        <div
+
+        <!-- <div
           class="w-[25px] pr-1 -left-[4%] top-[72%] absolute cursor-pointer"
           *ngIf="!item.sent"
           [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
@@ -61,7 +64,7 @@
               svgIcon="customer-contact-form-image-processing"
             ></mat-icon>
           </div>
-        </div>
+        </div> -->
 
         <div
           class="w-fit shadow-2xl p-2 rounded-[25px] border absolute right-[8%] top-[43 %] z-[100] bg-[#005f83]"
@@ -137,9 +140,7 @@
             <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre>
           </div>
 
-          <div
-            class="flex justify-between pt-2 items-center font-medium text-xs mb-1"
-          >
+          <div class="flex justify-between items-center font-medium text-xxs">
             <div class="text-accent"></div>
             <div class="text-right pr-3 text-[#00000073]">
               {{ item.sentOn | date : "shortTime" }}
@@ -190,9 +191,7 @@
               </div>
             </span>
           </div>
-          <div
-            class="flex justify-between items-center font-medium text-xs mb-1"
-          >
+          <div class="flex justify-between items-center font-medium text-xxs">
             <div class="text-accent"></div>
             <div class="text-right">
               {{ item.sentOn | date : "shortTime" }}
@@ -209,9 +208,7 @@
             <!-- <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre> -->
           </div>
 
-          <div
-            class="flex justify-between items-center font-medium text-xs mb-1"
-          >
+          <div class="flex justify-between items-center font-medium text-xxs">
             <div class="text-accent"></div>
             <div class="text-right">
               {{ item.sentOn | date : "shortTime" }}
@@ -262,7 +259,7 @@
   >
     <ng-container *ngFor="let menuItem of chatMenuOptions">
       <div
-        class="bg-[#005f83] hover:bg-[#3b809b] w-64 text-[15px] py-1 px-4 rounded-3xl text-white cursor-pointer mb-2 font-semibold"
+        class="bg-[#005f83] hover:bg-[#3b809b] w-56 text-[12px] py-1 px-4 rounded-3xl text-white cursor-pointer mb-2 font-semibold"
       >
         {{ menuItem }}
       </div>

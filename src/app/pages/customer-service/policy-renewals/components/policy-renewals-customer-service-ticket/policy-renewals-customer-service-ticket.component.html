@@ -10,21 +10,19 @@
           class="w-[60%] backgroundSepreated flex flex-col pr-10 pl-7 overflow-auto h-[82vh]"
         >
           <div class="flex flex-row pb-4 items-center">
-            <div class="w-1/2 flex flex-row">
+            <div class="w-1/2">
               <p
-                class="font-base text-xs leading-none flex items-center pt-5 font-bold"
+                class="font-base text-xs leading-none items-center pt-5 font-bold"
               >
                 ENTITY NAME HERE
               </p>
-              <div class="flex-1">
-                <div class="flex justify-center pt-5 text-xs">
-                  EIN: &nbsp;
-                  <span
-                    class="underline text-xs text-primary decoration-sky-100 flex items-center"
-                    >{{ this.data.dataKey.ein }}</span
-                  >
-                </div>
-              </div>
+              <p class="text-xs">
+                EIN: &nbsp;
+                <span
+                  class="underline text-xs text-primary decoration-sky-100 items-center"
+                  >{{ this.data.dataKey.ein }}</span
+                >
+              </p>
             </div>
             <div class="w-1/2 flex flex-row">
               <p
@@ -37,33 +35,13 @@
                   name="ticketStatus"
                   [optionsList]="statusList"
                   [selectedValue]="data.dataKey.status"
-                   [control]="selectedTicketStatus"
-                     (statusValueChange)="onChangeTicketStatus($event)"
+                  [control]="selectedTicketStatus"
+                  (statusValueChange)="onChangeTicketStatus($event)"
                 ></app-select-list>
               </div>
             </div>
           </div>
           <cdk-accordion class="overflow-auto">
-            <!-- <cdk-accordion-item
-              #contactDetailsAccordion="cdkAccordionItem"
-              role="button"
-              tabindex="0"
-              [attr.id]="'accordion-header-0'"
-              [attr.aria-expanded]="contactDetailsAccordion.expanded"
-              [attr.aria-controls]="'accordion-body-0'"
-            >
-              <app-contact-details
-                (click)="contactDetailsAccordion.toggle()"
-              ></app-contact-details>
-              <div
-                class="mt-5 shadow-md bg-white"
-                role="region"
-                [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
-                [attr.id]="'accordion-body-0'"
-                [attr.aria-labelledby]="'accordion-header-0'"
-              ></div>
-            </cdk-accordion-item> -->
-
             <cdk-accordion-item
               class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
               #contactDetailsAccordion="cdkAccordionItem"
@@ -117,7 +95,7 @@
               >
                 <p
                   (click)="policyInformationAccordion.toggle()"
-                  class="flex justify-center items-center text-lg h-[50px] text-primary w-full text-[16px]"
+                  class="flex justify-center items-center h-[50px] text-primary w-full font-semibold text-[14px]"
                 >
                   Policy Information
                 </p>
@@ -150,7 +128,7 @@
                   class="flex justify-center w-full relative h-[50px] button-responsive"
                 >
                   <p
-                    class="pt-5 text-primary text-lg text-center text-class text-[16px]"
+                    class="pt-5 text-primary text-center text-class font-semibold text-[14px]"
                     (click)="followUpHistorty.toggle()"
                   >
                     Follow-Up History
@@ -234,7 +212,9 @@
                   (click)="openNote()"
                   class="flex flex-row p-4 items-center noteIcon cursor-pointer"
                 >
-                  <div class="flex-1 text-primary text-center text-[16px]">
+                  <div
+                    class="flex-1 text-primary text-center font-semibold text-[14px]"
+                  >
                     Notes
                   </div>
                   <div *ngIf="noteSectionFlag">

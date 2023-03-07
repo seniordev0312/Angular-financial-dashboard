@@ -33,7 +33,7 @@ export class PolicyRenewalsComponent implements OnInit {
     { title: 'Policy Renewal Followup', color: 'bg-[#d8d8d8]' },
     { title: 'In Process', color: 'bg-[#3890cf]' },
     { title: 'Processed (Renewal Issued)', color: 'bg-[#939393]' },
-    { title: 'Renewal Approved', color: 'bg-[#199e52]' },
+    { title: 'Renewal Approved', color: 'bg-[#31CD3D]' },
     { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
   ];
 
