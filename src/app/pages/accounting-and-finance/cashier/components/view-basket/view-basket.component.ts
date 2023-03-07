@@ -29,6 +29,7 @@ export class ViewBasketComponent implements OnInit {
   // dueUnPaidPrice1: number;
   paymentStatusFlag: boolean = true;
   totalAdvancePrice: number;
+  clearTable: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -240,4 +241,11 @@ export class ViewBasketComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
+
+  clearBasket() {
+    this.tableConfiguration.data = [];
+    this.clearTable = true;
+    this.cdr.detectChanges();
+    this.table.refresh();
+  }
 }

@@ -25,6 +25,7 @@ import { AdvancePaymentModel } from '@root/pages/accounting-and-finance/accounts
 export class ViewBasketAdvancedComponent implements OnInit {
   @Input() status: number;
   @Input() advancedTotalPrice: number;
+  @Input() clearData: boolean;
   @Output() statusChange = new EventEmitter<number>();
   @Output() advancedTotalPriceChange = new EventEmitter<number>();
   @ViewChild(WidgetTableComponent)
@@ -69,11 +70,12 @@ export class ViewBasketAdvancedComponent implements OnInit {
       },
     ];
     console.log(this.paymentStatus);
-
-    this.tableConfiguration.data = this.paymentlist;
-    this.tableConfiguration.dataCount = this.paymentlist.length;
-    this.cdr.detectChanges();
-    this.table.refresh();
+    if (this.clearData) {
+      this.tableConfiguration.data = this.paymentlist;
+      this.tableConfiguration.dataCount = this.paymentlist.length;
+      this.cdr.detectChanges();
+      this.table.refresh();
+    }
   }
 
   tableColumns: TableColumn[] = [
