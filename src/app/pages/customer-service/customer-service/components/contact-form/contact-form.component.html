@@ -1,19 +1,49 @@
-<form class="flex flex-col pl-9 pt-8 pb-7 pr-6 h-[100%]" action="">
-  <div class="flex w-full">
-    <input class="border-none text-[17px] w-[100%]" type="text" placeholder="Enter your message here" id="username"
-      name="username" [(ngModel)]="text" />
+<form class="flex flex-col p-4 h-[100%]" action="">
+  <div class="flex w-full pt-[4%]">
+    <input
+      class="border-none text-[17px] w-[100%]"
+      type="text"
+      placeholder="Enter your message here"
+      id="username"
+      name="username"
+      [(ngModel)]="text"
+    />
   </div>
 
-  <div class="mt-auto w-full flex flex-row">
-    <div class="w-[55%] flex flex-row justify-between items-center">
+  <div class="mt-auto w-full flex flex-row justify-between">
+    <div class="w-[44%] flex flex-row justify-between items-center">
       <div class="flex items-center cursor-pointer" id="paperClip">
-          <mat-icon svgIcon="customer-contact-form-paperclip" for="uploadFile" (click)="uploadFile.click()"></mat-icon>
-          <input type="file" accept=".pdf" #uploadFile name="photo" #myFileInput id="uploadFile" (change)="onChange($event)" />
+        <mat-icon
+          svgIcon="customer-contact-form-paperclip"
+          for="uploadFile"
+          (click)="uploadFile.click()"
+        ></mat-icon>
+        <input
+          type="file"
+          accept=".pdf"
+          #uploadFile
+          name="photo"
+          #myFileInput
+          id="uploadFile"
+          (change)="onChange($event)"
+        />
       </div>
       <div class="text-[24px]">|</div>
       <div class="flex items-center cursor-pointer" id="gallery">
-        <mat-icon svgIcon="customer-contact-form-gallery" for="uploadPhoto" (click)="uploadPhoto.click()"></mat-icon>
-        <input type="file" accept="image/*" #uploadPhoto name="photo" #myFileInput2 id="uploadPhoto" (change)="onChange($event)" />
+        <mat-icon
+          svgIcon="customer-contact-form-gallery"
+          for="uploadPhoto"
+          (click)="uploadPhoto.click()"
+        ></mat-icon>
+        <input
+          type="file"
+          accept="image/*"
+          #uploadPhoto
+          name="photo"
+          #myFileInput2
+          id="uploadPhoto"
+          (change)="onChange($event)"
+        />
       </div>
       <p class="text-[24px]">|</p>
       <div class="flex items-center cursor-pointer" id="audio">
@@ -24,12 +54,15 @@
         <mat-icon svgIcon="customer-contact-form-call"></mat-icon>
       </div>
     </div>
-    <div class="w-[45%] flex justify-end">
+    <div class="w-[56%] flex justify-end">
       <!-- <input #input class="ml-auto px-9 py-4 text-[15px] bg-primary text-white rounded-md" type="button" value="send"
         (keyup)="onKey(input.value)" (click)="onSend()" /> -->
       <button
-        class="ml-auto px-9 py-3 text-[15px] bg-primary text-white rounded-md" (click)="onSend()" 
-      >Send</button>
+        class="ml-auto px-9 py-3 text-[15px] bg-primary text-white rounded-md"
+        (click)="onSend()"
+      >
+        Send
+      </button>
     </div>
   </div>
 </form>

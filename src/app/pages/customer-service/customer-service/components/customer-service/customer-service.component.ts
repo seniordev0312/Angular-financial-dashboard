@@ -32,7 +32,7 @@ export class CustomerServiceComponent implements OnInit {
     { title: 'Created/Received Queue', color: 'bg-[#d8d8d8]' },
     { title: 'In Process', color: 'bg-[#3890cf]' },
     { title: 'Processed', color: 'bg-[#939393]' },
-    { title: 'Resolved', color: 'bg-[#199e52]' },
+    { title: 'Resolved', color: 'bg-[#31CD3D]' },
     { title: 'Closed', color: 'bg-[#e7e7e7]' },
   ];
 

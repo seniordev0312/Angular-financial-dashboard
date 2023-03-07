@@ -61,7 +61,6 @@ mat-drawer-content {
   align-items: flex-end;
 }
 
-
 mat-drawer-content {
   padding: 12px;
   display: flex;
@@ -70,8 +69,8 @@ mat-drawer-content {
 }
 
 ::ng-deep .mat-drawer-content {
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: auto;
+  background-color: white !important;
 }
 ::ng-deep .mat-dialog-container {
   overflow-y: hidden !important;
