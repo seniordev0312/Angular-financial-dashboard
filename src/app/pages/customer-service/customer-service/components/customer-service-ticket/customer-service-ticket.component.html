@@ -372,6 +372,14 @@
                     [attr.id]="'accordion-body-4'"
                     [attr.aria-labelledby]="'accordion-header-4'"
                   >
+                    <div
+                      class="w-full mb-10 pl-9 pr-10"
+                    >
+                      <app-pending-informaiton-card
+                        [requiredData]="requiredData"
+                      ></app-pending-informaiton-card>
+                    </div>
+
                     <div class="flex flex-row">
                       <div class="w-[70%]">
                         <div class="flex flex-row px-10">
@@ -398,12 +406,6 @@
                             proceed with underwriting.
                           </p>
 
-                          <span
-                            (click)="displayPendingCard()"
-                            class="text-xs text-primary border border-x-0 border-t-0 border-b-1"
-                          >
-                            Check Pending Information list here
-                          </span>
                         </div>
                         <div *ngIf="!disableButton">
                           <p class="pl-9 text-xs text-primary w-[100%]">
@@ -424,14 +426,6 @@
                           </button>
                         </div>
                       </div>
-                    </div>
-                    <div
-                      *ngIf="pendingCardFlag"
-                      class="w-full mt-10 pl-9 pr-10"
-                    >
-                      <app-pending-informaiton-card
-                        [requiredData]="requiredData"
-                      ></app-pending-informaiton-card>
                     </div>
                   </div>
                 </div>
