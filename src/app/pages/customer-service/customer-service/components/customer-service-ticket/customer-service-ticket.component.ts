@@ -109,6 +109,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
+      console.log(this.categories)
       });
 
     this.dataTicket = this.data.dataKey;
