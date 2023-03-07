@@ -78,8 +78,6 @@
                 [attr.aria-labelledby]="'accordion-header-1'"
               >
                 <div class="flex flex-wrap px-6">
-                  <!-- <div class="w-1/2 pr-3.5 mb-3"> -->
-
                   <div
                     class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center"
                   >
@@ -94,7 +92,15 @@
                     <p class="font-semibold text-base">Test4</p>
                   </div>
 
-                  <!-- </div> -->
+                  <div
+                    class="py-3 justify-center leading-none text-center flex items-center"
+                  >
+                    <button
+                      class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
               </div>
             </cdk-accordion-item>
@@ -372,9 +378,7 @@
                     [attr.id]="'accordion-body-4'"
                     [attr.aria-labelledby]="'accordion-header-4'"
                   >
-                    <div
-                      class="w-full mb-10 pl-9 pr-10"
-                    >
+                    <div class="w-full mb-10 pl-9 pr-10">
                       <app-pending-informaiton-card
                         [requiredData]="requiredData"
                       ></app-pending-informaiton-card>
@@ -405,7 +409,6 @@
                             Pending required information from client 0079827 to
                             proceed with underwriting.
                           </p>
-
                         </div>
                         <div *ngIf="!disableButton">
                           <p class="pl-9 text-xs text-primary w-[100%]">
@@ -529,6 +532,16 @@
                         label="Accident Location (Press on shared location to fill automatically or type in location):"
                         value=" "
                       ></app-input-field>
+
+                      <div
+                        class="py-3 justify-center leading-none text-center flex items-center"
+                      >
+                        <button
+                          class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
+                        >
+                          Save
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -571,6 +584,16 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
                           text="{{ emergencyInitiateItem.name }}"
                         ></app-button>
+                      </div>
+
+                      <div
+                        class="py-3 justify-center leading-none text-center flex items-center"
+                      >
+                        <button
+                          class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
+                        >
+                          Save
+                        </button>
                       </div>
                     </div>
                   </div>
