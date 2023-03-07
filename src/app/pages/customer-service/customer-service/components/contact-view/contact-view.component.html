@@ -13,7 +13,7 @@
         [ngClass]="{ '-right-[40%]': item.sent }"
       >
         <div
-          class="w-[35px] absolute"
+          class="w-[30px] absolute"
           [ngClass]="item.sent ? 'sent-message-pp' : 'received-message-pp'"
         >
           <img class="rounded-[50%]" [src]="item.profilePic" />
@@ -21,7 +21,7 @@
     
         <div
           *ngIf="!isDepartmentChat"
-          class="w-[22px] -left-[4%] -top-[2%] absolute"
+          class="w-[19px] -left-[4%] -top-[2%] absolute"
           [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
         >
           <img class="rounded-[50%]" [src]="item.sourceIconUrl" />
@@ -53,7 +53,7 @@
           <!-- <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre> -->
         </div>
 
-        <div
+        <!-- <div
           class="w-[25px] pr-1 -left-[4%] top-[72%] absolute cursor-pointer"
           *ngIf="!item.sent"
           [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
@@ -64,7 +64,7 @@
               svgIcon="customer-contact-form-image-processing"
             ></mat-icon>
           </div>
-        </div>
+        </div> -->
 
         <div
           class="w-fit shadow-2xl p-2 rounded-[25px] border absolute right-[8%] top-[43 %] z-[100] bg-[#005f83]"
@@ -259,7 +259,7 @@
   >
     <ng-container *ngFor="let menuItem of chatMenuOptions">
       <div
-        class="bg-[#005f83] hover:bg-[#3b809b] w-64 text-[15px] py-1 px-4 rounded-3xl text-white cursor-pointer mb-2 font-semibold"
+        class="bg-[#005f83] hover:bg-[#3b809b] w-56 text-[12px] py-1 px-4 rounded-3xl text-white cursor-pointer mb-2 font-semibold"
       >
         {{ menuItem }}
       </div>
