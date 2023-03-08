@@ -1,73 +1,85 @@
 <app-dialog-header label="Basket"></app-dialog-header>
-<mat-dialog-content>
-  <div class="flex">
-    <div class="pl-4 pr-4 pt-8 pb-8">
-      <div class="flex flex-col flex-1">
-        Card:
-        <img
-          src="../../../../../../assets/images/cashier-icons/receive-icon1.svg"
-          alt=""
-        />
+<!-- <mat-dialog-content> -->
+<div class="flex">
+  <div class="pl-4 pr-4 pt-8 pb-8 h-[780px] flex flex-col">
+    <div class="flex flex-col mt-auto mb-auto px-10 py-10 justify-center">
+      <img
+        src="../../../../../../assets/images/cashier-icons/credit-card-selected.svg"
+        alt=""
+      />
+      <p class="text-center">Card</p>
+    </div>
+    <div class="flex flex-col px-10 py-10 justify-center">
+      <img
+        src="../../../../../../assets/images/cashier-icons/check-svgrepo-c.svg"
+        alt=""
+      />
+      <p class="text-center">Checks</p>
+    </div>
+    <div class="flex flex-col px-10 py-10 justify-center">
+      <img
+        src="../../../../../../assets/images/cashier-icons/cash-svgrepo-co.svg"
+        alt=""
+      />
+      <p class="text-center">Cash</p>
+    </div>
+  </div>
+  <div class="flex-1">
+    <div class="ml-auto mr-auto flex mb-4 mt-12">
+      <div class="flex ml-auto rounded-xl bg-[#fafafa] p-[10px] mr-5">
+        Currency <app-select-list class="ml-3 flex-1"></app-select-list>
       </div>
-      <div class="flex flex-col">
-        Checks:
-        <img
-          src="../../../../../../assets/images/cashier-icons/check-icon.svg"
-          alt=""
-        />
-      </div>
-      <div class="flex flex-col">
-        cards:
-        <img
-          src="../../../../../../assets/images/cashier-icons/receive-icon1.svg"
-          alt=""
-        />
+      <div class="flex mr-auto rounded-xl bg-[#fafafa] p-[10px]">
+        Amount <app-input-field class="ml-3 flex-1"></app-input-field>
       </div>
     </div>
-    <div class="body">
-      <div class="ml-auto mr-auto">
-        <div class="Currency:&nbsp <app-select-list></app-select-list>"></div>
+    <div class="ml-auto mr-auto flex mb-4">
+      <div class="flex ml-auto rounded-xl bg-[#fafafa] p-[10px] mr-5">
+        Card Type <app-input-field class="ml-3 flex-1"></app-input-field>
       </div>
-      <div class="ml-auto mr-auto">
-        <div>Card Type :&nbsp<app-input-field></app-input-field></div>
-        <div>
-          <div>Date:&nbsp <app-input-field></app-input-field></div>
+      <div class="flex mr-auto rounded-xl bg-[#fafafa] p-[10px]">
+        Date <app-input-field class="ml-8"></app-input-field>
+      </div>
+    </div>
+    <div class="ml-auto mr-auto flex rounded-xl">
+      <div
+        class="flex ml-auto mr-auto rounded-xl bg-[#fafafa] p-[10px] w-[580px]"
+      >
+        Payer <app-input-field class="ml-3 flex-1"></app-input-field>
+      </div>
+    </div>
+    <div class="flex mt-24">
+      <div class="w-1/2 text-white border rounded-t-[20px] mr-4 ml-2">
+        <p class="bg-[#275E80] py-3 text-center">Description</p>
+        <div class="flex flex-col p-3 bg-[#fafafa]">
+          <app-input-field></app-input-field>
+          <app-input-field></app-input-field>
         </div>
       </div>
-      <div class="ml-auto mr-auto">
-        <div>Payer:&nbsp <app-input-field></app-input-field></div>
-        <div></div>
-      </div>
-      <div class="flex">
-        <div class="w-1/2 bg-[#275E80] text-white rounded-t-[9px]">
-          <p>Description</p>
-          <div class="flex flex-col">
-            <app-input-field></app-input-field>
-            <app-input-field></app-input-field>
-          </div>
-        </div>
-        <div class="w-1/2 bg-[#275E80] text-white rounded-t-[9px]">
-          <p>Notes</p>
-          <div class="flex flex-col">
-            <app-input-field></app-input-field>
-            <app-input-field></app-input-field>
-          </div>
+      <div class="w-1/2 text-white border rounded-t-[20px] ml-4 mr-2">
+        <p class="bg-[#275E80] py-3 text-center">Notes</p>
+        <div class="flex flex-col p-3 bg-[#fafafa]">
+          <app-input-field></app-input-field>
+          <app-input-field></app-input-field>
         </div>
       </div>
-      <div class="flex">
-        <div class="w-1/2"></div>
-        <div class="w-1/2">
-          <button class="text-[19px] py-6 px-[44px] text-[#275E80]">
-            Cancel
-          </button>
-          <button class="text-[19px] py-6 px-[44px] text-white bg-[#275E80]">
-            Process & Print
-          </button>
-          <button class="text-[19px] py-6 px-[44px] text-[#275E80]">
-            Print Preview
-          </button>
-        </div>
+    </div>
+    <div class="flex">
+      <div class="w-1/2"></div>
+      <div class="w-1/2 flex justify-evenly mt-5">
+        <button class="text-[19px] py-6 px-[44px] text-[#275E80] border-button">
+          Cancel
+        </button>
+        <button
+          class="text-[19px] py-6 px-[44px] text-white bg-[#275E80] border-button"
+        >
+          Process & Print
+        </button>
+        <button class="text-[19px] py-6 px-[44px] text-[#275E80] border-button">
+          Print Preview
+        </button>
       </div>
     </div>
   </div>
-</mat-dialog-content>
+</div>
+<!-- </mat-dialog-content> -->
