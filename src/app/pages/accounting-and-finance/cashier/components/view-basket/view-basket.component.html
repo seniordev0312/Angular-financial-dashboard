@@ -93,8 +93,8 @@
             <app-view-basket-advanced
               [(status)]="dueUnPaidPrice"
               [(advancedTotalPrice)]="totalAdvancePrice"
-            (clearData)="(clearTable)"
-          ></app-view-basket-advanced>
+              (clearData)="(clearTable)"
+            ></app-view-basket-advanced>
           </div>
           <div class="flex flex-col items-center w-[33%]">
             <div
@@ -162,38 +162,38 @@
               </div>
             </div>
             <div class="flex flex-row w-full rounded-b-[12px]">
-            <div *ngIf="clearTable">
-              <div class="w-1/2 py-6 flex justify-center bg-[#275e80]">
-                <p
-                  class="text-[16px] text-white font-normal"
-                  (click)="clearBasket()"
-                >
-                  Clear Basket
-                </p>
+              <div *ngIf="clearTable">
+                <div class="w-1/2 py-6 flex justify-center bg-[#275e80]">
+                  <p
+                    class="text-[16px] text-white font-normal"
+                    (click)="clearBasket()"
+                  >
+                    Clear Basket
+                  </p>
+                </div>
+                <div class="w-1/2 py-6 flex justify-center bg-[#275e80]">
+                  <p class="text-[16px] text-white font-normal">Process</p>
+                </div>
               </div>
-              <div class="w-1/2 py-6 flex justify-center bg-[#275e80]">
-                <p class="text-[16px] text-white font-normal">Process</p>
+              <div *ngIf="!clearTable">
+                <div class="w-1/2 py-6 flex justify-center bg-[#cccbcb]">
+                  <p
+                    class="text-[16px] text-white font-normal"
+                    (click)="clearBasket()"
+                  >
+                    Clear Basket
+                  </p>
+                </div>
+                <div class="w-1/2 py-6 flex justify-center bg-[#275e80]">
+                  <p
+                    class="text-[16px] text-white font-normal"
+                    (click)="processPayment()"
+                  >
+                    Process
+                  </p>
+                </div>
               </div>
             </div>
-            <div *ngIf="!clearTable">
-              <div class="w-1/2 py-6 flex justify-center bg-[#cccbcb]">
-                <p
-                  class="text-[16px] text-white font-normal"
-                  (click)="clearBasket()"
-                >
-                  Clear Basket
-                </p>
-              </div>
-              <<div class="w-1/2 py-6 flex justify-center bg-[#275e80]">
-                <p
-                  class="text-[16px] text-white font-normal"
-                  (click)="processPayment()"
-                >
-                  Process
-                </p>
-              </div>
-
-
           </div>
         </div>
       </div>
