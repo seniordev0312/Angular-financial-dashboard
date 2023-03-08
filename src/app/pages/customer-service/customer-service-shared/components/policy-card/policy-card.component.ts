@@ -42,7 +42,7 @@ export class PolicyCardComponent implements OnInit {
       hour,
       minute,
       leftSideBackground: bg_color,
-      leftSideIcon: this.card.ticketTypeIconUri,
+      leftSideIcon: this.displayCategoryTypeIcon(null),
       sourceIconUrl: this.card.sourceIconUrl,
       assignedToName: this.card.assignedToName,
       assignedToProfilePictureUri: this.card.assignedToProfilePictureUri,
@@ -53,5 +53,23 @@ export class PolicyCardComponent implements OnInit {
       ticketTypeIconUri: this.card.ticketTypeIconUri,
       dateCreated: new Date(this.card.dateCreated).toDateString(),
     };
+  }
+
+  // get icon name according to the response value
+  displayCategoryTypeIcon(response: number) {
+    switch (response) {
+      case 1:
+        return 'customer-emergency';
+      case 2:
+        return 'customer-sales';
+      case 3:
+        return 'customer-complaints';
+      case 4:
+        return 'customer-other';
+      case 5:
+        return 'customer-claims';
+      default:
+        return '';
+    }
   }
 }
