@@ -19,8 +19,6 @@ export class PolicyCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const initial_entity_pic_url = '../../../../../../assets/images/profile.svg';
-    const initial_employee_pic_url = '../../../../../../assets/images/profile-2.svg';
     const mil_seconds = 3600 * 24 * 1000;
     const date = new Date().getTime() - Date.parse(this.card.dateCreated);
     const day = Math.floor(date / mil_seconds);
@@ -47,14 +45,10 @@ export class PolicyCardComponent implements OnInit {
       leftSideIcon: this.card.ticketTypeIconUri,
       sourceIconUrl: this.card.sourceIconUrl,
       assignedToName: this.card.assignedToName,
-      assignedToProfilePictureUri: this.card.assignedToProfilePictureUri
-        ? this.card.assignedToProfilePictureUri
-        : initial_employee_pic_url,
+      assignedToProfilePictureUri: this.card.assignedToProfilePictureUri,
       ein: this.card.ein,
       entityName: this.card.entityName,
-      entityProfilePictureUri: this.card.entityProfilePictureUri
-        ? this.card.entityProfilePictureUri
-        : initial_entity_pic_url,
+      entityProfilePictureUri: this.card.entityProfilePictureUri,
       ticketCode: this.card.ticketCode,
       ticketTypeIconUri: this.card.ticketTypeIconUri,
       dateCreated: new Date(this.card.dateCreated).toDateString(),

@@ -38,10 +38,20 @@
             alt=""
           />
           <!-- </div> -->
-          <img
-            class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
-            src="{{ cardInfo.entityProfilePictureUri }}"
-          />
+          <ng-container *ngIf="cardInfo.entityProfilePictureUri">
+            <img
+              class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
+              src="{{ cardInfo.entityProfilePictureUri }}"
+            />
+          </ng-container>
+
+          <ng-container *ngIf="!cardInfo.entityProfilePictureUri">
+            <mat-icon
+              id="profilePic"
+              class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
+              svgIcon="profile"
+            ></mat-icon>
+          </ng-container>
         </div>
         <div class="h-full w-[60%] flex flex-col items-start justify-center">
           <span class="font-bold text-[11px]">{{ cardInfo.entityName }}</span>
@@ -71,9 +81,21 @@
         </div>
       </div>
     </div>
-    <img
-      class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
-      src="{{ cardInfo.assignedToProfilePictureUri }}"
-    />
+
+    <ng-container *ngIf="cardInfo.assignedToProfilePictureUri">
+      <img
+        class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
+        src="{{ cardInfo.assignedToProfilePictureUri }}"
+      />
+    </ng-container>
+
+    <ng-container *ngIf="!cardInfo.assignedToProfilePictureUri">
+      <mat-icon
+        id="profilePic2"
+        class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
+        svgIcon="profile2"
+      ></mat-icon>
+
+    </ng-container>
   </div>
 </div>
