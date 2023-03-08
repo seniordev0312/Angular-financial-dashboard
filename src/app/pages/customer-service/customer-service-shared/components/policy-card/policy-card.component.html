@@ -3,7 +3,7 @@
     class="flex flex-row w-[100%] h-36 rounded-md shadow-md relative bg-white min-w-[180px]"
   >
     <div
-      class="flex flex-col items-center relative h-full w-[13%] text-[11px] text-[#FFFFFF] rounded-l-md {{
+      class="flex flex-col items-center relative h-full w-[36px] text-[11px] text-[#FFFFFF] rounded-l-md {{
         cardInfo.leftSideBackground
       }}"
     >
@@ -11,7 +11,12 @@
       <div>{{ cardInfo.hour + "H" }}</div>
       <div>{{ cardInfo.minute + "M" }}</div>
       <div class="absolute flex bottom-1 shadow-lg">
-        <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" />
+        <!-- <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" /> -->
+        <mat-icon
+        id="categoryIcon"
+          class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
+          svgIcon="{{cardInfo.leftSideIcon}}"
+        ></mat-icon>
       </div>
     </div>
     <div class="flex flex-col h-full w-[86%] p-0">
@@ -95,7 +100,6 @@
         class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
         svgIcon="profile2"
       ></mat-icon>
-
     </ng-container>
   </div>
 </div>

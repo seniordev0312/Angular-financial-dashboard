@@ -7,3 +7,10 @@
   width: 40px !important;
   height: 45px !important;
 }
+
+::ng-deep #categoryIcon.mat-icon {
+  width: 42px !important;
+  height: 52px !important;
+  position: absolute;
+  left: -1.25rem;
+}

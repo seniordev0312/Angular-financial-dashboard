@@ -55,8 +55,8 @@ export class IconSvgModule {
       .addSvgIcon(
         'profile',
         sanitizer.bypassSecurityTrustResourceUrl('assets/images/profile.svg')
-    )
-        .addSvgIcon(
+      )
+      .addSvgIcon(
         'profile2',
         sanitizer.bypassSecurityTrustResourceUrl('assets/images/profile2.svg')
       )
@@ -232,6 +232,36 @@ export class IconSvgModule {
         'customer-service-color-bucket',
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/customer-service-icons/color-bucket.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-complaints',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/complaints.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-emergency',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/emergency.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-other',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/other.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-claims',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/claims.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-sales',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/sales.svg'
         )
       )
       .addSvgIcon(
