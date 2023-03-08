@@ -3,25 +3,16 @@
 <div class="flex">
   <div class="pl-4 pr-4 pt-8 pb-8 h-[780px] flex flex-col">
     <div class="flex flex-col mt-auto mb-auto px-10 py-10 justify-center">
-      <img
-        src="../../../../../../assets/images/cashier-icons/credit-card-selected.svg"
-        alt=""
-      />
-      <p class="text-center">Card</p>
+      <img src="{{ cardIconUrl }}" alt="" (click)="changeStatus(0)" />
+      <p class="text-center" ngClass="{{ cardFontColor }}">Card</p>
     </div>
     <div class="flex flex-col px-10 py-10 justify-center">
-      <img
-        src="../../../../../../assets/images/cashier-icons/check-svgrepo-c.svg"
-        alt=""
-      />
-      <p class="text-center">Checks</p>
+      <img src="{{ checkIconUrl }}" alt="" (click)="changeStatus(1)" />
+      <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
     </div>
     <div class="flex flex-col px-10 py-10 justify-center">
-      <img
-        src="../../../../../../assets/images/cashier-icons/cash-svgrepo-co.svg"
-        alt=""
-      />
-      <p class="text-center">Cash</p>
+      <img src="{{ cashIconUrl }}" alt="" (click)="changeStatus(2)" />
+      <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
     </div>
   </div>
   <div class="flex-1">
