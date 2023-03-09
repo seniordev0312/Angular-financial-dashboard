@@ -53,6 +53,14 @@ export class IconSvgModule {
         )
       )
       .addSvgIcon(
+        'profile',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/profile.svg')
+      )
+      .addSvgIcon(
+        'profile2',
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/profile2.svg')
+      )
+      .addSvgIcon(
         'language',
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/svg-icons/language.svg'
@@ -207,13 +215,13 @@ export class IconSvgModule {
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/customer-service-icons/paperclip.svg'
         )
-    )
+      )
       .addSvgIcon(
         'customer-contact-form-location',
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/customer-service-icons/location-pin.svg'
         )
-    )
+      )
       .addSvgIcon(
         'customer-contact-form-image-processing',
         sanitizer.bypassSecurityTrustResourceUrl(
@@ -224,6 +232,36 @@ export class IconSvgModule {
         'customer-service-color-bucket',
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/customer-service-icons/color-bucket.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-complaints',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/complaints.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-emergency',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/emergency.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-other',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/other.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-claims',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/claims.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-sales',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/sales.svg'
         )
       )
       .addSvgIcon(
