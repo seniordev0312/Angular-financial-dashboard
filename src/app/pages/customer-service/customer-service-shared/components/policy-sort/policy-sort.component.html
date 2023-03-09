@@ -1,35 +1,35 @@
 <div class="w-full h-9 flex">
   <div class="w-[85%] h-7 flex justify-center items-center">
-    <div class="w-[35%] flex justify-start">
+    <div class="w-[30%] flex justify-start">
       <span class="text-[13px]">Sort By</span>
     </div>
-    <div class="w-[45%] justify-center">
+    <div class="w-[60%] justify-center">
       <app-select-list></app-select-list>
     </div>
-    <div class="w-[20%] flex justify-end">
-      <div class="flex flex-col px-2">
+    <div class="w-[10%] flex justify-end">
+      <div class="flex flex-col pb-3">
         <div *ngIf="!arrow" class="cursor-pointer">
           <img
             (click)="ascending()"
             src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
-            class="pb-1 w-[18px] h-[13px] bg-white text-primary"
+            class="pb-1 w-[13px] h-[11px] bg-white text-primary"
           />
           <img
             (click)="descending()"
             src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
-            class="pb-1 w-[18px] h-[13px]"
+            class="pb-1 w-[13px] h-[11px]"
           />
         </div>
         <div *ngIf="arrow" class="cursor-pointer">
           <img
             (click)="ascending()"
             src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
-            class="pb-1 w-[18px] h-[13px] rotate-icon"
+            class="pb-1 w-[13px] h-[11px] rotate-icon"
           />
           <img
             (click)="descending()"
             src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
-            class="pb-1 w-[18px] h-[13px] rotate-icon"
+            class="pb-1 w-[13px] h-[11px] rotate-icon"
           />         
         </div>
       </div>
