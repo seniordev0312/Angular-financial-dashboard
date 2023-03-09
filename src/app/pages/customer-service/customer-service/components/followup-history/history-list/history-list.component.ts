@@ -78,7 +78,6 @@ export class HistoryListComponent
       translationKey: 'Date',
       property: 'Date',
       type: 'text',
-      svgIcon: '',
       cssClasses: () => '',
       dataCssClasses: () => 'underline text-accent',
       enableSort: true,
@@ -109,13 +108,12 @@ export class HistoryListComponent
     },
     {
       translationKey: 'Response',
-      property: 'Response',
-      type: 'text',
-      svgIcon: 'customer-service-happy-icon',
+      property: 'Response', 
+      type: 'icon',
       cssClasses: () => 'text-primary',
       dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
+      enableSort: false,
+      hasFilter: false,
       visible: true,
       displayInFilterList: true,
       hasToolTip: false,
@@ -175,6 +173,7 @@ export class HistoryListComponent
     actionsMode: 'inline',
     pageSize: this.pageSize,
     enableCustomizingColumns: false,
+    enableActions:true
   });
 
   tableConfiguration: TableConfiguration<TicketHistoryListItem> = {
@@ -196,9 +195,11 @@ export class HistoryListComponent
       case 0:
         return 'customer-service-happy-icon';
       case 1:
-        return 'customer-service-sad-color-2';
+        //return 'customer-service-sad-color-2';
+        return 'customer-service-sad-1-icon';
       default:
-        return 'customer-service-sad-color-1';
+        //return 'customer-service-sad-color-1';
+        return 'customer-service-sad-icon';
     }
   }
 
