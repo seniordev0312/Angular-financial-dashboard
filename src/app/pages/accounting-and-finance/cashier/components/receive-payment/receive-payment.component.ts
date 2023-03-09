@@ -8,16 +8,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class ReceivePaymentComponent implements OnInit {
   cardIconURLs: string[] = [
+    '../../../../../../assets/images/cashier-icons/card.svg',
     '../../../../../../assets/images/cashier-icons/selected-card.svg',
-    '../../../../../../assets/images/cashier-icons/credit-card-svg.svg',
   ];
   checkIconURLs: string[] = [
-    '../../../../../../assets/images/cashier-icons/check-svgrepo-selected.svg',
-    '../../../../../../assets/images/cashier-icons/check-svgrepo-c.svg',
+    '../../../../../../assets/images/cashier-icons/check.svg',
+    '../../../../../../assets/images/cashier-icons/selected-check.svg',
   ];
   cashIconURLs: string[] = [
-    '../../../../../../assets/images/cashier-icons/cash-svgrepo-selected.svg',
-    '../../../../../../assets/images/cashier-icons/cash-svgrepo-co.svg',
+    '../../../../../../assets/images/cashier-icons/cash.svg',
+    '../../../../../../assets/images/cashier-icons/selected-cash.svg',
   ];
   cardFontColors: string[] = ['', 'text-[#365D7D]'];
   checkFontColors: string[] = ['', 'text-[#365D7D]'];
@@ -34,8 +34,8 @@ export class ReceivePaymentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.cardIconUrl = this.cardIconURLs[0];
-    this.cardFontColor = this.cardFontColors[1];
+    this.cardIconUrl = this.cardIconURLs[1];
+    this.cardFontColor = this.cardFontColors[0];
     this.checkIconUrl = this.checkIconURLs[0];
     this.cardFontColor = this.cardFontColors[1];
     this.checkFontColor = this.checkFontColors[0];
