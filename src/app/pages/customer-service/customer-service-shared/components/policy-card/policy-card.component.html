@@ -26,7 +26,7 @@
         {{ cardInfo.dateCreated }}
       </div>
       <div
-        class="flex justify-end font-black items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[7px]"
+        class="flex justify-end font-black items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[9px]"
       >
         {{ cardInfo.ticketCode }}
       </div>
@@ -60,12 +60,12 @@
         </div>
         <div class="h-full w-[60%] flex flex-col items-start justify-center">
           <span class="font-bold text-[11px]">{{ cardInfo.entityName }}</span>
-          <span class="text-[8px]">
+          <span class="text-[8px] font-bold">
             <div *ngIf="cardInfo.ein">
               EIN:
               <span class="text-[#005f83] underline">{{ cardInfo.ein }}</span>
             </div>
-            <div *ngIf="cardInfo.ein == null">
+            <div *ngIf="!cardInfo.ein || cardInfo.ein == null">
               <span class="text-[#005f83]">Entity Not Matched or Created</span>
             </div>
           </span>
@@ -97,7 +97,7 @@
     <ng-container *ngIf="!cardInfo.assignedToProfilePictureUri">
       <mat-icon
         id="profilePic2"
-        class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
+        class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain bg-white"
         svgIcon="profile2"
       ></mat-icon>
     </ng-container>
