@@ -4,13 +4,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   selector: 'app-receive-cash-payment',
   templateUrl: './receive-cash-payment.component.html',
   styleUrls: ['./receive-cash-payment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReceiveCashPaymentComponent implements OnInit {
+  printDialog: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  print() {
+    this.printDialog = true;
   }
-
 }
