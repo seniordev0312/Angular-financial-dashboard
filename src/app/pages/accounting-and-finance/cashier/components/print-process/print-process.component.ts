@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-print-review',
-  templateUrl: './print-review.component.html',
-  styleUrls: ['./print-review.component.scss'],
+  selector: 'app-print-process',
+  templateUrl: './print-process.component.html',
+  styleUrls: ['./print-process.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PrintReviewComponent implements OnInit {
+export class PrintProcessComponent implements OnInit {
 
   constructor() { }
 

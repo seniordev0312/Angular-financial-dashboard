@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'app-receive-cash-payment',
@@ -7,7 +14,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReceiveCashPaymentComponent implements OnInit {
-  printDialog: boolean = false;
+  @Input() printDialog: boolean;
+  @Output() printDialogChange = new EventEmitter<boolean>();
 
   constructor() {}
 
@@ -15,5 +23,6 @@ export class ReceiveCashPaymentComponent implements OnInit {
 
   print() {
     this.printDialog = true;
+    this.printDialogChange.emit(this.printDialog);
   }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrintReviewComponent } from './print-review.component';
+import { PrintProcessComponent } from './print-process.component';
 
-describe('PrintReviewComponent', () => {
-  let component: PrintReviewComponent;
-  let fixture: ComponentFixture<PrintReviewComponent>;
+describe('PrintProcessComponent', () => {
+  let component: PrintProcessComponent;
+  let fixture: ComponentFixture<PrintProcessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PrintReviewComponent ]
+      declarations: [ PrintProcessComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PrintReviewComponent);
+    fixture = TestBed.createComponent(PrintProcessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

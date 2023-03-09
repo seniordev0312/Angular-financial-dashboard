@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReceivePaymentComponent implements OnInit {
+  printModal: boolean = false;
   cardIconURLs: string[] = [
     '../../../../../../assets/images/cashier-icons/card.svg',
     '../../../../../../assets/images/cashier-icons/selected-card.svg',
