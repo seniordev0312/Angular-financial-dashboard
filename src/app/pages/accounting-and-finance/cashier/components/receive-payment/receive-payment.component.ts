@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class ReceivePaymentComponent implements OnInit {
   cardIconURLs: string[] = [
-    '../../../../../../assets/images/cashier-icons/credit-card-selected.svg',
+    '../../../../../../assets/images/cashier-icons/selected-card.svg',
     '../../../../../../assets/images/cashier-icons/credit-card-svg.svg',
   ];
   checkIconURLs: string[] = [
@@ -29,11 +29,12 @@ export class ReceivePaymentComponent implements OnInit {
   cardFontColor: string;
   checkFontColor: string;
   cashFontColor: string;
+  status: number = 0;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.cardIconUrl = this.cardIconURLs[1];
+    this.cardIconUrl = this.cardIconURLs[0];
     this.cardFontColor = this.cardFontColors[1];
     this.checkIconUrl = this.checkIconURLs[0];
     this.cardFontColor = this.cardFontColors[1];
@@ -41,22 +42,23 @@ export class ReceivePaymentComponent implements OnInit {
     this.cashFontColor = this.cashFontColors[0];
   }
 
-  changeStatus(status: number) {
-    if (status === 0) {
+  changeStatus(status: string) {
+    this.status = Number(status);
+    if (this.status === 0) {
       this.cardIconUrl = this.cardIconURLs[1];
       this.checkIconUrl = this.checkIconURLs[0];
       this.cardIconUrl = this.cashIconURLs[0];
       this.cardFontColor = this.cardFontColors[1];
       this.checkFontColor = this.checkFontColors[0];
       this.cashFontColor = this.cashFontColors[0];
-    } else if (status === 1) {
+    } else if (this.status === 1) {
       this.cardIconUrl = this.cardIconURLs[0];
       this.checkIconUrl = this.checkIconURLs[1];
       this.cardIconUrl = this.cashIconURLs[0];
       this.cardFontColor = this.cardFontColors[0];
       this.checkFontColor = this.checkFontColors[1];
       this.cashFontColor = this.cashFontColors[0];
-    } else if (status == 2) {
+    } else if (this.status == 2) {
       this.cardIconUrl = this.cardIconURLs[0];
       this.checkIconUrl = this.checkIconURLs[0];
       this.cardIconUrl = this.cashIconURLs[1];
