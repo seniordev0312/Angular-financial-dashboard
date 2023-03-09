@@ -1,4 +1,4 @@
-<div class="flex flex-col bg-white pt-6 pb-5 pl-18 pr-5 border-none h-[270px]">
+<div class="flex flex-col bg-white pt-6 pb-5 px-5 border-none h-[270px]">
   <div class="flex flex-row">
     <div class="w-[35%]">
       <p class="text-[11px] font-bold">Response:</p>
@@ -64,38 +64,45 @@
   <div class="mt-8">
     <div class="flex flex-row justify-around pb-4">
       <div *ngIf="pageFlag == 'request'" class="flex flex-row justify-between">
-        <app-button
-          (click)="pageEvent('request')"
-          classes="px-4 py-3 mr-4 text-[12px] leading-none text-center flex justify-center items-center bg-primary text-white color-white"
-          text="Request Renewal Policy - Underwriting"
-        ></app-button>
+        <div class="mr-4">
+          <app-button
+            (click)="pageEvent('request')"
+            classes="px-4 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-primary text-white color-white"
+            text="Request Renewal Policy - Underwriting"
+          ></app-button>
+        </div>
+
         <app-button
           (click)="pageEvent('send')"
-          classes="px-4 py-3 mr-4  text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
+          classes="px-4 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
           text="Send Renewed Policy - Same Terms"
         ></app-button>
       </div>
       <div *ngIf="pageFlag == 'send'" class="flex flex-row justify-between">
-        <app-button
-          (click)="pageEvent('request')"
-          classes="px-4 py-3 mr-4  text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
-          text="Request Renewal Policy - Underwriting"
-        ></app-button>
+        <div class="mr-4">
+          <app-button
+            (click)="pageEvent('request')"
+            classes="px-4 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
+            text="Request Renewal Policy - Underwriting"
+          ></app-button>
+        </div>
         <app-button
           (click)="pageEvent('send')"
-          classes="px-4 py-3 mr-4  text-[12px] leading-none text-center flex justify-center items-center text-white bg-primary color-white"
+          classes="px-4 py-3  text-[12px] leading-none text-center flex justify-center items-center text-white bg-primary color-white"
           text="Send Renewed Policy - Same Terms"
         ></app-button>
       </div>
       <div *ngIf="pageFlag == 'main'" class="flex flex-row justify-between">
-        <app-button
-          (click)="pageEvent('request')"
-          classes="px-4 py-3 mr-4 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
-          text="Request Renewal Policy - Underwriting"
-        ></app-button>
+        <div class="mr-4">
+          <app-button
+            (click)="pageEvent('request')"
+            classes="px-4 py-3  text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
+            text="Request Renewal Policy - Underwriting"
+          ></app-button>
+        </div>
         <app-button
           (click)="pageEvent('send')"
-          classes="px-4 py-3 mr-4 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
+          classes="px-4 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
           text="Send Renewed Policy - Same Terms"
         ></app-button>
       </div>
@@ -151,9 +158,6 @@
           text="Save"
         ></app-button>
       </div>
-
-
-      
     </div>
   </div>
 </div>
