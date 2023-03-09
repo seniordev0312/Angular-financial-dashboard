@@ -5,16 +5,17 @@ export interface TableColumn {
   translationKey: string;
   property: string;
   type:
-    | 'text'
-    | 'number'
-    | 'array'
-    | 'bool'
-    | 'dropDown'
-    | 'image'
-    | 'badge'
-    | 'progress'
-    | 'checkbox'
-    | 'button';
+  | 'text'
+  | 'number'
+  | 'array'
+  | 'bool'
+  | 'icon'
+  | 'dropDown'
+  | 'image'
+  | 'badge'
+  | 'progress'
+  | 'checkbox'
+  | 'button';
   cssClasses?: (data?: any) => string;
   dataCssClasses?: (data?: any) => string;
   enableSort: boolean;

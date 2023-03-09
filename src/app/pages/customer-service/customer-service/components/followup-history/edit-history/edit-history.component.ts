@@ -33,7 +33,7 @@ export class EditHistoryComponent implements OnInit {
   colorRequest: string = '';
   colorSend: string = '';
   pageFlag: string = 'main';
-  response: number;
+  response: number = -1;
   detailContent: string = '';
   policyPrice: string = '';
   additionalDetailContent: string = '';
@@ -126,7 +126,7 @@ export class EditHistoryComponent implements OnInit {
   }
 
   checkFormValidity() {
-    if (this.fg.valid && this.response && this.pageFlag !== 'main') {
+    if (this.fg.valid && (this.response !== -1) && this.pageFlag !== 'main') {
       this.isFormValid = true;
     } else {
       this.isFormValid = false;
