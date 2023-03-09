@@ -2,29 +2,29 @@
 <!-- <mat-dialog-content> -->
 <div class="flex">
   <div class="pl-4 pr-4 pt-8 pb-8 h-[780px] flex flex-col">
-    <div class="flex flex-col mt-auto mb-auto px-10 py-10 justify-center">
-      <img
-        src="../../../../../../assets/images/cashier-icons/credit-card-selected.svg"
-        alt=""
-      />
-      <p class="text-center">Card</p>
+    <div
+      class="flex flex-col mt-auto mb-auto px-10 py-10 justify-center"
+      (click)="changeStatus('0')"
+    >
+      <img src="{{ cardIconUrl }}" alt="" />
+      <p class="text-center" ngClass="{{ cardFontColor }}">Card</p>
     </div>
-    <div class="flex flex-col px-10 py-10 justify-center">
-      <img
-        src="../../../../../../assets/images/cashier-icons/check-svgrepo-c.svg"
-        alt=""
-      />
-      <p class="text-center">Checks</p>
+    <div
+      class="flex flex-col px-10 py-10 justify-center"
+      (click)="changeStatus('1')"
+    >
+      <img src="{{ checkIconUrl }}" alt="" />
+      <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
     </div>
-    <div class="flex flex-col px-10 py-10 justify-center">
-      <img
-        src="../../../../../../assets/images/cashier-icons/cash-svgrepo-co.svg"
-        alt=""
-      />
-      <p class="text-center">Cash</p>
+    <div
+      class="flex flex-col px-10 py-10 justify-center"
+      (click)="changeStatus('2')"
+    >
+      <img src="{{ cashIconUrl }}" alt="" />
+      <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
     </div>
   </div>
-  <div class="flex-1">
+  <div *ngIf="status == 0" class="flex-1">
     <div class="ml-auto mr-auto flex mb-4 mt-12">
       <div class="flex ml-auto rounded-xl bg-[#fafafa] p-[10px] mr-5">
         Currency <app-select-list class="ml-3 flex-1"></app-select-list>
@@ -80,6 +80,9 @@
         </button>
       </div>
     </div>
+  </div>
+  <div *ngIf="status == 2" class="flex-1">
+    <app-receive-cash-payment></app-receive-cash-payment>
   </div>
 </div>
 <!-- </mat-dialog-content> -->
