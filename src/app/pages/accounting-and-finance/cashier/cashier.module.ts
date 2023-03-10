@@ -16,6 +16,7 @@ import { ViewBasketAdvancedComponent } from './components/view-basket-advanced/v
 import { ImportBasketComponent } from './components/import-basket/import-basket.component';
 import { ReceivePaymentComponent } from './components/receive-payment/receive-payment.component';
 import { ReceiveCashPaymentComponent } from './components/receive-cash-payment/receive-cash-payment.component';
+import { PrintPreviewComponent } from './components/print-preview/print-preview.component';
 
 const routes: Route[] = [
   {
@@ -30,7 +31,7 @@ const routes: Route[] = [
 
 @NgModule({
 
-  declarations: [CashierComponent, ViewBasketComponent, ViewBasketAdvancedComponent, ImportBasketComponent, ReceivePaymentComponent, ReceiveCashPaymentComponent],
+  declarations: [CashierComponent, ViewBasketComponent, ViewBasketAdvancedComponent, ImportBasketComponent, ReceivePaymentComponent, ReceiveCashPaymentComponent, PrintPreviewComponent],
   imports: [
     CommonModule,
     SharedModule,
