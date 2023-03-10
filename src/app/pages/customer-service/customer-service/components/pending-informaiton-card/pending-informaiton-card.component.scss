@@ -3,3 +3,8 @@
     width: 95%;
   }
 }
+
+::ng-deep #color-bucket .mat-icon {
+  height: 20px !important;
+  width: 25px !important;
+}
