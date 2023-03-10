@@ -89,6 +89,9 @@
         </div>
       </div>
     </div>
+    <div *ngIf="status == 1" class="flex-1">
+      <app-receive-check-payment></app-receive-check-payment>
+    </div>
     <div *ngIf="status == 2" class="flex-1">
       <app-receive-cash-payment
         [(printDialog)]="printModal"
