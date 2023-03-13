@@ -537,6 +537,11 @@
                         class="py-3 justify-center leading-none text-center flex items-center"
                       >
                         <button
+                          (click)="
+                            locationAccordion.toggle();
+                            displayEmergencyInitateSection();
+                            emergencyInitiate.toggle()
+                          "
                           class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
                         >
                           Save
