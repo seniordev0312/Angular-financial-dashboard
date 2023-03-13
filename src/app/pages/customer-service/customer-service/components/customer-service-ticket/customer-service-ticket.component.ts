@@ -34,7 +34,6 @@ export class CustomerServiceTicketComponent implements OnInit {
   productSectionFlag: boolean = false;
   initialSectionFlag: boolean = false;
   typeSectionFlag: boolean = false;
-  otherDetailsSectionFlag: boolean = false;
   locationSectionFlag: boolean = false;
   priceValue: string = ' ';
   disableButton: boolean = false;
@@ -43,6 +42,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   salesFlowFlag: boolean = false;
   emergencyFlowFlag: boolean = false;
   otherFlowFlag: boolean = false;
+  complaintFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
   isShowAppField = false;
   isLoading = false;
@@ -52,6 +52,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   businesses: { id: number; name: string }[] = [];
   products: { id: number; productCode: string; productDescription: string }[] =
     [];
+  complaintCategories: any[] = [];
   requiredData: any;
   emergencyTypes: { id: number; name: string }[] = [];
   emergencyInitiateItems: {
@@ -62,12 +63,14 @@ export class CustomerServiceTicketComponent implements OnInit {
   isBlue: boolean = false;
   choosedButtons: {
     category: number;
+    complaintCategory: number;
     business: number;
     product: number;
     emergencyType: number;
     initiate: number;
   } = {
     category: 0,
+    complaintCategory: 0,
     business: 0,
     product: 0,
     emergencyType: 0,
@@ -165,6 +168,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.businessSectionFlag = true;
         this.salesFlowFlag = true;
         this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = false;
         this.otherFlowFlag = false;
         this.subscription = this.customerCardService
           .getBusiness()
@@ -179,6 +183,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.typeSectionFlag = true;
         this.salesFlowFlag = false;
         this.otherFlowFlag = false;
+        this.complaintFlowFlag = false;
         this.emergencyFlowFlag = true;
         this.subscription = this.customerCardService
           .getEmerencyTypeData()
@@ -189,11 +194,28 @@ export class CustomerServiceTicketComponent implements OnInit {
           });
         break;
       }
+      case 'complaint': {
+        this.typeSectionFlag = false;
+        this.salesFlowFlag = false;
+        this.otherFlowFlag = false;
+        this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = true;
+
+        this.complaintCategories = [
+          { id: 0, name: 'Non Responsive' },
+          { id: 1, name: 'Specific Employee' },
+          { id: 2, name: 'Driver' },
+          { id: 3, name: 'Payment' },
+        ];
+
+        break;
+      }
       case 'otherDetails': {
-        this.otherDetailsSectionFlag = true;
         this.otherFlowFlag = true;
         this.salesFlowFlag = false;
+        this.typeSectionFlag = false;
         this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = false;
         break;
       }
       default:
@@ -266,9 +288,8 @@ export class CustomerServiceTicketComponent implements OnInit {
         });
     }
   }
-  
+
   ngOnDestroy(): void {
     this.signalRService.stopConnection();
   }
-
 }

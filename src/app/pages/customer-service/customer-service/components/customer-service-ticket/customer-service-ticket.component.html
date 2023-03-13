@@ -184,9 +184,9 @@
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
-                            displaySection('business', category.id);
+                            displaySection('complaint', category.id);
                             categoryAccordion.toggle();
-                            lineOfBusinessAccordion.toggle()
+                            complaintCategoryAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ category.name }}"
@@ -195,9 +195,9 @@
                       <div *ngIf="choosedButtons.category !== category.id">
                         <app-button
                           (click)="
-                            displaySection('business', category.id);
+                            displaySection('complaint', category.id);
                             categoryAccordion.toggle();
-                            lineOfBusinessAccordion.toggle()
+                            complaintCategoryAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
                           text="{{ category.name }}"
@@ -669,6 +669,143 @@
                     <app-outcome-accordion
                       (saveClicked)="otherOutcomeAccordion.toggle()"
                       [outcomeText]="'Outcome'"
+                    ></app-outcome-accordion>
+                  </div>
+                </div>
+              </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+              class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
+              #complaintCategoryAccordion="cdkAccordionItem"
+              role="button"
+              tabindex="1"
+              [attr.id]="'accordion-header-1'"
+              [attr.aria-expanded]="complaintCategoryAccordion.expanded"
+              [attr.aria-controls]="'accordion-body-1'"
+            >
+              <div *ngIf="complaintCategoryAccordion && complaintFlowFlag">
+                <p
+                  (click)="complaintCategoryAccordion.toggle()"
+                  class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
+                >
+                  Complaint Category
+                </p>
+                <div
+                  class="mt-5 shadow-md bg-white"
+                  role="region"
+                  [style.display]="
+                    complaintCategoryAccordion.expanded ? '' : 'none'
+                  "
+                  [attr.id]="'accordion-body-1'"
+                  [attr.aria-labelledby]="'accordion-header-1'"
+                >
+                  <div class="flex flex-wrap px-6">
+                    <div
+                      class="w-1/2 pr-3.5 mb-3"
+                      *ngFor="let complaintCategoryItem of complaintCategories"
+                    >
+                      <div
+                        *ngIf="
+                          choosedButtons.complaintCategory ===
+                          complaintCategoryItem.id
+                        "
+                      >
+                        <app-button
+                          (click)="
+                            complaintCategoryAccordion.toggle();
+                            complaintDetailsAccordion.toggle()
+                          "
+                          classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
+                          text="{{ complaintCategoryItem.name }}"
+                        ></app-button>
+                      </div>
+                      <div
+                        *ngIf="
+                          choosedButtons.complaintCategory !==
+                          complaintCategoryItem.id
+                        "
+                      >
+                        <app-button
+                          (click)="
+                            complaintCategoryAccordion.toggle();
+                            complaintDetailsAccordion.toggle()
+                          "
+                          classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
+                          text="{{ complaintCategoryItem.name }}"
+                        ></app-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+              #complaintDetailsAccordion="cdkAccordionItem"
+              role="button"
+              tabindex="7"
+              [attr.id]="'accordion-header-7'"
+              [attr.aria-expanded]="complaintDetailsAccordion.expanded"
+              [attr.aria-controls]="'accordion-body-7'"
+            >
+              <div *ngIf="complaintDetailsAccordion && complaintFlowFlag">
+                <div
+                  class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
+                >
+                  <p
+                    (click)="complaintDetailsAccordion.toggle()"
+                    class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
+                  >
+                    Complaint Details
+                  </p>
+                  <div
+                    class="mt-2 mb-5 bg-white"
+                    role="region"
+                    [style.display]="
+                      complaintDetailsAccordion.expanded ? '' : 'none'
+                    "
+                    [attr.id]="'accordion-body-7'"
+                    [attr.aria-labelledby]="'accordion-header-7'"
+                  >
+                    <app-details-accordion
+                      (saveClicked)="complaintOutcomeAccordion.toggle()"
+                    ></app-details-accordion>
+                  </div>
+                </div>
+              </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+              #complaintOutcomeAccordion="cdkAccordionItem"
+              role="button"
+              tabindex="7"
+              [attr.id]="'accordion-header-7'"
+              [attr.aria-expanded]="complaintOutcomeAccordion.expanded"
+              [attr.aria-controls]="'accordion-body-7'"
+            >
+              <div *ngIf="complaintOutcomeAccordion && complaintFlowFlag">
+                <div
+                  class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
+                >
+                  <p
+                    (click)="complaintOutcomeAccordion.toggle()"
+                    class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
+                  >
+                    Complaint Outcome
+                  </p>
+                  <div
+                    class="mt-2 mb-5 bg-white"
+                    role="region"
+                    [style.display]="
+                      complaintOutcomeAccordion.expanded ? '' : 'none'
+                    "
+                    [attr.id]="'accordion-body-7'"
+                    [attr.aria-labelledby]="'accordion-header-7'"
+                  >
+                    <app-outcome-accordion
+                      (saveClicked)="complaintOutcomeAccordion.toggle()"
+                      [outcomeText]="'Complaint Outcome'"
                     ></app-outcome-accordion>
                   </div>
                 </div>
