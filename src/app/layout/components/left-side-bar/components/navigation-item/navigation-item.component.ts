@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { NavigationDropdown } from '@root/layout/models/navigation-dropdown';
 import { NavigationLink } from '@root/layout/models/navigation-link';
@@ -14,6 +15,9 @@ export class NavigationItemComponent {
   @Input() item: NavigationLink | NavigationDropdown;
   @Input() isSubItem = false;
   @Input() extended: boolean;
+
+@ViewChild(MatMenuTrigger) customerServiceMenuTrigger: MatMenuTrigger;
+
 
   constructor(private router: Router,
     private securityCheckerService: SecurityCheckerService) { }
@@ -42,5 +46,9 @@ export class NavigationItemComponent {
 
   doesNavigationLinkHasPermission(item: NavigationLink) {
     return this.securityCheckerService.doesUserHasPermission(item.permission);
+  }
+
+  closeMenu() {
+     this.customerServiceMenuTrigger.closeMenu();
   }
 }

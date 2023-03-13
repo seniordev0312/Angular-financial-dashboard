@@ -20,7 +20,7 @@ import { RightSideBarComponent } from './components/right-side-bar/components/ri
 import { ToolbarModule } from './components/toolbar/toolbar.module';
 import { FrontLeftSideBarModule } from './components/left-side-bar/components/front-left-side-bar/front-left-side-bar.module';
 import { NavigationItemComponent } from './components/left-side-bar/components/navigation-item/navigation-item.component';
-
+import { MatDividerModule } from '@angular/material/divider';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -46,7 +46,8 @@ import { NavigationItemComponent } from './components/left-side-bar/components/n
     MatInputModule,
     MatButtonModule,
     ToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ],
   providers: [],
 })
