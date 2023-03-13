@@ -17,7 +17,6 @@ export class OutcomeAccordionService {
   getFormGroup(item?: AccordionOutcome): FormGroup {
     this.fg = this.fb.group({
       outcome: new FormControl(item?.outcome || null, [Validators.required]),
-      response: new FormControl(item?.response || null, [Validators.required]),
     });
 
     return this.fg;
@@ -34,7 +33,6 @@ export class OutcomeAccordionService {
   getValueFromFormGroup(fg: FormGroup): AccordionOutcome {
     return {
       outcome: fg.controls.name.value,
-      response: fg.controls.name.value,
     };
   }
 }

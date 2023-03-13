@@ -19,9 +19,6 @@ export class DetailsAccordionService {
       description: new FormControl(item?.description || null, [
         Validators.required,
       ]),
-      severityResponse: new FormControl(item?.severityResponse || null, [
-        Validators.required,
-      ]),
     });
 
     return this.fg;
@@ -36,7 +33,6 @@ export class DetailsAccordionService {
   getValueFromFormGroup(fg: FormGroup): AccordionDetails {
     return {
       description: fg.controls.name.value,
-      severityResponse: fg.controls.name.value,
     };
   }
 }

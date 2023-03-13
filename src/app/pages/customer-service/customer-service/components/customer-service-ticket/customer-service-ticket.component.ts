@@ -34,6 +34,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   productSectionFlag: boolean = false;
   initialSectionFlag: boolean = false;
   typeSectionFlag: boolean = false;
+  otherDetailsSectionFlag: boolean = false;
   locationSectionFlag: boolean = false;
   priceValue: string = ' ';
   disableButton: boolean = false;
@@ -164,6 +165,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.businessSectionFlag = true;
         this.salesFlowFlag = true;
         this.emergencyFlowFlag = false;
+        this.otherFlowFlag = false;
         this.subscription = this.customerCardService
           .getBusiness()
           .subscribe((data: any) => {
@@ -176,6 +178,7 @@ export class CustomerServiceTicketComponent implements OnInit {
       case 'type': {
         this.typeSectionFlag = true;
         this.salesFlowFlag = false;
+        this.otherFlowFlag = false;
         this.emergencyFlowFlag = true;
         this.subscription = this.customerCardService
           .getEmerencyTypeData()
@@ -184,6 +187,13 @@ export class CustomerServiceTicketComponent implements OnInit {
             // this.isLoading = false;
             this.ref.detectChanges();
           });
+        break;
+      }
+      case 'otherDetails': {
+        this.otherDetailsSectionFlag = true;
+        this.otherFlowFlag = true;
+        this.salesFlowFlag = false;
+        this.emergencyFlowFlag = false;
         break;
       }
       default:
@@ -256,7 +266,9 @@ export class CustomerServiceTicketComponent implements OnInit {
         });
     }
   }
+  
   ngOnDestroy(): void {
     this.signalRService.stopConnection();
   }
+
 }

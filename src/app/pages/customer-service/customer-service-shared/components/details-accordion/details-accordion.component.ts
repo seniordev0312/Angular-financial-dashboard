@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DetailsAccordionService } from '@root/pages/customer-service/customer-service/services/details-accordion.service';
 
@@ -9,23 +15,23 @@ import { DetailsAccordionService } from '@root/pages/customer-service/customer-s
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsAccordionComponent implements OnInit {
-  detailDescriptionContent: string = '';
-
   fg: FormGroup;
 
   response: number = -1;
 
   isFormValid: boolean = false;
 
-  constructor(
-       private detailsAccordionService: DetailsAccordionService
-  ) {}
+  @Output()
+  saveClicked: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private detailsAccordionService: DetailsAccordionService) {}
 
   ngOnInit(): void {
     this.fg = this.detailsAccordionService.getFormGroup();
   }
 
   getSeverityResponse(response: number) {
+    this.response = response;
     console.log(response);
     this.checkFormValidity();
   }
@@ -48,5 +54,6 @@ export class DetailsAccordionComponent implements OnInit {
 
   onSave() {
     if (!this.isFormValid) return;
+    this.saveClicked.emit();
   }
 }

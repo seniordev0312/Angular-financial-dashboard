@@ -47,27 +47,30 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="w-[65%] border border-t-0 border-x-0 border-b">
-    <p class="text-[11px] font-bold">Outcome:</p>
-    <div class="h-[33px] colorflag">
-      <app-input-field
-        [(inputValue)]="outcomeContent"
-        [control]="getFormControl('outcome')"
-        (inputValueChange)="onChangeInputValue()"
-        value="{{ outcomeContent }}"
-        name="description"
-        class="flex p-0 text-primary"
-      ></app-input-field>
+
+    <div class="w-[65%]">
+      <div class="h-[33px] colorflag">
+        <app-input-field
+          [control]="getFormControl('outcome')"
+          (inputValueChange)="onChangeInputValue()"
+          name="description"
+          id="outcomeDescription"
+          label="Outcome"
+        ></app-input-field>
+      </div>
     </div>
   </div>
 
-  <div class="flex-1 flex items-end justify-around mb-1">
-    <app-button
-      (click)="onSave()"
-      [isDisabled]="!isFormValid"
-      classes="ml-auto px-8 py-3 text-[15px] bg-primary disabled:bg-[#8d8d8d] text-white rounded-md"
-      text="Save"
-    ></app-button>
+  <div class="flex-1 flex items-end justify-end mb-1 pt-6">
+    <div
+      class="py-3 justify-items-end leading-none text-center flex items-center"
+    >
+      <app-button
+        (click)="onSave()"
+        [isDisabled]="!isFormValid"
+        classes="ml-auto px-8 py-3 text-[15px] bg-primary disabled:bg-[#8d8d8d] text-white rounded-md"
+        text="Save"
+      ></app-button>
+    </div>
   </div>
 </div>

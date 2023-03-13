@@ -209,8 +209,7 @@
                         <app-button
                           (click)="
                             displaySection('otherDetails', category.id);
-                            otherDetailsAccordion.toggle();
-                            otherOutcomeAccordion.toggle()
+                            otherDetailsAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ category.name }}"
@@ -220,8 +219,7 @@
                         <app-button
                           (click)="
                             displaySection('otherDetails', category.id);
-                            otherDetailsAccordion.toggle();
-                            otherOutcomeAccordion.toggle()
+                            otherDetailsAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
                           text="{{ category.name }}"
@@ -614,7 +612,7 @@
               [attr.aria-expanded]="otherDetailsAccordion.expanded"
               [attr.aria-controls]="'accordion-body-7'"
             >
-              <div *ngIf="otherDetailsAccordion && emergencyFlowFlag">
+              <div *ngIf="otherDetailsAccordion && otherFlowFlag">
                 <div
                   class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
                 >
@@ -633,7 +631,9 @@
                     [attr.id]="'accordion-body-7'"
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
-                    <app-details-accordion></app-details-accordion>
+                    <app-details-accordion
+                      (saveClicked)="otherOutcomeAccordion.toggle()"
+                    ></app-details-accordion>
                   </div>
                 </div>
               </div>
@@ -647,7 +647,7 @@
               [attr.aria-expanded]="otherOutcomeAccordion.expanded"
               [attr.aria-controls]="'accordion-body-7'"
             >
-              <div *ngIf="otherOutcomeAccordion && emergencyFlowFlag">
+              <div *ngIf="otherOutcomeAccordion && otherFlowFlag">
                 <div
                   class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
                 >
@@ -655,7 +655,7 @@
                     (click)="otherOutcomeAccordion.toggle()"
                     class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
                   >
-                    Details
+                    Outcome
                   </p>
                   <div
                     class="mt-2 mb-5 bg-white"
@@ -667,6 +667,7 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-outcome-accordion
+                      (saveClicked)="otherOutcomeAccordion.toggle()"
                       [outcomeText]="'Outcome'"
                     ></app-outcome-accordion>
                   </div>

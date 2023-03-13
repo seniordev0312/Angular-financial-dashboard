@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { OutcomeAccordionService } from '@root/pages/customer-service/customer-service/services/outcome-accordion.service';
@@ -15,10 +17,11 @@ import { OutcomeAccordionService } from '@root/pages/customer-service/customer-s
 })
 export class OutcomeAccordionComponent implements OnInit {
   @Input() outcomeText: string = 'Outcome';
+  
+  @Output()
+  saveClicked: EventEmitter<any> = new EventEmitter<any>();
 
   response: number = -1;
-
-  outcomeContent: string = '';
 
   isFormValid: boolean = false;
 
@@ -55,5 +58,7 @@ export class OutcomeAccordionComponent implements OnInit {
 
   onSave() {
     if (!this.isFormValid) return;
+
+    this.saveClicked.emit();
   }
 }

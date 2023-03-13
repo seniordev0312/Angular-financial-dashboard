@@ -1,33 +1,31 @@
 <div class="px-10 w-full">
-  <div class="w-[65%] border border-t-0 border-x-0 border-b">
-    <p class="text-[11px] font-bold">Description:</p>
-    <div class="h-[33px] colorflag">
-      <app-input-field
-        [(inputValue)]="detailDescriptionContent"
-        [control]="getFormControl('description')"
-        (inputValueChange)="onChangeDetailInputValue()"
-        value="{{ detailDescriptionContent }}"
-        name="description"
-        class="flex p-0 text-primary"
-      ></app-input-field>
-    </div>
-  </div>
-
   <div class="flex flex-row">
+    <div class="w-[65%]">
+      <div class="h-[33px] colorflag">
+        <app-input-field
+          [control]="getFormControl('description')"
+          (inputValueChange)="onChangeDetailInputValue()"
+          name="description"
+          label="Description"
+          id="detailsDescription"
+        ></app-input-field>
+      </div>
+    </div>
+
     <div class="w-[35%]">
-      <p class="text-[11px] font-bold">Severity:</p>
-      <div class="flex flex-row pt-2">
+      <p class="text-[11px] font-bold pl-[13%]">Severity:</p>
+      <div class="flex flex-row pt-2 justify-evenly">
         <div class="mx-1">
-          <div *ngIf="response == 0">
+          <div *ngIf="response == 2">
             <mat-icon
-              (click)="getSeverityResponse(0)"
-              svgIcon="customer-service-severity-high"
+              (click)="getSeverityResponse(2)"
+              svgIcon="customer-service-severity-low"
             ></mat-icon>
           </div>
-          <div *ngIf="response !== 0">
+          <div *ngIf="response !== 2">
             <mat-icon
-              (click)="getSeverityResponse(0)"
-              svgIcon="customer-service-severity-high-no-color"
+              (click)="getSeverityResponse(2)"
+              svgIcon="customer-service-severity-low-no-color"
             ></mat-icon>
           </div>
         </div>
@@ -49,16 +47,16 @@
         </div>
 
         <div class="mx-1">
-          <div *ngIf="response == 2">
+          <div *ngIf="response == 0">
             <mat-icon
-              (click)="getSeverityResponse(2)"
-              svgIcon="customer-service-severity-low"
+              (click)="getSeverityResponse(0)"
+              svgIcon="customer-service-severity-high"
             ></mat-icon>
           </div>
-          <div *ngIf="response !== 2">
+          <div *ngIf="response !== 0">
             <mat-icon
-              (click)="getSeverityResponse(2)"
-              svgIcon="customer-service-severity-low-no-color"
+              (click)="getSeverityResponse(0)"
+              svgIcon="customer-service-severity-high-no-color"
             ></mat-icon>
           </div>
         </div>
@@ -66,12 +64,14 @@
     </div>
   </div>
 
-  <div class="flex-1 flex items-end justify-around mb-1">
-    <app-button
-      (click)="onSave()"
-      [isDisabled]="!isFormValid"
-      classes="ml-auto px-8 py-3 text-[15px] bg-primary disabled:bg-[#8d8d8d] text-white rounded-md"
-      text="Save"
-    ></app-button>
+  <div class="flex-1 flex items-end justify-end mb-1 pt-6">
+    <div class="py-3 justify-items-end leading-none text-center flex items-center">
+      <app-button
+        (click)="onSave()"
+        [isDisabled]="!isFormValid"
+        classes="ml-auto px-8 py-3 text-[15px] bg-primary disabled:bg-[#8d8d8d] text-white rounded-md"
+        text="Save"
+      ></app-button>
+    </div>
   </div>
 </div>
