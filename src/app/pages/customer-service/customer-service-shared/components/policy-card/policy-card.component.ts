@@ -43,7 +43,7 @@ export class PolicyCardComponent implements OnInit {
       minute,
       leftSideBackground: bg_color,
       leftSideIcon: this.displayCategoryTypeIcon(null),
-      sourceIconUrl: this.card.sourceIconUrl,
+      sourceIconUri: this.card.sourceIconUri,
       assignedToName: this.card.assignedToName,
       assignedToProfilePictureUri: this.card.assignedToProfilePictureUri,
       ein: this.card.ein,
