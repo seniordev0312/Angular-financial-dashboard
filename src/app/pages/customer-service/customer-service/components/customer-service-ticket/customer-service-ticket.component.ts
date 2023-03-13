@@ -41,6 +41,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   emergencyInitialSectionFlag: boolean = false;
   salesFlowFlag: boolean = false;
   emergencyFlowFlag: boolean = false;
+  otherFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
   isShowAppField = false;
   isLoading = false;
@@ -65,12 +66,12 @@ export class CustomerServiceTicketComponent implements OnInit {
     emergencyType: number;
     initiate: number;
   } = {
-      category: 0,
-      business: 0,
-      product: 0,
-      emergencyType: 0,
-      initiate: 0,
-    };
+    category: 0,
+    business: 0,
+    product: 0,
+    emergencyType: 0,
+    initiate: 0,
+  };
   ticketStatus: BaseListItem[] = [
     { id: 0, value: 'Created/Received Queue' },
     { id: 1, value: 'In Process' },
@@ -85,7 +86,6 @@ export class CustomerServiceTicketComponent implements OnInit {
   priceRange: FormControl = new FormControl();
   location: FormControl = new FormControl('', Validators.required);
 
-
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
 
@@ -99,7 +99,7 @@ export class CustomerServiceTicketComponent implements OnInit {
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
     private contactFormService: ContactFormService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
@@ -109,7 +109,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
-      console.log(this.categories)
+        console.log(this.categories);
       });
 
     this.dataTicket = this.data.dataKey;
@@ -122,7 +122,6 @@ export class CustomerServiceTicketComponent implements OnInit {
     );
 
     this.customerTicket.setValue(this.dataTicket.ticketCode);
-
 
     this.contactFormService.getMessageHistory(this.dataTicket.chatId);
     console.log('data ticket', this.dataTicket);
@@ -257,7 +256,6 @@ export class CustomerServiceTicketComponent implements OnInit {
         });
     }
   }
-
   ngOnDestroy(): void {
     this.signalRService.stopConnection();
   }

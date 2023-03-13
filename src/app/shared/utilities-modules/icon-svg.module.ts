@@ -289,6 +289,30 @@ export class IconSvgModule {
         )
       )
       .addSvgIcon(
+        'customer-service-severity-high',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/severity-high.svg'
+        )
+    )
+        .addSvgIcon(
+        'customer-service-severity-high-no-color',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/severity-high-no-color.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-service-severity-medium-no-color',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/severity-medium-no-color.svg'
+        )
+      )
+      .addSvgIcon(
+        'customer-service-severity-low-no-color',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/customer-service-icons/severity-low-no-color.svg'
+        )
+      )
+      .addSvgIcon(
         'customer-service-happy-icon',
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/customer-service-icons/happy-svgrepo-c.svg'
