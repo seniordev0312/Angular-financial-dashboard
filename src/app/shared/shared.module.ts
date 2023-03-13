@@ -108,6 +108,7 @@ import { SearchBarInputComponent } from './components/search-bar-input/search-ba
     FormsModule,
     ReactiveFormsModule,
     MultiSelectComponent,
+    SearchBarInputComponent,
     SingleSelectComponent,
     CanAccessFeatureDirective,
     SafeHtmlPipe,

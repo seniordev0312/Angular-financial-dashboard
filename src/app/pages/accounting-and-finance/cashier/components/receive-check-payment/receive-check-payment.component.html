@@ -7,8 +7,18 @@
       Amount <app-input-field class="ml-3 flex-1"></app-input-field>
     </div>
   </div>
-  <div class="ml-auto mr-auto mb-4 w-[32%] rounded-xl bg-[#fafafa] p-[10px]">
-    Payer <app-input-field class="pl-20 flex-1"></app-input-field><br />
-    Date <app-date-picker-input class="ml-20"></app-date-picker-input>
+  <div
+    class="ml-auto mr-auto mb-4 w-[48%] rounded-xl bg-[#fafafa] p-[10px] flex"
+  >
+    <div>Check# <app-input-field class="pl-20 flex-1"></app-input-field></div>
+    <div>
+      Check Date
+      <app-input-field class="pl-20 flex-1"></app-input-field>
+    </div>
+    <div>
+      Bank#
+      <app-search-bar-input></app-search-bar-input>
+    </div>
   </div>
+  <div class="ml-auto mr-auto"></div>
 </div>
