@@ -39,8 +39,18 @@ export class CustomerCardService {
 
   // HttpClient API post() method => Get customer service tickets
   getCutomerServiceTickets() {
+       let paramObj: any = {
+      "searchQuery": null,
+      "assignedToId": null,
+      "fromDateCreated": null,
+      "toDateCreated": null,
+      "fromDateModified": null,
+      "toDateModified": null,
+      "communicationChannelId": null
+    };
+
     this.http
-      .post<any>(this.apiFilterURL, {}, this.httpOptions)
+      .post<any>(this.apiFilterURL, paramObj, this.httpOptions)
       .subscribe((data) => {
         this.customerServiceTicketsRepository.updateTickets(data);
       });
