@@ -153,7 +153,12 @@ export class CustomerServiceTicketComponent implements OnInit {
   onChangeTicketStatus(event: Event) {
     this.dataTicket.status = event;
 
-    this.customerCardService.updateCustomServiceTickets(this.dataTicket);
+    let body = {
+      id: this.dataTicket.id,
+      status: this.dataTicket.status
+    }
+    
+    this.customerCardService.updateCustomServiceTicket(body);
   }
 
   // move to emergency flow or sales flow section
