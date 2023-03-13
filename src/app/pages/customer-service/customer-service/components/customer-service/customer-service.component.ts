@@ -118,9 +118,12 @@ export class CustomerServiceComponent implements OnInit {
       );
       event.container.data[event.currentIndex].status = status;
 
-      this.customerCardService.updateCustomServiceTickets(
-        event.container.data[event.currentIndex]
-      );
+      let body = {
+        id: event.container.data[event.currentIndex].id,
+        status: event.container.data[event.currentIndex].status,
+      };
+
+      this.customerCardService.updateCustomServiceTicket(body);
       this.openDialog(event.container.data[event.currentIndex]);
     }
   }

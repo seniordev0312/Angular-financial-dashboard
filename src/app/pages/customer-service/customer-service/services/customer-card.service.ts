@@ -32,6 +32,7 @@ export class CustomerCardService {
   // Define API route
   apiFilterURL = `${this.customerServiceServerURL}/CustomerServiceTicket/Filter`;
   apiPutURL = `${this.customerServiceServerURL}/CustomerServiceTicket`;
+  apiPutStatus = `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketStatus`;
   apiGetCategory = `${this.customerServiceServerURL}/Resource/Category`;
   apiGetBusiness = `${this.customerServiceServerURL}/Resource/LineOfBusiness`;
   apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
@@ -73,6 +74,13 @@ export class CustomerCardService {
   updateCustomServiceTickets(body: {}) {
     this.http
       .put<PolicyCard>(this.apiPutURL, body, this.httpOptions)
+      .subscribe(console.log);
+  }
+  
+  // HttpClient API put() method => Update Customer Service Ticket
+  updateCustomServiceTicket(body: {}) {
+    this.http
+      .put<PolicyCard>(this.apiPutStatus, body, this.httpOptions)
       .subscribe(console.log);
   }
 
