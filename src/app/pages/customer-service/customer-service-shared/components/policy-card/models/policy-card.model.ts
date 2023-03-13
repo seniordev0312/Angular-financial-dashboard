@@ -9,7 +9,7 @@ export interface PolicyCard {
   dateModified: string;
   sourceId: number;
   sourceName: string;
-  sourceIconUrl: string;
+  sourceIconUri: string;
   primaryCommunicationChannelId: number;
   status: number;
   ticketTypeId: number;
