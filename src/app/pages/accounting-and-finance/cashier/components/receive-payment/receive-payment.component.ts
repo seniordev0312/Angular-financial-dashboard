@@ -48,21 +48,21 @@ export class ReceivePaymentComponent implements OnInit {
     if (this.status === 0) {
       this.cardIconUrl = this.cardIconURLs[1];
       this.checkIconUrl = this.checkIconURLs[0];
-      this.cardIconUrl = this.cashIconURLs[0];
+      this.cashIconUrl = this.cashIconURLs[0];
       this.cardFontColor = this.cardFontColors[1];
       this.checkFontColor = this.checkFontColors[0];
       this.cashFontColor = this.cashFontColors[0];
     } else if (this.status === 1) {
       this.cardIconUrl = this.cardIconURLs[0];
       this.checkIconUrl = this.checkIconURLs[1];
-      this.cardIconUrl = this.cashIconURLs[0];
+      this.cashIconUrl = this.cashIconURLs[0];
       this.cardFontColor = this.cardFontColors[0];
       this.checkFontColor = this.checkFontColors[1];
       this.cashFontColor = this.cashFontColors[0];
     } else if (this.status == 2) {
       this.cardIconUrl = this.cardIconURLs[0];
       this.checkIconUrl = this.checkIconURLs[0];
-      this.cardIconUrl = this.cashIconURLs[1];
+      this.cashIconUrl = this.cashIconURLs[1];
       this.cardFontColor = this.cardFontColors[0];
       this.checkFontColor = this.checkFontColors[0];
       this.cashFontColor = this.cashFontColors[1];
