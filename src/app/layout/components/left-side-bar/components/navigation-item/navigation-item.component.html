@@ -28,7 +28,7 @@
         <app-navigation-item [item]="subItem" [isSubItem]="true" [extended]="extended"
             *ngFor="let subItem of item.subRouteItems; let i = index"></app-navigation-item>
     </div>
-    <mat-menu #customerServiceMenu="matMenu">
+    <mat-menu class="mat-menu-customize" #customerServiceMenu="matMenu">
         <span (mouseleave)="closeMenu()">
             <div *ngFor="let subItem of item.subRouteItems; last as last">
                 <button mat-menu-item (click)="navigate(subItem.navigateLink)">
