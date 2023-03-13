@@ -18,23 +18,25 @@
         </div>
         <div class="flex gap-2">
           <button
-            class="py-4 pr-7 pl-3 relative rounded-full flex justify-center items-center bg-white border-2 border-black text-[#000000] w-30 h-8"
+          (click)="filterByAssignedTo('personal')"
+            class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center bg-white border-2 border-black text-[#000000] w-30 h-8"
           >
             <div
-              class="absolute flex justify-center items-center right-1 align-baseline text-xs bg-primary rounded-2xl text-[#FFFFFF] h-5 w-5"
+              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-primary rounded-2xl text-[#FFFFFF] h-7 w-7"
             >
-              5
+              {{numberOfAllTickets}}
             </div>
             <span class="items-center flex gap-3 text-[12px]">Personal</span>
           </button>
        
           <button
-            class="py-4 pr-7 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 border-black text-[#FFFFFF] w-30 h-8"
+            (click)="filterByAssignedTo('all')"
+            class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 border-black text-[#FFFFFF] w-30 h-8"
           >
             <div
-              class="absolute flex justify-center items-center right-1 align-baseline text-xs bg-white rounded-2xl text-[#005f83] h-4 w-4 font-semibold"
+              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-white rounded-2xl text-[#005f83] h-6 w-6 font-semibold"
             >
-              5
+                {{numberOfAllTickets}}
             </div>
             <span class="items-center flex gap-3 text-[12px]">Show All</span>
           </button>
