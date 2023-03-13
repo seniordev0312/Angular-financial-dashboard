@@ -18,7 +18,7 @@
         >
           <img class="rounded-[50%]" [src]="item.profilePic" />
         </div>
-    
+
         <div
           *ngIf="!isDepartmentChat"
           class="w-[19px] -left-[4%] -top-[2%] absolute"
@@ -28,7 +28,7 @@
         </div>
         <div
           class="flex absolute font-medium text-xxs"
-              [ngClass]="item.sent ? 'sent-message-time' : 'received-message-time'"
+          [ngClass]="item.sent ? 'sent-message-time' : 'received-message-time'"
         >
           <div class="text-accent"></div>
           <div class="text-right text-[#00000073]">
@@ -399,6 +399,7 @@
 
       <mat-icon
         class="py-2 cursor-pointer chat-icon-buttons"
+        *ngIf="!isDepartmentChat"
         svgIcon="customer-service-assentify"
         (click)="onClickAssentifyLogo()"
       ></mat-icon>
