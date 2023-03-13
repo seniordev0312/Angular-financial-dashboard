@@ -13,9 +13,9 @@
       <div class="absolute flex bottom-1 shadow-lg">
         <!-- <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" /> -->
         <mat-icon
-        id="categoryIcon"
+          id="categoryIcon"
           class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
-          svgIcon="{{cardInfo.leftSideIcon}}"
+          svgIcon="{{ cardInfo.leftSideIcon }}"
         ></mat-icon>
       </div>
     </div>
@@ -40,7 +40,7 @@
             class="absolute flex items-start justify-start w-[61px] h-[42px] -left-[33%] -top-[12%] bg-none"
             height="29px"
             width="29px"
-            src="{{ cardInfo.sourceIconUrl }}"
+            src="{{ cardInfo.sourceIconUri }}"
             alt=""
           />
           <!-- </div> -->
@@ -74,23 +74,28 @@
       </div>
       <div class="h-[25%] flex justify-start items-center flex-row w-full pb-2">
         <div
-          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[60%] h-full"
+          *ngIf="cardInfo.assignedToName"
+          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-[#005f83] border-solid rounded-lg w-[75%] h-full"
         >
-          <div *ngIf="cardInfo.assignedToName">
-            <span class="text-[9px] pl-1 align-middle">
-              {{ "assigned to " + cardInfo.assignedToName }}</span
-            >
-          </div>
-          <div *ngIf="cardInfo.assignedToName == null">
-            <span class="text-[9px] pl-1 align-middle"> Unassigned </span>
-          </div>
+          <span
+            class="text-[9px] pl-1 align-middle font-semibold text-[#005f83]"
+          >
+            {{ "Assigned to " + cardInfo.assignedToName }}</span
+          >
+        </div>
+
+        <div
+          *ngIf="cardInfo.assignedToName == null"
+          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[75%] h-full"
+        >
+          <span class="text-[9px] pl-1 align-middle"> Unassigned </span>
         </div>
       </div>
     </div>
 
     <ng-container *ngIf="cardInfo.assignedToProfilePictureUri">
       <img
-        class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
+        class="rounded-full w-[30px] flex absolute -bottom-4 -right-3 object-contain"
         src="{{ cardInfo.assignedToProfilePictureUri }}"
       />
     </ng-container>
@@ -98,7 +103,7 @@
     <ng-container *ngIf="!cardInfo.assignedToProfilePictureUri">
       <mat-icon
         id="profilePic2"
-        class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain bg-white"
+        class="rounded-full w-[30px] flex absolute -bottom-4 -right-3 object-contain bg-white"
         svgIcon="profile2"
       ></mat-icon>
     </ng-container>
