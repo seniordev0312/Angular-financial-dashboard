@@ -57,6 +57,7 @@ export class CustomerServiceComponent implements OnInit {
       this.tickets = data;
       this.ref.detectChanges();
     });
+    console.log(this.tickets)
   }
 
   ngOnDestroy(): void {
