@@ -59,8 +59,8 @@ import { SearchBarInputComponent } from './components/search-bar-input/search-ba
     SingleSelectComponent,
     DatePickerInputComponent,
     CanAccessFeatureDirective,
-    SafeHtmlPipe,
     SearchBarInputComponent,
+    SafeHtmlPipe
   ],
   imports: [
     NgxMatSelectSearchModule,
@@ -108,9 +108,9 @@ import { SearchBarInputComponent } from './components/search-bar-input/search-ba
     FormsModule,
     ReactiveFormsModule,
     MultiSelectComponent,
-    SearchBarInputComponent,
     SingleSelectComponent,
     CanAccessFeatureDirective,
+    SearchBarInputComponent,
     SafeHtmlPipe,
   ],
   providers: [],

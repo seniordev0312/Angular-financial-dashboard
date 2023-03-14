@@ -15,6 +15,7 @@ import {
 })
 export class ReceiveCashPaymentComponent implements OnInit {
   @Input() printDialog: boolean;
+  previewModal: boolean;
   @Output() printDialogChange = new EventEmitter<boolean>();
 
   constructor() {}
