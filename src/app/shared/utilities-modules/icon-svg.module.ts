@@ -426,11 +426,35 @@ export class IconSvgModule {
           'assets/images/cashier-icons/check-icon.svg'
         )
       )
-      .addSvgIcon(
+      .addSvgIcon( 
         'cashier-uncheck-icon',
         sanitizer.bypassSecurityTrustResourceUrl(
           'assets/images/cashier-icons/uncheck-icon.svg'
         )
-      );
+      )
+      .addSvgIcon(
+        'arrow-bottom',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/policy-svg-icons/arrow-bottom.svg'
+        )
+      )
+      .addSvgIcon(
+        'arrow-top',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/policy-svg-icons/arrow-top.svg'
+        )
+      )
+      .addSvgIcon(
+        'arrow-top-grey',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/policy-svg-icons/arrow-top-grey.svg'
+        )
+      )
+      .addSvgIcon(
+        'arrow-bottom-grey',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/policy-svg-icons/arrow-bottom-grey.svg'
+        )
+      )
   }
 }
