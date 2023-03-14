@@ -1,4 +1,4 @@
-<div class="flex-1">
+<div *ngIf="!previewModal" class="flex-1">
   <div class="ml-auto mr-auto flex mb-4 mt-12">
     <div class="flex ml-auto rounded-xl bg-[#fafafa] p-[10px] mr-5">
       Currency <app-select-list class="ml-3 flex-1"></app-select-list>
@@ -48,3 +48,4 @@
     </div>
   </div>
 </div>
+<div class="flex-1"></div>
