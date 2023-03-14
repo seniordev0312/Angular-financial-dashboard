@@ -564,26 +564,49 @@
                           let emergencyInitiateItem of emergencyInitiateItems
                         "
                       >
-                        <app-button
-                          classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
-                          text="{{ emergencyInitiateItem.name }}"
-                        ></app-button>
+                        <div
+                          *ngIf="
+                            choosedButtons.initiate.includes(
+                              emergencyInitiateItem.id
+                            )
+                          "
+                        >
+                          <app-button
+                            (click)="
+                              displayEmergencyInitateSection(
+                                emergencyInitiateItem.id
+                              )
+                            "
+                            classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
+                            text="{{ emergencyInitiateItem.name }}"
+                          ></app-button>
+                        </div>
+                        <div
+                          *ngIf="
+                            !choosedButtons.initiate.includes(
+                              emergencyInitiateItem.id
+                            )
+                          "
+                        >
+                          <app-button
+                            (click)="
+                              displayEmergencyInitateSection(
+                                emergencyInitiateItem.id
+                              )
+                            "
+                            classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
+                            text="{{ emergencyInitiateItem.name }}"
+                          ></app-button>
+                        </div>
                       </div>
 
-                      <div
-                        class="py-3 justify-center leading-none text-center flex items-center"
-                      >
-                        <button
-                          class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
-                        >
-                          Save
-                        </button>
-                      </div>
+                  
                     </div>
                   </div>
                 </div>
               </div>
             </cdk-accordion-item>
+
 
             <cdk-accordion-item
               #otherDetailsAccordion="cdkAccordionItem"

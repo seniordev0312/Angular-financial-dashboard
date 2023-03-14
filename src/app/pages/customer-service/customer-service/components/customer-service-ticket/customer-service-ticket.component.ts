@@ -67,14 +67,14 @@ export class CustomerServiceTicketComponent implements OnInit {
     business: number;
     product: number;
     emergencyType: number;
-    initiate: number;
+    initiate: number[];
   } = {
     category: 0,
     complaintCategory: 0,
     business: 0,
     product: 0,
     emergencyType: 0,
-    initiate: 0,
+    initiate: [],
   };
   ticketStatus: BaseListItem[] = [
     { id: 0, value: 'Created/Received Queue' },
@@ -135,7 +135,6 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
     this.contactFormService.getMessageHistory(this.dataTicket.chatId);
-    console.log('data ticket', this.dataTicket);
   }
 
   getTicketStatus(statusId: number): BaseListItem {
@@ -281,7 +280,16 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.locationSectionFlag = true;
   }
 
-  displayEmergencyInitateSection() {
+  displayEmergencyInitateSection(emergencyInitiateItemId?: number) {
+    if (emergencyInitiateItemId) {
+      if (this.choosedButtons.initiate.includes(emergencyInitiateItemId)) {
+        this.choosedButtons.initiate.splice(
+          this.choosedButtons.initiate.indexOf(emergencyInitiateItemId),
+          1
+        );
+      } else this.choosedButtons.initiate.push(emergencyInitiateItemId);
+    }
+
     this.emergencyInitialSectionFlag = true;
   }
 
