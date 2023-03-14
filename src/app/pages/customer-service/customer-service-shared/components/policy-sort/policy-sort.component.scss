@@ -7,3 +7,26 @@
 .rotate-icon {
     transform: rotate(180deg);
 }
+
+::ng-deep .arrow-top-svg{
+    width:12px !important;
+    height:10px !important;
+}
+
+::ng-deep .arrow-bottom-svg {
+    width: 12px !important;
+    height:10px !important;
+}
+
+::ng-deep .arrow-top-grey-svg {
+    width: 12px !important;
+    height: 10px !important;
+}
+
+::ng-deep .arrow-bottom-grey-svg {
+    width: 12px !important;
+    height: 10px !important;
+}
+.arrows{
+        display: inline-grid;
+}
