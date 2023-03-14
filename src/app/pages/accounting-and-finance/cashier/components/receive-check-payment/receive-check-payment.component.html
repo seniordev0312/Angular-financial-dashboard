@@ -1,4 +1,4 @@
-<div *ngIf="!previewModal" class="flex-1">
+<div class="flex-1">
   <div class="ml-auto mr-auto flex mb-4 mt-12">
     <div class="flex ml-auto rounded-xl bg-[#fafafa] p-[10px] mr-5">
       Currency <app-select-list class="ml-3 flex-1"></app-select-list>
@@ -7,11 +7,27 @@
       Amount <app-input-field class="ml-3 flex-1"></app-input-field>
     </div>
   </div>
-  <div class="ml-auto mr-auto mb-4 w-[32%] rounded-xl bg-[#fafafa] p-[10px]">
-    Payer <app-input-field class="pl-20 flex-1"></app-input-field><br />
-    Date <app-date-picker-input class="ml-20"></app-date-picker-input>
+  <div
+    class="ml-auto mr-auto mb-4 w-[48%] rounded-xl bg-[#fafafa] p-[10px] flex"
+  >
+    <div>Check# <app-input-field class="pl-20 flex-1"></app-input-field></div>
+    <div>
+      Check Date
+      <app-input-field class="pl-20 flex-1"></app-input-field>
+    </div>
+    <div>
+      Bank#
+      <app-search-bar-input></app-search-bar-input>
+    </div>
   </div>
-
+  <div class="ml-4 mr-4 bg-[#fafafa] p-[10px]">
+    <div class="w-1/3">
+      Payer <app-input-field class="pl-20 flex-1"></app-input-field><br />
+    </div>
+    <div class="w-1/3 ml-auto">
+      Date <app-date-picker-input class="ml-20"></app-date-picker-input>
+    </div>
+  </div>
   <div class="flex mt-24">
     <div class="w-1/2 text-white border rounded-t-[20px] mr-4 ml-2">
       <p class="bg-[#275E80] py-3 text-center">Description</p>
@@ -39,13 +55,9 @@
       >
         Process & Print
       </button>
-      <button
-        (click)="print()"
-        class="text-[19px] py-6 px-[44px] text-[#275E80] border-button"
-      >
+      <button class="text-[19px] py-6 px-[44px] text-[#275E80] border-button">
         Print Preview
       </button>
     </div>
   </div>
 </div>
-<div class="flex-1"></div>
