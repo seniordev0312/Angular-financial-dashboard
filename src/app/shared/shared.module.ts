@@ -41,6 +41,7 @@ import { CanAccessFeatureDirective } from './directives/access-control.directive
 import { NotificationModule } from './notifications/notification.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SafeHtmlPipe } from '@root/pages/dashboard/components/emails/pipe/safe-html.pipe';
+import { SearchBarInputComponent } from './components/search-bar-input/search-bar-input.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { SafeHtmlPipe } from '@root/pages/dashboard/components/emails/pipe/safe-
     SingleSelectComponent,
     DatePickerInputComponent,
     CanAccessFeatureDirective,
-    SafeHtmlPipe,
+    SearchBarInputComponent,
+    SafeHtmlPipe
   ],
   imports: [
     NgxMatSelectSearchModule,
@@ -108,6 +110,7 @@ import { SafeHtmlPipe } from '@root/pages/dashboard/components/emails/pipe/safe-
     MultiSelectComponent,
     SingleSelectComponent,
     CanAccessFeatureDirective,
+    SearchBarInputComponent,
     SafeHtmlPipe,
   ],
   providers: [],

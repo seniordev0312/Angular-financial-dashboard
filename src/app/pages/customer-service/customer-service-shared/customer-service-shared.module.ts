@@ -6,6 +6,8 @@ import { PolicyStatusComponent } from './components/policy-status/policy-status.
 import { PolicyFilterComponent } from './components/policy-filter/policy-filter.component';
 import { SharedModule } from '@root/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { DetailsAccordionComponent } from './components/details-accordion/details-accordion.component';
+import { OutcomeAccordionComponent } from './components/outcome-accordion/outcome-accordion.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
     PolicyCardComponent,
     PolicyStatusComponent,
     PolicyFilterComponent,
+    DetailsAccordionComponent,
+    OutcomeAccordionComponent,
   ],
   imports: [CommonModule, SharedModule, MatIconModule],
   exports: [
@@ -20,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
     PolicyCardComponent,
     PolicyStatusComponent,
     PolicyFilterComponent,
+    DetailsAccordionComponent,
+    OutcomeAccordionComponent,
   ],
 })
 export class CustomerServiceSharedModule {}

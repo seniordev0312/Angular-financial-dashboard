@@ -11,7 +11,6 @@ import { EntitiesControlModule } from '@root/pages/entities/entities-control/ent
 import { SecurityGuard } from '@root/shared/guards/security.guard';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { SharedModule } from '@root/shared/shared.module';
 import { MatSliderModule } from '@angular/material/slider';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { PolicyFilterComponent } from '../customer-service-shared/components/policy-filter/policy-filter.component';
@@ -31,6 +30,7 @@ import { PendingInformaitonCardComponent } from './components/pending-informaito
 import { PolicyInformationComponent } from './components/policy-information/policy-information.component';
 import { SalesFlowComponent } from './components/sales-flow/sales-flow.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SharedModule } from '@root/shared/shared.module';
 
 const routes: Route[] = [
   {

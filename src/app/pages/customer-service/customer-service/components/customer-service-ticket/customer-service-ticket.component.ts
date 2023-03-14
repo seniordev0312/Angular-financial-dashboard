@@ -41,6 +41,8 @@ export class CustomerServiceTicketComponent implements OnInit {
   emergencyInitialSectionFlag: boolean = false;
   salesFlowFlag: boolean = false;
   emergencyFlowFlag: boolean = false;
+  otherFlowFlag: boolean = false;
+  complaintFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
   isShowAppField = false;
   isLoading = false;
@@ -50,6 +52,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   businesses: { id: number; name: string }[] = [];
   products: { id: number; productCode: string; productDescription: string }[] =
     [];
+  complaintCategories: any[] = [];
   requiredData: any;
   emergencyTypes: { id: number; name: string }[] = [];
   emergencyInitiateItems: {
@@ -60,17 +63,19 @@ export class CustomerServiceTicketComponent implements OnInit {
   isBlue: boolean = false;
   choosedButtons: {
     category: number;
+    complaintCategory: number;
     business: number;
     product: number;
     emergencyType: number;
     initiate: number;
   } = {
-      category: 0,
-      business: 0,
-      product: 0,
-      emergencyType: 0,
-      initiate: 0,
-    };
+    category: 0,
+    complaintCategory: 0,
+    business: 0,
+    product: 0,
+    emergencyType: 0,
+    initiate: 0,
+  };
   ticketStatus: BaseListItem[] = [
     { id: 0, value: 'Created/Received Queue' },
     { id: 1, value: 'In Process' },
@@ -85,7 +90,6 @@ export class CustomerServiceTicketComponent implements OnInit {
   priceRange: FormControl = new FormControl();
   location: FormControl = new FormControl('', Validators.required);
 
-
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
 
@@ -99,7 +103,7 @@ export class CustomerServiceTicketComponent implements OnInit {
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
     private contactFormService: ContactFormService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
@@ -109,7 +113,6 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
-      console.log(this.categories)
       });
 
     this.dataTicket = this.data.dataKey;
@@ -121,8 +124,15 @@ export class CustomerServiceTicketComponent implements OnInit {
       this.getTicketStatus(this.dataTicket.status)
     );
 
-    this.customerTicket.setValue(this.dataTicket.ticketCode);
+    this.subscription = this.customerCardService
+      .getContactDetails(this.dataTicket)
+      .subscribe((data: any) => {
+        console.log(data);
+        // this.isLoading = false;
+        this.ref.detectChanges();
+      });
 
+    this.customerTicket.setValue(this.dataTicket.ticketCode);
 
     this.contactFormService.getMessageHistory(this.dataTicket.chatId);
     console.log('data ticket', this.dataTicket);
@@ -150,7 +160,12 @@ export class CustomerServiceTicketComponent implements OnInit {
   onChangeTicketStatus(event: Event) {
     this.dataTicket.status = event;
 
-    this.customerCardService.updateCustomServiceTickets(this.dataTicket);
+    let body = {
+      id: this.dataTicket.id,
+      status: this.dataTicket.status,
+    };
+
+    this.customerCardService.updateCustomServiceTicket(body);
   }
 
   // move to emergency flow or sales flow section
@@ -165,6 +180,8 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.businessSectionFlag = true;
         this.salesFlowFlag = true;
         this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = false;
+        this.otherFlowFlag = false;
         this.subscription = this.customerCardService
           .getBusiness()
           .subscribe((data: any) => {
@@ -177,6 +194,8 @@ export class CustomerServiceTicketComponent implements OnInit {
       case 'type': {
         this.typeSectionFlag = true;
         this.salesFlowFlag = false;
+        this.otherFlowFlag = false;
+        this.complaintFlowFlag = false;
         this.emergencyFlowFlag = true;
         this.subscription = this.customerCardService
           .getEmerencyTypeData()
@@ -185,6 +204,30 @@ export class CustomerServiceTicketComponent implements OnInit {
             // this.isLoading = false;
             this.ref.detectChanges();
           });
+        break;
+      }
+      case 'complaint': {
+        this.typeSectionFlag = false;
+        this.salesFlowFlag = false;
+        this.otherFlowFlag = false;
+        this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = true;
+
+        this.complaintCategories = [
+          { id: 0, name: 'Non Responsive' },
+          { id: 1, name: 'Specific Employee' },
+          { id: 2, name: 'Driver' },
+          { id: 3, name: 'Payment' },
+        ];
+
+        break;
+      }
+      case 'otherDetails': {
+        this.otherFlowFlag = true;
+        this.salesFlowFlag = false;
+        this.typeSectionFlag = false;
+        this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = false;
         break;
       }
       default:
