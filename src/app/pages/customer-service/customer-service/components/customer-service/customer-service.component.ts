@@ -19,6 +19,7 @@ import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
 import { tickets$ } from '../../store/customer-service-tickets.store';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 
 @Component({
   selector: 'app-customer-service',
@@ -38,6 +39,8 @@ export class CustomerServiceComponent implements OnInit {
 
   isFilter: boolean = false;
   flag: number = 0;
+  numberOfAllTickets: number = 0;
+  userId: string = '';
   tickets: any = null;
 
   searchBarValue: string = '';
@@ -47,7 +50,8 @@ export class CustomerServiceComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private ref: ChangeDetectorRef,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private securityCheckerService: SecurityCheckerService
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +61,18 @@ export class CustomerServiceComponent implements OnInit {
       this.tickets = data;
       this.ref.detectChanges();
     });
-    console.log(this.tickets)
+
+    this.securityCheckerService.userClaims$.subscribe((data) => {
+      this.userId = data?.sub;
+      this.ref.detectChanges();
+    });
+
+    this.numberOfAllTickets =
+      this.tickets.closedTickets.length +
+      this.tickets.inProgressTickets.length +
+      this.tickets.inQueueTickets.length +
+      this.tickets.processedTickets.length +
+      this.tickets.resolvedTickets.length;
   }
 
   ngOnDestroy(): void {
@@ -142,6 +157,26 @@ export class CustomerServiceComponent implements OnInit {
 
     this.customerCardService.filterCustomerServiceTickets(filterOption);
   }
+
+  filterByAssignedTo(filterMode: string) {
+    let assignedId: string;
+
+    if (filterMode == 'personal') assignedId = this.userId;
+    else if (filterMode == 'all') assignedId = null;
+
+    const filterOption: any = {
+      searchQuery: null,
+      assignedToId: assignedId,
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      communicationChannelId: null,
+    };
+
+    this.customerCardService.filterCustomerServiceTickets(filterOption);
+  }
+
 
   onClearFilter() {
     this.searchBarValue = '';
