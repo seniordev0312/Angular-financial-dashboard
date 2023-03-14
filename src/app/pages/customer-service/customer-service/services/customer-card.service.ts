@@ -37,17 +37,18 @@ export class CustomerCardService {
   apiGetBusiness = `${this.customerServiceServerURL}/Resource/LineOfBusiness`;
   apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
+  apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
 
   // HttpClient API post() method => Get customer service tickets
   getCutomerServiceTickets() {
-       let paramObj: any = {
-      "searchQuery": null,
-      "assignedToId": null,
-      "fromDateCreated": null,
-      "toDateCreated": null,
-      "fromDateModified": null,
-      "toDateModified": null,
-      "communicationChannelId": null
+    let paramObj: any = {
+      searchQuery: null,
+      assignedToId: null,
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      communicationChannelId: null,
     };
 
     this.http
@@ -59,13 +60,9 @@ export class CustomerCardService {
 
   // HttpClient API post() method => Filter customer service tickets
   filterCustomerServiceTickets(option: {}) {
-    console.log(option);
-    
     this.http
       .post<PolicyCard>(this.apiFilterURL, option, this.httpOptions)
       .subscribe((data) => {
-        console.log(data);
-        
         this.customerServiceTicketsRepository.updateTickets(data);
       });
   }
@@ -76,7 +73,7 @@ export class CustomerCardService {
       .put<PolicyCard>(this.apiPutURL, body, this.httpOptions)
       .subscribe(console.log);
   }
-  
+
   // HttpClient API put() method => Update Customer Service Ticket
   updateCustomServiceTicket(body: {}) {
     this.http
@@ -103,6 +100,14 @@ export class CustomerCardService {
     const apiGetProducts = `${this.customerServiceServerURL}/Resource/Product/${businessId}`;
     return this.http
       .get<TicketCategory>(apiGetProducts, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  // HttpClient API get() method => get contact details based on EIN
+  getContactDetails(ein: number) {
+    const apiGetContactDets = `${this.apiGetContactDetails}/${ein}`;
+    return this.http
+      .get<TicketCategory>(apiGetContactDets, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 

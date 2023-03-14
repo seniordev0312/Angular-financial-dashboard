@@ -66,9 +66,12 @@
               [attr.aria-expanded]="contactDetailsAccordion.expanded"
               [attr.aria-controls]="'accordion-body-1'"
             >
-              <app-contact-details
+              <p
                 (click)="contactDetailsAccordion.toggle()"
-              ></app-contact-details>
+                class="flex justify-center items-center h-[50px] text-primary w-full font-semibold text-[14px]"
+              >
+                Contact Details
+              </p>
 
               <div
                 class="mt-2 bg-white"
@@ -77,31 +80,9 @@
                 [attr.id]="'accordion-body-1'"
                 [attr.aria-labelledby]="'accordion-header-1'"
               >
-                <div class="flex flex-wrap px-6">
-                  <div
-                    class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center"
-                  >
-                    <p class="font-semibold text-base">Test1</p>
-                    <p class="font-semibold text-base">Test2</p>
-                  </div>
-
-                  <div
-                    class="w-1/2 py-3 text-[12px] justify-center leading-none text-center flex items-center"
-                  >
-                    <p class="font-semibold text-base">Test3</p>
-                    <p class="font-semibold text-base">Test4</p>
-                  </div>
-
-                  <div
-                    class="py-3 justify-center leading-none text-center flex items-center"
-                  >
-                    <button
-                      class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </div>
+                <app-contact-details
+                  (saveClicked)="categoryAccordion.toggle()"
+                ></app-contact-details>
               </div>
             </cdk-accordion-item>
 

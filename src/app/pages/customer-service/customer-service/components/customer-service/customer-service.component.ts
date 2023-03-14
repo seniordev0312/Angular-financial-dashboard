@@ -145,8 +145,14 @@ export class CustomerServiceComponent implements OnInit {
   }
 
   onSearchFilter() {
-    const filterOption = {
+    const filterOption: any = {
       searchQuery: this.searchBarValue,
+      assignedToId: null,
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      communicationChannelId: null,
     };
 
     this.customerCardService.filterCustomerServiceTickets(filterOption);
@@ -170,6 +176,7 @@ export class CustomerServiceComponent implements OnInit {
 
     this.customerCardService.filterCustomerServiceTickets(filterOption);
   }
+
 
   onClearFilter() {
     this.searchBarValue = '';
