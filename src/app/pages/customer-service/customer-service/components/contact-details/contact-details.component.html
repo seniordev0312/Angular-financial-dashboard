@@ -1,7 +1,56 @@
-<div
-  class="w-full bg-white flex justify-center items-center h-[50px] rounded-md"
->
-  <p class="text-[14px] font-semibold text-primary leading-none p-0">Contact Details</p>
+<div class="mt-15 flex flex-row">
+  <div class="w-1/2 flex flex-col justify-center px-4">
+    <app-input-field
+      label="Name"
+      name="name"
+      class="flex justify-center p-0 blueColor"
+      [control]="getFormControl('name')"
+      value=""
+    ></app-input-field>
+    <app-input-field
+      label="Entity Code"
+      name="entityCode"
+      class="flex justify-center p-0 blueColor"
+      [control]="getFormControl('entityCode')"
+      value=""
+    ></app-input-field>
+    <app-input-field
+      label="Address"
+      name="address"
+      class="flex justify-center p-0 blueColor"
+      [control]="getFormControl('address')"
+      value=""
+    ></app-input-field>
+  </div>
+  <div class="w-1/2 px-5">
+    <app-input-field
+      label="Common"
+      name="common"
+      class="flex justify-center p-0 blueColor"
+      [control]="getFormControl('common')"
+      value="
+        "
+    ></app-input-field>
+    <app-input-field
+      label="Basic Information"
+      name="basicInformation"
+      class="greenColor flex justify-center p-0"
+      [control]="getFormControl('basicInformation')"
+      value=""
+    ></app-input-field>
+  </div>
+</div>
 
-
+<div class="mt-15 flex flex-row justify-end">
+  <div class="flex flex-col justify-center px-4">
+    <div class="py-3 justify-center leading-none text-center flex items-center">
+      <button
+        class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md disabled:bg-[#8d8d8d]"
+        [disabled]="fg.invalid"
+            (click)="onSave()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
 </div>

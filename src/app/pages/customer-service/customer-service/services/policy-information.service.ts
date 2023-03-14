@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { PolicyInformation } from '../models/policy-information.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PolicyInformationService {
   fg: FormGroup;
-  constructor(public fb: FormBuilder) { }
-  
-    getFormGroup(item?: PolicyInformation): FormGroup {
+  constructor(public fb: FormBuilder) {}
+
+  getFormGroup(item?: PolicyInformation): FormGroup {
     this.fg = this.fb.group({
-      dateIssued: new FormControl(item?.dateIssued || null, [Validators.required]),
+      dateIssued: new FormControl(item?.dateIssued || null, [
+        Validators.required,
+      ]),
       policyNumber: new FormControl(item?.policyNumber || null, [
         Validators.required,
       ]),
@@ -21,10 +28,16 @@ export class PolicyInformationService {
       totalCharges: new FormControl(item?.totalCharges || null, [
         Validators.required,
       ]),
-      totalOpenClaims: new FormControl(item?.totalOpenClaims || null, [Validators.required]),
+      totalOpenClaims: new FormControl(item?.totalOpenClaims || null, [
+        Validators.required,
+      ]),
       premium: new FormControl(item?.premium || null, [Validators.required]),
-      pendingDues: new FormControl(item?.pendingDues || null, [Validators.required]),
-      paymentHistory: new FormControl(item?.paymentHistory || null, [Validators.required]),
+      pendingDues: new FormControl(item?.pendingDues || null, [
+        Validators.required,
+      ]),
+      paymentHistory: new FormControl(item?.paymentHistory || null, [
+        Validators.required,
+      ]),
       parentId: new FormControl(item?.parentId || null, [Validators.required]),
       id: new FormControl(item?.id || null),
     });
@@ -52,5 +65,4 @@ export class PolicyInformationService {
       id: fg.controls.id.value,
     };
   }
-
 }

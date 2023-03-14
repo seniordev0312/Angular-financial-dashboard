@@ -113,7 +113,6 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
-        console.log(this.categories);
       });
 
     this.dataTicket = this.data.dataKey;
@@ -124,6 +123,14 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.selectedTicketStatus.setValue(
       this.getTicketStatus(this.dataTicket.status)
     );
+
+    this.subscription = this.customerCardService
+      .getContactDetails(this.dataTicket)
+      .subscribe((data: any) => {
+        console.log(data);
+        // this.isLoading = false;
+        this.ref.detectChanges();
+      });
 
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
@@ -155,9 +162,9 @@ export class CustomerServiceTicketComponent implements OnInit {
 
     let body = {
       id: this.dataTicket.id,
-      status: this.dataTicket.status
-    }
-    
+      status: this.dataTicket.status,
+    };
+
     this.customerCardService.updateCustomServiceTicket(body);
   }
 
