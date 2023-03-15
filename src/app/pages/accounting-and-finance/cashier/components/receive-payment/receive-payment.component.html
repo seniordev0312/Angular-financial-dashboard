@@ -1,7 +1,7 @@
-<div *ngIf="printModal">
+<div *ngIf="printModal && !processModal">
   <app-print-process></app-print-process>
 </div>
-<div *ngIf="!printModal">
+<div *ngIf="!printModal && !processModal">
   <app-dialog-header label="Basket"></app-dialog-header>
   <!-- <mat-dialog-content> -->
   <div *ngIf="status == 0">
@@ -29,7 +29,7 @@
           <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
         </div>
       </div>
-      <div class="flex-1" *ngIf="processModal">
+      <div class="flex-1">
         <div class="ml-auto mr-auto flex mb-4 mt-12">
           <div class="flex ml-auto rounded-xl bg-[#fafafa] p-[10px] mr-5">
             Currency <app-select-list class="ml-3 flex-1"></app-select-list>
@@ -90,9 +90,6 @@
             </button>
           </div>
         </div>
-      </div>
-      <div class="flex-1" *ngIf="!processModal">
-        <app-card-preview></app-card-preview>
       </div>
     </div>
   </div>
@@ -159,4 +156,7 @@
     </div>
   </div>
   <!-- </mat-dialog-content> -->
+</div>
+<div *ngIf="!printModal && processModal">
+  <app-card-preview></app-card-preview>
 </div>
