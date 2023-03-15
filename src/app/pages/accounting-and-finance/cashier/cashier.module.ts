@@ -21,6 +21,7 @@ import { ViewBasketComponent } from './components/view-basket/view-basket.compon
 import { PrintProcessComponent } from './components/print-process/print-process.component';
 import { CheckProcessComponent } from './components/check-process/check-process.component';
 import { ReceiveCheckPaymentComponent } from './components/receive-check-payment/receive-check-payment.component';
+import { CheckPrintComponent } from './components/check-print/check-print.component';
 
 const routes: Route[] = [
   {
@@ -44,6 +45,7 @@ const routes: Route[] = [
     ReceiveCashPaymentComponent,
     PrintProcessComponent,
     CheckProcessComponent,
+    CheckPrintComponent,
   ],
   imports: [
     CommonModule,

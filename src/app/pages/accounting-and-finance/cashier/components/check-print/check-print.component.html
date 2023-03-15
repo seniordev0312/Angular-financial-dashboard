@@ -1,0 +1,45 @@
+<app-dialog-header label="Print Preview"></app-dialog-header>
+
+<img
+  class="ml-auto mr-auto mt-4 mb-5"
+  src="../../../../../../assets/images/cashier-icons/print-review-logo.svg"
+  alt=""
+/>
+
+<div class="">
+  <p
+    class="flex text-white justify-center py-4 bg-[#275E80] w-[96%] ml-[2%] pl-[3%]"
+  >
+    Offical Receipt
+  </p>
+  <div class="flex mt-3">
+    <div class="w-[40%] px-5">
+      <div class="flex rounded-xl bg-[#fafafa] p-[10px] mr-5">
+        Recevied From <app-input-field class="ml-10 flex-1"></app-input-field>
+      </div>
+    </div>
+    <div class="w-[60%] flex justify-evenly">
+      <div class="flex rounded-xl bg-[#fafafa] p-[10px] mr-2">
+        Currency <app-select-list class="ml-3 flex-1"></app-select-list>
+      </div>
+      <div class="flex rounded-xl bg-[#fafafa] p-[10px]">
+        Amount <app-input-field class="ml-3 flex-1"></app-input-field>
+      </div>
+      <div class="flex rounded-xl bg-[#fafafa] p-[10px]">
+        Date <app-date-picker-input class="ml-3"></app-date-picker-input>
+      </div>
+    </div>
+  </div>
+  <div class="flex mt-4">
+    <div class="w-1/2 px-5">
+      <div class="flex rounded-xl bg-[#fafafa] p-[10px] mr-5">
+        EIN <app-input-field class="ml-12 flex-1"></app-input-field>
+      </div>
+    </div>
+    <div class="w-1/2 px-5">
+      <div class="flex rounded-xl bg-[#fafafa] p-[10px] py-6 mr-5">
+        The sum of only three thousand US dollars
+      </div>
+    </div>
+  </div>
+</div>
