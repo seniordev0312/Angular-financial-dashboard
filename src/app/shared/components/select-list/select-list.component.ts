@@ -16,6 +16,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectListComponent implements OnInit {
+  @Input() cstSourceValue: string;
   @Input() statusValue: string;
   @Input() label: string;
   @Input() wfullclass: string;
@@ -29,6 +30,7 @@ export class SelectListComponent implements OnInit {
   @Input() optionsList: BaseListItem[] = [];
   @Output() onSearch = new EventEmitter<string>();
   @Output() statusValueChange = new EventEmitter<any>();
+  @Output() cstSourceValueChange = new EventEmitter<any>();
   searchFormControl = new FormControl();
   selectControl = new FormControl();
 
@@ -46,5 +48,9 @@ export class SelectListComponent implements OnInit {
 
   changeStatus() {
     this.statusValueChange.emit(this.statusValue);
+  }
+
+  changeCstSource() {
+    this.cstSourceValueChange.emit(this.cstSourceValue);
   }
 }

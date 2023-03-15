@@ -13,7 +13,6 @@ import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { MatSliderModule } from '@angular/material/slider';
 import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
-import { PolicyFilterComponent } from '../customer-service-shared/components/policy-filter/policy-filter.component';
 import { CustomerServiceSharedModule } from '../customer-service-shared/customer-service-shared.module';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '../policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
@@ -31,6 +30,7 @@ import { PolicyInformationComponent } from './components/policy-information/poli
 import { SalesFlowComponent } from './components/sales-flow/sales-flow.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from '@root/shared/shared.module';
+import { CustomerServiceFilterComponent } from '../customer-service-shared/components/customer-service-filter/customer-service-filter.component';
 
 const routes: Route[] = [
   {
@@ -43,7 +43,7 @@ const routes: Route[] = [
   },
   {
     path: `${ApplicationRoutes.Filter}/:ticketType`,
-    component: PolicyFilterComponent,
+    component: CustomerServiceFilterComponent,
     outlet: 'sidenav',
     data: {
       permission: Permission.CanAddGeneralSystemSetup,
