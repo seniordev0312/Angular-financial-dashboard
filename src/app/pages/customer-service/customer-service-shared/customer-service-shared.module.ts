@@ -8,6 +8,7 @@ import { SharedModule } from '@root/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { DetailsAccordionComponent } from './components/details-accordion/details-accordion.component';
 import { OutcomeAccordionComponent } from './components/outcome-accordion/outcome-accordion.component';
+import { CustomerServiceFilterComponent } from './components/customer-service-filter/customer-service-filter.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { OutcomeAccordionComponent } from './components/outcome-accordion/outcom
     PolicyFilterComponent,
     DetailsAccordionComponent,
     OutcomeAccordionComponent,
+    CustomerServiceFilterComponent
   ],
   imports: [CommonModule, SharedModule, MatIconModule],
   exports: [
@@ -26,6 +28,7 @@ import { OutcomeAccordionComponent } from './components/outcome-accordion/outcom
     PolicyFilterComponent,
     DetailsAccordionComponent,
     OutcomeAccordionComponent,
+    CustomerServiceFilterComponent
   ],
 })
 export class CustomerServiceSharedModule {}

@@ -1,0 +1,11 @@
+::ng-deep .mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-drawer-inner-container {
+    overflow-x: hidden;
+}
+
+::ng-deep #datepicker .mat-icon-button {
+    width: 100% !important;
+}
