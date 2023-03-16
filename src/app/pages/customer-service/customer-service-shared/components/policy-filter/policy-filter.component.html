@@ -6,7 +6,11 @@
       </div>
       <div class="pb-5">
         <app-select-list
-          optionList=""
+          (statusValueChange)="onChangeFollowUpResponsiveness($event)"
+          [selectedValue]="selectedFollowUpResponsiveness"
+          name="followUpResponsivenessOptions"
+          [control]="followUpResponsivenessListControl"
+          [optionsList]="followUpResponsivenessList"
           label="Policy Renewal Follow-up Responsiveness:"
         ></app-select-list>
       </div>
@@ -44,14 +48,21 @@
       </div>
       <div class="pb-5">
         <app-select-list
-          [optionsList]="AssignedStatus"
-          label="Assigned To: "
+          (statusValueChange)="onChangeAssignedTo($event)"
+          [selectedValue]="selectedAssignedTo"
+          [optionsList]="assignedToList" 
+          name="assignedToOptions"
+          [control]="assignedToListControl"
+          label="Assigned To: ">
         ></app-select-list>
       </div>
       <div class="pb-5">
         <app-select-list
-          [optionsList]="FollowUpStatus"
-          [(statusValue)]="policyStatus"
+          (statusValueChange)="onChangeFollowUpStatus($event)"
+          [selectedValue]="selectedFollowUpStatus"
+          name="followUpStatusOptions"
+          [control]="followUpStatusListControl"
+          [optionsList]="followUpStatusList"
           label="Policy Renewal Follow-up Status:"
         ></app-select-list>
       </div>
