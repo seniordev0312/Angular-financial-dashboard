@@ -1,0 +1,39 @@
+<div class="w-full flex justify-evenly">
+  <div class="w-[45%] flex flex-col bg-[#fafafa] p-3 mt-5">
+    <div class="w-[75%] flex mt-10">
+      Receiver Full Name <app-input-field class="ml-3 flex-1"></app-input-field>
+    </div>
+    <div class="w-[75%] flex">
+      Date
+      <app-date-picker-input style="margin-left: 114px"></app-date-picker-input>
+    </div>
+    <div class="mt-auto flex justify-evenly w-full">
+      <div class="w-[45%] flex bg-white p-2">
+        Currency <app-select-list class="ml-3 flex-1"></app-select-list>
+      </div>
+      <div class="w-[45%] flex bg-white p-2 pt-3">
+        Amount <app-input-field class="ml-3 flex-1"></app-input-field>
+      </div>
+    </div>
+  </div>
+  <div class="w-[45%] mt-5">
+    <div
+      class="drop-shadow-lg w-full bg-white rounded-[13px] overflow-hidden h-full"
+    >
+      <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
+        <p class="text-white text-[16px]">Till balance</p>
+      </div>
+      <div
+        class="w-[90%] ml-[5%] flex justify-between items-center py-10 border-b border-gray-100"
+      >
+        <span class="font-bold text-[17px]">2,200</span>
+        <span class="text-[17px] font-normal opacity-50">USD</span>
+      </div>
+      <div class="w-full flex justify-between items-center p-10">
+        <span class="font-bold text-[17px]">45,000,000</span>
+        <span class="text-[17px] font-normal opacity-40">LBP</span>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
