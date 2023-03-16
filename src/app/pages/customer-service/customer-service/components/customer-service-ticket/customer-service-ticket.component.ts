@@ -35,6 +35,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   initialSectionFlag: boolean = false;
   typeSectionFlag: boolean = false;
   locationSectionFlag: boolean = false;
+  emergencyInitiateSectionFlag: boolean = false;
   priceValue: string = ' ';
   disableButton: boolean = false;
   disableButtonClass: string = '';
@@ -88,6 +89,7 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   customerTicket: FormControl = new FormControl();
   priceRange: FormControl = new FormControl();
+  
   location: FormControl = new FormControl('', Validators.required);
 
   @ViewChild(ContactViewComponent)
@@ -269,18 +271,20 @@ export class CustomerServiceTicketComponent implements OnInit {
     // this.isLoading = true;
     this.isSpinning$ = isSpinning$;
     this.choosedButtons.emergencyType = emergencyTypeId;
+
+    this.locationSectionFlag = true;
+  }
+
+  displayEmergencyInitateSection(emergencyInitiateItemId?: number) {
     this.subscription = this.customerCardService
-      .getEmergencyInitiateItems(emergencyTypeId)
+      .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
       .subscribe((data: any) => {
         this.emergencyInitiateItems = data;
 
         // this.isLoading = false;
         this.ref.detectChanges();
       });
-    this.locationSectionFlag = true;
-  }
 
-  displayEmergencyInitateSection(emergencyInitiateItemId?: number) {
     if (emergencyInitiateItemId) {
       if (this.choosedButtons.initiate.includes(emergencyInitiateItemId)) {
         this.choosedButtons.initiate.splice(

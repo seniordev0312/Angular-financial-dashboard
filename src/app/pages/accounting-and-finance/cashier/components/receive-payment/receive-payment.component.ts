@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class ReceivePaymentComponent implements OnInit {
   printModal: boolean = false;
+  processModal: boolean = false;
   cardIconURLs: string[] = [
     '../../../../../../assets/images/cashier-icons/card.svg',
     '../../../../../../assets/images/cashier-icons/selected-card.svg',
@@ -67,5 +68,9 @@ export class ReceivePaymentComponent implements OnInit {
       this.checkFontColor = this.checkFontColors[0];
       this.cashFontColor = this.cashFontColors[1];
     }
+  }
+
+  preview() {
+    this.processModal = true;
   }
 }

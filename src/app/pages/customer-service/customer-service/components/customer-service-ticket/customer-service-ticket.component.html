@@ -521,7 +521,8 @@
                             displayEmergencyInitateSection();
                             emergencyInitiate.toggle()
                           "
-                          class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md"
+                          class="ml-auto px-7 py-3 text-[13px] bg-primary text-white rounded-md disabled:bg-[#8d8d8d]"
+                          [disabled]="location.invalid"
                         >
                           Save
                         </button>
@@ -543,7 +544,7 @@
               <div
                 class="mt-4 mb-4 w-full bg-white flex flex-col rounded-md shadow-md"
               >
-                <div *ngIf="locationSectionFlag && emergencyFlowFlag">
+                <div *ngIf="emergencyInitialSectionFlag && emergencyFlowFlag">
                   <p
                     (click)="emergencyInitiate.toggle()"
                     class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
