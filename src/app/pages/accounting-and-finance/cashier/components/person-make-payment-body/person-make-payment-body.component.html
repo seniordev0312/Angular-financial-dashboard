@@ -39,8 +39,8 @@
   <!-- </div> -->
 </div>
 
-<div class="flex flex-row w-full items-center justify-between mt-10">
-  <div class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden">
+<div class="flex flex-row w-full items-center justify-evenly mt-10">
+  <div class="drop-shadow-lg w-[45%] bg-white rounded-[13px] overflow-hidden">
     <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
       <p class="text-white text-[16px]">Description</p>
     </div>
@@ -67,7 +67,7 @@
       </div>
     </div>
   </div>
-  <div class="drop-shadow-lg w-[49%] bg-white rounded-[13px] overflow-hidden">
+  <div class="drop-shadow-lg w-[45%] bg-white rounded-[13px] overflow-hidden">
     <div class="w-full flex justify-center items-center p-2 bg-[#275280]">
       <p class="text-white text-[16px]">Notes</p>
     </div>
@@ -93,5 +93,20 @@
         <hr />
       </div>
     </div>
+  </div>
+</div>
+
+<div class="flex justify-end items-center w-full pr-[3%]">
+  <div class="pt-4 flex flex-row justify-between items-center">
+    <app-button
+      classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+                 justify-center items-center bg-white border-[1px] border-[#275e80] text-[#275e80]  color-white"
+      text="Cancel"
+    ></app-button>
+    <app-button
+      classes="px-12 py-6 ml-6 text-[20px] leading-none text-center flex
+                 justify-center items-center bg-[#275e80] text-white border-[1px] border-[#275e80] color-white"
+      text="Pay"
+    ></app-button>
   </div>
 </div>
