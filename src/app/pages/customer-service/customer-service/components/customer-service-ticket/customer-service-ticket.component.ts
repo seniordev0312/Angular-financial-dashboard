@@ -6,7 +6,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CustomerCardService } from '../../services/customer-card.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
@@ -17,6 +21,7 @@ import { KYCDocumentTypeService } from '../../services/kyc-documents-type.servic
 import { FormControl, Validators } from '@angular/forms';
 import { ContactFormService } from '../../services/contact-form.service';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
+import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -45,6 +50,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   otherFlowFlag: boolean = false;
   complaintFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
+  isActionConfirmed: boolean = false;
   isShowAppField = false;
   isLoading = false;
   canShowCalculator = false;
@@ -89,7 +95,7 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   customerTicket: FormControl = new FormControl();
   priceRange: FormControl = new FormControl();
-  
+
   location: FormControl = new FormControl('', Validators.required);
 
   @ViewChild(ContactViewComponent)
@@ -99,6 +105,7 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CustomerServiceTicketComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public customerCardService: CustomerCardService,
     public signalRService: SignalRService,
@@ -275,7 +282,9 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.locationSectionFlag = true;
   }
 
-  displayEmergencyInitateSection(emergencyInitiateItemId?: number) {
+  displayEmergencyInitateSection(emergencyInitiateItem?: any) {
+    this.isActionConfirmed = false;
+
     this.subscription = this.customerCardService
       .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
       .subscribe((data: any) => {
@@ -285,17 +294,36 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.ref.detectChanges();
       });
 
-    if (emergencyInitiateItemId) {
-      if (this.choosedButtons.initiate.includes(emergencyInitiateItemId)) {
-        this.choosedButtons.initiate.splice(
-          this.choosedButtons.initiate.indexOf(emergencyInitiateItemId),
-          1
-        );
-      } else this.choosedButtons.initiate.push(emergencyInitiateItemId);
+    if (emergencyInitiateItem) {
+      let location = this.location.value;
+
+      this.dialog
+        .open(ConfirmEmergencyActionComponent, {
+          width: '25%',
+          height: '30%',
+          data: { emergencyAction: emergencyInitiateItem, location: location },
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          this.choosedButtons.initiate.push(result.emergencyAction);
+          // this.isActionConfirmed = result.isActionConfirmed;
+
+    console.log(this.choosedButtons.initiate);
+          // this.selectActionButtons(emergencyInitiateItem);
+        });
     }
 
     this.emergencyInitialSectionFlag = true;
+    console.log(this.choosedButtons.initiate);
   }
+
+  // selectActionButtons(emergencyInitiateItem?: any) {
+  //   if (this.isActionConfirmed) {
+  //     this.choosedButtons.initiate.push(emergencyInitiateItem.id);
+  //   }
+  //   console.log(this.isActionConfirmed);
+  //   console.log(this.choosedButtons.initiate);
+  // }
 
   RequestDraftPolicy() {
     // this.isLoading = true;

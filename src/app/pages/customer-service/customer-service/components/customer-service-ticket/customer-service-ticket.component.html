@@ -549,7 +549,7 @@
                     (click)="emergencyInitiate.toggle()"
                     class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
                   >
-                    Initiate
+                    Initiate {{isActionConfirmed}} {{choosedButtons.initiate}}
                   </p>
                   <div
                     class="mt-2 mb-5 bg-white"
@@ -575,7 +575,7 @@
                           <app-button
                             (click)="
                               displayEmergencyInitateSection(
-                                emergencyInitiateItem.id
+                                emergencyInitiateItem
                               )
                             "
                             classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
@@ -592,7 +592,7 @@
                           <app-button
                             (click)="
                               displayEmergencyInitateSection(
-                                emergencyInitiateItem.id
+                                emergencyInitiateItem
                               )
                             "
                             classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
