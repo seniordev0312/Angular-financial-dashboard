@@ -29,8 +29,9 @@ export class PolicySortComponent implements OnInit {
     { id: 3, value: 'CST Channel' }
   ];
   sortOptions: FormControl = new FormControl({ id: -1, value: '' });
-  selectedSortOption: any;
-  
+  selectedSortOption: any=this.sortOptionsList.find((x:any)=>x.value==="Date Modified").id;;
+  selectsortlistClass: any;
+  class: any;
   ngOnInit(): void {
     this.descending(1);
   }
