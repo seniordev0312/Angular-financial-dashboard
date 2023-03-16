@@ -8,25 +8,30 @@
     transform: rotate(180deg);
 }
 
-::ng-deep .arrow-top-svg{
-    width:12px !important;
-    height:10px !important;
+::ng-deep .arrow-top-svg {
+    width: 12px !important;
+    height: 10px !important;
+    padding-bottom: 1.5px;
 }
 
 ::ng-deep .arrow-bottom-svg {
     width: 12px !important;
-    height:10px !important;
+    height: 10px !important;
+    padding-top: 1.5px;
 }
 
 ::ng-deep .arrow-top-grey-svg {
     width: 12px !important;
     height: 10px !important;
+    padding-bottom: 1.5px;
 }
 
 ::ng-deep .arrow-bottom-grey-svg {
     width: 12px !important;
     height: 10px !important;
+    padding-top: 1.5px;
 }
-.arrows{
-        display: inline-grid;
+
+.sorting-arrows {
+    display: inline-grid;
 }

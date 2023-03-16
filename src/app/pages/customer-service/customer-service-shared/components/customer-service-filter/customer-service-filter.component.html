@@ -5,7 +5,14 @@
                 <span class="font-bold text-[15px]">Filter By :</span>
             </div>
             <div class="pb-5">
-                <app-select-list optionList="" label="Customer service ticket type:"></app-select-list>
+                <app-select-list 
+                  (statusValueChange)="onChangeTicketType($event)"
+                  [selectedValue]="selectedTicketType"
+                  [optionsList]="ticketTypeList"
+                  name="ticketTypeOptions"
+                  [control]="ticketTypeListControl"
+                  label="Customer service ticket type:">
+                </app-select-list>
             </div>
             <div class="pb-5">
                 <p class="font-bold text-[10px]">From Date Created:</p>
@@ -28,11 +35,23 @@
                     value="{{ toDateModified }}"></app-date-picker-input>
             </div>
             <div class="pb-5">
-                <app-select-list [optionsList]="AssignedStatus" label="Assigned To: "></app-select-list>
+                <app-select-list 
+                (statusValueChange)="onChangeAssignedTo($event)"
+                [selectedValue]="selectedAssignedTo"
+                [optionsList]="assignedToList" 
+                name="assignedToOptions"
+                [control]="assignedToListControl"
+                label="Assigned To: ">
+            </app-select-list>
             </div>
             <div class="pb-5">
-                <app-select-list [optionsList]="FollowUpStatus" [(cstSourceValue)]="cstSource"
-                    label="CST Source:"></app-select-list>
+                <app-select-list 
+                  (statusValueChange)="onChangeCstSource($event)"
+                  [selectedValue]="selectedCstSource"
+                  [optionsList]="cstSourceList"
+                  name="cstSourceOptions"
+                  [control]="cstSourceListControl"
+                  label="CST Source:"></app-select-list>
             </div>
         </div>
         <div class="w-[100%] flex flex-wrap justify-between pb-4">
