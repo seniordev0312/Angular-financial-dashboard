@@ -23,6 +23,8 @@ import { CheckProcessComponent } from './components/check-process/check-process.
 import { ReceiveCheckPaymentComponent } from './components/receive-check-payment/receive-check-payment.component';
 import { CheckPrintComponent } from './components/check-print/check-print.component';
 import { CardPreviewComponent } from './components/card-preview/card-preview.component';
+import { PayMakePaymentComponent } from './components/pay-make-payment/pay-make-payment.component';
+import { PersonMakePaymentBodyComponent } from './components/person-make-payment-body/person-make-payment-body.component';
 
 const routes: Route[] = [
   {
@@ -48,6 +50,8 @@ const routes: Route[] = [
     CheckProcessComponent,
     CheckPrintComponent,
     CardPreviewComponent,
+    PayMakePaymentComponent,
+    PersonMakePaymentBodyComponent,
   ],
   imports: [
     CommonModule,
