@@ -4,13 +4,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   selector: 'app-pay-make-payment',
   templateUrl: './pay-make-payment.component.html',
   styleUrls: ['./pay-make-payment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PayMakePaymentComponent implements OnInit {
+  paymentStatus: string = 'person';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
