@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DetailsAccordionComponent } from './components/details-accordion/details-accordion.component';
 import { OutcomeAccordionComponent } from './components/outcome-accordion/outcome-accordion.component';
 import { CustomerServiceFilterComponent } from './components/customer-service-filter/customer-service-filter.component';
+import { ConfirmEmergencyActionComponent } from './components/confirm-emergency-action/confirm-emergency-action.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CustomerServiceFilterComponent } from './components/customer-service-fi
     PolicyFilterComponent,
     DetailsAccordionComponent,
     OutcomeAccordionComponent,
-    CustomerServiceFilterComponent
+    CustomerServiceFilterComponent,
+    ConfirmEmergencyActionComponent
   ],
   imports: [CommonModule, SharedModule, MatIconModule],
   exports: [
