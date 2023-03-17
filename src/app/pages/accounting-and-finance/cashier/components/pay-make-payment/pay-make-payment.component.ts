@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Input,
+} from '@angular/core';
 
 @Component({
   selector: 'app-pay-make-payment',
@@ -7,6 +12,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PayMakePaymentComponent implements OnInit {
+  @Input() totalPrice: number;
   paymentStatus: string = 'person';
 
   constructor() {}
