@@ -8,8 +8,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class PayMakePaymentComponent implements OnInit {
   paymentStatus: string = 'person';
+  personFlag: boolean = true;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  switchPerson() {
+    this.personFlag = !this.personFlag;
+  }
 }
