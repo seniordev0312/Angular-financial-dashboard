@@ -1,13 +1,37 @@
 <app-dialog-header class="text-bold" label="Make a payment"></app-dialog-header>
 <div class="flex w-full">
-  <div class="flex flex-col mt-8 w-[7%]" style="height: calc(70vh - 70px)">
-    <div class="flex flex-col justify-center">
+  <div
+    class="flex flex-col mt-8 w-[7%]"
+    *ngIf="personFlag"
+    style="height: calc(70vh - 70px)"
+  >
+    <div class="flex flex-col justify-center" (click)="switchPerson()">
       <img src="../../../../../../assets/images/svg-icons/pay-icon.svg" />
       <p class="text-center">Pay a Claim</p>
     </div>
-    <div class="mt-auto mb-auto flex flex-col justify-center">
+    <div
+      class="mt-auto mb-auto flex flex-col justify-center"
+      (click)="switchPerson()"
+    >
       <img src="../../../../../../assets/images/cashier-icons/pay-icon1.svg" />
       <p class="text-[#365D7D] text-center">Person</p>
+    </div>
+  </div>
+ <div
+    class="flex flex-col mt-8 w-[7%]"
+    *ngIf="!personFlag"
+    style="height: calc(70vh - 70px)"
+  >
+    <div
+      class="flex mt-auto mb-auto flex-col justify-center"
+      (click)="switchPerson()"
+    >
+      <img src="../../../../../../assets/images/svg-icons/pay-icon1.svg" />
+      <p class="text-[#365D7D] text-center">Pay a Claim</p>
+    </div>
+    <div class="flex flex-col justify-center" (click)="switchPerson()">
+      <img src="../../../../../../assets/images/cashier-icons/pay-icon.svg" />
+      <p class="text-center">Person</p>
     </div>
   </div>
   <div class="w-[93%]">
@@ -15,4 +39,9 @@
       [totalPrice]="totalPrice"
     ></app-person-make-payment-body>
   </div>
+
+  <div *ngIf="!personFlag" class="w-[93%]">
+    <app-claim-make-payment></app-claim-make-payment>
+  </div>
 </div>
+
