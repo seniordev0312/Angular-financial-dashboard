@@ -19,7 +19,6 @@ export class PolicyCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const initial_url = '../../../../../../assets/images/profile.svg';
     const mil_seconds = 3600 * 24 * 1000;
     const date = new Date().getTime() - Date.parse(this.card.dateCreated);
     const day = Math.floor(date / mil_seconds);
@@ -43,18 +42,34 @@ export class PolicyCardComponent implements OnInit {
       hour,
       minute,
       leftSideBackground: bg_color,
-      leftSideIcon: this.card.ticketTypeIconUri,
-      sourceIconUrl: this.card.sourceIconUrl,
+      leftSideIcon: this.displayCategoryTypeIcon(null),
+      sourceIconUri: this.card.sourceIconUri,
       assignedToName: this.card.assignedToName,
       assignedToProfilePictureUri: this.card.assignedToProfilePictureUri,
       ein: this.card.ein,
       entityName: this.card.entityName,
-      entityProfilePictureUri: this.card.entityProfilePictureUri
-        ? this.card.entityProfilePictureUri
-        : initial_url,
+      entityProfilePictureUri: this.card.entityProfilePictureUri,
       ticketCode: this.card.ticketCode,
       ticketTypeIconUri: this.card.ticketTypeIconUri,
       dateCreated: new Date(this.card.dateCreated).toDateString(),
     };
+  }
+
+  // get icon name according to the response value
+  displayCategoryTypeIcon(response: number) {
+    switch (response) {
+      case 1:
+        return 'customer-emergency';
+      case 2:
+        return 'customer-sales';
+      case 3:
+        return 'customer-complaints';
+      case 4:
+        return 'customer-other';
+      case 5:
+        return 'customer-claims';
+      default:
+        return '';
+    }
   }
 }

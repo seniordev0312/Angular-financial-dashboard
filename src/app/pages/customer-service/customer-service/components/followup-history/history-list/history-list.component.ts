@@ -78,7 +78,6 @@ export class HistoryListComponent
       translationKey: 'Date',
       property: 'Date',
       type: 'text',
-      svgIcon: '',
       cssClasses: () => '',
       dataCssClasses: () => 'underline text-accent',
       enableSort: true,
@@ -109,13 +108,12 @@ export class HistoryListComponent
     },
     {
       translationKey: 'Response',
-      property: 'Response',
-      type: 'text',
-      svgIcon: 'customer-service-happy-icon',
+      property: 'Response', 
+      type: 'icon',
       cssClasses: () => 'text-primary',
       dataCssClasses: () => '',
-      enableSort: true,
-      hasFilter: true,
+      enableSort: false,
+      hasFilter: false,
       visible: true,
       displayInFilterList: true,
       hasToolTip: false,
@@ -127,6 +125,7 @@ export class HistoryListComponent
   ];
 
   editAction: TableRowAction<TicketHistoryListItem> = {
+
     action: (data) => this.onTicketEdited(data),
 
     cssClasses: 'text-primary',
@@ -173,6 +172,8 @@ export class HistoryListComponent
   tableSettings = new TableSettings({
     actionsMode: 'inline',
     pageSize: this.pageSize,
+    enableCustomizingColumns: false,
+    enableActions:true
   });
 
   tableConfiguration: TableConfiguration<TicketHistoryListItem> = {
@@ -194,9 +195,11 @@ export class HistoryListComponent
       case 0:
         return 'customer-service-happy-icon';
       case 1:
-        return 'customer-service-sad-color-2';
+        //return 'customer-service-sad-color-2';
+        return 'customer-service-sad-1-icon';
       default:
-        return 'customer-service-sad-color-1';
+        //return 'customer-service-sad-color-1';
+        return 'customer-service-sad-icon';
     }
   }
 
@@ -227,6 +230,7 @@ export class HistoryListComponent
   }
 
   onTicketEdited(_category: TicketHistoryListItem) {
+    console.log('onTicketEdited', _category);
     // display other pages for editing
     this.pageControlChange.emit('next');
     // send id to edit.

@@ -5,6 +5,7 @@ export interface UserClaims {
     name: string;
     role: string;//todo replace will enum
     preferred_username: string;
+    sub: string;
     email_verified: boolean;
     permissions: Permission[];
     //todo delete and add permissions list in the api

@@ -31,15 +31,19 @@ export class PolicyRenewalsComponent implements OnInit {
   subscription: Subscription;
   steps: PolicyStatus[] = [
     { title: 'Policy Renewal Followup', color: 'bg-[#d8d8d8]' },
-    { title: 'In Process', color: 'bg-[#3890cf]' },
-    { title: 'Processed (Renewal Issued)', color: 'bg-[#939393]' },
-    { title: 'Renewal Approved', color: 'bg-[#199e52]' },
+    { title: 'In Process', color: 'bg-[#0098ef]' },
+    { title: 'Processed (Renewal Issued)', color: 'bg-[#c2c2c2]' },
+    { title: 'Renewal Approved', color: 'bg-[#31CD3D]' },
     { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
   ];
 
   isFilter: boolean = false;
+
   flag: number = 0;
+
   tickets: any = null;
+
+  searchBarValue: string = '';
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -80,13 +84,25 @@ export class PolicyRenewalsComponent implements OnInit {
   }
 
   openDialog(card: {}): void {
-    this.dialog.open(PolicyRenewalsCustomerServiceTicketComponent, {
-      height: '90%',
-      width: '90%',
-      data: {
-        dataKey: card,
-      },
-    });
+    this.dialog
+      .open(PolicyRenewalsCustomerServiceTicketComponent, {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '90%',
+        width: '95%',
+        data: {
+          dataKey: card,
+        },
+      })
+      .afterClosed()
+      .subscribe(() => {
+        this.policyCardService.getPolicyRenewalTickets();
+
+        this.subscription = tickets$.subscribe((data: any) => {
+          this.tickets = data;
+          this.ref.detectChanges();
+        });
+      });
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
@@ -110,5 +126,23 @@ export class PolicyRenewalsComponent implements OnInit {
       );
       this.openDialog(event.container.data[event.currentIndex]);
     }
+  }
+
+  onSearchFilter() {
+    const filterOption = {
+      searchQuery: this.searchBarValue,
+    };
+
+    this.policyCardService.filterPolicyRenewalTickets(filterOption);
+  }
+
+  onClearFilter() {
+    this.searchBarValue = '';
+
+    const filterOption = {
+      searchQuery: this.searchBarValue,
+    };
+
+    this.policyCardService.filterPolicyRenewalTickets(filterOption);
   }
 }

@@ -1,67 +1,89 @@
-<div class="h-[90vh] bg-[#fafafa] w-96 p-9">
-  <div class="h-[100%] w-[100%] flex flex-col justify-between">
+<div class="h-[90vh] bg-[#fafafa] w-full p-9">
+  <div class="h-[100%] w-[100%] flex flex-col pb-8">
     <div class="w-[100%] flex flex-col pr-10">
       <div class="pb-5">
         <span class="font-bold text-[15px]">Filter By :</span>
       </div>
       <div class="pb-5">
         <app-select-list
-          optionList=""
+          (statusValueChange)="onChangeFollowUpResponsiveness($event)"
+          [selectedValue]="selectedFollowUpResponsiveness"
+          name="followUpResponsivenessOptions"
+          [control]="followUpResponsivenessListControl"
+          [optionsList]="followUpResponsivenessList"
           label="Policy Renewal Follow-up Responsiveness:"
         ></app-select-list>
       </div>
       <div class="pb-5">
-        <p class="font-bold text-[13px] pl-3">From Date Created:</p>
+        <p class="font-bold text-[10px]">From Date Created:</p>
         <app-date-picker-input
+          id="datepicker"
           [(dateValue)]="fromDateCreated"
           value="{{ fromDateCreated }}"
         ></app-date-picker-input>
       </div>
-      <div>
-        <p class="font-bold text-[13px] pl-3">To Date Created:</p>
+      <div class="pb-5">
+        <p class="font-bold text-[10px]">To Date Created:</p>
         <app-date-picker-input
+          id="datepicker"
           [(dateValue)]="toDateCreated"
           value="{{ toDateCreated }}"
         ></app-date-picker-input>
       </div>
-      <div>
-        <p class="font-bold text-[13px] pl-3">From Date Modified:</p>
+      <div class="pb-5">
+        <p class="font-bold text-[10px]">From Date Modified:</p>
         <app-date-picker-input
+          id="datepicker"
           [(dateValue)]="fromDateModified"
           value="{{ fromDateModified }}"
         ></app-date-picker-input>
       </div>
       <div class="pb-5">
-        <p class="font-bold text-[13px] pl-3">To Date Modified:</p>
+        <p class="font-bold text-[10px]">To Date Modified:</p>
         <app-date-picker-input
+          id="datepicker"
           [(dateValue)]="toDateModified"
           value="{{ toDateModified }}"
         ></app-date-picker-input>
       </div>
       <div class="pb-5">
         <app-select-list
-          [optionsList]="AssignedStatus"
-          label="Assigned To: "
+          (statusValueChange)="onChangeAssignedTo($event)"
+          [selectedValue]="selectedAssignedTo"
+          [optionsList]="assignedToList" 
+          name="assignedToOptions"
+          [control]="assignedToListControl"
+          label="Assigned To: ">
         ></app-select-list>
       </div>
       <div class="pb-5">
         <app-select-list
-          [optionsList]="FollowUpStatus"
-          [(statusValue)]="policyStatus"
+          (statusValueChange)="onChangeFollowUpStatus($event)"
+          [selectedValue]="selectedFollowUpStatus"
+          name="followUpStatusOptions"
+          [control]="followUpStatusListControl"
+          [optionsList]="followUpStatusList"
           label="Policy Renewal Follow-up Status:"
         ></app-select-list>
       </div>
     </div>
-    <div class="w-[100%] flex justify-between">
+    <div class="w-[100%] flex flex-wrap justify-between pb-4">
       <app-button
         text="Cancel"
         (click)="onCancel()"
-        classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-28  shadow-lg"
+        classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-[6.75rem] shadow-lg mb-4"
       ></app-button>
+
+      <app-button
+        text="Clear Filters"
+        (click)="onClearFilters()"
+        classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-[6.75rem] shadow-lg"
+      ></app-button>
+
       <app-button
         text="Apply"
         (click)="filter(); onCancel()"
-        classes="bg-accent h-10 w-28 text-white shadow-lg"
+        classes="bg-accent h-10 w-[6.75rem] text-white shadow-lg"
       ></app-button>
     </div>
   </div>

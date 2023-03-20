@@ -16,6 +16,13 @@ import { AddPaymentComponent } from './components/add-payment/add-payment.compon
 import { PayableStatusComponent } from './components/payable-status/payable-status.component';
 import { VendorInvoiceComponent } from './components/vendor-invoice/vendor-invoice.component';
 import { ProcessingPaymentComponent } from './components/processing-payment/processing-payment.component';
+import { PrintStatusComponent } from './components/print-status/print-status.component';
+import { VoidActionComponent } from './components/void-action/void-action.component';
+import { CustomizeColumnsComponent } from './components/customize-columns/customize-columns.component';
+import { EditWiretransferComponent } from './components/edit-wiretransfer/edit-wiretransfer.component';
+import { StatusWiretransferComponent } from './components/status-wiretransfer/status-wiretransfer.component';
+import { WiretransferAuthorizationComponent } from './components/wiretransfer-authorization/wiretransfer-authorization.component';
+import { AdvancedTableComponent } from './components/advanced-table/advanced-table.component';
 
 const routes: Route[] = [
   {
@@ -39,6 +46,13 @@ const routes: Route[] = [
     PayableStatusComponent,
     VendorInvoiceComponent,
     ProcessingPaymentComponent,
+    PrintStatusComponent,
+    StatusWiretransferComponent,
+    EditWiretransferComponent,
+    VoidActionComponent,
+    CustomizeColumnsComponent,
+    WiretransferAuthorizationComponent,
+    AdvancedTableComponent,
   ],
   imports: [
     CommonModule,
@@ -51,4 +65,4 @@ const routes: Route[] = [
     RouterModule.forChild(routes),
   ],
 })
-export class AccountsPayableModule {}
+export class AccountsPayableModule { }

@@ -8,11 +8,19 @@
           <mat-icon>search</mat-icon>
           <input
             class="h-full text-[#676767] outline-0 w-64"
+            [(ngModel)]="searchBarValue"
             matInput
             placeholder="Search CST Number or Client Info"
+            (keyup)="onSearchFilter()"
           />
-          <mat-icon (click)="openFilter()" svgIcon="policy-filter"></mat-icon>
-          <mat-icon>cancel</mat-icon>
+          <mat-icon
+            class="cursor-pointer"
+            (click)="openFilter()"
+            svgIcon="policy-filter"
+          ></mat-icon>
+          <mat-icon (click)="onClearFilter()" class="cursor-pointer"
+            >cancel</mat-icon
+          >
         </div>
         <div class="flex gap-2">
           <button
@@ -66,7 +74,7 @@
       <div class="w-1/5 flex flex-col justify-start gap-y-5 p-5 control-width">
         <app-policy-status [step]="steps[4]"></app-policy-status>
         <app-policy-sort
-          [(sortingArray)]="tickets.closedTicket"
+          [(sortingArray)]="tickets.closedTickets"
         ></app-policy-sort>
       </div>
     </div>

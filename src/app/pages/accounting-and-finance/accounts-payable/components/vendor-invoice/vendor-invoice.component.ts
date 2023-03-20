@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { VendorInvoiceModel } from '../../model/vendor-invoice.model';
@@ -22,10 +23,90 @@ export class VendorInvoiceComponent implements OnInit {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<VendorInvoiceModel>;
   table1: WidgetTableComponent<AdvancePaymentModel>;
+  invoicelist: VendorInvoiceModel[] = [];
+  paymentlist: AdvancePaymentModel[] = [];
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.invoicelist = [
+      {
+        id: 1,
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
+        currency: 'USD',
+        invoicetype: '',
+        custom: 1400,
+      },
+      {
+        id: 2,
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
+        currency: 'USD',
+        invoicetype: '',
+        custom: 4000,
+      },
+      {
+        id: 3,
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
+        currency: 'USD',
+        invoicetype: '',
+        custom: 6000,
+      },
+      {
+        id: 4,
+        policyno: 'MGW96389',
+        name: 'Ali',
+        duedate: '07/15/2022',
+        totalunpaiddue: 1400.0,
+        totalunpaidnotdue: 4850.0,
+        currency: 'USD',
+        invoicetype: '',
+        custom: 400,
+      },
+    ];
+
+    this.paymentlist = [
+      {
+        ein: 0o21234567,
+        datapaid: '09/01/2022',
+        totalremaining: 10000.0,
+        currency: 'USD',
+        custome: 0.0,
+      },
+      {
+        ein: 0o21234567,
+        datapaid: '09/01/2022',
+        totalremaining: 10000.0,
+        currency: 'USD',
+        custome: 0.0,
+      },
+      {
+        ein: 0o21234567,
+        datapaid: '09/01/2022',
+        totalremaining: 10000.0,
+        currency: 'USD',
+        custome: 0.0,
+      },
+    ];
+
+    this.tableConfiguration.data = this.invoicelist;
+    this.tableConfiguration.dataCount = this.invoicelist.length;
+    this.tableConfiguration1.data = this.paymentlist;
+    this.tableConfiguration1.dataCount = this.paymentlist.length;
+    this.cdr.detectChanges();
+    this.table.refresh();
+  }
 
   tableColumns: TableColumn[] = [
     {
@@ -143,7 +224,7 @@ export class VendorInvoiceComponent implements OnInit {
     },
     {
       translationKey: 'Custome',
-      property: 'custome',
+      property: 'custom',
       type: 'number',
       cssClasses: () => '',
       dataCssClasses: () => '',
@@ -251,6 +332,13 @@ export class VendorInvoiceComponent implements OnInit {
     isRowSelectable: true,
   });
 
+  tableSettings1 = new TableSettings({
+    actionsMode: 'inline',
+    pageSize: this.pageSize,
+    isLocalPaging: true,
+    isRowSelectable: true,
+  });
+
   tableConfiguration: TableConfiguration<VendorInvoiceModel> = {
     tableRowsActionsList: [],
     columns: this.tableColumns,
@@ -264,6 +352,6 @@ export class VendorInvoiceComponent implements OnInit {
     columns: this.tableColumns1,
     data: [],
     dataCount: 0,
-    settings: this.tableSettings,
+    settings: this.tableSettings1,
   };
 }

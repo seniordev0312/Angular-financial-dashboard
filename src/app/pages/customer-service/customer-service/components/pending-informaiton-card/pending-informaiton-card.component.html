@@ -13,22 +13,26 @@
       <app-input-field
         label="Initiator EIN: "
         class="flex justify-center p-0"
-        value="{{ requiredData['Initiator EIN'] }}"
+        [control]="getFormControl('ein')"
+        value=""
       ></app-input-field>
       <app-input-field
         label="Vehicle Year"
         class="flex justify-center p-0"
-        value="{{ requiredData['Vehicle Year'] }}"
+        [control]="getFormControl('year')"
+        value=""
       ></app-input-field>
       <app-input-field
         label="Vehicle Make"
         class="flex justify-center p-0"
-        value="{{ requiredData['Vehicle Make'] }}"
+        [control]="getFormControl('make')"
+        value=""
       ></app-input-field>
       <app-input-field
         label="Vehicle Model"
         class="flex justify-center pb-7"
-        value="{{ requiredData['Vehicle Model'] }}"
+        [control]="getFormControl('model')"
+        value=""
       ></app-input-field>
     </div>
     <div class="w-1/3">
@@ -37,49 +41,56 @@
           <app-input-field
             label="Vehicle Plate Number"
             class="flex justify-center"
-            value="{{ requiredData['Vehicle Plate Number'] }}"
+            [control]="getFormControl('plate')"
+            value=""
           ></app-input-field>
         </div>
         <div class="w-[40%]">
           <app-input-field
             label="Plate Code"
             class="flex justify-center"
-            value="{{ requiredData['Plate Code'] }}"
+            [control]="getFormControl('plateCode')"
+            value=""
           ></app-input-field>
         </div>
       </div>
       <app-input-field
         label="Vehicle Type"
         class="flex justify-center p-0 blueColor"
-        value="{{ requiredData['Vehicle Type'] }}"
+        [control]="getFormControl('type')"
+        value=""
       ></app-input-field>
       <div class="relative">
         <app-input-field
           label="Vehicle Color"
           class="flex justify-center p-0"
-          value="{{ requiredData['Vehicle Color'] }}"
+          [control]="getFormControl('color')"
+          value=""
         >
         </app-input-field>
-        <div class="absolute right-0 top-0">
+        <div class="absolute right-0 top-0" id="color-bucket">
           <mat-icon svgIcon="customer-service-color-bucket"></mat-icon>
         </div>
       </div>
       <app-input-field
         label="Horse Power"
         class="flex justify-center pb-7 blueColor"
-        value="{{ requiredData['Horse Power'] }}"
+        [control]="getFormControl('horsePower')"
+        value=""
       ></app-input-field>
     </div>
     <div class="w-1/3">
       <app-input-field
         label="Sum Insured"
         class="flex justify-center p-0 blueColor sumLabel"
-        value="{{ requiredData['Sum Insured'] }}"
+        [control]="getFormControl('sumInsured')"
+        value=""
       ></app-input-field>
       <app-input-field
         label="Deductibles"
         class="flex justify-center p-0 blueColor"
-        value="{{ requiredData['Deductibles'] }}"
+        [control]="getFormControl('deductibles')"
+        value=""
       ></app-input-field>
       <div class="flex flex-row w-full h-28 px-2 py-2 bg-[#fafafa]">
         <div class="pr-1">
@@ -87,7 +98,7 @@
             Pictures
           </p>
         </div>
-        <div class="flex flex-col justify-between">
+        <!-- <div class="flex flex-col justify-between">
           <div class="flex">
             <div class="pr-1">
               <img
@@ -128,7 +139,7 @@
               />
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

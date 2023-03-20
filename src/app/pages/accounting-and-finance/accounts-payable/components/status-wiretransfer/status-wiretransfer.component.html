@@ -1,0 +1,56 @@
+<div
+  class="flex items-stretch my-2 h-[90px] shadow rounded-[14px] justify-between w-full"
+>
+  <div class="flex flex-row justify-between items-center w-full px-5">
+    <div class="flex pl-8 justify-end items-center w-full">
+      <p class="mr-4 text-lg">From</p>
+      <div class="w-full">
+        <div class="flex flex-row justify-center items-center w-full">
+          <input
+            class="w-full"
+            placeholder="xx/xx/2022"
+            [readOnly]="true"
+            [matDatepicker]="startDatePicker1"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startDatePicker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker1></mat-datepicker>
+        </div>
+        <div class="pr-4">
+          <hr />
+        </div>
+      </div>
+    </div>
+    <div class="flex pl-8 justify-end items-center w-full">
+      <p class="mr-4 text-lg">To</p>
+      <div class="w-full">
+        <div class="flex flex-row justify-center items-center w-full">
+          <input
+            class="w-full"
+            placeholder="xx/xx/2022"
+            [readOnly]="true"
+            [matDatepicker]="endDatePicker1"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="endDatePicker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker1></mat-datepicker>
+        </div>
+        <div class="pr-4">
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    class="flex flex-col justify-center items-center w-24 h-full bg-primary text-white rounded-r-[14px]"
+  >
+    <span class="material-icons"> search </span>
+    <p class="text-sm font-medium mt-2">Search</p>
+  </button>
+</div>
+<app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+<div class="h-10"></div>

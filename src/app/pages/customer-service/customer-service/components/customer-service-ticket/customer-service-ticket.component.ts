@@ -1,11 +1,27 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
 } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CustomerCardService } from '../../services/customer-card.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
+import { SignalRService } from '../../services/signalr.service';
+import { ContactViewComponent } from '../contact-view/contact-view.component';
+import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
+import { FormControl, Validators } from '@angular/forms';
+import { ContactFormService } from '../../services/contact-form.service';
+import { BaseListItem } from '@root/shared/models/base-list-item.model';
+import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -24,19 +40,26 @@ export class CustomerServiceTicketComponent implements OnInit {
   initialSectionFlag: boolean = false;
   typeSectionFlag: boolean = false;
   locationSectionFlag: boolean = false;
+  emergencyInitiateSectionFlag: boolean = false;
   priceValue: string = ' ';
   disableButton: boolean = false;
   disableButtonClass: string = '';
   emergencyInitialSectionFlag: boolean = false;
   salesFlowFlag: boolean = false;
   emergencyFlowFlag: boolean = false;
+  otherFlowFlag: boolean = false;
+  complaintFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
+  isActionConfirmed: boolean = false;
   isShowAppField = false;
   isLoading = false;
+  canShowCalculator = false;
+  ticketId: number = 0;
   categories: { id: number; name: string }[] = [];
   businesses: { id: number; name: string }[] = [];
   products: { id: number; productCode: string; productDescription: string }[] =
     [];
+  complaintCategories: any[] = [];
   requiredData: any;
   emergencyTypes: { id: number; name: string }[] = [];
   emergencyInitiateItems: {
@@ -47,24 +70,49 @@ export class CustomerServiceTicketComponent implements OnInit {
   isBlue: boolean = false;
   choosedButtons: {
     category: number;
+    complaintCategory: number;
     business: number;
     product: number;
     emergencyType: number;
-    initiate: number;
+    initiate: number[];
   } = {
-      category: 0,
-      business: 0,
-      product: 0,
-      emergencyType: 0,
-      initiate: 0,
-    };
+    category: 0,
+    complaintCategory: 0,
+    business: 0,
+    product: 0,
+    emergencyType: 0,
+    initiate: [],
+  };
+  ticketStatus: BaseListItem[] = [
+    { id: 0, value: 'Created/Received Queue' },
+    { id: 1, value: 'In Process' },
+    { id: 2, value: 'Processed' },
+    { id: 3, value: 'Resolved' },
+    { id: 4, value: 'Closed' },
+  ];
+
+  selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
+
+  customerTicket: FormControl = new FormControl();
+  priceRange: FormControl = new FormControl();
+
+  location: FormControl = new FormControl('', Validators.required);
+
+  @ViewChild(ContactViewComponent)
+  contactViewComponent: ContactViewComponent;
+
+  dataTicket: any = [];
 
   constructor(
     public dialogRef: MatDialogRef<CustomerServiceTicketComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public customerCardService: CustomerCardService,
-    private ref: ChangeDetectorRef
-  ) { }
+    public signalRService: SignalRService,
+    private kYCDocumentTypeService: KYCDocumentTypeService,
+    private ref: ChangeDetectorRef,
+    private contactFormService: ContactFormService
+  ) {}
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
@@ -75,15 +123,63 @@ export class CustomerServiceTicketComponent implements OnInit {
         // this.isLoading = false;
         this.ref.detectChanges();
       });
+
+    this.dataTicket = this.data.dataKey;
+    this.ticketId = this.data.dataKey.id;
+    this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
+    this.signalRService.init(this.ticketId);
+
+    this.selectedTicketStatus.setValue(
+      this.getTicketStatus(this.dataTicket.status)
+    );
+
+    this.subscription = this.customerCardService
+      .getContactDetails(this.dataTicket)
+      .subscribe((data: any) => {
+        console.log(data);
+        // this.isLoading = false;
+        this.ref.detectChanges();
+      });
+
+    this.customerTicket.setValue(this.dataTicket.ticketCode);
+
+    this.contactFormService.getMessageHistory(this.dataTicket.chatId);
+  }
+
+  getTicketStatus(statusId: number): BaseListItem {
+    if (statusId == 0) return { id: 0, value: 'Created/Received Queue' };
+    else if (statusId == 1) return { id: 1, value: 'In Process' };
+    else if (statusId == 2) return { id: 2, value: 'Processed' };
+    else if (statusId == 3) return { id: 3, value: 'Resolved' };
+    else if (statusId == 4) return { id: 4, value: 'Closed' };
+    else return null;
+  }
+
+  ngAfterViewInit() {
+    this.signalRService.signalRSubject$.subscribe((data: any) => {
+      this.contactViewComponent.updateData(data);
+    });
   }
 
   openNote() {
     this.noteSectionFlag = !this.noteSectionFlag;
   }
 
+  onChangeTicketStatus(event: Event) {
+    this.dataTicket.status = event;
+
+    let body = {
+      id: this.dataTicket.id,
+      status: this.dataTicket.status,
+    };
+
+    this.customerCardService.updateCustomServiceTicket(body);
+  }
+
   // move to emergency flow or sales flow section
   displaySection(sectionFlag: string, categoryId: number) {
     this.choosedButtons.category = categoryId;
+    this.canShowCalculator = false;
     // this.isLoading = true;
     this.isSpinning$ = isSpinning$;
     this.isBlue = !this.isBlue;
@@ -92,6 +188,8 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.businessSectionFlag = true;
         this.salesFlowFlag = true;
         this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = false;
+        this.otherFlowFlag = false;
         this.subscription = this.customerCardService
           .getBusiness()
           .subscribe((data: any) => {
@@ -104,6 +202,8 @@ export class CustomerServiceTicketComponent implements OnInit {
       case 'type': {
         this.typeSectionFlag = true;
         this.salesFlowFlag = false;
+        this.otherFlowFlag = false;
+        this.complaintFlowFlag = false;
         this.emergencyFlowFlag = true;
         this.subscription = this.customerCardService
           .getEmerencyTypeData()
@@ -112,6 +212,30 @@ export class CustomerServiceTicketComponent implements OnInit {
             // this.isLoading = false;
             this.ref.detectChanges();
           });
+        break;
+      }
+      case 'complaint': {
+        this.typeSectionFlag = false;
+        this.salesFlowFlag = false;
+        this.otherFlowFlag = false;
+        this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = true;
+
+        this.complaintCategories = [
+          { id: 0, name: 'Non Responsive' },
+          { id: 1, name: 'Specific Employee' },
+          { id: 2, name: 'Driver' },
+          { id: 3, name: 'Payment' },
+        ];
+
+        break;
+      }
+      case 'otherDetails': {
+        this.otherFlowFlag = true;
+        this.salesFlowFlag = false;
+        this.typeSectionFlag = false;
+        this.emergencyFlowFlag = false;
+        this.complaintFlowFlag = false;
         break;
       }
       default:
@@ -124,6 +248,7 @@ export class CustomerServiceTicketComponent implements OnInit {
     // this.isLoading = true;
     this.isSpinning$ = isSpinning$;
     this.choosedButtons.business = businessId;
+
     this.subscription = this.customerCardService
       .getProduct(businessId)
       .subscribe((data: any) => {
@@ -138,6 +263,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   displayInitialSection(productId: number) {
     this.choosedButtons.product = productId;
     this.initialSectionFlag = true;
+    this.canShowCalculator = true;
   }
 
   //  move to type section
@@ -147,29 +273,57 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.emergencyFlowFlag = true;
   }
 
-  // display pending card
-  displayPendingCard() {
-    this.pendingCardFlag = true;
-  }
-
   // display location section
   displayLocationSection(emergencyTypeId: number) {
     // this.isLoading = true;
     this.isSpinning$ = isSpinning$;
     this.choosedButtons.emergencyType = emergencyTypeId;
-    this.subscription = this.customerCardService
-      .getEmergencyInitiateItems(emergencyTypeId)
-      .subscribe((data: any) => {
-        this.emergencyInitiateItems = data;
-        // this.isLoading = false;
-        this.ref.detectChanges();
-      });
+
     this.locationSectionFlag = true;
   }
 
-  displayEmergencyInitateSection() {
+  displayEmergencyInitateSection(emergencyInitiateItem?: any) {
+    this.isActionConfirmed = false;
+
+    this.subscription = this.customerCardService
+      .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
+      .subscribe((data: any) => {
+        this.emergencyInitiateItems = data;
+
+        // this.isLoading = false;
+        this.ref.detectChanges();
+      });
+
+    if (emergencyInitiateItem) {
+      let location = this.location.value;
+
+      this.dialog
+        .open(ConfirmEmergencyActionComponent, {
+          width: '25%',
+          height: '30%',
+          data: { emergencyAction: emergencyInitiateItem, location: location },
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          this.choosedButtons.initiate.push(result.emergencyAction);
+          // this.isActionConfirmed = result.isActionConfirmed;
+
+    console.log(this.choosedButtons.initiate);
+          // this.selectActionButtons(emergencyInitiateItem);
+        });
+    }
+
     this.emergencyInitialSectionFlag = true;
+    console.log(this.choosedButtons.initiate);
   }
+
+  // selectActionButtons(emergencyInitiateItem?: any) {
+  //   if (this.isActionConfirmed) {
+  //     this.choosedButtons.initiate.push(emergencyInitiateItem.id);
+  //   }
+  //   console.log(this.isActionConfirmed);
+  //   console.log(this.choosedButtons.initiate);
+  // }
 
   RequestDraftPolicy() {
     // this.isLoading = true;
@@ -185,5 +339,9 @@ export class CustomerServiceTicketComponent implements OnInit {
           this.ref.detectChanges();
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.signalRService.stopConnection();
   }
 }

@@ -16,6 +16,9 @@
   padding: 0px;
 }
 
+::ng-deep .leading-none.flex.justify-center.items-center {
+  width: 100% !important;
+}
 
 @media screen and (max-width: 1750px) {
   .button-responsive {
@@ -31,6 +34,6 @@
   .button-class {
     padding-top: 12px;
     display: flex;
-    justify-content: center;
+    justify-content: end;
   }
 }

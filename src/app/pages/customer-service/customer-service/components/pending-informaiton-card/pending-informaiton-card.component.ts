@@ -4,6 +4,8 @@ import {
   OnInit,
   Input,
 } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DraftPolicyPendingInfoService } from '../../services/draft-policy-pending-info.service';
 
 @Component({
   selector: 'app-pending-informaiton-card',
@@ -12,6 +14,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PendingInformaitonCardComponent implements OnInit {
+  fg: FormGroup;
+
   @Input() requiredData: {
     'Initiator EIN': string;
     Deductibles: string;
@@ -32,7 +36,15 @@ export class PendingInformaitonCardComponent implements OnInit {
     'Vehicle Year': string;
   };
 
-  constructor() {}
+  constructor(
+    private draftPolicyPendingInfoService: DraftPolicyPendingInfoService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fg = this.draftPolicyPendingInfoService.getFormGroup();
+  }
+
+  getFormControl(key: string): FormControl {
+    return this.fg.controls[key] as FormControl;
+  }
 }

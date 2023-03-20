@@ -1,36 +1,30 @@
-<div class="w-full h-9 flex justify-center">
+<div class="w-full h-9 flex">
   <div class="w-[85%] h-7 flex justify-center items-center">
     <div class="w-[30%] flex justify-start">
       <span class="text-[13px]">Sort By</span>
     </div>
-    <div class="w-[50%] justify-center">
-      <app-select-list></app-select-list>
-    </div>
-    <div class="w-[20%] flex justify-end">
-      <div class="flex flex-col px-2">
-        <div *ngIf="!arrow">
-          <img
-            (click)="ascending()"
-            src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
-            class="pb-1 w-[18px] h-[13px] bg-white text-primary"
-          />
-          <img
-            (click)="descending()"
-            src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
-            class="pb-1 w-[18px] h-[13px]"
-          />
+    <div class="w-[60%] justify-center">
+      <app-select-list
+        (statusValueChange)="onChangeSortingOption($event)"
+        [selectedValue]="selectedSortOption"
+        [optionsList]="sortOptionsList"
+        name="sortingOptions"
+        [control]="sortOptions">
+      </app-select-list>
+    </div> 
+    <div class="w-[10%] flex justify-end">
+      <div class="flex flex-col pb-3">
+        <!-- <div *ngIf="flag===0" class="cursor-pointer sorting-arrows" (click)="ascending(selectedSortOption)">
+          <mat-icon svgIcon="arrow-top" class="arrow-top-svg"></mat-icon>
+          <mat-icon svgIcon="arrow-bottom" class="arrow-bottom-svg"></mat-icon>
+        </div> -->
+        <div *ngIf="flag===1" class="cursor-pointer sorting-arrows" (click)="descending(selectedSortOption)">
+          <mat-icon svgIcon="arrow-top" class="arrow-top-svg"></mat-icon>
+          <mat-icon svgIcon="arrow-bottom-grey" class="arrow-bottom-grey-svg"></mat-icon>
         </div>
-        <div *ngIf="arrow">
-          <img
-            (click)="ascending()"
-            src="../../../../../assets/images/policy-svg-icons/arrow-bottom.svg"
-            class="pb-1 w-[18px] h-[13px] rotate-icon"
-          />
-          <img
-            (click)="descending()"
-            src="../../../../../assets/images/policy-svg-icons/arrow-top.svg"
-            class="pb-1 w-[18px] h-[13px] rotate-icon"
-          />         
+        <div *ngIf="flag===0" class="cursor-pointer sorting-arrows" (click)="ascending(selectedSortOption)">
+          <mat-icon svgIcon="arrow-top-grey" class="arrow-top-grey-svg"></mat-icon>
+          <mat-icon svgIcon="arrow-bottom" class="arrow-bottom-svg"></mat-icon>
         </div>
       </div>
     </div>

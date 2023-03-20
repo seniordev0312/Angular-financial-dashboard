@@ -39,7 +39,7 @@ export class SuccessMessageInterceptor implements HttpInterceptor {
             return false;
         }
         if (req?.method !== 'GET' && res?.status === 200) {
-            return true;
+            return false;
         }
         return false;
     }

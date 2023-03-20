@@ -1,9 +1,9 @@
 <div *ngIf="card">
   <div
-    class="flex flex-row w-[100%] h-36 rounded-md shadow-md relative bg-white min-w-[200px]"
+    class="flex flex-row w-[100%] h-36 rounded-md shadow-md relative bg-white min-w-[180px]"
   >
     <div
-      class="flex flex-col items-center relative h-full w-[10%] text-[12px] text-[#FFFFFF] rounded-l-md {{
+      class="flex flex-col items-center relative h-full w-[36px] text-[11px] text-[#FFFFFF] rounded-l-md {{
         cardInfo.leftSideBackground
       }}"
     >
@@ -11,17 +11,23 @@
       <div>{{ cardInfo.hour + "H" }}</div>
       <div>{{ cardInfo.minute + "M" }}</div>
       <div class="absolute flex bottom-1 shadow-lg">
-        <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" />
+        <!-- <img src="{{ cardInfo.ticketTypeIconUrl }}" alt="" /> -->
+        <mat-icon
+          id="categoryIcon"
+          class="rounded-full w-[40px] flex absolute -bottom-4 -right-4 object-contain"
+          svgIcon="{{ cardInfo.leftSideIcon }}"
+        ></mat-icon>
       </div>
     </div>
-    <div class="flex flex-col h-full w-[90%] p-0">
+    <div class="flex flex-col h-full w-[86%] p-0">
       <div
         class="flex justify-end items-center w-full h-[10%] mt-2 pr-4 text-[10px]"
       >
+        {{ cardInfo.dateCreated | date : "shortTime" }}
         {{ cardInfo.dateCreated }}
       </div>
       <div
-        class="flex justify-end items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[7px]"
+        class="flex justify-end font-black items-center w-full text-[#005f83] h-[5%] pr-4 pt-2 text-[9px]"
       >
         {{ cardInfo.ticketCode }}
       </div>
@@ -31,26 +37,36 @@
             
           > -->
           <img
-            class="absolute flex items-start justify-start shadow-lg bg-none"
+            class="absolute flex items-start justify-start w-[61px] h-[42px] -left-[33%] -top-[12%] bg-none"
             height="29px"
             width="29px"
-            src="{{ cardInfo.sourceIconUrl }}"
+            src="{{ cardInfo.sourceIconUri }}"
             alt=""
           />
           <!-- </div> -->
-          <img
-            class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
-            src="{{ cardInfo.entityProfilePictureUri }}"
-          />
+          <ng-container *ngIf="cardInfo.entityProfilePictureUri">
+            <img
+              class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
+              src="{{ cardInfo.entityProfilePictureUri }}"
+            />
+          </ng-container>
+
+          <ng-container *ngIf="!cardInfo.entityProfilePictureUri">
+            <mat-icon
+              id="profilePic"
+              class="rounded-full w-[65px] h-[65px] flex items-center justify-center object-contain"
+              svgIcon="profile"
+            ></mat-icon>
+          </ng-container>
         </div>
         <div class="h-full w-[60%] flex flex-col items-start justify-center">
           <span class="font-bold text-[11px]">{{ cardInfo.entityName }}</span>
-          <span class="text-[8px]">
+          <span class="text-[8px] font-bold">
             <div *ngIf="cardInfo.ein">
               EIN:
               <span class="text-[#005f83] underline">{{ cardInfo.ein }}</span>
             </div>
-            <div *ngIf="cardInfo.ein == null">
+            <div *ngIf="!cardInfo.ein || cardInfo.ein == null">
               <span class="text-[#005f83]">Entity Not Matched or Created</span>
             </div>
           </span>
@@ -58,22 +74,38 @@
       </div>
       <div class="h-[25%] flex justify-start items-center flex-row w-full pb-2">
         <div
-          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[60%] h-full"
+          *ngIf="cardInfo.assignedToName"
+          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-[#005f83] border-solid rounded-lg w-[75%] h-full"
         >
-          <div *ngIf="cardInfo.assignedToName">
-            <span class="text-[9px] pl-1">
-              {{ "assigned to " + cardInfo.assignedToName }}</span
-            >
-          </div>
-          <div *ngIf="cardInfo.assignedToName == null">
-            <span class="text-[9px] pl-1"> Unassigned </span>
-          </div>
+          <span
+            class="text-[9px] pl-1 align-middle font-semibold text-[#005f83]"
+          >
+            {{ "Assigned to " + cardInfo.assignedToName }}</span
+          >
+        </div>
+
+        <div
+          *ngIf="cardInfo.assignedToName == null"
+          class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[75%] h-full"
+        >
+          <span class="text-[9px] pl-1 align-middle"> Unassigned </span>
         </div>
       </div>
     </div>
-    <img
-      class="rounded-full w-[45px] flex absolute -bottom-4 -right-4 object-contain"
-      src="{{ cardInfo.assignedToProfilePictureUri }}"
-    />
+
+    <ng-container *ngIf="cardInfo.assignedToProfilePictureUri">
+      <img
+        class="rounded-full w-[30px] flex absolute -bottom-4 -right-3 object-contain"
+        src="{{ cardInfo.assignedToProfilePictureUri }}"
+      />
+    </ng-container>
+
+    <ng-container *ngIf="!cardInfo.assignedToProfilePictureUri">
+      <mat-icon
+        id="profilePic2"
+        class="rounded-full w-[30px] flex absolute -bottom-4 -right-3 object-contain bg-white"
+        svgIcon="profile2"
+      ></mat-icon>
+    </ng-container>
   </div>
 </div>

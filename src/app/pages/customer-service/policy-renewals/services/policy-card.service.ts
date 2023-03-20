@@ -33,8 +33,18 @@ export class PolicyCardService {
 
   // HttpClient API post() method => Get PolicyRenewalTickets
   getPolicyRenewalTickets() {
+    let paramObj: any = {
+      "searchQuery": null,
+      "assignedToId": null,
+      "fromDateCreated": null,
+      "toDateCreated": null,
+      "fromDateModified": null,
+      "toDateModified": null,
+      "communicationChannelId": null
+    };
+
     this.http
-      .post<PolicyCard>(this.apiFilterURL, {}, this.httpOptions)
+      .post<PolicyCard>(this.apiFilterURL, paramObj , this.httpOptions)
       .subscribe((data) => {
         this.policyRenewalsTicketsRepository.updateTickets(data);
       });

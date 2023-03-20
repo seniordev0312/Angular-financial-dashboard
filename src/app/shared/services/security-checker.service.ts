@@ -44,6 +44,7 @@ export class SecurityCheckerService {
             name: userClaims.name,
             preferred_username: userClaims.preferred_username,
             role: userClaims.role,
+            sub: userClaims.sub,
             permissions: []
         };
         //todo delete this function and get permissions list in user data

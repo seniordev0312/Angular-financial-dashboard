@@ -16,6 +16,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputFieldComponent implements OnInit {
+  @Input() disabled: boolean;
   @Input() label: string;
   @Input() name: string;
   @Input() value: string;
@@ -26,7 +27,7 @@ export class InputFieldComponent implements OnInit {
   @Input() baseListItemsList: BaseListItem[];
   @Output() trigger = new EventEmitter<void>();
   @Output() inputValueChange = new EventEmitter<string>();
-
+  @Input() readonly = false;
   constructor() {}
 
   ngOnInit(): void {

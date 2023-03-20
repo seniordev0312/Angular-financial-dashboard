@@ -1,1 +1,408 @@
-<div class=""></div>
+<div class="h-full w-full overflow-auto">
+  <div class="flex-col relative pb-6">
+    <div
+      class="flex w-full px-4 pt-4"
+      *ngFor="let item of data"
+      [ngStyle]="{
+        'justify-content': !item.isOwnMessage ? 'flex-start' : 'flex-end'
+      }"
+    >
+      <div
+        *ngIf="item.type === 0 && item.body"
+        class="flex flex-col bg-white relative w-[60%] shadow-md rounded-lg px-2 pt-4 pb-2 h-fit"
+        [ngClass]="{ '-right-[40%]': item.sent }"
+      >
+        <div
+          class="w-[30px] absolute"
+          [ngClass]="item.sent ? 'sent-message-pp' : 'received-message-pp'"
+        >
+          <img class="rounded-[50%]" [src]="item.profilePic" />
+        </div>
+
+        <div
+          *ngIf="!isDepartmentChat"
+          class="w-[19px] -left-[4%] -top-[2%] absolute"
+          [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
+        >
+          <img class="rounded-[50%]" [src]="item.sourceIconUrl" />
+        </div>
+        <div
+          class="flex absolute font-medium text-xxs"
+          [ngClass]="item.sent ? 'sent-message-time' : 'received-message-time'"
+        >
+          <div class="text-accent"></div>
+          <div class="text-right text-[#00000073]">
+            {{ item.sentOn | date : "shortTime" }}
+          </div>
+        </div>
+
+        <div
+          *ngIf="isDepartmentChat"
+          class="w-[34px] -left-[5%] -top-[6%] absolute"
+          [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
+        >
+          <img
+            src="assets/images/customer-service-icons/department-chat-icon.svg"
+          />
+        </div>
+
+        <div class="text-left text-xs pl-3 pr-1 w-[90%]">
+          <span class="bg-white text-black">
+            {{ item.body }}
+          </span>
+          <!-- <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre> -->
+        </div>
+
+        <!-- <div
+          class="w-[25px] pr-1 -left-[4%] top-[72%] absolute cursor-pointer"
+          *ngIf="!item.sent"
+          [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
+        >
+          <div>
+            <mat-icon
+              (click)="onOpenProcessImage(item.id)"
+              svgIcon="customer-contact-form-image-processing"
+            ></mat-icon>
+          </div>
+        </div> -->
+
+        <div
+          class="w-fit shadow-2xl p-2 rounded-[25px] border absolute right-[8%] top-[43 %] z-[100] bg-[#005f83]"
+          *ngIf="
+            imageProcessingClicked && selectedImageForProcessing == item.id
+          "
+        >
+          <ng-container *ngFor="let imageItem of imageProcessingOptions">
+            <div
+              class="bg-[#005f83] hover:bg-[#3b809b] w-48 text-[12px] py-1 px-4 rounded-3xl text-white cursor-pointer mb-2 font-semibold"
+            >
+              {{ imageItem }}
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- <div
+          class="w-[25px] pr-1 -left-[4%] top-[72%] absolute cursor-pointer"
+          *ngIf="!item.sent"
+          [ngClass]="item.sent ? 'sent-message-icon' : 'received-message-icon'"
+        >
+          <div>
+            <mat-icon
+              (click)="onOpenProcessLocation(item.id)"
+              svgIcon="customer-contact-form-location"
+            ></mat-icon>
+          </div>
+        </div> -->
+        <!-- 
+        <div
+          *ngIf="
+            locationProcessingClicked &&
+            selectedLocationForProcessing == item.id
+          "
+          class="w-56 shadow-2xl p-4 text-white text-[12px] mb-2 font-semibold rounded-[25px] border absolute right-[8%] top-[43 %] z-[100] bg-[#005f83]"
+        >
+          <div class="flex justify-center flex-wrap">
+            <label class="flex-[50%] pb-8">District</label>
+            <label class="flex-[50%] pb-8">Long/Lat</label>
+            <label class="flex-[50%] pb-8">City</label>
+            <label class="flex-[50%] pb-8">Google Code</label>
+            <label class="flex-[50%] pb-8">Street</label>
+          </div>
+        </div> -->
+
+        <div
+          *ngIf="item.type === 1"
+          class="flex flex-col bg-white relative w-[60%] shadow-md rounded-lg px-2 pt-4 pb-2 h-fit"
+          [ngClass]="{ '-right-[40%]': item.sent }"
+        >
+          <div
+            *ngIf="!isDepartmentChat"
+            class="w-[25px] -left-[4%] -top-[2%] absolute"
+          >
+            <img class="rounded-[50%]" [src]="item.sourceIconUrl" />
+          </div>
+          <div
+            *ngIf="isDepartmentChat"
+            class="w-[34px] -left-[5%] -top-[6%] absolute cursor-pointer"
+          >
+            <img
+              src="assets/images/customer-service-icons/department-chat-icon.svg"
+            />
+          </div>
+          <div
+            class="w-[44px] absolute -top-[8%]"
+            [ngClass]="item.sent ? '-right-[4%]' : 'right-[89%]'"
+          >
+            <img class="rounded-[50%]" [src]="item.profilePic" />
+          </div>
+
+          <div class="text-left text-xs pl-3 pr-1 w-[90%]">
+            <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre>
+          </div>
+
+          <div class="flex justify-between items-center font-medium text-xxs">
+            <div class="text-accent"></div>
+            <div class="text-right pr-3 text-[#00000073]">
+              {{ item.sentOn | date : "shortTime" }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="item.type === 2"
+          class="flex flex-col bg-white relative w-[60%] -right-[40%] shadow-md rounded-lg px-2 pt-4 pb-2 h-fit"
+        >
+          <div class="text-left text-xs">
+            <span class="bg-white text-black">
+              <div *ngFor="let bodyItem of item.body.componentList" class="p-1">
+                <div
+                  *ngIf="containsHttp(bodyItem.componentValue)"
+                  class="flex flex-row"
+                >
+                  <div class="w-1/2">{{ bodyItem.componentName }}</div>
+                  <div
+                    *ngIf="bodyItem.componentName === 'ExtractedImage'"
+                    class="w-1/2"
+                  >
+                    <img
+                      [src]="bodyItem.componentValue"
+                      width="200"
+                      height="200"
+                    />
+                  </div>
+                  <div
+                    *ngIf="bodyItem.componentName !== 'ExtractedImage'"
+                    class="w-1/2"
+                  >
+                    <img
+                      [src]="bodyItem.componentValue"
+                      width="50"
+                      height="50"
+                    />
+                  </div>
+                </div>
+                <div
+                  *ngIf="!containsHttp(bodyItem.componentValue)"
+                  class="flex flex-row"
+                >
+                  <div class="w-1/2">{{ bodyItem.componentName }}</div>
+                  <div class="w-1/2">{{ bodyItem.componentValue }}</div>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div class="flex justify-between items-center font-medium text-xxs">
+            <div class="text-accent"></div>
+            <div class="text-right">
+              {{ item.sentOn | date : "shortTime" }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="item.type === 3"
+          class="flex flex-col bg-white relative -right-[41%] w-[60%] shadow-md rounded-lg p-2 h-fit"
+        >
+          <div class="text-left text-xs">
+            <img [src]="item.body" />
+            <!-- <pre class="w-full h-full" [innerHTML]="item.body | safeHtml"></pre> -->
+          </div>
+
+          <div class="flex justify-between items-center font-medium text-xxs">
+            <div class="text-accent"></div>
+            <div class="text-right">
+              {{ item.sentOn | date : "shortTime" }}
+            </div>
+          </div>
+
+          <div
+            class="absolute h-10 w-10 -right-3 -bottom-3 bg-primary rounded-full cursor-pointer"
+          >
+            <mat-form-field floatLabel="never">
+              <mat-label class="flex justify-center items-center">
+                <mat-icon svgIcon="chat" class="icon"></mat-icon>
+              </mat-label>
+              <mat-select
+                [disableOptionCentering]="true"
+                panelClass="selectCustomClass"
+                (selectionChange)="onSelect($event.value, item.id)"
+              >
+                <mat-option
+                  [value]="option.templateProcessingKeyInformation"
+                  *ngFor="let option of kycDocumentsTypeList; let i = index"
+                  class="matOption"
+                >
+                  <div class="flex justify-start items-center text-sm pb-2">
+                    <span>Process as {{ option.kycDocumentType }}</span>
+                  </div>
+                  <div class="absolute inset-x-0 bottom-0 pl-4 pr-4 opacity-20">
+                    <hr *ngIf="i + 1 !== kycDocumentsTypeList.length" />
+                  </div>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute flex justify-center items-end w-full h-full bottom-12"
+        *ngIf="spinner"
+      >
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-fit shadow-2xl p-2 rounded-[25px] border absolute right-[5%] bottom-[6%] bg-[#005f83]"
+    *ngIf="chatMenuClicked"
+  >
+    <ng-container *ngFor="let menuItem of chatMenuOptions">
+      <div
+        class="bg-[#005f83] hover:bg-[#3b809b] w-56 text-[12px] py-1 px-4 rounded-3xl text-white cursor-pointer mb-2 font-semibold"
+      >
+        {{ menuItem }}
+      </div>
+    </ng-container>
+  </div>
+
+  <div
+    class="bg-white flex w-[40rem] h-[24rem] rounded-[18px] border-[1px] border-[#005f83] absolute bottom-[7%] right-[16%]"
+    *ngIf="calculatorClicked"
+  >
+    <div
+      class="bg-[#fafafa] w-[40%] h-full rounded-tl-[18px] rounded-bl-[18px] border-r-2 border-r-[#005f83]"
+    >
+      <app-input-field
+        label="Car Make"
+        name="carMake"
+        [control]="getFormControl('make')"
+        value=" "
+        [type]="'number'"
+      ></app-input-field>
+
+      <app-input-field
+        label="Car Brand"
+        name="carBrand"
+        [control]="getFormControl('brand')"
+        value=" "
+        [type]="'number'"
+      ></app-input-field>
+
+      <app-input-field
+        label="Car Model"
+        name="carModel"
+        [control]="getFormControl('model')"
+        value=" "
+        [type]="'number'"
+      ></app-input-field>
+
+      <app-input-field
+        label="Car Plate"
+        name="carPlate"
+        value=" "
+        [control]="getFormControl('plate')"
+        [type]="'number'"
+      ></app-input-field>
+
+      <app-input-field
+        label="Car Type"
+        name="carType"
+        value=" "
+        [control]="getFormControl('type')"
+        [type]="'number'"
+      ></app-input-field>
+
+      <app-input-field
+        label="Car Color"
+        name="carColor"
+        value=" "
+        [control]="getFormControl('color')"
+        [type]="'number'"
+      ></app-input-field>
+
+      <app-input-field
+        label="Horse Power"
+        name="carHorsePower"
+        value=" "
+        [control]="getFormControl('horsePower')"
+        [type]="'number'"
+      ></app-input-field>
+    </div>
+
+    <div class="w-[60%] pt-2 pl-4 h-full">
+      <p class="font-semibold pb-8">Sum Insured (Value of the Car)</p>
+      <div class="inline-flex">
+        <div class="text-xs text-[#005f83] pr-1">
+          {{ minSumInsured }}
+          <p class="text-[8px]">Estimated Low</p>
+        </div>
+        <mat-slider
+          [min]="minSumInsured"
+          [max]="maxSumInsured"
+          step="1"
+          discrete
+          [thumbLabel]="true"
+        >
+          <input matSliderThumb />
+        </mat-slider>
+        <div class="text-xs text-[#005f83] pl-1">
+          {{ maxSumInsured }}
+          <p class="text-[8px]">Estimated High</p>
+        </div>
+      </div>
+      <div class="text-[8px] text-[#005f83] top-[30%] absolute right-[25%]">
+        <span>Sum Insured</span>
+      </div>
+
+      <p class="font-semibold pb-4 pt-8">Include Pricing for:</p>
+      <div class="inline-flex gap-5">
+        <button
+          class="ml-auto px-3.5 py-2 text-[11px] bg-primary text-white rounded-md"
+          [ngClass]="{ 'selected-button': selectedPricingCalculateBtn == 0 }"
+          (click)="onClickPricingBtn(0)"
+        >
+          0% Deductible
+        </button>
+        <button
+          class="ml-auto px-3.5 py-2 text-[11px] bg-primary text-white rounded-md"
+          [ngClass]="{ 'selected-button': selectedPricingCalculateBtn == 1 }"
+          (click)="onClickPricingBtn(1)"
+        >
+          Dealership Repair
+        </button>
+        <button
+          class="ml-auto px-3.5 py-2 text-[11px] bg-primary text-white rounded-md"
+          [ngClass]="{ 'selected-button': selectedPricingCalculateBtn == 2 }"
+          (click)="onClickPricingBtn(2)"
+        >
+          15% Deductible
+        </button>
+      </div>
+
+      <button
+        class="ml-auto px-4 py-3 absolute bottom-[3%] right-[2%] text-[15px] bg-primary text-white rounded-md"
+      >
+        Send Price Proposal
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <div class="absolute right-1 -bottom-9">
+      <mat-icon
+        class="py-2 cursor-pointer chat-icon-buttons"
+        *ngIf="canShowCalculator"
+        svgIcon="customer-service-calculator"
+        (click)="onClickCalculator()"
+      ></mat-icon>
+
+      <mat-icon
+        class="py-2 cursor-pointer chat-icon-buttons"
+        *ngIf="!isDepartmentChat"
+        svgIcon="customer-service-assentify"
+        (click)="onClickAssentifyLogo()"
+      ></mat-icon>
+    </div>
+  </div>
+</div>

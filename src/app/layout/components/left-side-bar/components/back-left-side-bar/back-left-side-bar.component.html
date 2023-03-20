@@ -4,7 +4,7 @@
       <mat-icon svgIcon="close" class="cursor-pointer hover:font-bold icon" (click)="flipCard()">
       </mat-icon>
     </div>
-    <div [ngClass]="{'pl-8': extended}"
+    <div [ngClass]="{'pl-4': extended}"
       class="h-[95%] flex flex-col content-between text-sm text-black pt-4 pb-4 overflow-y-auto gap-2">
       <app-navigation-item [extended]="extended" [item]="item"
         *ngFor="let item of navigationList.upper; let i = index"></app-navigation-item>
