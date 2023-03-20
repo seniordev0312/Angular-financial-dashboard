@@ -83,26 +83,33 @@ export class PolicyRenewalsComponent implements OnInit {
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  openDialog(card: {}): void {
-    this.dialog
-      .open(PolicyRenewalsCustomerServiceTicketComponent, {
-        maxWidth: '100vw',
-        maxHeight: '100vh',
-        height: '90%',
-        width: '95%',
-        data: {
-          dataKey: card,
-        },
-      })
-      .afterClosed()
-      .subscribe(() => {
-        this.policyCardService.getPolicyRenewalTickets();
+  openDialog(card: any): void {
+    let ticketData: any = null;
 
-        this.subscription = tickets$.subscribe((data: any) => {
-          this.tickets = data;
-          this.ref.detectChanges();
+    this.policyCardService.getTicketData(card.id).subscribe((data: any) => {
+      ticketData = data;
+      this.ref.detectChanges();
+
+      this.dialog
+        .open(PolicyRenewalsCustomerServiceTicketComponent, {
+          maxWidth: '100vw',
+          maxHeight: '100vh',
+          height: '90%',
+          width: '95%',
+          data: {
+            dataKey: ticketData,
+          },
+        })
+        .afterClosed()
+        .subscribe(() => {
+          this.policyCardService.getPolicyRenewalTickets();
+
+          this.subscription = tickets$.subscribe((data: any) => {
+            this.tickets = data;
+            this.ref.detectChanges();
+          });
         });
-      });
+    });
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {

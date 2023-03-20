@@ -96,26 +96,34 @@ export class CustomerServiceComponent implements OnInit {
     this.layoutService.changeRightSideNavMode('over');
   }
 
-  openDialog(card: {}): void {
-    this.dialog
-      .open(CustomerServiceTicketComponent, {
-        maxWidth: '100vw',
-        maxHeight: '100vh',
-        height: '90%',
-        width: '95%',
-        data: {
-          dataKey: card,
-        },
-      })
-      .afterClosed()
-      .subscribe(() => {
-        this.customerCardService.getCutomerServiceTickets();
+  openDialog(card: any): void {
+    let ticketData: any = null;
+    
+    this.customerCardService.getTicketData(card.id).subscribe((data: any) => {
+      ticketData = data;
+      this.ref.detectChanges();
 
-        this.subscription = tickets$.subscribe((data: any) => {
-          this.tickets = data;
-          this.ref.detectChanges();
+      this.dialog
+        .open(CustomerServiceTicketComponent, {
+          maxWidth: '100vw',
+          maxHeight: '100vh',
+          height: '90%',
+          width: '95%',
+          data: {
+            dataKey: ticketData,
+          },
+        })
+        .afterClosed()
+        .subscribe(() => {
+          this.customerCardService.getCutomerServiceTickets();
+
+          this.subscription = tickets$.subscribe((data: any) => {
+            this.tickets = data;
+            this.ref.detectChanges();
+          });
         });
-      });
+    });
+
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
@@ -176,7 +184,6 @@ export class CustomerServiceComponent implements OnInit {
 
     this.customerCardService.filterCustomerServiceTickets(filterOption);
   }
-
 
   onClearFilter() {
     this.searchBarValue = '';

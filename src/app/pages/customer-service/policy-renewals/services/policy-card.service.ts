@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { catchError, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 import { PolicyRenewalsTicketsRepository } from '../store/policy-renewals-tickets.repository';
@@ -12,7 +12,7 @@ export class PolicyCardService {
   constructor(
     private http: HttpClient,
     private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
-  ) { }
+  ) {}
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -30,6 +30,7 @@ export class PolicyCardService {
   // Define Filter API
   apiFilterURL = `${this.customerServiceServerURL}/PolicyRenewalTicket/Filter`;
   apiPutURL = `${this.customerServiceServerURL}/PolicyRenewalTicket`;
+  apiGetTicketData = `${this.customerServiceServerURL}/CustomerServiceTicket`;
 
   // HttpClient API post() method => Get PolicyRenewalTickets
   getPolicyRenewalTickets() {
@@ -48,6 +49,12 @@ export class PolicyCardService {
       .subscribe((data) => {
         this.policyRenewalsTicketsRepository.updateTickets(data);
       });
+  }
+
+  getTicketData(ticketId: number) {
+    return this.http
+      .get<any>(`${this.apiGetTicketData}/${ticketId}`, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API post() method => create PolicyRenewalTickets
