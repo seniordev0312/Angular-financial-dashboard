@@ -96,7 +96,7 @@
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
         [cdkDropListData]="tickets.inQueueTickets"
-        (cdkDropListDropped)="drop($event, 0)"
+        (cdkDropListDropped)="drop($event, 1)"
       >
         <div
           class="flex justify-center relative"
@@ -116,7 +116,7 @@
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
         [cdkDropListData]="tickets.inProgressTickets"
-        (cdkDropListDropped)="drop($event, 1)"
+        (cdkDropListDropped)="drop($event, 2)"
       >
         <div
           class="flex justify-center"
@@ -136,7 +136,7 @@
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
         [cdkDropListData]="tickets.processedTickets"
-        (cdkDropListDropped)="drop($event, 2)"
+        (cdkDropListDropped)="drop($event, 3)"
       >
         <div
           class="flex justify-center"
@@ -156,7 +156,7 @@
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
         [cdkDropListData]="tickets.resolvedTickets"
-        (cdkDropListDropped)="drop($event, 3)"
+        (cdkDropListDropped)="drop($event, 4)"
       >
         <div
           class="flex justify-center"
@@ -176,7 +176,7 @@
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
         [cdkDropListData]="tickets.closedTickets"
-        (cdkDropListDropped)="drop($event, 4)"
+        (cdkDropListDropped)="drop($event, 5)"
       >
         <div
           class="flex justify-center"
