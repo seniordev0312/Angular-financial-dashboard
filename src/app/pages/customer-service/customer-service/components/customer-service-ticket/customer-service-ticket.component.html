@@ -517,6 +517,7 @@
                       >
                         <button
                           (click)="
+                            onSaveLocation();
                             locationAccordion.toggle();
                             displayEmergencyInitateSection();
                             emergencyInitiate.toggle()
@@ -574,9 +575,7 @@
                         >
                           <app-button
                             (click)="
-                              onSelectEmergencyItem(
-                                emergencyInitiateItem
-                              )
+                              onSelectEmergencyItem(emergencyInitiateItem)
                             "
                             classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                             text="{{ emergencyInitiateItem.name }}"
@@ -591,9 +590,7 @@
                         >
                           <app-button
                             (click)="
-                              onSelectEmergencyItem(
-                                emergencyInitiateItem
-                              )
+                              onSelectEmergencyItem(emergencyInitiateItem)
                             "
                             classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
                             text="{{ emergencyInitiateItem.name }}"
@@ -834,7 +831,10 @@
               </div>
             </div>
             <div *ngIf="noteSectionFlag">
-              <app-notes></app-notes>
+              <app-notes
+                (noteSubmitted)="onSubmitNote($event)"
+                [ticketNoteData]="dataTicket?.note"
+              ></app-notes>
             </div>
           </div>
         </div>
