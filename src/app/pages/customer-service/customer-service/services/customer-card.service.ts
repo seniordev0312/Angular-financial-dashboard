@@ -154,6 +154,13 @@ export class CustomerCardService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
+  getRequiredProductData(id: number) {
+    const apiGetRequiredProductData = `${this.apiGetRequireData}/${id}`;
+    return this.http
+      .get<TicketCategory>(apiGetRequiredProductData, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   // HttpClient API get() method => get emergencyTypes in CustomerServiceTicket
   getEmerencyTypeData() {
     return this.http

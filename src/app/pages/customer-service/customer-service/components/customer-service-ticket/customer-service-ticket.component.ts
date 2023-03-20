@@ -254,6 +254,8 @@ export class CustomerServiceTicketComponent implements OnInit {
       .subscribe((data: any) => {
         this.products = data;
         // this.isLoading = false;
+        console.log("businessId", businessId);
+        console.log("products", this.products);
         this.ref.detectChanges();
       });
     this.productSectionFlag = true;
@@ -336,6 +338,7 @@ export class CustomerServiceTicketComponent implements OnInit {
         .subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
           // this.isLoading = false;
+          console.log("Required Data",this.requiredData);
           this.ref.detectChanges();
         });
     }

@@ -42,6 +42,7 @@ export class PendingInformaitonCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.draftPolicyPendingInfoService.getFormGroup();
+    console.log("Pending Informations")
   }
 
   getFormControl(key: string): FormControl {
