@@ -14,7 +14,7 @@ export class CustomerCardService {
   constructor(
     private http: HttpClient,
     private customerServiceTicketsRepository: CustomerServiceTicketsRepository
-  ) { }
+  ) {}
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -31,6 +31,7 @@ export class CustomerCardService {
 
   // Define API route
   apiFilterURL = `${this.customerServiceServerURL}/CustomerServiceTicket/Filter`;
+  apiGetTicketData = `${this.customerServiceServerURL}/CustomerServiceTicket`;
   apiPutURL = `${this.customerServiceServerURL}/CustomerServiceTicket`;
   apiPutStatus = `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketStatus`;
   apiGetCategory = `${this.customerServiceServerURL}/Resource/Category`;
@@ -62,6 +63,12 @@ export class CustomerCardService {
       .subscribe((data) => {
         this.customerServiceTicketsRepository.updateTickets(data);
       });
+  }
+
+  getTicketData(ticketId: number) {
+    return this.http
+      .get<any>(`${this.apiGetTicketData}/${ticketId}`, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API post() method => Filter customer service tickets
