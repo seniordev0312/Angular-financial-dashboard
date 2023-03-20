@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { catchError, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 import { PolicyRenewalsTicketsRepository } from '../store/policy-renewals-tickets.repository';
@@ -30,17 +30,20 @@ export class PolicyCardService {
   // Define Filter API
   apiFilterURL = `${this.customerServiceServerURL}/PolicyRenewalTicket/Filter`;
   apiPutURL = `${this.customerServiceServerURL}/PolicyRenewalTicket`;
+  apiGetFollowUpResponsiveness = `${this.customerServiceServerURL}/Resource/Reference/TicketResponse`;
+  apiGetFollowUpStatus = `${this.customerServiceServerURL}/Resource/Reference/PolicyRenewalStatus`;
 
   // HttpClient API post() method => Get PolicyRenewalTickets
   getPolicyRenewalTickets() {
     let paramObj: any = {
-      "searchQuery": null,
-      "assignedToId": null,
-      "fromDateCreated": null,
-      "toDateCreated": null,
-      "fromDateModified": null,
-      "toDateModified": null,
-      "communicationChannelId": null
+      searchQuery: null,
+      assignedToId: null,
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      followUpResponse: null,
+      followUpStatus:null
     };
 
     this.http
@@ -48,6 +51,18 @@ export class PolicyCardService {
       .subscribe((data) => {
         this.policyRenewalsTicketsRepository.updateTickets(data);
       });
+  }
+  
+  getFollowUpResponsivenessApi() {
+    return this.http
+      .get<any>(this.apiGetFollowUpResponsiveness, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getFollowUpStatusApi() {
+    return this.http
+      .get<any>(this.apiGetFollowUpStatus, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API post() method => create PolicyRenewalTickets
