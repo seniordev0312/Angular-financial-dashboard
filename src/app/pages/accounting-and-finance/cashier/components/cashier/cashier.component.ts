@@ -287,8 +287,8 @@ export class CashierComponent implements OnInit {
 
   openTransactionModal() {
     this.dialog.open(NewTransactionComponent, {
-      width: '30%',
-      height: '70%',
+      width: '90%',
+      height: '80%',
     });
   }
 }
