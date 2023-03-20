@@ -83,11 +83,11 @@ export class CustomerServiceTicketComponent implements OnInit {
     initiate: [],
   };
   ticketStatus: BaseListItem[] = [
-    { id: 0, value: 'Created/Received Queue' },
-    { id: 1, value: 'In Process' },
-    { id: 2, value: 'Processed' },
-    { id: 3, value: 'Resolved' },
-    { id: 4, value: 'Closed' },
+    { id: 1, value: 'Created/Received Queue' },
+    { id: 2, value: 'In Process' },
+    { id: 3, value: 'Processed' },
+    { id: 4, value: 'Resolved' },
+    { id: 5, value: 'Closed' },
   ];
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
@@ -136,6 +136,7 @@ export class CustomerServiceTicketComponent implements OnInit {
       this.getTicketStatus(this.dataTicket.status)
     );
 
+
     this.subscription = this.customerCardService
       .getContactDetails(this.dataTicket)
       .subscribe((data: any) => {
@@ -150,11 +151,11 @@ export class CustomerServiceTicketComponent implements OnInit {
   }
 
   getTicketStatus(statusId: number): BaseListItem {
-    if (statusId == 0) return { id: 0, value: 'Created/Received Queue' };
-    else if (statusId == 1) return { id: 1, value: 'In Process' };
-    else if (statusId == 2) return { id: 2, value: 'Processed' };
-    else if (statusId == 3) return { id: 3, value: 'Resolved' };
-    else if (statusId == 4) return { id: 4, value: 'Closed' };
+    if (statusId == 1) return { id: 1, value: 'Created/Received Queue' };
+    else if (statusId == 2) return { id: 2, value: 'In Process' };
+    else if (statusId == 3) return { id: 3, value: 'Processed' };
+    else if (statusId == 4) return { id: 4, value: 'Resolved' };
+    else if (statusId == 5) return { id: 5, value: 'Closed' };
     else return null;
   }
 

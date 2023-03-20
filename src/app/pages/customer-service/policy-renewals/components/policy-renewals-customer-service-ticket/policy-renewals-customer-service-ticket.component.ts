@@ -22,11 +22,11 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
   communicationAction: number = -1;
   noteSectionFlag: boolean = false;
   statusList: BaseListItem[] = [
-    { id: 0, value: 'Policy Renewal Followup' },
-    { id: 1, value: 'In Process' },
-    { id: 2, value: 'Processed (Renewal Issued)' },
-    { id: 3, value: 'Renewal Approved' },
-    { id: 4, value: 'Closed (No Renewal)' },
+    { id: 1, value: 'Policy Renewal Followup' },
+    { id: 2, value: 'In Process' },
+    { id: 3, value: 'Processed (Renewal Issued)' },
+    { id: 4, value: 'Renewal Approved' },
+    { id: 5, value: 'Closed (No Renewal)' },
   ];
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
 
@@ -37,17 +37,19 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.data.dataKey);
     this.selectedTicketStatus.setValue(
       this.getTicketStatus(this.data.dataKey.status)
     );
   }
 
   getTicketStatus(statusId: number): BaseListItem {
-    if (statusId == 0) return { id: 0, value: 'Created/Received Queue' };
-    else if (statusId == 1) return { id: 1, value: 'In Process' };
-    else if (statusId == 2) return { id: 2, value: 'Processed' };
-    else if (statusId == 3) return { id: 3, value: 'Resolved' };
-    else if (statusId == 4) return { id: 4, value: 'Closed' };
+    if (statusId == 1) return { id: 1, value: 'Policy Renewal Followup' };
+    else if (statusId == 2) return { id: 2, value: 'In Process' };
+    else if (statusId == 3)
+      return { id: 3, value: 'Processed (Renewal Issued)' };
+    else if (statusId == 4) return { id: 4, value: 'Renewal Approved' };
+    else if (statusId == 5) return { id: 5, value: 'Closed (No Renewal)' };
     else return null;
   }
 
