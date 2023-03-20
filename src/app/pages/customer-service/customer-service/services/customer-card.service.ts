@@ -39,11 +39,7 @@ export class CustomerCardService {
   apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
-
-  apiGetFollowUpResponsiveness = `${this.customerServiceServerURL}/Resource/Reference/FollowUpResponsiveness`;
-  apiGetCustomerServiceTicketType = `${this.customerServiceServerURL}/Resource/Category`;
-  apiGetFollowUpStatus = `${this.customerServiceServerURL}/Resource/Reference/FollowUpStatus`;
-  apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
+  apiGetCommunicationChannel=`${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
@@ -56,6 +52,7 @@ export class CustomerCardService {
       fromDateModified: null,
       toDateModified: null,
       communicationChannelId: null,
+      category:null
     };
 
     this.http
@@ -110,21 +107,11 @@ export class CustomerCardService {
       .get<any>(this.apiGetUserDetails, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
-  getFollowUpResponsivenessApi() {
-    return this.http
-      .get<any>(this.apiGetFollowUpResponsiveness, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
-  }
+  
 
   getCustomerServiceTicketTypeApi() {
     return this.http
-      .get<any>(this.apiGetCustomerServiceTicketType, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
-  }
-
-  getFollowUpStatusApi() {
-    return this.http
-      .get<any>(this.apiGetFollowUpStatus, this.httpOptions)
+      .get<any>(this.apiGetCategory, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
