@@ -8,9 +8,9 @@ import { ApplicationRoutes } from './shared/settings/common.settings';
     imports: [
         AuthModule.forRoot({
             config: {
-                authority: environment.identityServerURL,
+                authority: environment.identityServerURL as string,
                 redirectUrl: window.location.origin,
-                postLogoutRedirectUri: environment.postLogoutRedirectUri,
+                postLogoutRedirectUri: environment.postLogoutRedirectUri as string,
                 clientId: 'aperture-powerhouse',
                 scope: 'openid profile roles email insurance_powerhouse address apertureidentity_api',
                 responseType: 'code',
