@@ -128,6 +128,10 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
     this.signalRService.init(this.ticketId);
 
+    if (this.dataTicket.locationAddress) {
+      this.location.setValue(this.dataTicket.locationAddress);
+    }
+
     this.selectedTicketStatus.setValue(
       this.getTicketStatus(this.dataTicket.status)
     );
@@ -335,6 +339,35 @@ export class CustomerServiceTicketComponent implements OnInit {
           this.ref.detectChanges();
         });
     }
+  }
+
+  onSaveLocation() {
+    let body: any = {
+      location: this.location.value,
+      notes: null,
+      messageTitle: null,
+      messageDescription: null,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+  }
+
+  onSubmitNote(event: Event) {
+    let body: any = {
+      location: null,
+      notes: event,
+      messageTitle: null,
+      messageDescription: null,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+    this.noteSectionFlag = false;
   }
 
   ngOnDestroy(): void {
