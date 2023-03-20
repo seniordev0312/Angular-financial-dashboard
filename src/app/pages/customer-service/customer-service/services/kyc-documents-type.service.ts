@@ -9,7 +9,7 @@ import { KYCDocumentTypeRepository } from '../store/kyc-documents-type-service.r
 })
 export class KYCDocumentTypeService {
   private baseUrl = `${environment.entityApiUrl}`;
-  private customerServer = `${environment.customerServer}`;
+  private customerServer = `${environment.customerService}`;
 
   extractDocumentSubject = new BehaviorSubject<any>(null);
   extractDocumentSubject$ = this.extractDocumentSubject.asObservable();
@@ -17,7 +17,7 @@ export class KYCDocumentTypeService {
   constructor(
     private kYCDocumentTypeRepository: KYCDocumentTypeRepository,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   getKYCDocumentType(
     pageIndex: number,
@@ -79,20 +79,20 @@ export class KYCDocumentTypeService {
       });
   }
 
-      extractDocument(extractDocument: any) {
-        let endPointUrl = `${this.customerServer}/api/Document/Extract/${extractDocument.chatId}`;
-        let httpOptions = {
-            headers: new HttpHeaders(),
-            params: new HttpParams(),
-        };
+  extractDocument(extractDocument: any) {
+    let endPointUrl = `${this.customerServer}/api/Document/Extract/${extractDocument.chatId}`;
+    let httpOptions = {
+      headers: new HttpHeaders(),
+      params: new HttpParams(),
+    };
 
-        this.httpClient.post<any>(endPointUrl, {
-            templateReferenceId: extractDocument.templateReferenceId,
-            messageId: extractDocument.messageId
-        }, httpOptions).subscribe(data => {
-            if (data) {
-                this.extractDocumentSubject.next(data);
-            }
-        });
-    }
+    this.httpClient.post<any>(endPointUrl, {
+      templateReferenceId: extractDocument.templateReferenceId,
+      messageId: extractDocument.messageId
+    }, httpOptions).subscribe(data => {
+      if (data) {
+        this.extractDocumentSubject.next(data);
+      }
+    });
+  }
 }
