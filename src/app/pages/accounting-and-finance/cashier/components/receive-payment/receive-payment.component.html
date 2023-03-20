@@ -11,21 +11,30 @@
           class="flex flex-col mt-auto mb-auto px-10 py-10 justify-center"
           (click)="changeStatus('0')"
         >
-          <img src="{{ cardIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/selected-card.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ cardFontColor }}">Card</p>
         </div>
         <div
           class="flex flex-col px-10 py-10 justify-center"
           (click)="changeStatus('1')"
         >
-          <img src="{{ checkIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/check.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
         </div>
         <div
           class="flex flex-col px-10 py-10 justify-center"
           (click)="changeStatus('2')"
         >
-          <img src="{{ cashIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/cash.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
         </div>
       </div>
@@ -55,14 +64,18 @@
         </div>
         <div class="flex mt-24">
           <div class="w-1/2 text-white border rounded-t-[20px] mr-4 ml-2">
-            <p class="bg-[#275E80] py-3 text-center">Description</p>
+            <p class="bg-[#275E80] border rounded-t-[20px] py-3 text-center">
+              Description
+            </p>
             <div class="flex flex-col p-3 bg-[#fafafa]">
               <app-input-field></app-input-field>
               <app-input-field></app-input-field>
             </div>
           </div>
           <div class="w-1/2 text-white border rounded-t-[20px] ml-4 mr-2">
-            <p class="bg-[#275E80] py-3 text-center">Notes</p>
+            <p class="bg-[#275E80] border rounded-t-[20px] py-3 text-center">
+              Notes
+            </p>
             <div class="flex flex-col p-3 bg-[#fafafa]">
               <app-input-field></app-input-field>
               <app-input-field></app-input-field>
@@ -73,12 +86,12 @@
           <div class="w-1/2"></div>
           <div class="w-1/2 flex justify-evenly mt-5">
             <button
-              class="text-[19px] py-6 px-[44px] text-[#275E80] border-button"
+              class="text-[19px] border rounded-[10px] py-6 px-[44px] text-[#275E80] border-button"
             >
               Cancel
             </button>
             <button
-              class="text-[19px] py-6 px-[44px] text-white bg-[#275E80] border-button"
+              class="text-[19px] border rounded-[10px] py-6 px-[44px] text-white bg-[#275E80] border-button"
             >
               Process & Print
             </button>
@@ -100,21 +113,30 @@
           class="flex flex-col px-10 py-10 justify-center"
           (click)="changeStatus('0')"
         >
-          <img src="{{ cardIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/card.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ cardFontColor }}">Card</p>
         </div>
         <div
           class="flex flex-col px-10 py-10 justify-center mt-auto mb-auto"
           (click)="changeStatus('1')"
         >
-          <img src="{{ checkIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/selected-check.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
         </div>
         <div
           class="flex flex-col px-10 py-10 justify-center"
           (click)="changeStatus('2')"
         >
-          <img src="{{ cashIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/cash.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
         </div>
       </div>
@@ -130,21 +152,30 @@
           class="flex flex-col px-10 py-10 justify-center"
           (click)="changeStatus('0')"
         >
-          <img src="{{ cardIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/card.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ cardFontColor }}">Card</p>
         </div>
         <div
           class="flex flex-col px-10 py-10 justify-center"
           (click)="changeStatus('1')"
         >
-          <img src="{{ checkIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/check.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
         </div>
         <div
           class="flex flex-col px-10 py-10 justify-center mt-auto mb-auto"
           (click)="changeStatus('2')"
         >
-          <img src="{{ cashIconUrl }}" alt="" />
+          <img
+            src="../../../../../../assets/images/cashier-icons/selected-cash.svg"
+            alt=""
+          />
           <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
         </div>
       </div>

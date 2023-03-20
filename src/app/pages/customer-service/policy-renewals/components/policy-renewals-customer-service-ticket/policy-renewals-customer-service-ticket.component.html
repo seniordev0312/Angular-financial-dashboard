@@ -216,7 +216,7 @@
                   </div>
                 </div>
                 <div *ngIf="noteSectionFlag">
-                  <app-notes></app-notes>
+                  <app-notes (noteSubmitted)="onSubmitNote($event)" [ticketNoteData]="data.dataKey?.note"></app-notes>
                 </div>
               </div>
             </div>

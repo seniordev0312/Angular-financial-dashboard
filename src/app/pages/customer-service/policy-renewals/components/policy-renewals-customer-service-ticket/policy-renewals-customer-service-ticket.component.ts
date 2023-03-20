@@ -64,4 +64,18 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
 
     this.policyCardService.updatePolicyRenewalTickets(this.data.dataKey);
   }
+
+  onSubmitNote(event: Event) {
+    let body: any = {
+      location: null,
+      notes: event,
+      messageTitle: null,
+      messageDescription: null,
+    };
+    this.policyCardService.updateCustomServiceTicketDetails(
+      this.data.dataKey.id,
+      body
+    );
+    this.noteSectionFlag = false;
+  }
 }

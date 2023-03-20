@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class SignalRService {
-  private readonly baseUrl = `${environment.signalRHub}`;
+  private readonly baseUrl = `${environment.customerServiceSignalRHub}`;
   private options: signalR.IHttpConnectionOptions;
   private hubConnection: signalR.HubConnection;
 
