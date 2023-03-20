@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import {
   EntitiesControlComponent,
 } from './pages/entities/entities-control/components/entities-control/entities-control.component';
@@ -42,6 +43,7 @@ export class AppComponent extends BaseComponent {
   ) {
     super();
     translationService.setDefaultLanguage();
+    console.log(environment)
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd && e.url === '/') {
         this.router.navigate([`${ApplicationRoutes.Dashboard}`]);
