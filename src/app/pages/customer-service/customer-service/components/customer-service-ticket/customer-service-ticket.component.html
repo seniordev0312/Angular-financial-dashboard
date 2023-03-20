@@ -517,6 +517,7 @@
                       >
                         <button
                           (click)="
+                            onSaveLocation();
                             locationAccordion.toggle();
                             displayEmergencyInitateSection();
                             emergencyInitiate.toggle()
@@ -549,7 +550,7 @@
                     (click)="emergencyInitiate.toggle()"
                     class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
                   >
-                    Initiate {{isActionConfirmed}} {{choosedButtons.initiate}}
+                    Initiate
                   </p>
                   <div
                     class="mt-2 mb-5 bg-white"
@@ -574,9 +575,7 @@
                         >
                           <app-button
                             (click)="
-                              displayEmergencyInitateSection(
-                                emergencyInitiateItem
-                              )
+                              onSelectEmergencyItem(emergencyInitiateItem)
                             "
                             classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                             text="{{ emergencyInitiateItem.name }}"
@@ -591,23 +590,18 @@
                         >
                           <app-button
                             (click)="
-                              displayEmergencyInitateSection(
-                                emergencyInitiateItem
-                              )
+                              onSelectEmergencyItem(emergencyInitiateItem)
                             "
                             classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
                             text="{{ emergencyInitiateItem.name }}"
                           ></app-button>
                         </div>
                       </div>
-
-                  
                     </div>
                   </div>
                 </div>
               </div>
             </cdk-accordion-item>
-
 
             <cdk-accordion-item
               #otherDetailsAccordion="cdkAccordionItem"
@@ -837,7 +831,10 @@
               </div>
             </div>
             <div *ngIf="noteSectionFlag">
-              <app-notes></app-notes>
+              <app-notes
+                (noteSubmitted)="onSubmitNote($event)"
+                [ticketNoteData]="dataTicket?.note"
+              ></app-notes>
             </div>
           </div>
         </div>

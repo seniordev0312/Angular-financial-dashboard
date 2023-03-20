@@ -23,7 +23,9 @@ export class ConfirmEmergencyActionComponent implements OnInit {
   ngOnInit(): void {}
 
   onClose() {
-    this.dialogRef.close({ emergencyAction: this.data.emergencyAction.id });
+    if (this.isActionConfirmed)
+      this.dialogRef.close({ emergencyAction: this.data.emergencyAction.id });
+    else this.dialogRef.close();
   }
 
   onConfirm() {

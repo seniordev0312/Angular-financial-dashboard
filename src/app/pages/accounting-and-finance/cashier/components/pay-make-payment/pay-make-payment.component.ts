@@ -14,8 +14,13 @@ import {
 export class PayMakePaymentComponent implements OnInit {
   @Input() totalPrice: number;
   paymentStatus: string = 'person';
+  personFlag: boolean = true;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  switchPerson() {
+    this.personFlag = !this.personFlag;
+  }
 }

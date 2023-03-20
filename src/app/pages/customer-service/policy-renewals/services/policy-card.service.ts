@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { catchError, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PolicyCard } from '../../customer-service-shared/components/policy-card/models/policy-card.model';
 import { PolicyRenewalsTicketsRepository } from '../store/policy-renewals-tickets.repository';
@@ -25,29 +25,36 @@ export class PolicyCardService {
     }),
   };
 
-  customerServiceServerURL = `${environment.customerServer}/api`;
+  customerServiceServerURL = `${environment.customerService}/api`;
 
   // Define Filter API
   apiFilterURL = `${this.customerServiceServerURL}/PolicyRenewalTicket/Filter`;
   apiPutURL = `${this.customerServiceServerURL}/PolicyRenewalTicket`;
+  apiGetTicketData = `${this.customerServiceServerURL}/CustomerServiceTicket`;
 
   // HttpClient API post() method => Get PolicyRenewalTickets
   getPolicyRenewalTickets() {
     let paramObj: any = {
-      "searchQuery": null,
-      "assignedToId": null,
-      "fromDateCreated": null,
-      "toDateCreated": null,
-      "fromDateModified": null,
-      "toDateModified": null,
-      "communicationChannelId": null
+      searchQuery: null,
+      assignedToId: null,
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      communicationChannelId: null,
     };
 
     this.http
-      .post<PolicyCard>(this.apiFilterURL, paramObj , this.httpOptions)
+      .post<PolicyCard>(this.apiFilterURL, paramObj, this.httpOptions)
       .subscribe((data) => {
         this.policyRenewalsTicketsRepository.updateTickets(data);
       });
+  }
+
+  getTicketData(ticketId: number) {
+    return this.http
+      .get<any>(`${this.apiGetTicketData}/${ticketId}`, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   // HttpClient API post() method => create PolicyRenewalTickets
@@ -63,6 +70,17 @@ export class PolicyCardService {
   updatePolicyRenewalTickets(body: {}) {
     this.http
       .put<PolicyCard>(this.apiPutURL, body, this.httpOptions)
+      .subscribe(console.log);
+  }
+
+  // HttpClient API put() method => Update Customer Service Ticket Details
+  updateCustomServiceTicketDetails(ticketID: number, body: {}) {
+    this.http
+      .put<PolicyCard>(
+        `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketDetails/${ticketID}`,
+        body,
+        this.httpOptions
+      )
       .subscribe(console.log);
   }
 

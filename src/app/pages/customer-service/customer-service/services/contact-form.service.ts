@@ -8,7 +8,7 @@ import { ChatRepository } from '../store/contact-form.repository';
   providedIn: 'root',
 })
 export class ContactFormService {
-  private customerServer = `${environment.customerServer}`;
+  private customerServer = `${environment.customerService}`;
 
   sendMessageSubject = new BehaviorSubject<void>(null);
   sendMessageSubject$ = this.sendMessageSubject.asObservable();
@@ -16,7 +16,7 @@ export class ContactFormService {
   constructor(
     private httpClient: HttpClient,
     private chatRepository: ChatRepository
-  ) {}
+  ) { }
 
   getMessageHistory(chatId: number) {
     let endPointUrl = `${this.customerServer}/api/Message/${chatId}`;
@@ -26,7 +26,7 @@ export class ContactFormService {
     };
 
     this.httpClient.get<any>(endPointUrl, httpOptions).subscribe((data) => {
-      console.log('messagehistory dta', data); 
+      console.log('messagehistory dta', data);
     });
   }
 

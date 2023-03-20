@@ -50,7 +50,6 @@ export class CustomerServiceTicketComponent implements OnInit {
   otherFlowFlag: boolean = false;
   complaintFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
-  isActionConfirmed: boolean = false;
   isShowAppField = false;
   isLoading = false;
   canShowCalculator = false;
@@ -128,6 +127,10 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.ticketId = this.data.dataKey.id;
     this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
     this.signalRService.init(this.ticketId);
+
+    if (this.dataTicket.locationAddress) {
+      this.location.setValue(this.dataTicket.locationAddress);
+    }
 
     this.selectedTicketStatus.setValue(
       this.getTicketStatus(this.dataTicket.status)
@@ -284,9 +287,7 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.locationSectionFlag = true;
   }
 
-  displayEmergencyInitateSection(emergencyInitiateItem?: any) {
-    this.isActionConfirmed = false;
-
+  displayEmergencyInitateSection() {
     this.subscription = this.customerCardService
       .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
       .subscribe((data: any) => {
@@ -296,36 +297,35 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.ref.detectChanges();
       });
 
-    if (emergencyInitiateItem) {
+    this.emergencyInitialSectionFlag = true;
+  }
+
+  onSelectEmergencyItem(emergencyInitiateItem: any) {
+    if (
+      emergencyInitiateItem &&
+      !this.choosedButtons.initiate.includes(emergencyInitiateItem.id)
+    ) {
       let location = this.location.value;
 
       this.dialog
         .open(ConfirmEmergencyActionComponent, {
           width: '25%',
-          height: '30%',
-          data: { emergencyAction: emergencyInitiateItem, location: location },
+          height: '200px',
+          data: {
+            emergencyAction: emergencyInitiateItem,
+            location: location,
+            choosedButtons: this.choosedButtons.initiate,
+          },
         })
         .afterClosed()
         .subscribe((result) => {
-          this.choosedButtons.initiate.push(result.emergencyAction);
-          // this.isActionConfirmed = result.isActionConfirmed;
-
-    console.log(this.choosedButtons.initiate);
-          // this.selectActionButtons(emergencyInitiateItem);
+          if (result) {
+            this.choosedButtons.initiate.push(result.emergencyAction);
+            this.ref.detectChanges();
+          }
         });
     }
-
-    this.emergencyInitialSectionFlag = true;
-    console.log(this.choosedButtons.initiate);
   }
-
-  // selectActionButtons(emergencyInitiateItem?: any) {
-  //   if (this.isActionConfirmed) {
-  //     this.choosedButtons.initiate.push(emergencyInitiateItem.id);
-  //   }
-  //   console.log(this.isActionConfirmed);
-  //   console.log(this.choosedButtons.initiate);
-  // }
 
   RequestDraftPolicy() {
     // this.isLoading = true;
@@ -342,6 +342,35 @@ export class CustomerServiceTicketComponent implements OnInit {
           this.ref.detectChanges();
         });
     }
+  }
+
+  onSaveLocation() {
+    let body: any = {
+      location: this.location.value,
+      notes: null,
+      messageTitle: null,
+      messageDescription: null,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+  }
+
+  onSubmitNote(event: Event) {
+    let body: any = {
+      location: null,
+      notes: event,
+      messageTitle: null,
+      messageDescription: null,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+    this.noteSectionFlag = false;
   }
 
   ngOnDestroy(): void {

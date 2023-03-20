@@ -1,10 +1,10 @@
-<div *ngIf="!isActionConfirmed">
-  <div>
+<div *ngIf="!isActionConfirmed" class="h-full px-8 py-12">
+  <div class="pb-12 text-center">
     Are you sure you want to {{ data.emergencyAction.name }} to
     {{ data.location }}?
   </div>
 
-  <div class="w-[100%] flex flex-wrap justify-between pb-4">
+  <div class="w-[100%] flex flex-wrap justify-around pb-4">
     <app-button
       (click)="onClose()"
       text="No"
@@ -19,12 +19,14 @@
   </div>
 </div>
 
-<div *ngIf="isActionConfirmed">
-  Help will be on the way soon!
+<div *ngIf="isActionConfirmed" class="h-full px-8 py-12">
+  <div class="pb-12 text-center">Help will be on the way soon!</div>
 
-  <app-button
-    (click)="onClose()"
-    text="Ok"
-    classes="bg-accent h-10 w-[6.75rem] text-white shadow-lg"
-  ></app-button>
+  <div class="w-[100%] flex flex-wrap justify-around pb-4">
+    <app-button
+      (click)="onClose()"
+      text="Ok"
+      classes="bg-accent h-10 w-[6.75rem] text-white shadow-lg"
+    ></app-button>
+  </div>
 </div>

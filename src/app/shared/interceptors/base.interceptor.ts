@@ -8,7 +8,7 @@ export class BaseInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        if (req.urlWithParams.indexOf(environment.identityServerURL) > -1) {
+        if (req.urlWithParams.indexOf(environment.identityServerURL as string) > -1) {
             return next.handle(req);
         }
         if (req?.headers.has('InterceptorSkipContentTypeHeader')) {

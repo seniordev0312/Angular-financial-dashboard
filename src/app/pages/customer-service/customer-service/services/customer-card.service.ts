@@ -27,10 +27,11 @@ export class CustomerCardService {
     }),
   };
 
-  customerServiceServerURL = `${environment.customerServer}/api`;
+  customerServiceServerURL = `${environment.customerService}/api`;
 
   // Define API route
   apiFilterURL = `${this.customerServiceServerURL}/CustomerServiceTicket/Filter`;
+  apiGetTicketData = `${this.customerServiceServerURL}/CustomerServiceTicket`;
   apiPutURL = `${this.customerServiceServerURL}/CustomerServiceTicket`;
   apiPutStatus = `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketStatus`;
   apiGetCategory = `${this.customerServiceServerURL}/Resource/Category`;
@@ -38,12 +39,11 @@ export class CustomerCardService {
   apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
-  
 
   apiGetFollowUpResponsiveness = `${this.customerServiceServerURL}/Resource/Reference/FollowUpResponsiveness`;
   apiGetCustomerServiceTicketType = `${this.customerServiceServerURL}/Resource/Category`;
   apiGetFollowUpStatus = `${this.customerServiceServerURL}/Resource/Reference/FollowUpStatus`;
-  apiGetCommunicationChannel=`${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
+  apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
@@ -65,6 +65,12 @@ export class CustomerCardService {
       });
   }
 
+  getTicketData(ticketId: number) {
+    return this.http
+      .get<any>(`${this.apiGetTicketData}/${ticketId}`, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
   // HttpClient API post() method => Filter customer service tickets
   filterCustomerServiceTickets(option: {}) {
     this.http
@@ -81,10 +87,21 @@ export class CustomerCardService {
       .subscribe(console.log);
   }
 
-  // HttpClient API put() method => Update Customer Service Ticket
+  // HttpClient API put() method => Update Customer Service Ticket Status
   updateCustomServiceTicket(body: {}) {
     this.http
       .put<PolicyCard>(this.apiPutStatus, body, this.httpOptions)
+      .subscribe(console.log);
+  }
+
+  // HttpClient API put() method => Update Customer Service Ticket Details
+  updateCustomServiceTicketDetails(ticketID: number, body: {}) {
+    this.http
+      .put<PolicyCard>(
+        `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketDetails/${ticketID}`,
+        body,
+        this.httpOptions
+      )
       .subscribe(console.log);
   }
 

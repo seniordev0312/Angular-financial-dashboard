@@ -7,7 +7,7 @@ import { EntityTemplate } from '@root/shared/models/entities/entity-template.mod
 
 @Injectable({ providedIn: 'root' })
 export class EntitiesViewerService {
-    private baseUrl = `${environment.apiUrl}/v1.0/`;
+    private baseUrl = `${environment.entityApiUrl}/v1.0/`;
 
     constructor(private httpClient: HttpClient,
         private entitiesViewerRepository: EntitiesViewerRepository) { }
