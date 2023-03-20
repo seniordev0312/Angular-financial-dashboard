@@ -23,10 +23,10 @@ export class PolicySortComponent implements OnInit {
   constructor() {}
 
   sortOptionsList: BaseListItem[] = [
-    { id: 0, value: ' Date Created' },
-    { id: 1, value: 'Date Modified' },
-    { id: 2, value: 'User' },
-    { id: 3, value: 'CST Channel' }
+    { id: 1, value: 'Date Created' },
+    { id: 2, value: 'Date Modified' },
+    { id: 3, value: 'User' },
+    { id: 4, value: 'CST Channel' }
   ];
   sortOptions: FormControl = new FormControl({ id: -1, value: '' });
   selectedSortOption: any=this.sortOptionsList.find((x:any)=>x.value==="Date Modified").id;;
@@ -66,14 +66,14 @@ export class PolicySortComponent implements OnInit {
   ascending(option: any) {
     this.flag = 1;
     switch (option) {
-      case 0: {
+      case 1: {
         this.sortingArray.sort((a, b) =>
           a.dateCreated > b.dateCreated ? 1 : -1
         );
         this.sortingArrayChange.emit(this.sortingArray);
         break;
       }
-      case 1: {
+      case 2: {
         this.sortingArray.sort((a, b) =>
           a.dateModified > b.dateModified ? 1 : -1
         );
@@ -81,14 +81,14 @@ export class PolicySortComponent implements OnInit {
           break;
         
       }
-      case 2: {
+      case 3: {
         this.sortingArray.sort((a, b) =>
           a.entityName.toLowerCase() > b.entityName.toLowerCase() ? 1 : -1
         );
         this.sortingArrayChange.emit(this.sortingArray);
         break;
       }
-      case 3: {
+      case 4: {
         this.sortingArray.sort((a, b) =>
           a.primaryCommunicationChannelId > b.primaryCommunicationChannelId ? 1 : -1
         );
@@ -102,14 +102,14 @@ export class PolicySortComponent implements OnInit {
   descending(option: any) {
     this.flag = 0;
     switch (option) {
-      case 0: {
+      case 1: {
         this.sortingArray.sort((a, b) =>
         a.dateCreated > b.dateCreated ? -1 : 1
         );
         this.sortingArrayChange.emit(this.sortingArray);
         break;
       }
-      case 1: {
+      case 2: {
         this.sortingArray.sort((a, b) =>
         a.dateModified > b.dateModified ? -1 : 1
         );
@@ -117,14 +117,14 @@ export class PolicySortComponent implements OnInit {
         break;
       }
         
-      case 2: {
+      case 3: {
         this.sortingArray.sort((a, b) =>
         a.entityName.toLowerCase() > b.entityName.toLowerCase() ? -1 : 1
         );
         this.sortingArrayChange.emit(this.sortingArray);
         break;
       }
-      case 3: {
+      case 4: {
         this.sortingArray.sort((a, b) =>
         a.primaryCommunicationChannelId > b.primaryCommunicationChannelId ? -1 : 1
         );
