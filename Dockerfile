@@ -8,7 +8,7 @@ RUN npm run build
 FROM nginx:alpine
 COPY --from=node /app/dist/insurance-power-house /usr/share/nginx/html
 COPY --from=node /app/nginx.default.conf /etc/nginx/conf.d/default.conf
-COPY --from=node /app/nginx.conf /etc/nginx/nginx.conf
+# COPY --from=node /app/nginx.conf /etc/nginx/nginx.conf
 
 
 CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
