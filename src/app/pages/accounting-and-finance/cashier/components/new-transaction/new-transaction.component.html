@@ -19,7 +19,25 @@
       </div>
     </div>
   </div>
-  <div class="w-[90%]"></div>
+  <div class="w-[90%] flex flex-col justify-center">
+    <div class="w-[50%] flex mt-10">
+      Agent EIN *
+      <app-search-bar-input class="ml-4 flex-1"></app-search-bar-input>
+    </div>
+    <div class="w-[50%] flex mt-10">
+      Name * <app-input-field class="ml-4 flex-1"></app-input-field>
+    </div>
+    <div class="w-[50%] flex mt-10">
+      Payment Date
+      <app-date-picker-input class="ml-4 flex-1"></app-date-picker-input>
+    </div>
+    <div class="w-[50%] flex mt-10">
+      Amount * <app-input-field class="ml-4 flex-1"></app-input-field>
+    </div>
+    <div class="w-[50%] flex mt-10">
+      Description <app-input-field class="ml-4 flex-1"></app-input-field>
+    </div>
+  </div>
 </div>
 
 <div class="flex w-full">
