@@ -9,7 +9,8 @@
     "build:qa": "ts-node build/build.ts qa",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "build-compress": "ng build -c production && gzipper c ./dist/insurance-power-house --include js,css,scss,txt,html,svg --output-file-format [filename].[ext] ./dist/insurance-power-house"
   },
   "private": true,
   "dependencies": {

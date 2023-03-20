@@ -6,7 +6,7 @@ import { EmailsRepository } from "../store/emails.repository";
 
 @Injectable({ providedIn: 'root' })
 export class EmailsService {
-    private baseUrl = `${environment.customerServer}/api`;
+    private baseUrl = `${environment.customerService}/api`;
 
     constructor(
         private httpClient: HttpClient,

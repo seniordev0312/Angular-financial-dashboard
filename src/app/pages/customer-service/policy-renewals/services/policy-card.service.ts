@@ -12,7 +12,7 @@ export class PolicyCardService {
   constructor(
     private http: HttpClient,
     private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
-  ) {}
+  ) { }
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -25,7 +25,7 @@ export class PolicyCardService {
     }),
   };
 
-  customerServiceServerURL = `${environment.customerServer}/api`;
+  customerServiceServerURL = `${environment.customerService}/api`;
 
   // Define Filter API
   apiFilterURL = `${this.customerServiceServerURL}/PolicyRenewalTicket/Filter`;
