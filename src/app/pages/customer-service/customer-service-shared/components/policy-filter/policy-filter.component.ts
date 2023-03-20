@@ -37,14 +37,14 @@ export class PolicyFilterComponent implements OnInit {
   subscription: Subscription;
 
   followUpResponsivenessList: any;
-  followUpResponsivenessListControl: FormControl = new FormControl({ id: -1, value: '' });
+  followUpResponsivenessListControl: FormControl = new FormControl({ id: 0, value: null });
   selectedFollowUpResponsiveness: any;
 
   followUpStatusList: any;
-  followUpStatusListControl: FormControl = new FormControl({ id: -1, value: '' });
+  followUpStatusListControl: FormControl = new FormControl({ id: 0, value: null });
   selectedFollowUpStatus: any;
 
-  assignedToListControl: FormControl = new FormControl({ id: -1, value: '' });
+  assignedToListControl: FormControl = new FormControl({ id: -1, value: null });
   assignedToList: any;
   selectedAssignedTo: any;
 
@@ -95,14 +95,14 @@ export class PolicyFilterComponent implements OnInit {
       this.ticketType = params.get('ticketType');
     });
 
-    this.subscription = this.customerCardService
+    this.subscription = this.policyCardService
       .getFollowUpResponsivenessApi()
       .subscribe((data: any) => {
         this.followUpResponsivenessList=data.map((e:any) => ({ id: e.value, value: e.code }));
         this.ref.detectChanges();
       });
     
-    this.subscription = this.customerCardService
+    this.subscription = this.policyCardService
       .getFollowUpStatusApi()
       .subscribe((data: any) => {
         this.followUpStatusList=data.map((e:any) => ({ id: e.value, value: e.code }));
@@ -112,8 +112,7 @@ export class PolicyFilterComponent implements OnInit {
     this.subscription = this.customerCardService
       .getUserDetails()
       .subscribe((data: any) => {
-        this.assignedToList = data.map((e:any) => ({ id: e.userId, value: e.email, }));;
-        console.log("AssignedStatus",this.assignedToList)
+        this.assignedToList = data.map((e:any) => ({ id: e.userId, value: e.email, }));
         this.ref.detectChanges();
       });
   }
@@ -143,7 +142,9 @@ export class PolicyFilterComponent implements OnInit {
       toDateCreated: this.toDateCreated,
       fromDateModified: this.fromDateModified,
       toDateModified: this.toDateModified,
-      assignedToId:this.selectedAssignedTo
+      assignedToId: this.selectedAssignedTo,
+      followUpResponse: this.selectedFollowUpResponsiveness,
+      followUpStatus:this.selectedFollowUpStatus
     };
 
     this.ticketType == 'policyRenewals'
@@ -155,11 +156,9 @@ export class PolicyFilterComponent implements OnInit {
     this.fromDateCreated = null;
     this.toDateCreated = null; 
     this.toDateModified = null; 
-    this.fromDateCreated = null; 
-    //this.policyStatus = '';
-    //this.ticketType = '';
-    this.selectedFollowUpStatus = -1;
-    this.selectedFollowUpResponsiveness = -1;
-    this.selectedAssignedTo = -1;
+    this.fromDateModified = null; 
+    this.selectedFollowUpStatus = null;
+    this.selectedFollowUpResponsiveness = null;
+    this.selectedAssignedTo = null;
   }
 }

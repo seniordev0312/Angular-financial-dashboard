@@ -30,6 +30,8 @@ export class PolicyCardService {
   // Define Filter API
   apiFilterURL = `${this.customerServiceServerURL}/PolicyRenewalTicket/Filter`;
   apiPutURL = `${this.customerServiceServerURL}/PolicyRenewalTicket`;
+  apiGetFollowUpResponsiveness = `${this.customerServiceServerURL}/Resource/Reference/TicketResponse`;
+  apiGetFollowUpStatus = `${this.customerServiceServerURL}/Resource/Reference/PolicyRenewalStatus`;
   apiGetTicketData = `${this.customerServiceServerURL}/CustomerServiceTicket`;
 
   // HttpClient API post() method => Get PolicyRenewalTickets
@@ -41,7 +43,8 @@ export class PolicyCardService {
       toDateCreated: null,
       fromDateModified: null,
       toDateModified: null,
-      communicationChannelId: null,
+      followUpResponse: null,
+      followUpStatus:null
     };
 
     this.http
@@ -49,6 +52,18 @@ export class PolicyCardService {
       .subscribe((data) => {
         this.policyRenewalsTicketsRepository.updateTickets(data);
       });
+  }
+  
+  getFollowUpResponsivenessApi() {
+    return this.http
+      .get<any>(this.apiGetFollowUpResponsiveness, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getFollowUpStatusApi() {
+    return this.http
+      .get<any>(this.apiGetFollowUpStatus, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
   }
 
   getTicketData(ticketId: number) {
