@@ -549,7 +549,7 @@
                     (click)="emergencyInitiate.toggle()"
                     class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
                   >
-                    Initiate {{isActionConfirmed}} {{choosedButtons.initiate}}
+                    Initiate
                   </p>
                   <div
                     class="mt-2 mb-5 bg-white"
@@ -574,7 +574,7 @@
                         >
                           <app-button
                             (click)="
-                              displayEmergencyInitateSection(
+                              onSelectEmergencyItem(
                                 emergencyInitiateItem
                               )
                             "
@@ -591,7 +591,7 @@
                         >
                           <app-button
                             (click)="
-                              displayEmergencyInitateSection(
+                              onSelectEmergencyItem(
                                 emergencyInitiateItem
                               )
                             "
@@ -600,14 +600,11 @@
                           ></app-button>
                         </div>
                       </div>
-
-                  
                     </div>
                   </div>
                 </div>
               </div>
             </cdk-accordion-item>
-
 
             <cdk-accordion-item
               #otherDetailsAccordion="cdkAccordionItem"
