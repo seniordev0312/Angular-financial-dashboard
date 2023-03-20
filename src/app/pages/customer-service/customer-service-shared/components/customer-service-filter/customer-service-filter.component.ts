@@ -34,16 +34,15 @@ export class CustomerServiceFilterComponent implements OnInit {
   toDateModified: Date;
 
   subscription: Subscription;
-  //cstSource: string = '';
   ticketTypeList: any;
-  ticketTypeListControl: FormControl = new FormControl({ id: -1, value: '' });
+  ticketTypeListControl: FormControl = new FormControl({ id: 0, value: null });
   selectedTicketType: any;
 
   cstSourceList: any;
-  cstSourceListControl: FormControl = new FormControl({ id: -1, value: '' });
+  cstSourceListControl: FormControl = new FormControl({ id: 0, value: null });
   selectedCstSource: any;
   
-  assignedToListControl: FormControl = new FormControl({ id: -1, value: '' });
+  assignedToListControl: FormControl = new FormControl({ id: -1, value: null });
   assignedToList: any;
   selectedAssignedTo: any;
 
@@ -122,22 +121,18 @@ export class CustomerServiceFilterComponent implements OnInit {
       .getUserDetails()
       .subscribe((data: any) => {
         this.assignedToList = data.map((e:any) => ({ id: e.userId, value: e.email, }));
-        console.log("AssignedStatus",this.assignedToList)
         this.ref.detectChanges();
       });
   }
 
   onChangeTicketType(event: Event) {
     this.selectedTicketType = event;
-    console.log(this.selectedTicketType)
   }
   onChangeCstSource(event: Event) {
     this.selectedCstSource = event;
-    console.log(this.selectedCstSource);
   }
   onChangeAssignedTo(event: Event) {
     this.selectedAssignedTo = event;
-    console.log(this.selectedAssignedTo);
   }
 
   onCancel(): void {
@@ -155,7 +150,8 @@ export class CustomerServiceFilterComponent implements OnInit {
       fromDateModified: this.fromDateModified,
       toDateModified: this.toDateModified,
       communicationChannelId: this.selectedCstSource,
-      assignedToId:this.selectedAssignedTo
+      assignedToId: this.selectedAssignedTo,
+      category:this.selectedTicketType
     };
 
     this.ticketType == 'customerService'
@@ -168,12 +164,10 @@ export class CustomerServiceFilterComponent implements OnInit {
     this.fromDateCreated = null;
     this.toDateCreated = null; 
     this.toDateModified = null; 
-    this.fromDateCreated = null; 
-    //this.cstSource = '';
-    this.ticketType = '';
-    this.selectedCstSource = -1;
-    this.selectedTicketType = -1;
-    this.selectedAssignedTo = -1;
-    
+    this.fromDateModified = null; 
+    this.selectedCstSource = null;
+    this.selectedTicketType = null;
+    this.selectedAssignedTo = null; 
+   
   }
 }
