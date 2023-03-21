@@ -7,6 +7,7 @@ import {
 
 export interface PolicyRenewalsTicketsModel {
   tickets: any;
+  policyRenewalFilterOptions: any;
 }
 
 const store = createStore(
@@ -15,6 +16,7 @@ const store = createStore(
   },
   withProps<PolicyRenewalsTicketsModel>({
     tickets: null,
+    policyRenewalFilterOptions: null,
   })
 );
 
@@ -23,6 +25,8 @@ persistState(store, {
 });
 
 export const tickets$ = store.pipe(select(({ tickets }) => tickets));
+export const policyRenewalFilterOptions$ = store.pipe(select(({ policyRenewalFilterOptions }) => policyRenewalFilterOptions));
+
 
 export type PolicyRenewalsTicketsStore = typeof store;
 export const POLICY_RENEWALS_TICKETS_STORE = new InjectionToken<

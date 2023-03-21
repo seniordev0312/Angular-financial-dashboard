@@ -45,6 +45,7 @@ export class PolicyCardComponent implements OnInit {
       leftSideIcon: this.displayCategoryTypeIcon(null),
       sourceIconUri: this.card.sourceIconUri,
       assignedToName: this.card.assignedToName,
+      assignedToId: this.card.assignedToId,
       assignedToProfilePictureUri: this.card.assignedToProfilePictureUri,
       ein: this.card.ein,
       entityName: this.card.entityName,

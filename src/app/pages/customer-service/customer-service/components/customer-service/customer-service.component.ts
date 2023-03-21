@@ -18,8 +18,12 @@ import { CustomerServiceTicketComponent } from '../customer-service-ticket/custo
 import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
-import { tickets$ } from '../../store/customer-service-tickets.store';
+import {
+  customerServiceFilterOptions$,
+  tickets$,
+} from '../../store/customer-service-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
+import { CustomerServiceTicketsRepository } from '../../store/customer-service-tickets.repository';
 
 @Component({
   selector: 'app-customer-service',
@@ -38,10 +42,21 @@ export class CustomerServiceComponent implements OnInit {
   ];
 
   isFilter: boolean = false;
+  isAllFilterSelected: boolean = true;
   flag: number = 0;
-  numberOfAllTickets: number = 0;
+  numberAllTickets: number = 0;
+  numberPersonalTickets: number = 0;
   userId: string = '';
   tickets: any = null;
+  customerServiceFilterOptions: any = {
+    searchQuery: null,
+    assignedToId: null,
+    fromDateCreated: null,
+    toDateCreated: null,
+    fromDateModified: null,
+    toDateModified: null,
+    communicationChannelId: null,
+  };
 
   searchBarValue: string = '';
 
@@ -51,7 +66,8 @@ export class CustomerServiceComponent implements OnInit {
     private router: Router,
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
-    private securityCheckerService: SecurityCheckerService
+    private securityCheckerService: SecurityCheckerService,
+    private customerServiceTicketsRepository: CustomerServiceTicketsRepository
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +75,13 @@ export class CustomerServiceComponent implements OnInit {
 
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
+      this.numberAllTickets = this.tickets.all;
+      this.numberPersonalTickets = this.tickets.personal;
+      this.ref.detectChanges();
+    });
+
+    this.subscription = customerServiceFilterOptions$.subscribe((data: any) => {
+      this.customerServiceFilterOptions = data;
       this.ref.detectChanges();
     });
 
@@ -66,13 +89,6 @@ export class CustomerServiceComponent implements OnInit {
       this.userId = data?.sub;
       this.ref.detectChanges();
     });
-
-    this.numberOfAllTickets =
-      this.tickets.closedTickets.length +
-      this.tickets.inProgressTickets.length +
-      this.tickets.inQueueTickets.length +
-      this.tickets.processedTickets.length +
-      this.tickets.resolvedTickets.length;
   }
 
   ngOnDestroy(): void {
@@ -98,7 +114,7 @@ export class CustomerServiceComponent implements OnInit {
 
   openDialog(card: any): void {
     let ticketData: any = null;
-    
+
     this.customerCardService.getTicketData(card.id).subscribe((data: any) => {
       ticketData = data;
       this.ref.detectChanges();
@@ -123,7 +139,6 @@ export class CustomerServiceComponent implements OnInit {
           });
         });
     });
-
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
@@ -169,20 +184,20 @@ export class CustomerServiceComponent implements OnInit {
   filterByAssignedTo(filterMode: string) {
     let assignedId: string;
 
-    if (filterMode == 'personal') assignedId = this.userId;
-    else if (filterMode == 'all') assignedId = null;
+    if (filterMode == 'personal') {
+      assignedId = this.userId;
+      this.isAllFilterSelected = false;
+    } else if (filterMode == 'all') {
+      assignedId = null;
+      this.isAllFilterSelected = true;
+    }
+    this.customerServiceFilterOptions.assignedToId = assignedId;
 
-    const filterOption: any = {
-      searchQuery: null,
-      assignedToId: assignedId,
-      fromDateCreated: null,
-      toDateCreated: null,
-      fromDateModified: null,
-      toDateModified: null,
-      communicationChannelId: null,
-    };
+    this.customerCardService.filterCustomerServiceTickets(this.customerServiceFilterOptions);
 
-    this.customerCardService.filterCustomerServiceTickets(filterOption);
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
   }
 
   onClearFilter() {

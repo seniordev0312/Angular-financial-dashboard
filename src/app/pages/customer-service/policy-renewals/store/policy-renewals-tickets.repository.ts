@@ -20,4 +20,11 @@ export class PolicyRenewalsTicketsRepository {
       tickets: tickets,
     }));
   }
+
+  updateFilterOptions(policyRenewalFilterOptions: any) {
+    this.policyRenewalsTicketsStore.update((state) => ({
+      ...state,
+      policyRenewalFilterOptions: policyRenewalFilterOptions,
+    }));
+  }
 }
