@@ -52,12 +52,12 @@
 
 <div class="flex w-full" *ngIf="paymentFlag">
   <div
-    class="ml-auto w-1/6 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl text-[#275e80]"
+    class="ml-auto w-1/7 mr-3 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl"
   >
-    <p class="text-[16px] text-white font-normal">Cancel</p>
+    <p class="text-[16px] text-[#275e80] font-normal">Cancel</p>
   </div>
   <div
-    class="w-1/6 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
+    class="w-1/7 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
   >
     <p class="text-[16px] text-white font-normal">Receive Now</p>
   </div>
@@ -68,7 +68,7 @@
       class="bg-white w-full h-[400px] flex flex-col shadow-lg rounded-bl-xl py-5"
     >
       <div
-        class="flex flex-col w-full mt-auto mb-auto px-6 justify-center"
+        class="flex flex-col w-full px-6 justify-center"
         (click)="switchPaymentOption()"
       >
         <img
@@ -78,7 +78,7 @@
         <p class="text-[#BABABA] text-center">Advance Payment</p>
       </div>
       <div
-        class="flex flex-col w-full px-6 justify-center"
+        class="flex flex-col mt-auto mb-auto w-full px-6 justify-center"
         (click)="switchPaymentOption()"
       >
         <img
@@ -118,12 +118,12 @@
 
 <div class="flex w-full" *ngIf="!paymentFlag">
   <div
-    class="ml-auto w-1/6 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl text-[#275e80]"
+    class="ml-auto w-1/7 mr-3 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl"
   >
-    <p class="text-[16px] text-white font-normal">Cancel</p>
+    <p class="text-[16px] text-[#275e80] font-normal">Cancel</p>
   </div>
   <div
-    class="w-1/6 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
+    class="w-1/7 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
   >
     <p class="text-[16px] text-white font-normal">Receive Now</p>
   </div>
