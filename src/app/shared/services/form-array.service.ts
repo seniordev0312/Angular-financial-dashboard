@@ -10,7 +10,7 @@ export class FormArrayService {
         try {
             return fg?.get(keyName) as FormArray;
         }
-        catch(e) {
+        catch (e) {
             return new FormArray([]);
         }
     }

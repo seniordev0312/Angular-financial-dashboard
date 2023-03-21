@@ -3,11 +3,11 @@
     <div class="mr-[45px] gap-4 flex flex-col">
         <app-input-field label="Entity Section Template Name:" [control]="getFormControl('name',fg)"></app-input-field>
 
-        <p *ngIf="!isViewMode" class="text-xxs font-bold mb-2">Add Element in Template</p>
+        <p class="text-xxs font-bold mb-2">Add Element in Template</p>
 
-        <app-select-list-with-chips [isViewMode]="isViewMode" [fg]="fg" arrayControlName="fields"
-            firstFieldFormControlName="elementName" secondFieldFormControlName="elementType"
-            [secondSelectListOptionsList]="elementTypesReferenceList" (addNewItem)="onNewElementAdded()">
+        <app-select-list-with-chips [fg]="fg" arrayControlName="fields" firstFieldFormControlName="elementName"
+            secondFieldFormControlName="elementType" [secondSelectListOptionsList]="elementTypesReferenceList"
+            (addNewItem)="onNewElementAdded()">
             <form [formGroup]="templateFg">
                 <app-input-field class="overflow-x-hidden" label="Element Name"
                     [control]="getFormControl('elementName',templateFg)"></app-input-field>
@@ -27,8 +27,7 @@
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"
             classes="h-9 w-[95px] bg-white border border-accent text-accent"></app-button>
-        <app-button *ngIf="!isViewMode" [isDisabled]="isViewMode" appFormValidationTrigger (trigger)="onSave()"
-            text="save"
+        <app-button [isDisabled]="isViewMode" appFormValidationTrigger (trigger)="onSave()" text="save"
             [classes]="isViewMode?'h-9 w-[95px] bg-gray-light2 text-gray':'h-9 w-[95px] bg-accent text-white'"></app-button>
     </div>
 </form>

@@ -41,10 +41,12 @@ export class SelectListWithChipsComponent {
   }
 
   getSecondLabel(id: string) {
-    return this.secondSelectListOptionsList.find(e => e.id === id).value;
+    const ID = id ?? 0;
+    return this.secondSelectListOptionsList.find(e => e.id === ID).value;
   }
 
   getFirstLabel(id: string) {
+
     return this.firstSelectListOptionsList.find(e => e.id === id).value;
   }
 
