@@ -20,6 +20,7 @@ import { PolicyRenewalsCustomerServiceTicketComponent } from '@root/pages/custom
 import { Subscription } from 'rxjs';
 import { LayoutService } from '@root/shared/services/layout.service';
 import {
+  numberOfPolicyRenewalAppliedFilters$,
   policyRenewalFilterOptions$,
   tickets$,
 } from '../../store/policy-renewals-tickets.store';
@@ -48,6 +49,7 @@ export class PolicyRenewalsComponent implements OnInit {
   flag: number = 0;
   numberAllTickets: number = 0;
   numberPersonalTickets: number = 0;
+  numberOfPolicyRenewalAppliedFilters: number = 0;
 
   tickets: any = null;
 
@@ -89,8 +91,13 @@ export class PolicyRenewalsComponent implements OnInit {
       this.ref.detectChanges();
     });
 
-    this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {   
+    this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {
       this.policyRenewalFilterOptions = data;
+      this.ref.detectChanges();
+    });
+
+      this.subscription = numberOfPolicyRenewalAppliedFilters$.subscribe((data: any) => {
+      this.numberOfPolicyRenewalAppliedFilters = data;
       this.ref.detectChanges();
     });
   }

@@ -13,10 +13,13 @@
             placeholder="Search CST Number"
             (keyup)="onSearchFilter()"
           />
+
           <mat-icon
             class="cursor-pointer"
             (click)="openFilter()"
             svgIcon="policy-filter"
+            matBadge="{{ numberOfCustomerServiceAppliedFilters }}"
+            [matBadgeHidden]="numberOfCustomerServiceAppliedFilters == 0"
           ></mat-icon>
           <mat-icon class="cursor-pointer" (click)="onClearFilter()"
             >cancel</mat-icon

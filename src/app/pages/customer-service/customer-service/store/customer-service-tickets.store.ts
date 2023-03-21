@@ -8,6 +8,7 @@ import {
 export interface CustomerServiceTicketsModel {
   tickets: any;
   customerServiceFilterOptions: any;
+  numberOfCustomerServiceAppliedFilters: any;
 }
 
 const store = createStore(
@@ -17,6 +18,7 @@ const store = createStore(
   withProps<CustomerServiceTicketsModel>({
     tickets: null,
     customerServiceFilterOptions: null,
+    numberOfCustomerServiceAppliedFilters: null,
   })
 );
 
@@ -26,6 +28,7 @@ persistState(store, {
 
 export const tickets$ = store.pipe(select(({ tickets }) => tickets));
 export const customerServiceFilterOptions$ = store.pipe(select(({ customerServiceFilterOptions }) => customerServiceFilterOptions));
+export const numberOfCustomerServiceAppliedFilters$ = store.pipe(select(({ numberOfCustomerServiceAppliedFilters }) => numberOfCustomerServiceAppliedFilters));
 
 export type CustomerServiceTicketsStore = typeof store;
 export const CUSTOMER_SERVICE_TICKETS_STORE = new InjectionToken<

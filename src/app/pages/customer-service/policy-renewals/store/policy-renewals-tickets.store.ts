@@ -8,6 +8,7 @@ import {
 export interface PolicyRenewalsTicketsModel {
   tickets: any;
   policyRenewalFilterOptions: any;
+  numberOfPolicyRenewalAppliedFilters: any;
 }
 
 const store = createStore(
@@ -17,6 +18,7 @@ const store = createStore(
   withProps<PolicyRenewalsTicketsModel>({
     tickets: null,
     policyRenewalFilterOptions: null,
+    numberOfPolicyRenewalAppliedFilters: null,
   })
 );
 
@@ -26,6 +28,7 @@ persistState(store, {
 
 export const tickets$ = store.pipe(select(({ tickets }) => tickets));
 export const policyRenewalFilterOptions$ = store.pipe(select(({ policyRenewalFilterOptions }) => policyRenewalFilterOptions));
+export const numberOfPolicyRenewalAppliedFilters$ = store.pipe(select(({ numberOfPolicyRenewalAppliedFilters }) => numberOfPolicyRenewalAppliedFilters));
 
 
 export type PolicyRenewalsTicketsStore = typeof store;
