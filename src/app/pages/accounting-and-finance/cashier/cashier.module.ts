@@ -26,6 +26,7 @@ import { CardPreviewComponent } from './components/card-preview/card-preview.com
 import { PayMakePaymentComponent } from './components/pay-make-payment/pay-make-payment.component';
 import { PersonMakePaymentBodyComponent } from './components/person-make-payment-body/person-make-payment-body.component';
 import { ClaimMakePaymentComponent } from './components/claim-make-payment/claim-make-payment.component';
+import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 
 const routes: Route[] = [
   {
@@ -54,6 +55,7 @@ const routes: Route[] = [
     PayMakePaymentComponent,
     PersonMakePaymentBodyComponent,
     ClaimMakePaymentComponent,
+    NewTransactionComponent,
   ],
   imports: [
     CommonModule,
