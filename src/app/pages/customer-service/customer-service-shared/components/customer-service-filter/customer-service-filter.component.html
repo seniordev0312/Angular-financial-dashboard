@@ -1,4 +1,4 @@
-<div class="h-[90vh] bg-[#fafafa] w-full p-9">
+<div class="h-[90vh] bg-[#fafafa] w-full py-9 pr-9">
     <div class="h-[100%] w-[100%] flex flex-col pb-8">
         <div class="w-[100%] flex flex-col pr-10">
             <div class="pb-5">
@@ -54,15 +54,15 @@
                   label="CST Source:"></app-select-list>
             </div>
         </div>
-        <div class="w-[100%] flex flex-wrap justify-between pb-4">
-            <app-button text="Cancel" (click)="onCancel()"
-                classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-[6.75rem] shadow-lg mb-4"></app-button>
-
-            <app-button text="Clear Filters" (click)="onClearFilters()"
-                classes="bg-white border-2 border-[#005f83] text-[#005f83] h-10 w-[6.75rem] shadow-lg"></app-button>
-
-            <app-button text="Apply" (click)="filter()"
-                classes="bg-accent h-10 w-[6.75rem] text-white shadow-lg"></app-button>
-        </div>
+    <div class="w-[100%] flex flex-wrap justify-between pb-4">
+        <app-button text="Cancel" (click)="onCancel()"
+            classes="hover:bg-accent bg-white hover:text-white border-2 border-[#005f83] text-[#005f83] h-10 w-[6.75rem] shadow-lg mb-4"></app-button>
+    
+        <app-button text="Clear Filters" (click)="onClearFilters()"
+            classes="hover:bg-accent bg-white hover:text-white  border-2 border-[#005f83] text-[#005f83] h-10 w-[6.75rem] shadow-lg"></app-button>
+    
+        <app-button text="Apply" (click)="filter()"
+            classes="hover:bg-accent bg-white hover:text-white h-10 w-[6.75rem] shadow-lg border-2 border-[#005f83] text-[#005f83]"></app-button>
+    </div>
     </div>
 </div>
