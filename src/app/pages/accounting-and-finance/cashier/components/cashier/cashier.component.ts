@@ -16,6 +16,7 @@ import { CashierModel } from '../../model/casher.model';
 
 import { ViewBasketComponent } from '../view-basket/view-basket.component';
 import { ImportBasketComponent } from '../import-basket/import-basket.component';
+import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -39,7 +40,7 @@ export class CashierComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private dialog1: MatDialog,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -244,7 +245,7 @@ export class CashierComponent implements OnInit {
     isLocalPaging: true,
     isRowSelectable: true,
     enableCustomizingColumns: true,
-    isRowsSelectionAvailable: true
+    isRowsSelectionAvailable: true,
   });
 
   tableConfiguration: TableConfiguration<CashierModel> = {
@@ -257,8 +258,8 @@ export class CashierComponent implements OnInit {
   openViewBusket() {
     this.dialog1.open(ViewBasketComponent, {
       width: '90%',
-      height: '80%'
-    })
+      height: '80%',
+    });
   }
 
   searchField() {
@@ -266,7 +267,11 @@ export class CashierComponent implements OnInit {
     console.log(this.issueTo);
     console.log(this.expiryFrom);
     console.log(this.expiryTo);
-    this.cashierList = this.cashierList.filter(list => new Date(list.duedate) > this.issueFrom && new Date(list.duedate) < this.issueTo);
+    this.cashierList = this.cashierList.filter(
+      (list) =>
+        new Date(list.duedate) > this.issueFrom &&
+        new Date(list.duedate) < this.issueTo
+    );
     this.tableConfiguration.data = this.cashierList;
     this.tableConfiguration.dataCount = this.cashierList.length;
     this.cdr.detectChanges();
@@ -277,6 +282,13 @@ export class CashierComponent implements OnInit {
     this.dialog.open(ImportBasketComponent, {
       width: '30%',
       height: '70%',
+    });
+  }
+
+  openTransactionModal() {
+    this.dialog.open(NewTransactionComponent, {
+      width: '90%',
+      height: '80%',
     });
   }
 }
