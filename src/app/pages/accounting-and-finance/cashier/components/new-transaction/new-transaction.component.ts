@@ -8,10 +8,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class NewTransactionComponent implements OnInit {
   paymentFlag: boolean = false;
+  currentDate: Date;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentDate = new Date();
+  }
 
   switchPaymentOption() {
     this.paymentFlag = !this.paymentFlag;
