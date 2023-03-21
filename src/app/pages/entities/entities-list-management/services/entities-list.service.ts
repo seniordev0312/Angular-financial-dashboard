@@ -39,7 +39,7 @@ export class EntitiesListService {
     }
 
     checkCreateEntityValidation(entityName: string, entityCode: string) {
-        const endPointUrl = `${environment.entityApiUrl}/EntityType/ValidateNewEntityCreation/${entityName}/${entityCode}`
+        const endPointUrl = `${environment.entityApiUrl}/EntityType/ValidateNewEntityCreation/${entityCode}/${entityName}`
         this.httpClient.get<{ canCreateEntity: boolean }>(endPointUrl).subscribe((data) => {
             this.entitiesListRepository.updateEntityDetails({ ...this.entitiesListRepository.values.entityDetails, entityName, entityCode } as EntityDetails);
             this.entitiesListRepository.updateIsCreateEntityValid(data.canCreateEntity);
