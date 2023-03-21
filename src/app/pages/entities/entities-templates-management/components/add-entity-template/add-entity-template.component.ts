@@ -115,7 +115,9 @@ export class AddEntityTemplateComponent extends BaseComponent implements OnInit 
       }
       this.fg.reset();
       this.templateFg.reset();
-      this.layoutService.closeRightSideNav();
+      this.onClose();
+      // this.layoutService.closeRightSideNav();
+
     }
   }
 

@@ -4,9 +4,9 @@
         <ng-content *ngIf="!isViewMode"></ng-content>
 
         <button *ngIf="!isViewMode" appFormValidationTrigger (click)="onAddClicked()"
-            class="absolute top-[50%] -right-[0.79rem] ">
-            <span class="material-icons text-accent">
-                add_circle_outline
+            class="absolute top-[50%] -right-[0.80rem] ">
+            <span class="material-icons text-accent bg-white rounded-full  border-accent border-2">
+                add
             </span>
         </button>
     </div>
