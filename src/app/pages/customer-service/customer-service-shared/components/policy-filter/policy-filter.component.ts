@@ -15,6 +15,8 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { policyRenewalFilterOptions$ } from '@root/pages/customer-service/policy-renewals/store/policy-renewals-tickets.store';
+import { PolicyRenewalsTicketsRepository } from '@root/pages/customer-service/policy-renewals/store/policy-renewals-tickets.repository';
 
 @Component({
   selector: 'app-policy-filter',
@@ -27,59 +29,33 @@ export class PolicyFilterComponent implements OnInit {
   @Input() filteringArray: any;
   @Output() filteringArrayChange = new EventEmitter<any>();
   ticketType: any;
-  fromDateCreated: Date;
-  toDateCreated: Date;
-  fromDateModified: Date;
-  toDateModified: Date;
+  fromDateCreated: Date = null;
+  toDateCreated: Date = null;
+  fromDateModified: Date = null;
+  toDateModified: Date = null;
   policyStatus: string = '';
 
-  
   subscription: Subscription;
 
   followUpResponsivenessList: any;
-  followUpResponsivenessListControl: FormControl = new FormControl({ id: 0, value: null });
-  selectedFollowUpResponsiveness: any;
+  followUpResponsivenessListControl: FormControl = new FormControl({
+    id: 0,
+    value: null,
+  });
+  selectedFollowUpResponsiveness: any = null;
 
   followUpStatusList: any;
-  followUpStatusListControl: FormControl = new FormControl({ id: 0, value: null });
-  selectedFollowUpStatus: any;
+  followUpStatusListControl: FormControl = new FormControl({
+    id: 0,
+    value: null,
+  });
+  selectedFollowUpStatus: any = null;
 
   assignedToListControl: FormControl = new FormControl({ id: -1, value: null });
   assignedToList: any;
-  selectedAssignedTo: any;
+  selectedAssignedTo: any = null;
 
-
-
- /*  AssignedStatus: BaseListItem[] = [
-    {
-      id: '1',
-      value: 'unAssigned',
-    },
-  ]; */
-    
-  
-  // FollowUpStatus: BaseListItem[] = [
-  //   {
-  //     id: '1',
-  //     value: 'Follow Up',
-  //   },
-  //   {
-  //     id: '2',
-  //     value: 'In Process',
-  //   },
-  //   {
-  //     id: '3',
-  //     value: 'Processed',
-  //   },
-  //   {
-  //     id: '4',
-  //     value: 'Renewal Approved',
-  //   },
-  //   {
-  //     id: '5',
-  //     value: 'Closed',
-  //   },
-  // ];
+  public policyRenewalFilterOptions: any = {};
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -87,7 +63,8 @@ export class PolicyFilterComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private layoutService: LayoutService,
     private router: Router,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
   ) {}
 
   ngOnInit(): void {
@@ -95,26 +72,52 @@ export class PolicyFilterComponent implements OnInit {
       this.ticketType = params.get('ticketType');
     });
 
+    this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {
+      this.policyRenewalFilterOptions = data;
+      this.selectedAssignedTo = this.policyRenewalFilterOptions.assignedToId;
+      this.ref.detectChanges();
+    });
+
     this.subscription = this.policyCardService
       .getFollowUpResponsivenessApi()
       .subscribe((data: any) => {
-        this.followUpResponsivenessList=data.map((e:any) => ({ id: e.value, value: e.code }));
+        this.followUpResponsivenessList = data.map((e: any) => ({
+          id: e.value,
+          value: e.code,
+        }));
         this.ref.detectChanges();
       });
-    
+
     this.subscription = this.policyCardService
       .getFollowUpStatusApi()
       .subscribe((data: any) => {
-        this.followUpStatusList=data.map((e:any) => ({ id: e.value, value: e.code }));
+        this.followUpStatusList = data.map((e: any) => ({
+          id: e.value,
+          value: e.code,
+        }));
         this.ref.detectChanges();
       });
-    
+
     this.subscription = this.customerCardService
       .getUserDetails()
       .subscribe((data: any) => {
-        this.assignedToList = data.map((e:any) => ({ id: e.userId, value: e.email, }));
+        this.assignedToList = data.map((e: any) => ({
+          id: e.userId,
+          value: e.email,
+        }));
         this.ref.detectChanges();
       });
+
+    this.policyRenewalFilterOptions = {
+      searchQuery: '',
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      communicationChannelId: null,
+      assignedToId: null,
+      category: null,
+    };
   }
 
   onChangeFollowUpStatus(event: Event) {
@@ -127,7 +130,6 @@ export class PolicyFilterComponent implements OnInit {
     this.selectedAssignedTo = event;
   }
 
-
   onCancel(): void {
     this.router.navigate([
       `${ApplicationRoutes.CustomerService}/${ApplicationRoutes.Filter}`,
@@ -136,7 +138,7 @@ export class PolicyFilterComponent implements OnInit {
   }
 
   filter() {
-    const filterOption = {
+    this.policyRenewalFilterOptions = {
       searchQuery: '',
       fromDateCreated: this.fromDateCreated,
       toDateCreated: this.toDateCreated,
@@ -144,19 +146,24 @@ export class PolicyFilterComponent implements OnInit {
       toDateModified: this.toDateModified,
       assignedToId: this.selectedAssignedTo,
       followUpResponse: this.selectedFollowUpResponsiveness,
-      followUpStatus:this.selectedFollowUpStatus
+      followUpStatus: this.selectedFollowUpStatus,
     };
 
-    this.ticketType == 'policyRenewals'
-      ? this.policyCardService.filterPolicyRenewalTickets(filterOption)
-      : this.customerCardService.filterCustomerServiceTickets(filterOption);
+    this.policyCardService.filterPolicyRenewalTickets(
+      this.policyRenewalFilterOptions
+    );
+
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
+    this.onCancel();
   }
 
   onClearFilters() {
     this.fromDateCreated = null;
-    this.toDateCreated = null; 
-    this.toDateModified = null; 
-    this.fromDateModified = null; 
+    this.toDateCreated = null;
+    this.toDateModified = null;
+    this.fromDateModified = null;
     this.selectedFollowUpStatus = null;
     this.selectedFollowUpResponsiveness = null;
     this.selectedAssignedTo = null;

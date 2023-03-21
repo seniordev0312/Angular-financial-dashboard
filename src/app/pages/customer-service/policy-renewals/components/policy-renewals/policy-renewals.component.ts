@@ -19,7 +19,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '@root/pages/customer-service/policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
 import { Subscription } from 'rxjs';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { tickets$ } from '../../store/policy-renewals-tickets.store';
+import {
+  policyRenewalFilterOptions$,
+  tickets$,
+} from '../../store/policy-renewals-tickets.store';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
+import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tickets.repository';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -38,19 +43,35 @@ export class PolicyRenewalsComponent implements OnInit {
   ];
 
   isFilter: boolean = false;
+  isAllFilterSelected: boolean = true;
 
   flag: number = 0;
+  numberAllTickets: number = 0;
+  numberPersonalTickets: number = 0;
 
   tickets: any = null;
 
   searchBarValue: string = '';
+  userId: string = '';
+
+  policyRenewalFilterOptions: any = {
+    searchQuery: null,
+    assignedToId: null,
+    fromDateCreated: null,
+    toDateCreated: null,
+    fromDateModified: null,
+    toDateModified: null,
+    communicationChannelId: null,
+  };
 
   constructor(
     public policyCardService: PolicyCardService,
     public dialog: MatDialog,
     private router: Router,
     private ref: ChangeDetectorRef,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private securityCheckerService: SecurityCheckerService,
+    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +79,18 @@ export class PolicyRenewalsComponent implements OnInit {
 
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
+      this.numberAllTickets = this.tickets.all;
+      this.numberPersonalTickets = this.tickets.personal;
+      this.ref.detectChanges();
+    });
+
+    this.securityCheckerService.userClaims$.subscribe((data) => {
+      this.userId = data?.sub;
+      this.ref.detectChanges();
+    });
+
+    this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {   
+      this.policyRenewalFilterOptions = data;
       this.ref.detectChanges();
     });
   }
@@ -151,5 +184,27 @@ export class PolicyRenewalsComponent implements OnInit {
     };
 
     this.policyCardService.filterPolicyRenewalTickets(filterOption);
+  }
+
+  filterByAssignedTo(filterMode: string) {
+    let assignedId: string;
+
+    if (filterMode == 'personal') {
+      assignedId = this.userId;
+      this.isAllFilterSelected = false;
+    } else if (filterMode == 'all') {
+      assignedId = null;
+      this.isAllFilterSelected = true;
+    }
+
+    this.policyRenewalFilterOptions.assignedToId = assignedId;
+
+    this.policyCardService.filterPolicyRenewalTickets(
+      this.policyRenewalFilterOptions
+    );
+
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
   }
 }

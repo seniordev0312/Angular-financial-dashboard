@@ -13,30 +13,56 @@
             placeholder="Search CST Number"
             (keyup)="onSearchFilter()"
           />
-          <mat-icon class="cursor-pointer" (click)="openFilter()" svgIcon="policy-filter"></mat-icon>
-          <mat-icon class="cursor-pointer" (click)="onClearFilter()">cancel</mat-icon>
+          <mat-icon
+            class="cursor-pointer"
+            (click)="openFilter()"
+            svgIcon="policy-filter"
+          ></mat-icon>
+          <mat-icon class="cursor-pointer" (click)="onClearFilter()"
+            >cancel</mat-icon
+          >
         </div>
         <div class="flex gap-2">
           <button
-          (click)="filterByAssignedTo('personal')"
-            class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center bg-white border-2 border-black text-[#000000] w-30 h-8"
+            (click)="filterByAssignedTo('personal')"
+            class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center border-2 w-30 h-8"
+            [ngClass]="
+              isAllFilterSelected
+                ? 'unselectedFilterWrapper'
+                : 'selectedFilterWrapper'
+            "
           >
             <div
-              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-primary rounded-2xl text-[#FFFFFF] h-7 w-7"
+              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-primary rounded-2xl h-7 w-7 font-semibold"
+              [ngClass]="
+                isAllFilterSelected
+                  ? 'unselectedFilterNumber'
+                  : 'selectedFilterNumber'
+              "
             >
-              {{numberOfAllTickets}}
+              {{ numberPersonalTickets }}
             </div>
             <span class="items-center flex gap-3 text-[12px]">Personal</span>
           </button>
-       
+
           <button
             (click)="filterByAssignedTo('all')"
-            class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 border-black text-[#FFFFFF] w-30 h-8"
+            class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 w-30 h-8"
+            [ngClass]="
+              isAllFilterSelected
+                ? 'selectedFilterWrapper'
+                : 'unselectedFilterWrapper'
+            "
           >
             <div
-              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-white rounded-2xl text-[#005f83] h-6 w-6 font-semibold"
+              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs rounded-2xl h-6 w-6 font-semibold"
+              [ngClass]="
+                isAllFilterSelected
+                  ? 'selectedFilterNumber'
+                  : 'unselectedFilterNumber'
+              "
             >
-                {{numberOfAllTickets}}
+              {{ numberAllTickets }}
             </div>
             <span class="items-center flex gap-3 text-[12px]">Show All</span>
           </button>

@@ -21,6 +21,13 @@ export class CustomerServiceTicketsRepository {
     }));
   }
 
+  updateFilterOptions(customerServiceFilterOptions: any) {
+    this.customerServiceTicketsStore.update((state) => ({
+      ...state,
+      customerServiceFilterOptions: customerServiceFilterOptions,
+    }));
+  }
+
   getKeyType(id: any) {
     let key = null;
 

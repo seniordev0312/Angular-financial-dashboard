@@ -74,7 +74,7 @@
       </div>
       <div class="h-[25%] flex justify-start items-center flex-row w-full pb-2">
         <div
-          *ngIf="cardInfo.assignedToName"
+          *ngIf="cardInfo.assignedToId"
           class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-[#005f83] border-solid rounded-lg w-[75%] h-full"
         >
           <span
@@ -85,7 +85,7 @@
         </div>
 
         <div
-          *ngIf="cardInfo.assignedToName == null"
+          *ngIf="cardInfo.assignedToId == null"
           class="items-center justify-center shadow-lg ml-2 flex border-[1px] border-solid rounded-lg w-[75%] h-full"
         >
           <span class="text-[9px] pl-1 align-middle"> Unassigned </span>

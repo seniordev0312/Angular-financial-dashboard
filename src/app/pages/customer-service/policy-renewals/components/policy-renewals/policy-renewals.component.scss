@@ -12,6 +12,28 @@
   width: 140px;
 }
 
+.unselectedFilterWrapper {
+  background-color: white;
+  border: 2px solid #005f83;
+  color: #005f83;
+}
+
+.selectedFilterWrapper {
+  background-color: #005f83;
+  border: 2px solid #005f83;
+  color: white;
+}
+
+.unselectedFilterNumber {
+  background-color: #005f83;
+  color: white;
+}
+
+.selectedFilterNumber {
+  background-color: white;
+  color: #005f83;
+}
+
 ::ng-deep .mat-form-field-infix {
   border-top: 0px !important;
 }
