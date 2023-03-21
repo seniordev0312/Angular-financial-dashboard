@@ -81,14 +81,9 @@ export class CustomerServiceTicketComponent implements OnInit {
     product: 0,
     emergencyType: 0,
     initiate: [],
-  };
-  ticketStatus: BaseListItem[] = [
-    { id: 1, value: 'Created/Received Queue' },
-    { id: 2, value: 'In Process' },
-    { id: 3, value: 'Processed' },
-    { id: 4, value: 'Resolved' },
-    { id: 5, value: 'Closed' },
-  ];
+    };
+  
+  ticketStatus: BaseListItem[] = [];
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
 
@@ -123,6 +118,16 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.ref.detectChanges();
       });
 
+    this.subscription = this.customerCardService
+      .getTicketStatusApi()
+      .subscribe((data: any) => {
+        this.ticketStatus = data.map((e: any) => ({
+          id: e.value,
+          value: e.code,
+        }));
+        this.ref.detectChanges();
+      });
+
     this.dataTicket = this.data.dataKey;
     this.ticketId = this.data.dataKey.id;
     this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
@@ -131,11 +136,6 @@ export class CustomerServiceTicketComponent implements OnInit {
     if (this.dataTicket.locationAddress) {
       this.location.setValue(this.dataTicket.locationAddress);
     }
-
-    this.selectedTicketStatus.setValue(
-      this.getTicketStatus(this.dataTicket.status)
-    );
-
 
     this.subscription = this.customerCardService
       .getContactDetails(this.dataTicket)
@@ -148,15 +148,6 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
     this.contactFormService.getMessageHistory(this.dataTicket.chatId);
-  }
-
-  getTicketStatus(statusId: number): BaseListItem {
-    if (statusId == 1) return { id: 1, value: 'Created/Received Queue' };
-    else if (statusId == 2) return { id: 2, value: 'In Process' };
-    else if (statusId == 3) return { id: 3, value: 'Processed' };
-    else if (statusId == 4) return { id: 4, value: 'Resolved' };
-    else if (statusId == 5) return { id: 5, value: 'Closed' };
-    else return null;
   }
 
   ngAfterViewInit() {

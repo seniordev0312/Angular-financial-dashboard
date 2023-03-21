@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
 import {
   CdkDragDrop,
@@ -25,6 +24,7 @@ import {
 } from '../../store/customer-service-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { CustomerServiceTicketsRepository } from '../../store/customer-service-tickets.repository';
+import { CustomerServiceStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/customer-service-status.model';
 
 @Component({
   selector: 'app-customer-service',
@@ -34,13 +34,8 @@ import { CustomerServiceTicketsRepository } from '../../store/customer-service-t
 })
 export class CustomerServiceComponent implements OnInit {
   subscription: Subscription;
-  steps: PolicyStatus[] = [
-    { title: 'Created/Received Queue', color: 'bg-[#d8d8d8]' },
-    { title: 'In Process', color: 'bg-[#0098ef]' },
-    { title: 'Processed', color: 'bg-[#c2c2c2]' },
-    { title: 'Resolved', color: 'bg-[#31CD3D]' },
-    { title: 'Closed', color: 'bg-[#e7e7e7]' },
-  ];
+
+  steps: CustomerServiceStatus[] = [];
 
   isFilter: boolean = false;
   isAllFilterSelected: boolean = true;
@@ -75,6 +70,17 @@ export class CustomerServiceComponent implements OnInit {
   ngOnInit(): void {
     this.customerCardService.getCutomerServiceTickets();
 
+    this.subscription = this.customerCardService
+      .getTicketStatusApi()
+      .subscribe((data: any) => {
+        this.steps = data.map((e: any) => ({
+          id: e.value,
+          title: e.code,
+          color: this.getStatusColor(e.value),
+        }));
+        this.ref.detectChanges();
+      });
+
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
       this.numberAllTickets = this.tickets.all;
@@ -87,15 +93,34 @@ export class CustomerServiceComponent implements OnInit {
       this.ref.detectChanges();
     });
 
-    this.subscription = numberOfCustomerServiceAppliedFilters$.subscribe((data: any) => {
-      this.numberOfCustomerServiceAppliedFilters = data;
-      this.ref.detectChanges();
-    });
+    this.subscription = numberOfCustomerServiceAppliedFilters$.subscribe(
+      (data: any) => {
+        this.numberOfCustomerServiceAppliedFilters = data;
+        this.ref.detectChanges();
+      }
+    );
 
     this.securityCheckerService.userClaims$.subscribe((data) => {
       this.userId = data?.sub;
       this.ref.detectChanges();
     });
+  }
+
+  getStatusColor(statusId: number): string {
+    switch (statusId) {
+      case 1:
+        return 'bg-[#d8d8d8]';
+      case 2:
+        return 'bg-[#0098ef]';
+      case 3:
+        return 'bg-[#c2c2c2]';
+      case 4:
+        return 'bg-[#31CD3D]';
+      case 5:
+        return 'bg-[#e7e7e7]';
+      default:
+        return '';
+    }
   }
 
   ngOnDestroy(): void {
@@ -200,7 +225,9 @@ export class CustomerServiceComponent implements OnInit {
     }
     this.customerServiceFilterOptions.assignedToId = assignedId;
 
-    this.customerCardService.filterCustomerServiceTickets(this.customerServiceFilterOptions);
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
 
     this.customerServiceTicketsRepository.updateFilterOptions(
       this.customerServiceFilterOptions

@@ -35,13 +35,8 @@ import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tic
 })
 export class PolicyRenewalsComponent implements OnInit {
   subscription: Subscription;
-  steps: PolicyStatus[] = [
-    { title: 'Policy Renewal Followup', color: 'bg-[#d8d8d8]' },
-    { title: 'In Process', color: 'bg-[#0098ef]' },
-    { title: 'Processed (Renewal Issued)', color: 'bg-[#c2c2c2]' },
-    { title: 'Renewal Approved', color: 'bg-[#31CD3D]' },
-    { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
-  ];
+
+  steps: PolicyStatus[] = [];
 
   isFilter: boolean = false;
   isAllFilterSelected: boolean = true;
@@ -79,6 +74,17 @@ export class PolicyRenewalsComponent implements OnInit {
   ngOnInit(): void {
     this.policyCardService.getPolicyRenewalTickets();
 
+    this.subscription = this.policyCardService
+      .getFollowUpStatusApi()
+      .subscribe((data: any) => {
+        this.steps = data.map((e: any) => ({
+          id: e.value,
+          title: this.getStatusFullName(e.value),
+          color: this.getStatusColor(e.value),
+        }));
+        this.ref.detectChanges();
+      });
+
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
       this.numberAllTickets = this.tickets.all;
@@ -96,10 +102,46 @@ export class PolicyRenewalsComponent implements OnInit {
       this.ref.detectChanges();
     });
 
-      this.subscription = numberOfPolicyRenewalAppliedFilters$.subscribe((data: any) => {
-      this.numberOfPolicyRenewalAppliedFilters = data;
-      this.ref.detectChanges();
-    });
+    this.subscription = numberOfPolicyRenewalAppliedFilters$.subscribe(
+      (data: any) => {
+        this.numberOfPolicyRenewalAppliedFilters = data;
+        this.ref.detectChanges();
+      }
+    );
+  }
+
+  getStatusFullName(statusId: Number): string {
+    switch (statusId) {
+      case 1:
+        return 'Policy Renewal Followup';
+      case 2:
+        return 'In Process';
+      case 3:
+        return 'Processed (Renewal Issued)';
+      case 4:
+        return 'Renewal Approved';
+      case 5:
+        return 'Closed (No Renewal)';
+      default:
+        return '';
+    }
+  }
+
+  getStatusColor(statusId: number): string {
+    switch (statusId) {
+      case 1:
+        return 'bg-[#d8d8d8]';
+      case 2:
+        return 'bg-[#0098ef]';
+      case 3:
+        return 'bg-[#c2c2c2]';
+      case 4:
+        return 'bg-[#31CD3D]';
+      case 5:
+        return 'bg-[#e7e7e7]';
+      default:
+        return '';
+    }
   }
 
   ngOnDestroy(): void {

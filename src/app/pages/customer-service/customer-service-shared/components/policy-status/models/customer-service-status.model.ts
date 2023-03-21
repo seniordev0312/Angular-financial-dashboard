@@ -1,4 +1,4 @@
-export interface PolicyStatus {
+export interface CustomerServiceStatus {
   id: number;
   title: string;
   color: string;
