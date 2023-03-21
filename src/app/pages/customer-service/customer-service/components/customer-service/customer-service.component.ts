@@ -20,6 +20,7 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
 import {
   customerServiceFilterOptions$,
+  numberOfCustomerServiceAppliedFilters$,
   tickets$,
 } from '../../store/customer-service-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
@@ -57,6 +58,7 @@ export class CustomerServiceComponent implements OnInit {
     toDateModified: null,
     communicationChannelId: null,
   };
+  numberOfCustomerServiceAppliedFilters: number = 0;
 
   searchBarValue: string = '';
 
@@ -82,6 +84,11 @@ export class CustomerServiceComponent implements OnInit {
 
     this.subscription = customerServiceFilterOptions$.subscribe((data: any) => {
       this.customerServiceFilterOptions = data;
+      this.ref.detectChanges();
+    });
+
+    this.subscription = numberOfCustomerServiceAppliedFilters$.subscribe((data: any) => {
+      this.numberOfCustomerServiceAppliedFilters = data;
       this.ref.detectChanges();
     });
 

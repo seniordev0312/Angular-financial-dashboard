@@ -15,7 +15,10 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { policyRenewalFilterOptions$ } from '@root/pages/customer-service/policy-renewals/store/policy-renewals-tickets.store';
+import {
+  numberOfPolicyRenewalAppliedFilters$,
+  policyRenewalFilterOptions$,
+} from '@root/pages/customer-service/policy-renewals/store/policy-renewals-tickets.store';
 import { PolicyRenewalsTicketsRepository } from '@root/pages/customer-service/policy-renewals/store/policy-renewals-tickets.repository';
 
 @Component({
@@ -56,6 +59,7 @@ export class PolicyFilterComponent implements OnInit {
   selectedAssignedTo: any = null;
 
   public policyRenewalFilterOptions: any = {};
+  public numberOfPolicyRenewalAppliedFilters: number = 0;
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -108,6 +112,13 @@ export class PolicyFilterComponent implements OnInit {
         this.ref.detectChanges();
       });
 
+    this.subscription = numberOfPolicyRenewalAppliedFilters$.subscribe(
+      (data: any) => {
+        this.numberOfPolicyRenewalAppliedFilters = data;
+        this.ref.detectChanges();
+      }
+    );
+
     this.policyRenewalFilterOptions = {
       searchQuery: '',
       fromDateCreated: null,
@@ -138,6 +149,8 @@ export class PolicyFilterComponent implements OnInit {
   }
 
   filter() {
+    this.numberOfPolicyRenewalAppliedFilters = 0;
+
     this.policyRenewalFilterOptions = {
       searchQuery: '',
       fromDateCreated: this.fromDateCreated,
@@ -156,6 +169,18 @@ export class PolicyFilterComponent implements OnInit {
     this.policyRenewalsTicketsRepository.updateFilterOptions(
       this.policyRenewalFilterOptions
     );
+
+    Object.keys(this.policyRenewalFilterOptions).forEach((key) => {
+      const value = this.policyRenewalFilterOptions[key];
+      if (value !== null && value !== '') {
+        this.numberOfPolicyRenewalAppliedFilters++;
+      }
+    });
+
+    this.policyRenewalsTicketsRepository.updateNumberOfAppliedFilters(
+      this.numberOfPolicyRenewalAppliedFilters
+    );
+
     this.onCancel();
   }
 
@@ -167,5 +192,10 @@ export class PolicyFilterComponent implements OnInit {
     this.selectedFollowUpStatus = null;
     this.selectedFollowUpResponsiveness = null;
     this.selectedAssignedTo = null;
+
+    this.numberOfPolicyRenewalAppliedFilters = 0;
+    this.policyRenewalsTicketsRepository.updateNumberOfAppliedFilters(
+      this.numberOfPolicyRenewalAppliedFilters
+    );
   }
 }

@@ -16,7 +16,10 @@ import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { CustomerServiceTicketsRepository } from '@root/pages/customer-service/customer-service/store/customer-service-tickets.repository';
-import { customerServiceFilterOptions$ } from '@root/pages/customer-service/customer-service/store/customer-service-tickets.store';
+import {
+  customerServiceFilterOptions$,
+  numberOfCustomerServiceAppliedFilters$,
+} from '@root/pages/customer-service/customer-service/store/customer-service-tickets.store';
 
 @Component({
   selector: 'app-customer-service-filter',
@@ -49,6 +52,7 @@ export class CustomerServiceFilterComponent implements OnInit {
   selectedAssignedTo: any = null;
 
   public customerServiceFilterOptions: any = {};
+  public numberOfCustomerServiceAppliedFilters: number = 0;
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -70,6 +74,13 @@ export class CustomerServiceFilterComponent implements OnInit {
       this.selectedAssignedTo = this.customerServiceFilterOptions.assignedToId;
       this.ref.detectChanges();
     });
+
+    this.subscription = numberOfCustomerServiceAppliedFilters$.subscribe(
+      (data: any) => {
+        this.numberOfCustomerServiceAppliedFilters = data;
+        this.ref.detectChanges();
+      }
+    );
 
     this.subscription = this.customerCardService
       .getCustomerServiceTicketTypeApi()
@@ -133,6 +144,8 @@ export class CustomerServiceFilterComponent implements OnInit {
   }
 
   filter() {
+    this.numberOfCustomerServiceAppliedFilters = 0;
+
     this.customerServiceFilterOptions = {
       searchQuery: '',
       fromDateCreated: this.fromDateCreated,
@@ -144,11 +157,25 @@ export class CustomerServiceFilterComponent implements OnInit {
       category: this.selectedTicketType,
     };
 
-  this.customerCardService.filterCustomerServiceTickets(this.customerServiceFilterOptions)
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
 
     this.customerServiceTicketsRepository.updateFilterOptions(
       this.customerServiceFilterOptions
     );
+
+    Object.keys(this.customerServiceFilterOptions).forEach((key) => {
+      const value = this.customerServiceFilterOptions[key];
+      if (value !== null && value !== '') {
+        this.numberOfCustomerServiceAppliedFilters++;
+      }
+    });
+
+    this.customerServiceTicketsRepository.updateNumberOfAppliedFilters(
+      this.numberOfCustomerServiceAppliedFilters
+    );
+
     this.onCancel();
   }
 
@@ -160,5 +187,10 @@ export class CustomerServiceFilterComponent implements OnInit {
     this.selectedCstSource = null;
     this.selectedTicketType = null;
     this.selectedAssignedTo = null;
+
+    this.numberOfCustomerServiceAppliedFilters = 0;
+    this.customerServiceTicketsRepository.updateNumberOfAppliedFilters(
+      this.numberOfCustomerServiceAppliedFilters
+    );
   }
 }

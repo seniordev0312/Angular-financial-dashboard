@@ -17,6 +17,8 @@
             class="cursor-pointer"
             (click)="openFilter()"
             svgIcon="policy-filter"
+              matBadge="{{ numberOfPolicyRenewalAppliedFilters }}"
+            [matBadgeHidden]="numberOfPolicyRenewalAppliedFilters == 0"
           ></mat-icon>
           <mat-icon (click)="onClearFilter()" class="cursor-pointer"
             >cancel</mat-icon

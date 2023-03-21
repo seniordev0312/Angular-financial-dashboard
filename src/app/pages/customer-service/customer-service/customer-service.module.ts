@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatBadgeModule } from "@angular/material/badge";
 import { Route, RouterModule } from '@angular/router';
 import { EntitiesControlModule } from '@root/pages/entities/entities-control/entities-control.module';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
@@ -85,6 +86,7 @@ const routes: Route[] = [
     DragDropModule,
     MatSelectModule,
     MatSliderModule,
+    MatBadgeModule,
     MatDatepickerModule,
     RouterModule.forChild(routes),
   ],

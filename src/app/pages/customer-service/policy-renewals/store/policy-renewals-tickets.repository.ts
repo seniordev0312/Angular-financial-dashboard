@@ -27,4 +27,11 @@ export class PolicyRenewalsTicketsRepository {
       policyRenewalFilterOptions: policyRenewalFilterOptions,
     }));
   }
+
+   updateNumberOfAppliedFilters(numberOfPolicyRenewalAppliedFilters: any) {
+    this.policyRenewalsTicketsStore.update((state) => ({
+      ...state,
+      numberOfPolicyRenewalAppliedFilters: numberOfPolicyRenewalAppliedFilters,
+    }));
+  }
 }

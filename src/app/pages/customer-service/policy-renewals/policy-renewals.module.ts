@@ -14,6 +14,7 @@ import { AutoLoginAllRoutesGuard } from 'angular-auth-oidc-client';
 import { PolicyFilterComponent } from '../customer-service-shared/components/policy-filter/policy-filter.component';
 import { Permission } from '@root/shared/models/enums/permissions.enum';
 import { SecurityGuard } from '@root/shared/guards/security.guard';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const routes: Route[] = [
   {
@@ -42,6 +43,7 @@ const routes: Route[] = [
     CdkAccordionModule,
     CustomerServiceSharedModule,
     DragDropModule,
+    MatBadgeModule,
     RouterModule.forChild(routes),
     MatSidenavModule,
   ],
