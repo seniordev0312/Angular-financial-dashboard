@@ -10,6 +10,7 @@ import { FormArrayService } from '@root/shared/services/form-array.service';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class SelectListWithChipsComponent {
+  @Input() isViewMode = false;
   @Output() addNewItem = new EventEmitter<void>();
   @Input() isFirstFieldSelectList = false;
 
