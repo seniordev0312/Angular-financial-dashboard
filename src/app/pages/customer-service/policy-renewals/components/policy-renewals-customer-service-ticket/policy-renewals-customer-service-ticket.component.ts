@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
   Inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -21,36 +22,26 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
   // flag for edit or create
   communicationAction: number = -1;
   noteSectionFlag: boolean = false;
-  statusList: BaseListItem[] = [
-    { id: 1, value: 'Policy Renewal Followup' },
-    { id: 2, value: 'In Process' },
-    { id: 3, value: 'Processed (Renewal Issued)' },
-    { id: 4, value: 'Renewal Approved' },
-    { id: 5, value: 'Closed (No Renewal)' },
-  ];
+
+  statusList: BaseListItem[] = [];
+
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
 
   constructor(
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
     private policyCardService: PolicyCardService,
+    private ref: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data.dataKey);
-    this.selectedTicketStatus.setValue(
-      this.getTicketStatus(this.data.dataKey.status)
-    );
-  }
-
-  getTicketStatus(statusId: number): BaseListItem {
-    if (statusId == 1) return { id: 1, value: 'Policy Renewal Followup' };
-    else if (statusId == 2) return { id: 2, value: 'In Process' };
-    else if (statusId == 3)
-      return { id: 3, value: 'Processed (Renewal Issued)' };
-    else if (statusId == 4) return { id: 4, value: 'Renewal Approved' };
-    else if (statusId == 5) return { id: 5, value: 'Closed (No Renewal)' };
-    else return null;
+    this.policyCardService.getFollowUpStatusApi().subscribe((data: any) => {
+      this.statusList = data.map((e: any) => ({
+        id: e.value,
+        value: e.code,
+      }));
+      this.ref.detectChanges();
+    });
   }
 
   nextPage() {

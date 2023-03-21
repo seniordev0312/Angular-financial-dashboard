@@ -2,6 +2,28 @@
   flex: 1 1 auto;
 }
 
+.unselectedFilterWrapper {
+  background-color: white;
+  border: 2px solid #005f83;
+  color: #005f83;
+}
+
+.selectedFilterWrapper {
+  background-color: #005f83;
+  border: 2px solid #005f83;
+  color: white;
+}
+
+.unselectedFilterNumber {
+  background-color: #005f83;
+  color: white;
+}
+
+.selectedFilterNumber {
+  background-color: white;
+  color: #005f83;
+}
+
 .search {
   width: 400px;
   height: 40px;
@@ -77,4 +99,17 @@ mat-drawer-content {
 .drag-boundary {
   width: 75w;
   max-width: 100%;
+}
+
+::ng-deep .mat-badge-medium .mat-badge-content {
+  width: 17px;
+  height: 17px;
+  line-height: 20px;
+  color: white;
+  font-weight: 100;
+  font-size: 10px;
+}
+
+::ng-deep .mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -6px;
 }

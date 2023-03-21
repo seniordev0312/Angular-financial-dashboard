@@ -39,7 +39,8 @@ export class CustomerCardService {
   apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
-  apiGetCommunicationChannel=`${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
+  apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
+  apiGetTicketStatus = `${this.customerServiceServerURL}/Resource/Reference/TicketStatus`;
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
@@ -52,7 +53,7 @@ export class CustomerCardService {
       fromDateModified: null,
       toDateModified: null,
       communicationChannelId: null,
-      category:null
+      category: null,
     };
 
     this.http
@@ -107,7 +108,6 @@ export class CustomerCardService {
       .get<any>(this.apiGetUserDetails, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
-  
 
   getCustomerServiceTicketTypeApi() {
     return this.http
@@ -118,6 +118,12 @@ export class CustomerCardService {
   getCommunicationChannelApi() {
     return this.http
       .get<any>(this.apiGetCommunicationChannel, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getTicketStatusApi() {
+    return this.http
+      .get<any>(this.apiGetTicketStatus, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
