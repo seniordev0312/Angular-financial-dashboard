@@ -37,12 +37,13 @@ export class PolicyCardComponent implements OnInit {
       bg_color = 'bg-[#FD3B31]';
     }
 
+    console.log(this.card);
     this.cardInfo = {
       day,
       hour,
       minute,
       leftSideBackground: bg_color,
-      leftSideIcon: this.displayCategoryTypeIcon(null),
+      leftSideIcon: this.displayCategoryTypeIcon(this.card?.category),
       sourceIconUri: this.card.sourceIconUri,
       assignedToName: this.card.assignedToName,
       assignedToId: this.card.assignedToId,

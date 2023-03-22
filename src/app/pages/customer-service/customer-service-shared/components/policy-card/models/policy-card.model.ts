@@ -12,6 +12,7 @@ export interface PolicyCard {
   sourceIconUri: string;
   primaryCommunicationChannelId: number;
   status: number;
+  category: number;
   ticketTypeId: number;
   ticketTypeName: string;
   ticketTypeIconUri: string;
