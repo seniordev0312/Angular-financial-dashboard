@@ -16,6 +16,8 @@ export class TableSettings {
   slideActionProperty?: string;
   isRowsSelectionAvailable?: boolean;
   dataKey: string;
+  dynamicActions?: boolean;
+  controlActionsKey?: string;
   constructor(data: any) {
     if (!data) {
       return;
@@ -37,5 +39,7 @@ export class TableSettings {
     this.haxPreviousPage = data?.haxPreviousPage ?? true;
     this.isRowsSelectionAvailable = data?.isRowsSelectionAvailable ?? false;
     this.dataKey = data.dataKey ?? 'id';
+    this.dynamicActions = data.dynamicActions ?? false;
+    this.controlActionsKey = data.controlActionsKey ?? '';
   }
 }
