@@ -37,7 +37,6 @@ export class PolicyCardComponent implements OnInit {
       bg_color = 'bg-[#FD3B31]';
     }
 
-    console.log(this.card);
     this.cardInfo = {
       day,
       hour,
