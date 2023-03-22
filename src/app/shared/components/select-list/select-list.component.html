@@ -1,6 +1,7 @@
 <mat-form-field class="w-full" appearance="fill">
     <mat-label>{{label}}</mat-label>
-    <mat-select panelClass="wfullclass" [(ngModel)]="selectedValue" [disabled]="isDisabled" [attr.name]="name" [multiple]="isMultiple" [formControl]="selectControl">
+    <mat-select panelClass="wfullclass" [(ngModel)]="selectedValue" [disabled]="isDisabled" [attr.name]="name"
+        [multiple]="isMultiple" [formControl]="control">
         <mat-option *ngIf="hasSearch">
             <ngx-mat-select-search [formControl]="searchFormControl"></ngx-mat-select-search>
         </mat-option>

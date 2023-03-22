@@ -106,7 +106,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
     cssClasses: 'text-black',
     iconName: 'lock',
     translationKey: '',
-    alwaysShow: false,
+    alwaysShow: true,
     showConditionProperty: 'lock',
     isIconButton: true,
   };
@@ -116,7 +116,7 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
     cssClasses: 'text-primary',
     iconName: 'border_color',
     translationKey: '',
-    alwaysShow: false,
+    alwaysShow: true,
     showConditionProperty: 'canEdit',
     isIconButton: true,
   };
@@ -126,12 +126,12 @@ export class EntitiesRelationshipTypesManagementComponent extends BaseComponent 
     cssClasses: 'text-warn',
     iconName: 'delete_outline',
     translationKey: '',
-    alwaysShow: false,
+    alwaysShow: true,
     showConditionProperty: 'canEdit',
     isIconButton: true,
   };
 
-  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true });
+  tableSettings = new TableSettings({ actionsMode: 'inline', isLocalPaging: true, dynamicActions: true, controlActionsKey: 'lock' });
 
   tableConfiguration: TableConfiguration<RelationshipTypesListItem> = {
     tableRowsActionsList: [this.lockAction],

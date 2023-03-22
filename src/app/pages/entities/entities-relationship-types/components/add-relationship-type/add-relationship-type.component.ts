@@ -53,7 +53,7 @@ export class AddRelationshipTypeComponent extends BaseComponent implements OnIni
     }));
 
     this.subscriptions.add(relationshipTypeDetails$.subscribe(data => {
-      if (!this.isEmpty(data)) {
+      if (!this.isEmpty(data) && this.isUpdateMode()) {
         this.fg = this.relationshipTypesFormGroup.getFormGroup(data);
         this.cdr.detectChanges();
       }
