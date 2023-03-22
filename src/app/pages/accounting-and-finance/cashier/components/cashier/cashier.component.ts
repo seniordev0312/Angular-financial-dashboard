@@ -16,7 +16,8 @@ import { CashierModel } from '../../model/casher.model';
 
 import { ViewBasketComponent } from '../view-basket/view-basket.component';
 import { ImportBasketComponent } from '../import-basket/import-basket.component';
-import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
+// import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
+import { OtherMakePaymentComponent } from '../other-make-payment/other-make-payment.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -286,7 +287,11 @@ export class CashierComponent implements OnInit {
   }
 
   openTransactionModal() {
-    this.dialog.open(NewTransactionComponent, {
+    // this.dialog.open(NewTransactionComponent, {
+    //   width: '90%',
+    //   height: '80%',
+    // });
+    this.dialog.open(OtherMakePaymentComponent, {
       width: '90%',
       height: '80%',
     });
