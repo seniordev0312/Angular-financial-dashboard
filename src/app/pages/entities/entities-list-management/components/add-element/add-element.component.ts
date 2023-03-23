@@ -51,7 +51,9 @@ export class AddElementComponent extends BaseComponent implements OnInit {
     }));
 
     this.subscriptions.add(elementDetails$.subscribe(data => {
-      if (!this.isEmpty(data)) {
+      this.fg = this.elementFormGroup.getFormGroup();
+      this.fg.reset();
+      if (!this.isEmpty(data) && this.mode === DialogMode.Edit) {
         this.elementsListItem = data;
         this.fg = this.elementFormGroup.getFormGroup(data);
         this.fg.get('elementName').disable();
