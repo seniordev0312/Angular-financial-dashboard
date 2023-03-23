@@ -20,7 +20,6 @@ import { ViewBasketComponent } from '../view-basket/view-basket.component';
 import { ImportBasketComponent } from '../import-basket/import-basket.component';
 // import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
 import { OtherMakePaymentComponent } from '../other-make-payment/other-make-payment.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cashier',
@@ -42,11 +41,9 @@ export class CashierComponent implements OnInit {
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
     private dialog1: MatDialog,
-    private dialog: MatDialog
-  ) {}
-    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
     private dialog2: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
