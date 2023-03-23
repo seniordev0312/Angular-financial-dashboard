@@ -492,5 +492,17 @@ export class IconSvgModule {
           'assets/images/policy-svg-icons/arrow-bottom-grey.svg'
         )
       )
+      .addSvgIcon(
+        'check-till',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/svg-icons/check-till.svg'
+        )
+      )
+      .addSvgIcon(
+        'add-icon',
+        sanitizer.bypassSecurityTrustResourceUrl(
+          'assets/images/svg-icons/add-icon.svg'
+        )
+      );
   }
 }

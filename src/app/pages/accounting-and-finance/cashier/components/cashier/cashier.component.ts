@@ -14,10 +14,11 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { CashierModel } from '../../model/casher.model';
 
+import { MatDialog } from '@angular/material/dialog';
+import { TillViewComponent } from '../till-view/till-view.component';
 import { ViewBasketComponent } from '../view-basket/view-basket.component';
 import { ImportBasketComponent } from '../import-basket/import-basket.component';
 import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cashier',
@@ -41,6 +42,9 @@ export class CashierComponent implements OnInit {
     private dialog1: MatDialog,
     private dialog: MatDialog
   ) {}
+    private cdr: ChangeDetectorRef,
+    private dialog2: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.layoutService.updateBreadCrumbsRouter({
@@ -103,6 +107,13 @@ export class CashierComponent implements OnInit {
     this.tableConfiguration.dataCount = this.cashierList.length;
     this.cdr.detectChanges();
     this.table.refresh();
+  }
+
+  openTillModal() {
+    this.dialog2.open(TillViewComponent, {
+      height: '75%',
+      width: '80%',
+    });
   }
 
   tableColumns: TableColumn[] = [
