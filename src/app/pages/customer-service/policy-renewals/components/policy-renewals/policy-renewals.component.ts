@@ -26,6 +26,7 @@ import {
 } from '../../store/policy-renewals-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tickets.repository';
+import { PolicyRenewalSignalRService } from '../../services/policy-renewal-signalr.service';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -68,11 +69,13 @@ export class PolicyRenewalsComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private securityCheckerService: SecurityCheckerService,
-    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
+    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository,
+    public policyRenewalSignalRService: PolicyRenewalSignalRService
   ) {}
 
   ngOnInit(): void {
     this.policyCardService.getPolicyRenewalTickets();
+    this.policyRenewalSignalRService.initConnection();
 
     this.subscription = this.policyCardService
       .getFollowUpStatusApi()
@@ -146,6 +149,8 @@ export class PolicyRenewalsComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+
+    this.policyRenewalSignalRService.stopSignalRConnection();
   }
 
   openFilter() {

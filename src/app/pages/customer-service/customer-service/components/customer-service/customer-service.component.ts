@@ -25,6 +25,7 @@ import {
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { CustomerServiceTicketsRepository } from '../../store/customer-service-tickets.repository';
 import { CustomerServiceStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/customer-service-status.model';
+import { CustomerServiceSignalRService } from '../../services/customer-service-signalr.service';
 
 @Component({
   selector: 'app-customer-service',
@@ -64,11 +65,14 @@ export class CustomerServiceComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private securityCheckerService: SecurityCheckerService,
-    private customerServiceTicketsRepository: CustomerServiceTicketsRepository
+    private customerServiceTicketsRepository: CustomerServiceTicketsRepository,
+    public customerServiceSignalRService: CustomerServiceSignalRService
   ) {}
 
   ngOnInit(): void {
     this.customerCardService.getCutomerServiceTickets();
+
+    this.customerServiceSignalRService.initConnection();
 
     this.subscription = this.customerCardService
       .getTicketStatusApi()
@@ -125,6 +129,8 @@ export class CustomerServiceComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+
+    this.customerServiceSignalRService.stopSignalRConnection();
   }
 
   openFilter() {

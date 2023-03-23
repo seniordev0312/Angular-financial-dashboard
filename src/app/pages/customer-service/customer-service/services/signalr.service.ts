@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { AuthenticationService } from '@root/shared/services/auth.service';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,15 +16,21 @@ export class SignalRService {
   SignalRSubject = new BehaviorSubject<any>(null);
   signalRSubject$ = this.SignalRSubject.asObservable();
 
+  httpClient: signalR.MessageHeaders;
+  token: any;
   constructor(
-    private oidcSecurityService: OidcSecurityService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService
   ) {
-    this.options = {
-      accessTokenFactory: () =>
-        lastValueFrom(this.oidcSecurityService.getAccessToken()),
-      withCredentials: false,
-    };
+    this.authenticationService.token.subscribe((token: any) => {
+      this.token = token;
+      this.options = {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      };
+    });
   }
 
   init(ticketId: number) {
