@@ -14,10 +14,12 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { CashierModel } from '../../model/casher.model';
 
+import { MatDialog } from '@angular/material/dialog';
+import { TillViewComponent } from '../till-view/till-view.component';
 import { ViewBasketComponent } from '../view-basket/view-basket.component';
 import { ImportBasketComponent } from '../import-basket/import-basket.component';
-import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
-import { MatDialog } from '@angular/material/dialog';
+// import { NewTransactionComponent } from '../new-transaction/new-transaction.component';
+import { OtherMakePaymentComponent } from '../other-make-payment/other-make-payment.component';
 
 @Component({
   selector: 'app-cashier',
@@ -39,7 +41,8 @@ export class CashierComponent implements OnInit {
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
     private dialog1: MatDialog,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dialog2: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -103,6 +106,13 @@ export class CashierComponent implements OnInit {
     this.tableConfiguration.dataCount = this.cashierList.length;
     this.cdr.detectChanges();
     this.table.refresh();
+  }
+
+  openTillModal() {
+    this.dialog2.open(TillViewComponent, {
+      height: '75%',
+      width: '80%',
+    });
   }
 
   tableColumns: TableColumn[] = [
@@ -286,7 +296,11 @@ export class CashierComponent implements OnInit {
   }
 
   openTransactionModal() {
-    this.dialog.open(NewTransactionComponent, {
+    // this.dialog.open(NewTransactionComponent, {
+    //   width: '90%',
+    //   height: '80%',
+    // });
+    this.dialog.open(OtherMakePaymentComponent, {
       width: '90%',
       height: '80%',
     });

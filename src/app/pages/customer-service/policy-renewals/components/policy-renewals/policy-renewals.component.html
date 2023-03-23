@@ -110,14 +110,14 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.inQueueTickets"
+        [cdkDropListData]="tickets?.inQueueTickets"
         (cdkDropListDropped)="drop($event, 1)"
       >
         <div
           class="flex justify-center relative"
           cdkDragBoundary=".drag-boundary"
           cdkDrag
-          *ngFor="let card of tickets.inQueueTickets"
+          *ngFor="let card of tickets?.inQueueTickets"
         >
           <app-policy-card
             [card]="card"
@@ -130,13 +130,13 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.inProgressTickets"
+        [cdkDropListData]="tickets?.inProgressTickets"
         (cdkDropListDropped)="drop($event, 2)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
-          *ngFor="let card of tickets.inProgressTickets"
+          *ngFor="let card of tickets?.inProgressTickets"
           cdkDrag
         >
           <app-policy-card
@@ -150,13 +150,13 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.processedTickets"
+        [cdkDropListData]="tickets?.processedTickets"
         (cdkDropListDropped)="drop($event, 3)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
-          *ngFor="let card of tickets.processedTickets"
+          *ngFor="let card of tickets?.processedTickets"
           cdkDrag
         >
           <app-policy-card
@@ -170,14 +170,14 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.resolvedTickets"
+        [cdkDropListData]="tickets?.resolvedTickets"
         (cdkDropListDropped)="drop($event, 4)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
           cdkDrag
-          *ngFor="let card of tickets.resolvedTickets"
+          *ngFor="let card of tickets?.resolvedTickets"
         >
           <app-policy-card
             class="w-[100%]"
@@ -190,14 +190,14 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.closedTickets"
+        [cdkDropListData]="tickets?.closedTickets"
         (cdkDropListDropped)="drop($event, 5)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
           cdkDrag
-          *ngFor="let card of tickets.closedTickets"
+          *ngFor="let card of tickets?.closedTickets"
         >
           <app-policy-card
             class="w-[100%]"

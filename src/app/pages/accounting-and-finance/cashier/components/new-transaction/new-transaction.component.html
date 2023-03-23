@@ -2,19 +2,25 @@
   class="text-bold"
   label="New Transaction"
 ></app-dialog-header>
-<div class="w-full flex">
+<div class="w-full flex" *ngIf="paymentFlag">
   <div class="w-1/10 mt-[69px] ml-[51px]">
     <div
       class="bg-white w-full h-[400px] flex flex-col shadow-lg rounded-bl-xl py-5"
     >
-      <div class="flex flex-col w-full mt-auto mb-auto px-6 justify-center">
+      <div
+        class="flex flex-col w-full mt-auto mb-auto px-6 justify-center"
+        (click)="switchPaymentOption()"
+      >
         <img
           class="w-10 h-5 ml-auto mr-auto"
           src="../../../../../../assets/images/cashier-icons/advance-payment-selected.svg"
         />
         <p class="text-[#365D7D] text-center">Advance Payment</p>
       </div>
-      <div class="flex flex-col w-full px-6 justify-center">
+      <div
+        class="flex flex-col w-full px-6 justify-center"
+        (click)="switchPaymentOption()"
+      >
         <img
           class="w-7 h-8 ml-auto mr-auto"
           src="../../../../../../assets/images/cashier-icons/vendor-invoice.svg"
@@ -29,14 +35,14 @@
       <app-search-bar-input class="ml-4 flex-1 w-full"></app-search-bar-input>
     </div>
     <div class="w-[50%] ml-[25%] flex mt-10">
-      Name * <app-input-field class="ml-4 flex-1"></app-input-field>
+      Name * <app-input-field class="ml-8 flex-1"></app-input-field>
     </div>
     <div class="w-[50%] ml-[25%] flex mt-10">
       Payment Date
-      <app-date-picker-input class="ml-4 flex-1 w-full"></app-date-picker-input>
+      <app-date-picker-input class="ml-5 flex-1 w-full"></app-date-picker-input>
     </div>
     <div class="w-[50%] ml-[25%] flex mt-10">
-      Amount * <app-input-field class="ml-4 flex-1"></app-input-field>
+      Amount * <app-input-field class="ml-10 flex-1"></app-input-field>
     </div>
     <div class="w-[50%] ml-[25%] flex mt-10">
       Description <app-input-field class="ml-4 flex-1"></app-input-field>
@@ -44,14 +50,80 @@
   </div>
 </div>
 
-<div class="flex w-full">
+<div class="flex w-full" *ngIf="paymentFlag">
   <div
-    class="ml-auto w-1/6 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl text-[#275e80]"
+    class="ml-auto w-1/7 mr-3 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl"
   >
-    <p class="text-[16px] text-white font-normal">Cancel</p>
+    <p class="text-[16px] text-[#275e80] font-normal">Cancel</p>
   </div>
   <div
-    class="w-1/6 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
+    class="w-1/7 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
+  >
+    <p class="text-[16px] text-white font-normal">Receive Now</p>
+  </div>
+</div>
+<div class="w-full flex" *ngIf="!paymentFlag">
+  <div class="w-1/10 mt-[69px] ml-[51px]">
+    <div
+      class="bg-white w-full h-[400px] flex flex-col shadow-lg rounded-bl-xl py-5"
+    >
+      <div
+        class="flex flex-col w-full px-6 justify-center"
+        (click)="switchPaymentOption()"
+      >
+        <img
+          class="w-10 h-5 ml-auto mr-auto"
+          src="../../../../../../assets/images/cashier-icons/advance-payment.svg"
+        />
+        <p class="text-[#BABABA] text-center">Advance Payment</p>
+      </div>
+      <div
+        class="flex flex-col mt-auto mb-auto w-full px-6 justify-center"
+        (click)="switchPaymentOption()"
+      >
+        <img
+          class="w-7 h-8 ml-auto mr-auto"
+          src="../../../../../../assets/images/cashier-icons/vendor-invoice-selected.svg"
+        />
+        <p class="text-[#365D7D] text-center">Vendor Invoice</p>
+      </div>
+    </div>
+  </div>
+  <div class="w-[90%] flex flex-col">
+    <div class="w-[50%] ml-[25%] flex mt-6">
+      Vendor EIN *
+      <app-search-bar-input class="ml-4 flex-1 w-full"></app-search-bar-input>
+    </div>
+    <div class="w-[50%] ml-[25%] flex mt-6">
+      Name * <app-input-field class="ml-8 flex-1"></app-input-field>
+    </div>
+    <div class="w-[50%] ml-[25%] flex mt-6">
+      Expense Type * <app-select-list class="ml-3 flex-1"></app-select-list>
+    </div>
+    <div class="w-[50%] ml-[25%] flex mt-6">
+      <span class="text-[#000000]">Payment Date</span>
+      <app-date-picker-input
+        class="ml-3 flex-1 w-full"
+        [dateValue]="currentDate"
+      ></app-date-picker-input>
+    </div>
+    <div class="w-[50%] ml-[25%] flex mt-6">
+      Amount * <app-input-field class="ml-8 flex-1"></app-input-field>
+    </div>
+    <div class="w-[50%] ml-[25%] flex mt-6">
+      Description <app-input-field class="ml-6 flex-1"></app-input-field>
+    </div>
+  </div>
+</div>
+
+<div class="flex w-full" *ngIf="!paymentFlag">
+  <div
+    class="ml-auto w-1/7 mr-3 py-6 flex justify-center bg-white border-[#275E80] border-[2px] rounded-xl"
+  >
+    <p class="text-[16px] text-[#275e80] font-normal">Cancel</p>
+  </div>
+  <div
+    class="w-1/7 py-6 flex justify-center border-[#275E80] border-[2px] text-white rounded-xl bg-[#275e80]"
   >
     <p class="text-[16px] text-white font-normal">Receive Now</p>
   </div>

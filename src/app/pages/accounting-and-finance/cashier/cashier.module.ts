@@ -27,7 +27,8 @@ import { PayMakePaymentComponent } from './components/pay-make-payment/pay-make-
 import { PersonMakePaymentBodyComponent } from './components/person-make-payment-body/person-make-payment-body.component';
 import { ClaimMakePaymentComponent } from './components/claim-make-payment/claim-make-payment.component';
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
-
+import { TillViewComponent } from './components/till-view/till-view.component';
+import { OtherMakePaymentComponent } from './components/other-make-payment/other-make-payment.component';
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
@@ -56,8 +57,10 @@ const routes: Route[] = [
     PersonMakePaymentBodyComponent,
     ClaimMakePaymentComponent,
     NewTransactionComponent,
+    OtherMakePaymentComponent,
+    TillViewComponent,
   ],
-  imports: [
+ imports: [
     CommonModule,
     SharedModule,
     MatOptionModule,
