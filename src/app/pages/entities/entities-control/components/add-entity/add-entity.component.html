@@ -15,17 +15,18 @@
                 <cdk-accordion-item *ngIf="!isDefinitionFetched&&!isUpdateMode&&!isViewMode"
                     #accordionItem0="cdkAccordionItem" role="button" tabindex="0" [attr.id]="'accordion-header-0'"
                     [attr.aria-expanded]="accordionItem0.expanded" [attr.aria-controls]="'accordion-body-0'">
-                    <div class="flex items-center justify-between w-full panel-header bg-gray-light3 px-5">
+                    <button (click)="accordionItem0.toggle()"
+                        class="flex items-center justify-between w-full panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
                                 class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 1</div>
                             <span class="font-bold text-lg">Select Entity Type</span>
                         </div>
-                        <span (click)="accordionItem0.toggle()" class="material-icons text-accent cursor-pointer">
+                        <span class="material-icons text-accent cursor-pointer">
                             {{accordionItem0.expanded?'expand_less':'expand_more'}}
                         </span>
-                    </div>
+                    </button>
                     <div role="region" [style.display]="accordionItem0.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-0'" [attr.aria-labelledby]="'accordion-header-0'">
                         <app-entity-type #entityType></app-entity-type>
@@ -36,17 +37,18 @@
                     #accordionItem="cdkAccordionItem" role="button" [tabindex]="i" [attr.id]="'accordion-header-1'"
                     [attr.aria-expanded]="accordionItem.expanded" [attr.aria-controls]="'accordion-body-1'">
 
-                    <div class="flex items-center justify-between w-full mt-2 panel-header bg-gray-light3 px-5">
+                    <button (click)="accordionItem.toggle()"
+                        class="flex items-center justify-between w-full mt-2 panel-header bg-gray-light3 px-5">
                         <div class="flex items-center">
                             <div
                                 class="border-4 border-accent text-accent text-2xl rounded-full h-12 w-12 flex items-center justify-center font-bold mr-6">
                                 {{i +1}}</div>
                             <span class="font-bold text-lg">{{item.sectionName}}</span>
                         </div>
-                        <span (click)="accordionItem.toggle()" class="material-icons text-accent cursor-pointer">
+                        <span class="material-icons text-accent cursor-pointer">
                             {{accordionItem.expanded?'expand_less':'expand_more'}}
                         </span>
-                    </div>
+                    </button>
                     <div role="region" [style.display]="accordionItem.expanded ? '' : 'none'"
                         [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-0'">
                         <app-entity-section [isViewMode]="isViewMode" [data]="selectedEntity?.sections[i]?.properties"
