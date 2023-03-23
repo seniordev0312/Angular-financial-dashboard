@@ -218,21 +218,28 @@ export class PolicyRenewalsComponent implements OnInit {
   }
 
   onSearchFilter() {
-    const filterOption = {
-      searchQuery: this.searchBarValue,
-    };
+    this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
 
-    this.policyCardService.filterPolicyRenewalTickets(filterOption);
+    this.policyCardService.filterPolicyRenewalTickets(
+      this.policyRenewalFilterOptions
+    );
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
   }
 
   onClearFilter() {
     this.searchBarValue = '';
 
-    const filterOption = {
-      searchQuery: this.searchBarValue,
-    };
+    this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
 
-    this.policyCardService.filterPolicyRenewalTickets(filterOption);
+    this.policyCardService.filterPolicyRenewalTickets(
+      this.policyRenewalFilterOptions
+    );
+
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
   }
 
   filterByAssignedTo(filterMode: string) {
