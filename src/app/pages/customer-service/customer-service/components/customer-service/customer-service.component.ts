@@ -206,17 +206,14 @@ export class CustomerServiceComponent implements OnInit {
   }
 
   onSearchFilter() {
-    const filterOption: any = {
-      searchQuery: this.searchBarValue,
-      assignedToId: null,
-      fromDateCreated: null,
-      toDateCreated: null,
-      fromDateModified: null,
-      toDateModified: null,
-      communicationChannelId: null,
-    };
+    this.customerServiceFilterOptions.searchQuery = this.searchBarValue;
 
-    this.customerCardService.filterCustomerServiceTickets(filterOption);
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
   }
 
   filterByAssignedTo(filterMode: string) {
@@ -243,10 +240,14 @@ export class CustomerServiceComponent implements OnInit {
   onClearFilter() {
     this.searchBarValue = '';
 
-    const filterOption = {
-      searchQuery: this.searchBarValue,
-    };
+    this.customerServiceFilterOptions.searchQuery = this.searchBarValue;
 
-    this.customerCardService.filterCustomerServiceTickets(filterOption);
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
+
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
   }
 }
