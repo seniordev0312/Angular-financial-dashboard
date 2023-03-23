@@ -12,16 +12,25 @@ export class TillViewComponent implements OnInit {
   additionalCurrency: boolean = false;
   viewCurrencyDetail: boolean = false;
   currentCurrency: string;
+  currency: number = 1;
 
   constructor() {}
 
-  ngOnInit(): void {}
-
-  addCurrency() {
+  ngOnInit(): void {
+    this.currentCurrency = '';
     this.currencyList.push({
       id: 1,
       value: 'LBP',
     });
+  }
+
+  addCurrency() {
+    this.currencyList.push({
+      id: 2,
+      value: 'USD',
+    });
+    // this.viewCurrencyDetail = true;
     this.additionalCurrency = true;
+    console.log(this.additionalCurrency);
   }
 }

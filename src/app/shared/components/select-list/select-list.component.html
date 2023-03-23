@@ -1,13 +1,13 @@
 <mat-form-field class="w-full" appearance="fill">
   <mat-label>{{ label }}</mat-label>
   <mat-select
+    #list
     panelClass="wfullclass"
-    (ngModelChange)="(changeStatus)"
-    [(ngModel)]="selectedValue"
+    (selectionChange)="changeStatus(list.value)"
+    [(value)]="statusValue"
     [disabled]="isDisabled"
     [attr.name]="name"
     [multiple]="isMultiple"
-    [formControl]="control"
   >
     <mat-option *ngIf="hasSearch">
       <ngx-mat-select-search

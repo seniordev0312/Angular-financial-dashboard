@@ -3,7 +3,7 @@
   <div>
     <div class="flex justify-end">
       <app-button
-        classes="py-3 my-2 px-6 bg-[#275E80]"
+        classes="py-3 my-2 px-6 bg-[#275E80] text-white"
         icon="alarm_add"
         text="Add New Currency"
         (click)="addCurrency()"
@@ -13,12 +13,16 @@
       <div class="w-[25%]">
         <p class="text-center bg-[#F2F2F2]">Start of Shift</p>
         <br />
-        <div>
-          Currency:
-          <app-select-list [optionsList]="currencyList"></app-select-list>
+        <div class="flex">
+          <span class="ml-2">Currency:</span>
+          <app-select-list
+            [optionsList]="currencyList"
+            class="flex justify-center"
+          ></app-select-list>
         </div>
-        <div>
-          Amonut: <app-input-field></app-input-field
+        <div class="flex">
+          <span class="ml-2">Amonut:</span>
+          <app-input-field class="flex justify-center"></app-input-field
           ><mat-icon class="ml-1" svgIcon="check-till"></mat-icon>
         </div>
       </div>
@@ -39,66 +43,94 @@
             <tr>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/money.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Cash</div>
-                <div class="text-[13px] font-bold text-center">2,200.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Cash
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  2,200.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/check-book.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Credit</div>
-                <div class="text-[13px] font-bold text-center">3,200.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Credit
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  3,200.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/credit-cards.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Card</div>
-                <div class="text-[13px] font-bold text-center">4,100.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Card
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  4,100.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/money.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Cash</div>
-                <div class="text-[13px] font-bold text-center">2,000.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Cash
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  2,000.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/money.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Cash</div>
-                <div class="text-[13px] font-bold text-center">1,700.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Cash
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  1,700.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/check-book.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Credit</div>
-                <div class="text-[13px] font-bold text-center">3,200.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Credit
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  3,200.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/credit-cards.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Card</div>
-                <div class="text-[13px] text-center font-bold">4,100.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Card
+                </div>
+                <div class="text-[13px] text-center font-bold mt-[10px]">
+                  4,100.00
+                </div>
               </td>
             </tr>
           </tbody>
@@ -106,22 +138,24 @@
       </div>
     </div>
     <div class="flex w-full shadow-lg mb-5 mt-2">
-      <div *ngIf="viewCurrencyDetail" class="w-[25%]">
+      <div *ngIf="additionalCurrency" class="w-[25%]">
         <p class="text-center bg-[#F2F2F2]">Start of Shift</p>
         <br />
-        <div>
-          Currency:
+        <div class="flex">
+          <span class="ml-2">Currency:</span>
           <app-select-list
-            [(statusValue)]="currentCurrency"
             [optionsList]="currencyList"
+            [(statusValue)]="currency"
+            class="flex justify-center"
           ></app-select-list>
         </div>
-        <div>
-          Amonut: <app-input-field></app-input-field
+        <div class="flex">
+          <span class="ml-2">Amonut:</span>
+          <app-input-field class="flex justify-center"></app-input-field
           ><mat-icon class="ml-1" svgIcon="check-till"></mat-icon>
         </div>
       </div>
-      <div class="w-[75%]" *ngIf="currentCurrency === 'USD'">
+      <div class="w-[75%]" *ngIf="currency === 2">
         <table>
           <thead>
             <tr>
@@ -138,66 +172,94 @@
             <tr>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/money.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Cash</div>
-                <div class="text-[13px] font-bold text-center">2,200.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Cash
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  2,200.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/check-book.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Credit</div>
-                <div class="text-[13px] font-bold text-center">3,200.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Credit
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  3,200.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/credit-cards.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Card</div>
-                <div class="text-[13px] font-bold text-center">4,100.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Card
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  4,100.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/money.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Cash</div>
-                <div class="text-[13px] font-bold text-center">2,000.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Cash
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  2,000.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/money.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Cash</div>
-                <div class="text-[13px] font-bold text-center">1,700.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Cash
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  1,700.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/check-book.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Credit</div>
-                <div class="text-[13px] font-bold text-center">3,200.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Credit
+                </div>
+                <div class="text-[13px] font-bold text-center mt-[10px]">
+                  3,200.00
+                </div>
               </td>
               <td>
                 <img
-                  class="ml-auto mr-auto"
+                  class="ml-auto mr-auto w-[30px] mt-[10px]"
                   src="../../../../../../assets/images/cashier-icons/credit-cards.png"
                   alt=""
                 />
-                <div class="text-[8px] text-center">Card</div>
-                <div class="text-[13px] text-center font-bold">4,100.00</div>
+                <div class="text-[8px] text-center text-base mt-[10px]">
+                  Card
+                </div>
+                <div class="text-[13px] text-center font-bold mt-[10px]">
+                  4,100.00
+                </div>
               </td>
             </tr>
           </tbody>
@@ -213,12 +275,26 @@
         </div>
         <div class="flex">
           <div class="w-1/2 flex flex-col justify-center">
-            Currency: <app-input-field value="USD"></app-input-field> Currency:
-            <app-input-field value="LBP"></app-input-field>
+            Currency:
+            <app-input-field
+              class="flex justify-center"
+              value="USD"
+              *ngIf="currency === 2"
+            ></app-input-field>
+            Currency:
+            <app-input-field
+              class="flex justify-center"
+              value="LBP"
+            ></app-input-field>
           </div>
           <div class="w-1/2 flex flex-col justify-center">
-            Amonut: <app-input-field></app-input-field> Amonut:
-            <app-input-field></app-input-field>
+            Amonut:
+            <app-input-field
+              class="flex justify-center"
+              *ngIf="currency === 2"
+            ></app-input-field>
+            Amonut:
+            <app-input-field class="flex justify-center"></app-input-field>
           </div>
         </div>
       </div>
@@ -226,11 +302,11 @@
     <div class="w-full flex justify-center">
       <div class="w-[40%] flex justify-between">
         <app-button
-          classes="my-2 bg-[#275E80] py-3 w-[140px] flex justify-center items-center"
+          classes="my-2 bg-[#275E80] py-3 w-[140px] flex justify-center items-center text-white"
           text="Till Management"
         ></app-button>
         <app-button
-          classes="ml-auto my-2 bg-[#275E80] py-3 w-[140px] flex justify-center items-center"
+          classes="ml-auto my-2 bg-[#275E80] py-3 w-[140px] flex justify-center items-center text-white"
           text="End Shift"
         ></app-button>
       </div>
