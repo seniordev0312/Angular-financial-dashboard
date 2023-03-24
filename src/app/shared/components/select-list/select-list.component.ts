@@ -40,7 +40,7 @@ export class SelectListComponent implements OnInit {
       this.onSearch.emit(data);
     });
 
-    this.selectControl.valueChanges.subscribe((data) => {
+    this.control.valueChanges.subscribe((data) => {
       this.statusValueChange.emit(data);
     });
   }

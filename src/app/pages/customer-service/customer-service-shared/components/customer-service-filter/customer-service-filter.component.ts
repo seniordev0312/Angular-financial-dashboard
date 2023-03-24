@@ -70,8 +70,24 @@ export class CustomerServiceFilterComponent implements OnInit {
     });
 
     this.subscription = customerServiceFilterOptions$.subscribe((data: any) => {
-      this.customerServiceFilterOptions = data;
-      this.selectedAssignedTo = this.customerServiceFilterOptions.assignedToId;
+      if (data) {
+        this.customerServiceFilterOptions = data;
+        this.selectedAssignedTo =
+          this.customerServiceFilterOptions.assignedToId;
+      } else {
+        this.customerServiceFilterOptions = {
+          searchQuery: '',
+          assignedToId: null,
+          fromDateCreated: null,
+          toDateCreated: null,
+          fromDateModified: null,
+          toDateModified: null,
+          communicationChannelId: null,
+          followUpResponse: null,
+          followUpStatus: null,
+          category: null,
+        };
+      }
       this.ref.detectChanges();
     });
 
@@ -122,6 +138,8 @@ export class CustomerServiceFilterComponent implements OnInit {
       communicationChannelId: null,
       assignedToId: null,
       category: null,
+      followUpResponse: null,
+      followUpStatus: null,
     };
   }
 
@@ -154,6 +172,8 @@ export class CustomerServiceFilterComponent implements OnInit {
       toDateModified: this.toDateModified,
       communicationChannelId: this.selectedCstSource,
       assignedToId: this.selectedAssignedTo,
+      followUpResponse: null,
+      followUpStatus: null,
       category: this.selectedTicketType,
     };
 
@@ -187,6 +207,23 @@ export class CustomerServiceFilterComponent implements OnInit {
     this.selectedCstSource = null;
     this.selectedTicketType = null;
     this.selectedAssignedTo = null;
+
+    this.customerServiceFilterOptions = {
+      searchQuery: '',
+      fromDateCreated: this.fromDateCreated,
+      toDateCreated: this.toDateCreated,
+      fromDateModified: this.fromDateModified,
+      toDateModified: this.toDateModified,
+      communicationChannelId: this.selectedCstSource,
+      assignedToId: this.selectedAssignedTo,
+      category: this.selectedTicketType,
+      followUpResponse: null,
+      followUpStatus: null,
+    };
+
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
 
     this.numberOfCustomerServiceAppliedFilters = 0;
     this.customerServiceTicketsRepository.updateNumberOfAppliedFilters(
