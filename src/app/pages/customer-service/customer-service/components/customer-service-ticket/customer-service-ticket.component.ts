@@ -85,8 +85,8 @@ export class CustomerServiceTicketComponent
     product: 0,
     emergencyType: 0,
     initiate: [],
-    };
-  
+  };
+
   ticketStatus: BaseListItem[] = [];
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
@@ -358,9 +358,7 @@ export class CustomerServiceTicketComponent
   onSaveLocation() {
     let body: any = {
       location: this.location.value,
-      notes: null,
-      messageTitle: null,
-      messageDescription: null,
+      locationSpecified: true,
     };
 
     this.customerCardService.updateCustomServiceTicketDetails(
@@ -371,10 +369,8 @@ export class CustomerServiceTicketComponent
 
   onSubmitNote(event: Event) {
     let body: any = {
-      location: null,
-      notes: event,
-      messageTitle: null,
-      messageDescription: null,
+      note: event,
+      noteSpecified: true,
     };
 
     this.customerCardService.updateCustomServiceTicketDetails(
