@@ -38,12 +38,15 @@ export class AddSectionComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.entitiesTemplatesListService.getEntitiesTemplatesList();
+
     this.subscriptions.add(templatesList$.subscribe(data => {
       if (!this.isEmpty(data)) {
+
         this.templatesList = data.map((e: EntityTemplatesListItem) => ({
           id: e.entitySectionTemplateId,
           value: e.name
         }));
+        this.templatesList = this.templatesList.filter((item) => item.value !== "Common")
       }
     }));
     this.subscriptions.add(this.activeRoute.queryParams.subscribe(params => {
@@ -56,7 +59,9 @@ export class AddSectionComponent extends BaseComponent implements OnInit {
     }));
 
     this.subscriptions.add(sectionDetails$.subscribe(data => {
-      if (!this.isEmpty(data)) {
+      this.fg = this.sectionFormGroup.getFormGroup();
+      this.fg.reset();
+      if (!this.isEmpty(data) && this.mode === DialogMode.Edit) {
         this.sectionDetails = data;
         this.fg = this.sectionFormGroup.getFormGroup(data);
       }

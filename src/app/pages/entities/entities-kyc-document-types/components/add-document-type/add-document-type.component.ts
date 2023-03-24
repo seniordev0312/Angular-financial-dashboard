@@ -38,7 +38,7 @@ export class AddDocumentTypeComponent extends BaseComponent implements OnInit {
     }));
 
     this.subscriptions.add(documentDetails$.subscribe(data => {
-      if (!this.isEmpty(data)) {
+      if (!this.isEmpty(data) && !this.isCreateMode()) {
         this.fg = this.documentTypeFormGroup.getFormGroup(data);
       }
     }))
