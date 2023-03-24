@@ -12,7 +12,7 @@ export class PolicyCardService {
   constructor(
     private http: HttpClient,
     private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
-  ) {}
+  ) { }
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -33,6 +33,7 @@ export class PolicyCardService {
   apiGetFollowUpResponsiveness = `${this.customerServiceServerURL}/Resource/Reference/TicketResponse`;
   apiGetFollowUpStatus = `${this.customerServiceServerURL}/Resource/Reference/PolicyRenewalStatus`;
   apiGetTicketData = `${this.customerServiceServerURL}/CustomerServiceTicket`;
+  apiGetFollowUpHistory = `${this.customerServiceServerURL}/PolicyRenewalTicket/FollowUp`
 
   // HttpClient API post() method => Get PolicyRenewalTickets
   getPolicyRenewalTickets() {
@@ -44,7 +45,7 @@ export class PolicyCardService {
       fromDateModified: null,
       toDateModified: null,
       followUpResponse: null,
-      followUpStatus:null
+      followUpStatus: null
     };
 
     this.http
@@ -53,7 +54,7 @@ export class PolicyCardService {
         this.policyRenewalsTicketsRepository.updateTickets(data);
       });
   }
-  
+
   getFollowUpResponsivenessApi() {
     return this.http
       .get<any>(this.apiGetFollowUpResponsiveness, this.httpOptions)
@@ -114,4 +115,38 @@ export class PolicyCardService {
       return errorMessage;
     });
   }
+
+  getFollowUpHistoryList(ticketId: number) {
+    return this.http
+      .get<PolicyCard>(`${this.apiGetFollowUpHistory}/${ticketId}`, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  addNewFollowUpHistory(option: {}) {
+    this.http
+      .post<PolicyCard>(this.apiGetFollowUpHistory, option, this.httpOptions)
+      .subscribe((data) => {
+        this.policyRenewalsTicketsRepository.updateTickets(data);
+      });
+  }
+
+  updateFollowUpHistory(option: {}) {
+    this.http
+      .put<PolicyCard>(this.apiGetFollowUpHistory, option, this.httpOptions)
+      .subscribe((data) => {
+        this.policyRenewalsTicketsRepository.updateTickets(data);
+      });
+  }
+
+  deleteFollowUpHistory(followUpId: number) {
+    this.http
+      .delete<PolicyCard>(`${this.apiGetFollowUpHistory}/${followUpId}`,).subscribe(data => {
+        console.log(data);
+        //this.deleteRoleSubject.next(true);
+        this.policyRenewalsTicketsRepository.updateTickets(data);
+
+      });
+  }
+
+
 }

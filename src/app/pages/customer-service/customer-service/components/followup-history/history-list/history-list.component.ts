@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   AfterViewInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -17,7 +18,8 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TicketHistoryListItem } from '../../../models/ticket-history-list-item.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
-
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-history-list',
   templateUrl: './history-list.component.html',
@@ -26,9 +28,11 @@ import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/
 })
 export class HistoryListComponent
   extends BaseComponent
-  implements OnInit, AfterViewInit
-{
-  constructor(public policyCardService: PolicyCardService) {
+  implements OnInit, AfterViewInit {
+  constructor(public policyCardService: PolicyCardService,
+    private securityCheckerService: SecurityCheckerService,
+    private cdr: ChangeDetectorRef
+  ) {
     super();
   }
   @Input() pageControl: string;
@@ -108,7 +112,7 @@ export class HistoryListComponent
     },
     {
       translationKey: 'Response',
-      property: 'Response', 
+      property: 'Response',
       type: 'icon',
       cssClasses: () => 'text-primary',
       dataCssClasses: () => '',
@@ -173,7 +177,7 @@ export class HistoryListComponent
     actionsMode: 'inline',
     pageSize: this.pageSize,
     enableCustomizingColumns: false,
-    enableActions:true
+    enableActions: true
   });
 
   tableConfiguration: TableConfiguration<TicketHistoryListItem> = {
@@ -203,7 +207,15 @@ export class HistoryListComponent
     }
   }
 
+  employeeName: string;
+  historyData2: any;
+  subscription: Subscription;
+
   ngOnInit(): void {
+    this.securityCheckerService.userClaims$.subscribe(data => {
+      this.employeeName = data?.name;
+      this.cdr.detectChanges();
+    })
     //define the type of historyData
     this.getHistoryData();
   }
@@ -213,13 +225,21 @@ export class HistoryListComponent
   }
 
   getHistoryData() {
+    this.subscription = this.policyCardService
+      .getFollowUpHistoryList(this.data.id)
+      .subscribe((data: any) => {
+        this.historyData2 = data;
+        // this.isLoading = false;
+        this.cdr.detectChanges();
+      });
+    console.log("HISTORY", this.historyData2)
     this.historyData = Object.values(this.data.detailsJson);
 
     for (let i = 0; i < this.historyData.length; i++) {
       let historyItem = {
         id: this.historyData[i].id,
         Response: this.displayIcon(this.historyData[i].response),
-        employeeName: '',
+        employeeName: this.employeeName,
         Date: new Date(this.historyData[i].date).toDateString(),
       };
       this.historyList.push(historyItem);
@@ -237,7 +257,7 @@ export class HistoryListComponent
     this.actionFlagChange.emit(_category.id);
   }
 
-  onTicketViewed(_category: TicketHistoryListItem) {}
+  onTicketViewed(_category: TicketHistoryListItem) { }
 
   onTicketDeleted(_category: TicketHistoryListItem) {
     this.historyData.splice(_category.id, 1);
@@ -253,5 +273,5 @@ export class HistoryListComponent
     this.table.refresh();
   }
 
-  onTicketLocked(_category: TicketHistoryListItem) {}
+  onTicketLocked(_category: TicketHistoryListItem) { }
 }

@@ -21,7 +21,7 @@ export class EditHistoryComponent implements OnInit {
   constructor(
     public policyCardService: PolicyCardService,
     private followUpHistoryService: FollowUpHistoryService
-  ) {}
+  ) { }
 
   @Input() pageControl = '';
   @Input() actionFlag: number;
@@ -143,17 +143,21 @@ export class EditHistoryComponent implements OnInit {
       // actionFlag = -1 means creating communication.
       case -1:
         if (
-          Object.keys(this.data.detailsJson).length === 0 &&
-          this.data.detailsJson.constructor === Object
+          /* Object.keys(this.data.detailsJson).length === 0 &&
+          this.data.detailsJson.constructor === Object */
+          Object.keys(this.data).length === 0 &&
+          this.data.constructor === Object
         ) {
           this.createNewCommunications(currentCommunications);
         } else {
-          this.createNewCommunications(Object.values(this.data.detailsJson));
+          //this.createNewCommunications(Object.values(this.data.detailsJson));
+          this.createNewCommunications(Object.values(this.data));
         }
         break;
       // actionFlag != -1 means edit communication[actionFlag]
       default:
-        this.editCommunciation(Object.values(this.data.detailsJson));
+        //this.editCommunciation(Object.values(this.data.detailsJson));
+        this.editCommunciation(Object.values(this.data));
         break;
     }
 
