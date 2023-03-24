@@ -27,7 +27,7 @@
         </div>
         <div class="flex gap-2">
           <button
-            (click)="filterByAssignedTo('personal')"
+            (click)="filterByAssignedTo(FilterButtons.Personal)"
             class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center border-2 w-30 h-8"
             [ngClass]="
               isAllFilterSelected
@@ -45,11 +45,11 @@
             >
               {{ numberPersonalTickets }}
             </div>
-            <span class="items-center flex gap-3 text-[12px]">Personal</span>
+            <span class="items-center flex gap-3 text-[12px]">{{FilterButtons.Personal}}</span>
           </button>
 
           <button
-            (click)="filterByAssignedTo('all')"
+            (click)="filterByAssignedTo(FilterButtons.All)"
             class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 w-30 h-8"
             [ngClass]="
               isAllFilterSelected
@@ -67,7 +67,7 @@
             >
               {{ numberAllTickets }}
             </div>
-            <span class="items-center flex gap-3 text-[12px]">Show All</span>
+            <span class="items-center flex gap-3 text-[12px]">{{FilterButtons.All}}</span>
           </button>
         </div>
       </div>
