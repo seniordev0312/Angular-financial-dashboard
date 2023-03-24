@@ -90,8 +90,10 @@ export class PolicyRenewalsComponent implements OnInit {
 
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
-      this.numberAllTickets = this.tickets.all;
-      this.numberPersonalTickets = this.tickets.personal;
+      if (this.tickets) {
+        this.numberAllTickets = this.tickets.all;
+        this.numberPersonalTickets = this.tickets.personal;
+      }
       this.ref.detectChanges();
     });
 
