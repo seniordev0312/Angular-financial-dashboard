@@ -1,4 +1,4 @@
-import { ElementsTypes } from "../components/customer-service/enum/elementsType.enum";
+import { ElementsTypes } from "./enum/elementsType.enum";
 
 export interface RequiredProductData {
     //entityName: string;

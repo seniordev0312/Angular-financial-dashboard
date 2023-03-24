@@ -12,7 +12,7 @@ import { FieldsObject, RequiredProductData } from '../../models/pending-informat
 //import { DraftPolicyPendingInfoService } from '../../services/draft-policy-pending-info.service';
 import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { ElementsTypes } from '../customer-service/enum/elementsType.enum';
+import { ElementsTypes } from '../../models/enum/elementsType.enum';
 
 @Component({
   selector: 'app-pending-informaiton-card',
@@ -35,26 +35,6 @@ export class PendingInformaitonCardComponent implements OnInit {
 
   ElementsTypes = ElementsTypes;
   einValue: any = null;
-
-  /* link = ElementsTypes.Link;
-  dynamicLink = ElementsTypes.DynamicLink;
-  check: ElementsTypes.Check;
-  select: ElementsTypes.Select;
-  table: ElementsTypes.Table;
-  attachment: ElementsTypes.Attachment;
-  ein: ElementsTypes.Ein;
-  text: ElementsTypes.Text;
-  script: ElementsTypes.Script;
-  textEditor: ElementsTypes.TextEditor;
-  date: ElementsTypes.Date;
-  dateAndTime: ElementsTypes.DateAndTime;
-  number: ElementsTypes.Number;
-  string: ElementsTypes.String;
-  barcode: ElementsTypes.Barcode;
-  button: ElementsTypes.Button;
-  color: ElementsTypes.Color;
-  currency: ElementsTypes.Currency;
-  json: ElementsTypes.Json */
 
 
   constructor(
