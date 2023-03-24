@@ -25,6 +25,7 @@ import {
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { CustomerServiceTicketsRepository } from '../../store/customer-service-tickets.repository';
 import { CustomerServiceStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/customer-service-status.model';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 
 @Component({
   selector: 'app-customer-service',
@@ -32,7 +33,7 @@ import { CustomerServiceStatus } from '@root/pages/customer-service/customer-ser
   styleUrls: ['./customer-service.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerServiceComponent implements OnInit {
+export class CustomerServiceComponent extends BaseComponent implements OnInit {
   subscription: Subscription;
 
   steps: CustomerServiceStatus[] = [];
@@ -68,56 +69,62 @@ export class CustomerServiceComponent implements OnInit {
     private layoutService: LayoutService,
     private securityCheckerService: SecurityCheckerService,
     private customerServiceTicketsRepository: CustomerServiceTicketsRepository
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.customerCardService.getCutomerServiceTickets();
 
-    this.subscription = this.customerCardService
-      .getTicketStatusApi()
-      .subscribe((data: any) => {
+    this.subscriptions.add(
+      this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
         this.steps = data.map((e: any) => ({
           id: e.value,
           title: e.code,
           color: this.getStatusColor(e.value),
         }));
         this.ref.detectChanges();
-      });
+      })
+    );
 
-    this.subscription = tickets$.subscribe((data: any) => {
-      this.tickets = data;
-      if (this.tickets) {
-        this.numberAllTickets = this.tickets.all;
-        this.numberPersonalTickets = this.tickets.personal;
-      }
-      this.ref.detectChanges();
-    });
+    this.subscriptions.add(
+      tickets$.subscribe((data: any) => {
+        this.tickets = data;
+        if (this.tickets) {
+          this.numberAllTickets = this.tickets.all;
+          this.numberPersonalTickets = this.tickets.personal;
+        }
+        this.ref.detectChanges();
+      })
+    );
 
-    this.subscription = customerServiceFilterOptions$.subscribe((data: any) => {
-      if (data) this.customerServiceFilterOptions = data;
-      else {
-        this.customerServiceFilterOptions = {
-          searchQuery: '',
-          assignedToId: null,
-          fromDateCreated: null,
-          toDateCreated: null,
-          fromDateModified: null,
-          toDateModified: null,
-          communicationChannelId: null,
-          followUpResponse: null,
-          followUpStatus: null,
-          category: null,
-        };
-      }
+    this.subscriptions.add(
+      customerServiceFilterOptions$.subscribe((data: any) => {
+        if (data) this.customerServiceFilterOptions = data;
+        else {
+          this.customerServiceFilterOptions = {
+            searchQuery: '',
+            assignedToId: null,
+            fromDateCreated: null,
+            toDateCreated: null,
+            fromDateModified: null,
+            toDateModified: null,
+            communicationChannelId: null,
+            followUpResponse: null,
+            followUpStatus: null,
+            category: null,
+          };
+        }
 
-      this.ref.detectChanges();
-    });
+        this.ref.detectChanges();
+      })
+    );
 
-    this.subscription = numberOfCustomerServiceAppliedFilters$.subscribe(
-      (data: any) => {
+    this.subscriptions.add(
+      numberOfCustomerServiceAppliedFilters$.subscribe((data: any) => {
         this.numberOfCustomerServiceAppliedFilters = data;
         this.ref.detectChanges();
-      }
+      })
     );
 
     this.securityCheckerService.userClaims$.subscribe((data) => {
@@ -185,10 +192,12 @@ export class CustomerServiceComponent implements OnInit {
         .subscribe(() => {
           this.customerCardService.getCutomerServiceTickets();
 
-          this.subscription = tickets$.subscribe((data: any) => {
-            this.tickets = data;
-            this.ref.detectChanges();
-          });
+          this.subscriptions.add(
+            tickets$.subscribe((data: any) => {
+              this.tickets = data;
+              this.ref.detectChanges();
+            })
+          );
         });
     });
   }
