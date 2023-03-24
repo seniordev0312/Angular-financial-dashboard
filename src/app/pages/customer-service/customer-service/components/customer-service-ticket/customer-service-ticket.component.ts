@@ -15,13 +15,13 @@ import { Subscription } from 'rxjs';
 import { CustomerCardService } from '../../services/customer-card.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
-import { SignalRService } from '../../services/signalr.service';
 import { ContactViewComponent } from '../contact-view/contact-view.component';
 import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import { FormControl, Validators } from '@angular/forms';
 import { ContactFormService } from '../../services/contact-form.service';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
+import { ClientChatService } from '@root/pages/customer-service/customer-service-shared/services/client-chat.service';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -81,8 +81,8 @@ export class CustomerServiceTicketComponent implements OnInit {
     product: 0,
     emergencyType: 0,
     initiate: [],
-    };
-  
+  };
+
   ticketStatus: BaseListItem[] = [];
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
@@ -102,14 +102,15 @@ export class CustomerServiceTicketComponent implements OnInit {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public customerCardService: CustomerCardService,
-    public signalRService: SignalRService,
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
-    private contactFormService: ContactFormService
+    private contactFormService: ContactFormService,
+    public clientChatSignalRService: ClientChatService
   ) {}
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
+
     this.subscription = this.customerCardService
       .getCategory()
       .subscribe((data: any) => {
@@ -130,8 +131,11 @@ export class CustomerServiceTicketComponent implements OnInit {
 
     this.dataTicket = this.data.dataKey;
     this.ticketId = this.data.dataKey.id;
+
+    if (this.ticketId)
+      this.clientChatSignalRService.initConnection(this.ticketId);
+
     this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
-    this.signalRService.init(this.ticketId);
 
     if (this.dataTicket.locationAddress) {
       this.location.setValue(this.dataTicket.locationAddress);
@@ -151,7 +155,7 @@ export class CustomerServiceTicketComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.signalRService.signalRSubject$.subscribe((data: any) => {
+    this.clientChatSignalRService.signalRSubject$.subscribe((data: any) => {
       this.contactViewComponent.updateData(data);
     });
   }
@@ -363,6 +367,6 @@ export class CustomerServiceTicketComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.signalRService.stopConnection();
+    this.clientChatSignalRService.stopSignalRConnection();
   }
 }
