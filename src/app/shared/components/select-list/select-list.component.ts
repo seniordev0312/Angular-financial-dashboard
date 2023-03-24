@@ -16,8 +16,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectListComponent implements OnInit {
-
-  @Input() statusValue: string;
+  @Input() statusValue: number;
   @Input() label: string;
   @Input() wfullclass: string;
   @Input() control: FormControl;
@@ -29,11 +28,12 @@ export class SelectListComponent implements OnInit {
   @Input() hasSearch = false;
   @Input() optionsList: BaseListItem[] = [];
   @Output() onSearch = new EventEmitter<string>();
+  @Output() selectedValueChange = new EventEmitter<any>();
   @Output() statusValueChange = new EventEmitter<any>();
   searchFormControl = new FormControl();
   selectControl = new FormControl();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.searchFormControl.valueChanges.subscribe((data) => {
@@ -43,9 +43,14 @@ export class SelectListComponent implements OnInit {
     this.control.valueChanges.subscribe((data) => {
       this.statusValueChange.emit(data);
     });
+
+    // this.selectControl.valueChanges.subscribe((data) => {
+    //   this.statusValueChange.emit(data);
+    // });
   }
 
-  changeStatus() {
-    this.statusValueChange.emit(this.statusValue);
+  changeStatus(value: string) {
+    console.log(value);
+    this.statusValueChange.emit(value);
   }
 }
