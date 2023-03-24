@@ -81,8 +81,8 @@ export class CustomerServiceTicketComponent implements OnInit {
     product: 0,
     emergencyType: 0,
     initiate: [],
-    };
-  
+  };
+
   ticketStatus: BaseListItem[] = [];
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
@@ -216,12 +216,12 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.emergencyFlowFlag = false;
         this.complaintFlowFlag = true;
 
-        this.complaintCategories = [
-          { id: 0, name: 'Non Responsive' },
-          { id: 1, name: 'Specific Employee' },
-          { id: 2, name: 'Driver' },
-          { id: 3, name: 'Payment' },
-        ];
+        this.customerCardService
+          .getComplaintsCategoriesApi()
+          .subscribe((data: any) => {
+            this.complaintCategories = data;
+            this.ref.detectChanges();
+          });
 
         break;
       }
@@ -288,6 +288,10 @@ export class CustomerServiceTicketComponent implements OnInit {
       });
 
     this.emergencyInitialSectionFlag = true;
+  }
+
+  onSelectComplaintCategory(complaintCategory: number) {
+    this.choosedButtons.complaintCategory = complaintCategory;
   }
 
   onSelectEmergencyItem(emergencyInitiateItem: any) {

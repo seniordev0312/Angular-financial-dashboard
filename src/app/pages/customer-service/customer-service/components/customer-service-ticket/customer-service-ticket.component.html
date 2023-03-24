@@ -707,31 +707,33 @@
                       <div
                         *ngIf="
                           choosedButtons.complaintCategory ===
-                          complaintCategoryItem.id
+                          complaintCategoryItem.value
                         "
                       >
                         <app-button
                           (click)="
+                            onSelectComplaintCategory(complaintCategoryItem.value);
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
-                          text="{{ complaintCategoryItem.name }}"
+                          text="{{ complaintCategoryItem.code }}"
                         ></app-button>
                       </div>
                       <div
                         *ngIf="
                           choosedButtons.complaintCategory !==
-                          complaintCategoryItem.id
+                          complaintCategoryItem.value
                         "
                       >
                         <app-button
                           (click)="
+                          onSelectComplaintCategory(complaintCategoryItem.value);
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
-                          text="{{ complaintCategoryItem.name }}"
+                          text="{{ complaintCategoryItem.code }}"
                         ></app-button>
                       </div>
                     </div>
