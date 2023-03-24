@@ -26,6 +26,7 @@ import {
 } from '../../store/policy-renewals-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tickets.repository';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { PolicyRenewalSignalRService } from '../../services/policy-renewal-signalr.service';
 
 @Component({
@@ -34,7 +35,7 @@ import { PolicyRenewalSignalRService } from '../../services/policy-renewal-signa
   styleUrls: ['./policy-renewals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PolicyRenewalsComponent implements OnInit {
+export class PolicyRenewalsComponent extends BaseComponent implements OnInit {
   subscription: Subscription;
 
   steps: PolicyStatus[] = [];
@@ -74,61 +75,67 @@ export class PolicyRenewalsComponent implements OnInit {
     private securityCheckerService: SecurityCheckerService,
     private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository,
     public policyRenewalSignalRService: PolicyRenewalSignalRService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.policyCardService.getPolicyRenewalTickets();
     this.policyRenewalSignalRService.initConnection();
 
-    this.subscription = this.policyCardService
-      .getFollowUpStatusApi()
-      .subscribe((data: any) => {
+    this.subscriptions.add(
+      this.policyCardService.getFollowUpStatusApi().subscribe((data: any) => {
         this.steps = data.map((e: any) => ({
           id: e.value,
           title: this.getStatusFullName(e.value),
           color: this.getStatusColor(e.value),
         }));
         this.ref.detectChanges();
-      });
+      })
+    );
 
-    this.subscription = tickets$.subscribe((data: any) => {
-      this.tickets = data;
-      if (this.tickets) {
-        this.numberAllTickets = this.tickets.all;
-        this.numberPersonalTickets = this.tickets.personal;
-      }
-      this.ref.detectChanges();
-    });
+    this.subscriptions.add(
+      tickets$.subscribe((data: any) => {
+        this.tickets = data;
+        if (this.tickets) {
+          this.numberAllTickets = this.tickets.all;
+          this.numberPersonalTickets = this.tickets.personal;
+        }
+        this.ref.detectChanges();
+      })
+    );
 
     this.securityCheckerService.userClaims$.subscribe((data) => {
       this.userId = data?.sub;
       this.ref.detectChanges();
     });
 
-    this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {
-      if (data) this.policyRenewalFilterOptions = data;
-      else {
-        this.policyRenewalFilterOptions = {
-          searchQuery: '',
-          assignedToId: null,
-          fromDateCreated: null,
-          toDateCreated: null,
-          fromDateModified: null,
-          toDateModified: null,
-          communicationChannelId: null,
-          followUpResponse: null,
-          followUpStatus: null,
-          category: null,
-        };
-      }
-      this.ref.detectChanges();
-    });
+    this.subscriptions.add(
+      policyRenewalFilterOptions$.subscribe((data: any) => {
+        if (data) this.policyRenewalFilterOptions = data;
+        else {
+          this.policyRenewalFilterOptions = {
+            searchQuery: '',
+            assignedToId: null,
+            fromDateCreated: null,
+            toDateCreated: null,
+            fromDateModified: null,
+            toDateModified: null,
+            communicationChannelId: null,
+            followUpResponse: null,
+            followUpStatus: null,
+            category: null,
+          };
+        }
+        this.ref.detectChanges();
+      })
+    );
 
-    this.subscription = numberOfPolicyRenewalAppliedFilters$.subscribe(
-      (data: any) => {
+    this.subscriptions.add(
+      numberOfPolicyRenewalAppliedFilters$.subscribe((data: any) => {
         this.numberOfPolicyRenewalAppliedFilters = data;
         this.ref.detectChanges();
-      }
+      })
     );
   }
 
@@ -210,10 +217,12 @@ export class PolicyRenewalsComponent implements OnInit {
         .subscribe(() => {
           this.policyCardService.getPolicyRenewalTickets();
 
-          this.subscription = tickets$.subscribe((data: any) => {
-            this.tickets = data;
-            this.ref.detectChanges();
-          });
+          this.subscriptions.add(
+            tickets$.subscribe((data: any) => {
+              this.tickets = data;
+              this.ref.detectChanges();
+            })
+          );
         });
     });
   }
