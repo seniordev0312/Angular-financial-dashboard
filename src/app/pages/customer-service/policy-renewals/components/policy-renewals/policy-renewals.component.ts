@@ -53,13 +53,16 @@ export class PolicyRenewalsComponent implements OnInit {
   userId: string = '';
 
   policyRenewalFilterOptions: any = {
-    searchQuery: null,
+    searchQuery: '',
     assignedToId: null,
     fromDateCreated: null,
     toDateCreated: null,
     fromDateModified: null,
     toDateModified: null,
     communicationChannelId: null,
+    followUpResponse: null,
+    followUpStatus: null,
+    category: null,
   };
 
   constructor(
@@ -90,8 +93,10 @@ export class PolicyRenewalsComponent implements OnInit {
 
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
-      this.numberAllTickets = this.tickets.all;
-      this.numberPersonalTickets = this.tickets.personal;
+      if (this.tickets) {
+        this.numberAllTickets = this.tickets.all;
+        this.numberPersonalTickets = this.tickets.personal;
+      }
       this.ref.detectChanges();
     });
 
@@ -101,7 +106,21 @@ export class PolicyRenewalsComponent implements OnInit {
     });
 
     this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {
-      this.policyRenewalFilterOptions = data;
+      if (data) this.policyRenewalFilterOptions = data;
+      else {
+        this.policyRenewalFilterOptions = {
+          searchQuery: '',
+          assignedToId: null,
+          fromDateCreated: null,
+          toDateCreated: null,
+          fromDateModified: null,
+          toDateModified: null,
+          communicationChannelId: null,
+          followUpResponse: null,
+          followUpStatus: null,
+          category: null,
+        };
+      }
       this.ref.detectChanges();
     });
 
@@ -233,18 +252,20 @@ export class PolicyRenewalsComponent implements OnInit {
     );
   }
 
-  onClearFilter() {
-    this.searchBarValue = '';
+  onClearSearchFilter() {
+    if (this.searchBarValue !== '') {
+      this.searchBarValue = '';
 
-    this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
+      this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
 
-    this.policyCardService.filterPolicyRenewalTickets(
-      this.policyRenewalFilterOptions
-    );
+      this.policyCardService.filterPolicyRenewalTickets(
+        this.policyRenewalFilterOptions
+      );
 
-    this.policyRenewalsTicketsRepository.updateFilterOptions(
-      this.policyRenewalFilterOptions
-    );
+      this.policyRenewalsTicketsRepository.updateFilterOptions(
+        this.policyRenewalFilterOptions
+      );
+    }
   }
 
   filterByAssignedTo(filterMode: string) {

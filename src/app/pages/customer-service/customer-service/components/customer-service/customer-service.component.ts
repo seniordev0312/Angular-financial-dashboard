@@ -46,13 +46,16 @@ export class CustomerServiceComponent implements OnInit {
   userId: string = '';
   tickets: any = null;
   customerServiceFilterOptions: any = {
-    searchQuery: null,
+    searchQuery: '',
     assignedToId: null,
     fromDateCreated: null,
     toDateCreated: null,
     fromDateModified: null,
     toDateModified: null,
     communicationChannelId: null,
+    followUpResponse: null,
+    followUpStatus: null,
+    category: null,
   };
   numberOfCustomerServiceAppliedFilters: number = 0;
 
@@ -87,13 +90,30 @@ export class CustomerServiceComponent implements OnInit {
 
     this.subscription = tickets$.subscribe((data: any) => {
       this.tickets = data;
-      this.numberAllTickets = this.tickets.all;
-      this.numberPersonalTickets = this.tickets.personal;
+      if (this.tickets) {
+        this.numberAllTickets = this.tickets.all;
+        this.numberPersonalTickets = this.tickets.personal;
+      }
       this.ref.detectChanges();
     });
 
     this.subscription = customerServiceFilterOptions$.subscribe((data: any) => {
-      this.customerServiceFilterOptions = data;
+      if (data) this.customerServiceFilterOptions = data;
+      else {
+        this.customerServiceFilterOptions = {
+          searchQuery: '',
+          assignedToId: null,
+          fromDateCreated: null,
+          toDateCreated: null,
+          fromDateModified: null,
+          toDateModified: null,
+          communicationChannelId: null,
+          followUpResponse: null,
+          followUpStatus: null,
+          category: null,
+        };
+      }
+
       this.ref.detectChanges();
     });
 
@@ -237,17 +257,19 @@ export class CustomerServiceComponent implements OnInit {
     );
   }
 
-  onClearFilter() {
-    this.searchBarValue = '';
+  onClearSearchFilter() {
+    if (this.searchBarValue !== '') {
+      this.searchBarValue = '';
 
-    this.customerServiceFilterOptions.searchQuery = this.searchBarValue;
+      this.customerServiceFilterOptions.searchQuery = this.searchBarValue;
 
-    this.customerCardService.filterCustomerServiceTickets(
-      this.customerServiceFilterOptions
-    );
+      this.customerCardService.filterCustomerServiceTickets(
+        this.customerServiceFilterOptions
+      );
 
-    this.customerServiceTicketsRepository.updateFilterOptions(
-      this.customerServiceFilterOptions
-    );
+      this.customerServiceTicketsRepository.updateFilterOptions(
+        this.customerServiceFilterOptions
+      );
+    }
   }
 }
