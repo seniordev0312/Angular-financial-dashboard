@@ -27,6 +27,7 @@ import { CustomerServiceTicketsRepository } from '../../store/customer-service-t
 import { CustomerServiceStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/customer-service-status.model';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { CustomerServiceSignalRService } from '../../services/customer-service-signalr.service';
+import { FilterButtons } from '../../enums/filter-buttons.enum';
 
 @Component({
   selector: 'app-customer-service',
@@ -61,6 +62,8 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
   numberOfCustomerServiceAppliedFilters: number = 0;
 
   searchBarValue: string = '';
+
+  FilterButtons = FilterButtons;
 
   constructor(
     private customerCardService: CustomerCardService,
@@ -248,10 +251,10 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
   filterByAssignedTo(filterMode: string) {
     let assignedId: string;
 
-    if (filterMode == 'personal') {
+    if (filterMode == FilterButtons.Personal) {
       assignedId = this.userId;
       this.isAllFilterSelected = false;
-    } else if (filterMode == 'all') {
+    } else if (filterMode == FilterButtons.All) {
       assignedId = null;
       this.isAllFilterSelected = true;
     }

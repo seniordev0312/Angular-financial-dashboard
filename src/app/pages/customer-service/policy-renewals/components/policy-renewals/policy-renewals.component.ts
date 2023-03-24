@@ -28,6 +28,7 @@ import { SecurityCheckerService } from '@root/shared/services/security-checker.s
 import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tickets.repository';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { PolicyRenewalSignalRService } from '../../services/policy-renewal-signalr.service';
+import { FilterButtons } from '@root/pages/customer-service/customer-service/enums/filter-buttons.enum';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -52,6 +53,8 @@ export class PolicyRenewalsComponent extends BaseComponent implements OnInit {
 
   searchBarValue: string = '';
   userId: string = '';
+
+  FilterButtons = FilterButtons; 
 
   policyRenewalFilterOptions: any = {
     searchQuery: '',
@@ -280,10 +283,10 @@ export class PolicyRenewalsComponent extends BaseComponent implements OnInit {
   filterByAssignedTo(filterMode: string) {
     let assignedId: string;
 
-    if (filterMode == 'personal') {
+    if (filterMode == FilterButtons.Personal) {
       assignedId = this.userId;
       this.isAllFilterSelected = false;
-    } else if (filterMode == 'all') {
+    } else if (filterMode == FilterButtons.All) {
       assignedId = null;
       this.isAllFilterSelected = true;
     }
