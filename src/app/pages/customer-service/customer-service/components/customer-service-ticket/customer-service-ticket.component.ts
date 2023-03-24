@@ -23,6 +23,7 @@ import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
 import { ClientChatService } from '@root/pages/customer-service/customer-service-shared/services/client-chat.service';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { CustomerServiceCategories } from '../../enums/customer-service-cateogries.enum';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -101,6 +102,8 @@ export class CustomerServiceTicketComponent
 
   dataTicket: any = [];
 
+  CustomerServiceCategories = CustomerServiceCategories;
+  
   constructor(
     public dialogRef: MatDialogRef<CustomerServiceTicketComponent>,
     private dialog: MatDialog,
