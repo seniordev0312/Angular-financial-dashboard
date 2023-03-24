@@ -22,6 +22,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ContactFormService } from '../../services/contact-form.service';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -29,7 +30,10 @@ import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/cu
   styleUrls: ['./customer-service-ticket.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerServiceTicketComponent implements OnInit {
+export class CustomerServiceTicketComponent
+  extends BaseComponent
+  implements OnInit
+{
   isSpinning$: Observable<boolean>;
   subscription: Subscription;
   // state variable
@@ -106,27 +110,30 @@ export class CustomerServiceTicketComponent implements OnInit {
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
     private contactFormService: ContactFormService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
-    this.subscription = this.customerCardService
-      .getCategory()
-      .subscribe((data: any) => {
+
+    this.subscriptions.add(
+      this.customerCardService.getCategory().subscribe((data: any) => {
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
-      });
+      })
+    );
 
-    this.subscription = this.customerCardService
-      .getTicketStatusApi()
-      .subscribe((data: any) => {
+    this.subscriptions.add(
+      this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
         this.ticketStatus = data.map((e: any) => ({
           id: e.value,
           value: e.code,
         }));
         this.ref.detectChanges();
-      });
+      })
+    );
 
     this.dataTicket = this.data.dataKey;
     this.ticketId = this.data.dataKey.id;
@@ -137,13 +144,15 @@ export class CustomerServiceTicketComponent implements OnInit {
       this.location.setValue(this.dataTicket.locationAddress);
     }
 
-    this.subscription = this.customerCardService
-      .getContactDetails(this.dataTicket)
-      .subscribe((data: any) => {
-        console.log(data);
-        // this.isLoading = false;
-        this.ref.detectChanges();
-      });
+    this.subscriptions.add(
+      this.customerCardService
+        .getContactDetails(this.dataTicket)
+        .subscribe((data: any) => {
+          console.log(data);
+          // this.isLoading = false;
+          this.ref.detectChanges();
+        })
+    );
 
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
@@ -185,13 +194,14 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.emergencyFlowFlag = false;
         this.complaintFlowFlag = false;
         this.otherFlowFlag = false;
-        this.subscription = this.customerCardService
-          .getBusiness()
-          .subscribe((data: any) => {
+
+        this.subscriptions.add(
+          this.customerCardService.getBusiness().subscribe((data: any) => {
             this.businesses = data;
             // this.isLoading = false;
             this.ref.detectChanges();
-          });
+          })
+        );
         break;
       }
       case 'type': {
@@ -200,13 +210,16 @@ export class CustomerServiceTicketComponent implements OnInit {
         this.otherFlowFlag = false;
         this.complaintFlowFlag = false;
         this.emergencyFlowFlag = true;
-        this.subscription = this.customerCardService
-          .getEmerencyTypeData()
-          .subscribe((data: any) => {
-            this.emergencyTypes = data;
-            // this.isLoading = false;
-            this.ref.detectChanges();
-          });
+
+        this.subscriptions.add(
+          this.customerCardService
+            .getEmerencyTypeData()
+            .subscribe((data: any) => {
+              this.emergencyTypes = data;
+              // this.isLoading = false;
+              this.ref.detectChanges();
+            })
+        );
         break;
       }
       case 'complaint': {
@@ -244,13 +257,13 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.isSpinning$ = isSpinning$;
     this.choosedButtons.business = businessId;
 
-    this.subscription = this.customerCardService
-      .getProduct(businessId)
-      .subscribe((data: any) => {
+    this.subscriptions.add(
+      this.customerCardService.getProduct(businessId).subscribe((data: any) => {
         this.products = data;
         // this.isLoading = false;
         this.ref.detectChanges();
-      });
+      })
+    );
     this.productSectionFlag = true;
   }
 
@@ -278,14 +291,16 @@ export class CustomerServiceTicketComponent implements OnInit {
   }
 
   displayEmergencyInitateSection() {
-    this.subscription = this.customerCardService
-      .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
-      .subscribe((data: any) => {
-        this.emergencyInitiateItems = data;
+    this.subscriptions.add(
+      this.customerCardService
+        .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
+        .subscribe((data: any) => {
+          this.emergencyInitiateItems = data;
 
-        // this.isLoading = false;
-        this.ref.detectChanges();
-      });
+          // this.isLoading = false;
+          this.ref.detectChanges();
+        })
+    );
 
     this.emergencyInitialSectionFlag = true;
   }
@@ -327,13 +342,13 @@ export class CustomerServiceTicketComponent implements OnInit {
     if (this.priceValue == ' ') {
       this.disableButton = true;
       this.disableButtonClass = 'set-opacity';
-      this.subscription = this.customerCardService
-        .getRequiredData()
-        .subscribe((data: any) => {
+      this.subscriptions.add(
+        this.customerCardService.getRequiredData().subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
           // this.isLoading = false;
           this.ref.detectChanges();
-        });
+        })
+      );
     }
   }
 
