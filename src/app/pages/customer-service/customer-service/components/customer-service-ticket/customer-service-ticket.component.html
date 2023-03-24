@@ -113,7 +113,7 @@
                     class="w-1/2 pr-3.5 mb-3"
                     *ngFor="let category of categories"
                   >
-                    <div *ngIf="category.name === 'Emergency'">
+                    <div *ngIf="category.name === CustomerServiceCategories.Emergency">
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
@@ -137,7 +137,7 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === 'Sales Inquiry'">
+                    <div *ngIf="category.name === CustomerServiceCategories.SalesInquiry">
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
@@ -161,7 +161,7 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === 'Complaints'">
+                    <div *ngIf="category.name === CustomerServiceCategories.Complaints">
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
@@ -185,7 +185,7 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === 'Other'">
+                    <div *ngIf="category.name === CustomerServiceCategories.Other">
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
