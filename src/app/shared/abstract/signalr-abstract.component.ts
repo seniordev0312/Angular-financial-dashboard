@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { HubConnection } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
+import { SignalRMessages } from '../models/enums/signalr-messages.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -38,14 +39,14 @@ export abstract class SignalRAbstract {
   };
 
   addOnReceiveMessageListener = (hubConnection: HubConnection) => {
-    hubConnection.on('OnMessageReceived', (message: any) => {
-      console.log('OnMessageReceived', message);
-      this.SignalRSubject.next(message);
+    hubConnection.on(SignalRMessages.OnMessageReceived, (message: any) => {
+      console.log(SignalRMessages.OnMessageReceived, message);
+      this.SignalRSubject.next({message: message, event: SignalRMessages.OnMessageReceived});
     });
-    hubConnection.on('Connected', (message: any) => {
+    hubConnection.on(SignalRMessages.Connected, (message: any) => {
       console.log(message);
     });
-    hubConnection.on('OnConnected', (message: any) => {
+    hubConnection.on(SignalRMessages.OnConnected, (message: any) => {
       console.log(message);
     });
   };

@@ -159,7 +159,7 @@ export class CustomerServiceTicketComponent
 
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
-    this.contactFormService.getMessageHistory(this.dataTicket.chatId);
+    this.contactFormService.getMessageHistory(425);
   }
 
   ngAfterViewInit() {

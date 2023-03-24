@@ -76,7 +76,7 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customerCardService.getCutomerServiceTickets();
+    this.customerCardService.getCustomerServiceTickets();
 
     this.customerServiceSignalRService.initConnection();
 
@@ -196,7 +196,7 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
         })
         .afterClosed()
         .subscribe(() => {
-          this.customerCardService.getCutomerServiceTickets();
+          this.customerCardService.getCustomerServiceTickets();
 
           this.subscriptions.add(
             tickets$.subscribe((data: any) => {

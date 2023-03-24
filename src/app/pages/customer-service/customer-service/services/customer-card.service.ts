@@ -45,7 +45,7 @@ export class CustomerCardService {
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
-  getCutomerServiceTickets() {
+  getCustomerServiceTickets() {
     let paramObj: any = {
       searchQuery: null,
       assignedToId: null,
