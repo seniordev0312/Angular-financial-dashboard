@@ -26,6 +26,7 @@ import { SecurityCheckerService } from '@root/shared/services/security-checker.s
 import { CustomerServiceTicketsRepository } from '../../store/customer-service-tickets.repository';
 import { CustomerServiceStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/customer-service-status.model';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { CustomerServiceSignalRService } from '../../services/customer-service-signalr.service';
 
 @Component({
   selector: 'app-customer-service',
@@ -68,13 +69,16 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private securityCheckerService: SecurityCheckerService,
-    private customerServiceTicketsRepository: CustomerServiceTicketsRepository
+    private customerServiceTicketsRepository: CustomerServiceTicketsRepository,
+    public customerServiceSignalRService: CustomerServiceSignalRService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.customerCardService.getCutomerServiceTickets();
+    this.customerCardService.getCustomerServiceTickets();
+
+    this.customerServiceSignalRService.initConnection();
 
     this.subscriptions.add(
       this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
@@ -152,6 +156,8 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+
+    this.customerServiceSignalRService.stopSignalRConnection();
   }
 
   openFilter() {
@@ -190,7 +196,7 @@ export class CustomerServiceComponent extends BaseComponent implements OnInit {
         })
         .afterClosed()
         .subscribe(() => {
-          this.customerCardService.getCutomerServiceTickets();
+          this.customerCardService.getCustomerServiceTickets();
 
           this.subscriptions.add(
             tickets$.subscribe((data: any) => {

@@ -187,15 +187,17 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   }
 
   updateData(data: any) {
-    if (data.type === 2) {
-      data.body = JSON.parse(data.body);
-      this.data.push(data);
-      this.contactFormService.updateChat(data);
-      this.cdr.detectChanges();
-    } else {
-      this.data.push(data);
-      this.contactFormService.updateChat(data);
-      this.cdr.detectChanges();
+    if (data) {
+      if (data.type === 2) {
+        data.body = JSON.parse(data.body);
+        this.data.push(data);
+        this.contactFormService.updateChat(data);
+        this.cdr.detectChanges();
+      } else {
+        this.data.push(data);
+        this.contactFormService.updateChat(data);
+        this.cdr.detectChanges();
+      }
     }
   }
 
