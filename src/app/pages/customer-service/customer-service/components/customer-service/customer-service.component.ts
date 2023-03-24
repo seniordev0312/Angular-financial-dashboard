@@ -52,6 +52,9 @@ export class CustomerServiceComponent implements OnInit {
     fromDateModified: null,
     toDateModified: null,
     communicationChannelId: null,
+    followUpResponse: null,
+    followUpStatus: null,
+    category: null,
   };
   numberOfCustomerServiceAppliedFilters: number = 0;
 
@@ -99,9 +102,11 @@ export class CustomerServiceComponent implements OnInit {
           fromDateModified: null,
           toDateModified: null,
           communicationChannelId: null,
+          followUpResponse: null,
+          followUpStatus: null,
+          category: null,
         };
       }
-      console.log(data);
 
       this.ref.detectChanges();
     });

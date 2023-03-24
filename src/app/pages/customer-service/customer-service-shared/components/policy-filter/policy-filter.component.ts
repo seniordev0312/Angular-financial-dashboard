@@ -77,8 +77,23 @@ export class PolicyFilterComponent implements OnInit {
     });
 
     this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {
-      this.policyRenewalFilterOptions = data;
-      this.selectedAssignedTo = this.policyRenewalFilterOptions.assignedToId;
+      if (data) {
+        this.policyRenewalFilterOptions = data;
+        this.selectedAssignedTo = this.policyRenewalFilterOptions.assignedToId;
+      } else {
+        this.policyRenewalFilterOptions = {
+          searchQuery: '',
+          assignedToId: null,
+          fromDateCreated: null,
+          toDateCreated: null,
+          fromDateModified: null,
+          toDateModified: null,
+          communicationChannelId: null,
+          followUpResponse: null,
+          followUpStatus: null,
+          category: null,
+        };
+      }
       this.ref.detectChanges();
     });
 
@@ -128,6 +143,8 @@ export class PolicyFilterComponent implements OnInit {
       communicationChannelId: null,
       assignedToId: null,
       category: null,
+      followUpResponse: null,
+      followUpStatus: null,
     };
   }
 
@@ -160,6 +177,7 @@ export class PolicyFilterComponent implements OnInit {
       assignedToId: this.selectedAssignedTo,
       followUpResponse: this.selectedFollowUpResponsiveness,
       followUpStatus: this.selectedFollowUpStatus,
+      category: null,
     };
 
     this.policyCardService.filterPolicyRenewalTickets(
@@ -192,6 +210,23 @@ export class PolicyFilterComponent implements OnInit {
     this.selectedFollowUpStatus = null;
     this.selectedFollowUpResponsiveness = null;
     this.selectedAssignedTo = null;
+
+    this.policyRenewalFilterOptions = {
+      searchQuery: '',
+      fromDateCreated: this.fromDateCreated,
+      toDateCreated: this.toDateCreated,
+      fromDateModified: this.fromDateModified,
+      toDateModified: this.toDateModified,
+      communicationChannelId: null,
+      assignedToId: this.selectedAssignedTo,
+      category: null,
+      followUpResponse: this.selectedFollowUpStatus,
+      followUpStatus: this.selectedFollowUpStatus,
+    };
+
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
 
     this.numberOfPolicyRenewalAppliedFilters = 0;
     this.policyRenewalsTicketsRepository.updateNumberOfAppliedFilters(
