@@ -22,6 +22,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ContactFormService } from '../../services/contact-form.service';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
+import { RequiredProductData } from '../../models/pending-information-card.model';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -75,13 +76,13 @@ export class CustomerServiceTicketComponent implements OnInit {
     emergencyType: number;
     initiate: number[];
   } = {
-    category: 0,
-    complaintCategory: 0,
-    business: 0,
-    product: 0,
-    emergencyType: 0,
-    initiate: [],
-  };
+      category: 0,
+      complaintCategory: 0,
+      business: 0,
+      product: 0,
+      emergencyType: 0,
+      initiate: [],
+    };
   ticketStatus: BaseListItem[] = [
     { id: 0, value: 'Created/Received Queue' },
     { id: 1, value: 'In Process' },
@@ -97,6 +98,9 @@ export class CustomerServiceTicketComponent implements OnInit {
 
   location: FormControl = new FormControl('', Validators.required);
 
+  selectedProductId: number;
+  requiredProductData: RequiredProductData;
+
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
 
@@ -111,7 +115,7 @@ export class CustomerServiceTicketComponent implements OnInit {
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
     private contactFormService: ContactFormService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isSpinning$ = isSpinning$;
@@ -252,16 +256,26 @@ export class CustomerServiceTicketComponent implements OnInit {
     this.isSpinning$ = isSpinning$;
     this.choosedButtons.business = businessId;
 
+    this.selectedProductId = businessId;
+
+    this.subscription = this.customerCardService
+      .getRequiredProductData(this.selectedProductId)
+      .subscribe((data: any) => {
+        this.requiredProductData = data;
+        this.ref.detectChanges();
+      });
+
     this.subscription = this.customerCardService
       .getProduct(businessId)
       .subscribe((data: any) => {
         this.products = data;
         // this.isLoading = false;
-        console.log("businessId", businessId);
-        console.log("products", this.products);
         this.ref.detectChanges();
       });
     this.productSectionFlag = true;
+
+
+
   }
 
   // move to initialSection
@@ -338,7 +352,6 @@ export class CustomerServiceTicketComponent implements OnInit {
         .subscribe((data: any) => {
           this.requiredData = JSON.parse(data.jsonData);
           // this.isLoading = false;
-          console.log("Required Data",this.requiredData);
           this.ref.detectChanges();
         });
     }

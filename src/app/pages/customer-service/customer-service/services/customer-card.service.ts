@@ -14,7 +14,7 @@ export class CustomerCardService {
   constructor(
     private http: HttpClient,
     private customerServiceTicketsRepository: CustomerServiceTicketsRepository
-  ) {}
+  ) { }
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -36,10 +36,10 @@ export class CustomerCardService {
   apiPutStatus = `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketStatus`;
   apiGetCategory = `${this.customerServiceServerURL}/Resource/Category`;
   apiGetBusiness = `${this.customerServiceServerURL}/Resource/LineOfBusiness`;
-  apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
+  apiGetRequiredData = `${this.customerServiceServerURL}/Resource/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
-  apiGetCommunicationChannel=`${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
+  apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
@@ -52,7 +52,7 @@ export class CustomerCardService {
       fromDateModified: null,
       toDateModified: null,
       communicationChannelId: null,
-      category:null
+      category: null
     };
 
     this.http
@@ -107,7 +107,7 @@ export class CustomerCardService {
       .get<any>(this.apiGetUserDetails, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
-  
+
 
   getCustomerServiceTicketTypeApi() {
     return this.http
@@ -154,14 +154,21 @@ export class CustomerCardService {
   // HttpClient API get() method => get required data in CustomerServiceTicket
   getRequiredData() {
     return this.http
-      .get<TicketCategory>(this.apiGetRequireData, this.httpOptions)
+      .get<TicketCategory>(this.apiGetRequiredData, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  getRequiredProductData(id: number) {
-    const apiGetRequiredProductData = `${this.apiGetRequireData}/${id}`;
+  getRequiredProductData(productId: number) {
+    const apiGetRequiredProductData = `${this.apiGetRequiredData}/${productId}`;
     return this.http
-      .get<TicketCategory>(apiGetRequiredProductData, this.httpOptions)
+      .get<any>(apiGetRequiredProductData, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getElementsTypes() {
+    let endPointUrl = `${environment.entityApiUrl}/Reference/GetElementTypes`;
+    return this.http
+      .get<any>(endPointUrl, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
