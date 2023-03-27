@@ -1,5 +1,5 @@
-<app-dialog-header label="Till"></app-dialog-header>
-<mat-dialog-content>
+<app-dialog-header *ngIf="managementDiaglog" label="Till"></app-dialog-header>
+<mat-dialog-content *ngIf="managementDiaglog">
   <div>
     <div class="flex justify-end">
       <app-button
@@ -281,7 +281,7 @@
               value="USD"
               *ngIf="currency === 2"
             ></app-input-field>
-            Currency:
+
             <app-input-field
               class="flex justify-center"
               value="LBP"
@@ -293,7 +293,7 @@
               class="flex justify-center"
               *ngIf="currency === 2"
             ></app-input-field>
-            Amonut:
+
             <app-input-field class="flex justify-center"></app-input-field>
           </div>
         </div>
@@ -303,6 +303,7 @@
       <div class="w-[40%] flex justify-between">
         <app-button
           classes="my-2 bg-[#275E80] py-3 w-[140px] flex justify-center items-center text-white"
+          (click)="managmentTill()"
           text="Till Management"
         ></app-button>
         <app-button
@@ -310,6 +311,39 @@
           text="End Shift"
         ></app-button>
       </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<app-dialog-header
+  *ngIf="!managementDiaglog"
+  label="Basket"
+></app-dialog-header>
+<mat-dialog-content *ngIf="!managementDiaglog">
+  <div class="flex w-full">
+    <div class="flex w-[10%] flex-col h-[660px]">
+      <div
+        class="flex flex-col px-10 py-10 justify-center mt-auto mb-auto"
+        (click)="changeStatus('check')"
+      >
+        <img
+          src="../../../../../../assets/images/cashier-icons/selected-check.svg"
+          alt=""
+        />
+        <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
+      </div>
+      <div
+        class="flex flex-col px-10 py-10 justify-center"
+        (click)="changeStatus('cash')"
+      >
+        <img
+          src="../../../../../../assets/images/cashier-icons/cash.svg"
+          alt=""
+        />
+        <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
+      </div>
+    </div>
+    <div class="w-[90%] pt-10">
+      <app-till-history class="mt-auto mb-auto"></app-till-history>
     </div>
   </div>
 </mat-dialog-content>
