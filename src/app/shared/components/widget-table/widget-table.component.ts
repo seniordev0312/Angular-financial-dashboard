@@ -34,8 +34,10 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
   @Input() tableConfiguration: TableConfiguration<T>;
   @Input() changedDueUnPaid: number;
   @Input() changedTotalPaid: number;
+  @Input() selectedStatus: string;
   @Output() changedDueUnPaidChange = new EventEmitter<number>();
   @Output() changedTotalPaidChange = new EventEmitter<number>();
+  @Output() selectedStatusChange = new EventEmitter<string>();
 
   @Output() onPaging = new EventEmitter<PagingConfig>();
   @Output() onSlideToggle = new EventEmitter<{ value: boolean; item: T }>();
@@ -161,6 +163,7 @@ export class WidgetTableComponent<T> extends BaseComponent implements OnInit {
 
   onRowSelect(event: any) {
     this.onRowSelection.emit(event.data);
+    this.selectedStatusChange.emit(event.data.status);
   }
 
   openCustomizingColumns() {

@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  OnChanges,
   ViewChild,
   ChangeDetectorRef,
+  SimpleChanges,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
@@ -18,69 +20,72 @@ import { TillModel } from '../../model/till.model';
   styleUrls: ['./till-history.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TillHistoryComponent implements OnInit {
+export class TillHistoryComponent implements OnInit, OnChanges {
   constructor(private cdr: ChangeDetectorRef) {}
-  tillHistory: TillModel[] = [];
+  // tillHistory: [] = [];
+  tillHistory: TillModel[] = [
+    {
+      id: 1,
+      date: '03/24/2022',
+      bankName: 'Audi',
+      currency: 'USD',
+      amount: 1500,
+      status: 'Till',
+    },
+    {
+      id: 2,
+      date: '03/24/2022',
+      bankName: 'Audi',
+      currency: 'USD',
+      amount: 1500,
+      status: 'Transit',
+    },
+    {
+      id: 3,
+      date: '03/24/2022',
+      bankName: 'Audi',
+      currency: 'USD',
+      amount: 1500,
+      status: 'Till',
+    },
+    {
+      id: 4,
+      date: '03/24/2022',
+      bankName: 'Audi',
+      currency: 'USD',
+      amount: 1500,
+      status: 'Transit',
+    },
+    {
+      id: 5,
+      date: '03/24/2022',
+      bankName: 'Audi',
+      currency: 'USD',
+      amount: 1500,
+      status: 'Till',
+    },
+    {
+      id: 6,
+      date: '03/24/2022',
+      bankName: 'Audi',
+      currency: 'USD',
+      amount: 1500,
+      status: 'Transit',
+    },
+  ];
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<TillModel>;
 
   ngOnInit(): void {
-    this.tillHistory = [
-      {
-        id: 1,
-        date: '03/24/2022',
-        bankName: 'Audi',
-        currency: 'USD',
-        amount: 1500,
-        status: 'Till',
-      },
-      {
-        id: 2,
-        date: '03/24/2022',
-        bankName: 'Audi',
-        currency: 'USD',
-        amount: 1500,
-        status: 'Transit',
-      },
-      {
-        id: 3,
-        date: '03/24/2022',
-        bankName: 'Audi',
-        currency: 'USD',
-        amount: 1500,
-        status: 'Till',
-      },
-      {
-        id: 4,
-        date: '03/24/2022',
-        bankName: 'Audi',
-        currency: 'USD',
-        amount: 1500,
-        status: 'Transit',
-      },
-      {
-        id: 5,
-        date: '03/24/2022',
-        bankName: 'Audi',
-        currency: 'USD',
-        amount: 1500,
-        status: 'Till',
-      },
-      {
-        id: 6,
-        date: '03/24/2022',
-        bankName: 'Audi',
-        currency: 'USD',
-        amount: 1500,
-        status: 'Transit',
-      },
-    ];
-
     this.tableConfiguration.data = this.tillHistory;
     this.tableConfiguration.dataCount = this.tillHistory.length;
     this.cdr.detectChanges();
     this.table.refresh();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 
   tableColumns: TableColumn[] = [
@@ -192,6 +197,7 @@ export class TillHistoryComponent implements OnInit {
     enableActions: false,
     enableCustomizingColumns: true,
     isRowsSelectionAvailable: true,
+    isRowHeaderSeclectionAvailable: false,
   });
 
   tableConfiguration: TableConfiguration<TillModel> = {
@@ -201,4 +207,13 @@ export class TillHistoryComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
+
+  onRowSelection(data: any) {
+    if (!data.status) {
+      this.tableSettings.isRowHeaderSeclectionAvailable = false;
+    } else {
+      console.log(this.tableSettings.isRowHeaderSeclectionAvailable);
+      this.tableSettings.isRowHeaderSeclectionAvailable = true;
+    }
+  }
 }

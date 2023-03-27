@@ -1,1 +1,4 @@
-<app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+<app-widget-table
+  [tableConfiguration]="tableConfiguration"
+  (onRowSelection)="onRowSelection($event)"
+></app-widget-table>
