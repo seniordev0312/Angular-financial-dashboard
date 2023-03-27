@@ -5,4 +5,5 @@ export interface TillModel {
   currency: string;
   amount: number;
   status: string;
+  nextStatus?: string;
 }

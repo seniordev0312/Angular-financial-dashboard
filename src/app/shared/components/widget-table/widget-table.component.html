@@ -27,7 +27,10 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <td *ngIf="tableConfiguration.settings.isRowsSelectionAvailable">
+        <td
+          *ngIf="tableConfiguration.settings.isRowsSelectionAvailable"
+          class="pl-1"
+        >
           <p-tableHeaderCheckbox
             *ngIf="tableConfiguration.settings.isRowHeaderSeclectionAvailable"
           ></p-tableHeaderCheckbox>
@@ -42,15 +45,6 @@
             <div class="flex justify-center text-sm items-center">
               <ng-container *ngIf="column.hasFilter">
                 <ng-container [ngSwitch]="column.filter?.filterType">
-                  <!--text-->
-                  <!-- <p-columnFilter *ngSwitchCase="'string'" [field]="column?.filter?.filterProperty ?? column.property"
-                    matchMode="contains" [showMenu]="false" [showClearButton]="false">
-                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                      <input type="text" pInputText [ngModel]="value" (ngModelChange)="filter($event)"
-                        class="p-inputtext" [placeholder]="column.translationKey">
-                    </ng-template>
-                  </p-columnFilter> -->
-
                   <p-columnFilter
                     *ngSwitchCase="'string'"
                     type="text"
@@ -124,7 +118,7 @@
                   <!--dropdown-->
                   <p-columnFilter
                     *ngSwitchCase="'dropDown'"
-                    [showMenu]="false"
+                    [showMenu]="true"
                     [field]="column?.filter?.filterProperty ?? column.property"
                     [placeholder]="column.translationKey"
                     [showAddButton]="false"

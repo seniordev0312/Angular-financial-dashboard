@@ -208,12 +208,75 @@ export class TillHistoryComponent implements OnInit, OnChanges {
     settings: this.tableSettings,
   };
 
+  key: number = 0;
+
   onRowSelection(data: any) {
+    console.log('rojafijaoifjd', this.key);
+    this.key++;
     if (!data.status) {
       this.tableSettings.isRowHeaderSeclectionAvailable = false;
     } else {
       console.log(this.tableSettings.isRowHeaderSeclectionAvailable);
       this.tableSettings.isRowHeaderSeclectionAvailable = true;
+      this.tillHistory = this.tillHistory.filter(
+        (item) => item.status === data.status
+      );
+      console.log(this.tillHistory);
+      if (data.status === 'Till') {
+        if (this.key === 1) {
+          this.tableColumns.push({
+            translationKey: 'Bank Status',
+            property: 'nextStatus',
+            selectOptionsList: ['123'],
+            type: 'text',
+            cssClasses: () => 'text-center',
+            dataCssClasses: () => 'ml-[30%]',
+            enableSort: true,
+            hasFilter: true,
+            visible: true,
+            displayInFilterList: true,
+            hasToolTip: false,
+            showText: true,
+            filter: {
+              filterType: TableColumnFilterDataType.DropDown,
+            },
+          });
+        }
+
+        for (let i = 0; i < this.tillHistory.length; i++) {
+          this.tillHistory[i].nextStatus = 'in transit';
+        }
+      } else {
+        if (this.key === 1) {
+          this.tableColumns.push({
+            translationKey: 'Bank Status',
+            property: 'nextStatus',
+            selectOptionsList: ['123'],
+            type: 'text',
+            cssClasses: () => 'text-center',
+            dataCssClasses: () => 'ml-[30%]',
+            enableSort: true,
+            hasFilter: true,
+            visible: true,
+            contentVisible: false,
+            displayInFilterList: true,
+            hasToolTip: false,
+            showText: true,
+            filter: {
+              filterType: TableColumnFilterDataType.DropDown,
+            },
+          });
+        }
+
+        for (let i = 0; i < this.tillHistory.length; i++) {
+          this.tillHistory[i].nextStatus = 'Deposited';
+        }
+      }
+      this.tableConfiguration.data = this.tillHistory;
+      this.tableConfiguration.dataCount = this.tillHistory.length;
+      this.cdr.detectChanges();
+      this.table.refresh();
+      // this.tableColumns.pop();
     }
   }
 }
