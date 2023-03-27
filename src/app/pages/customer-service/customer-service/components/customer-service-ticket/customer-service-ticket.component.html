@@ -114,7 +114,7 @@
                     *ngFor="let category of categories"
                   >
                     <div *ngIf="category.name === CustomerServiceCategories.Emergency">
-                      <div *ngIf="choosedButtons.category === category.id">
+                      <div *ngIf="(choosedButtons.category === category.id)">
                         <app-button
                           (click)="
                             displaySection('type', category.id);
