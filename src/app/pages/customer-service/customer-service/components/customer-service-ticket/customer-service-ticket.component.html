@@ -113,8 +113,12 @@
                     class="w-1/2 pr-3.5 mb-3"
                     *ngFor="let category of categories"
                   >
-                    <div *ngIf="category.name === CustomerServiceCategories.Emergency">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div
+                      *ngIf="
+                        category.name === CustomerServiceCategories.Emergency
+                      "
+                    >
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button
                           (click)="
                             displaySection('type', category.id);
@@ -125,7 +129,7 @@
                           text="{{ category.name }}"
                         ></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button
                           (click)="
                             displaySection('type', category.id);
@@ -137,8 +141,12 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === CustomerServiceCategories.SalesInquiry">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div
+                      *ngIf="
+                        category.name === CustomerServiceCategories.SalesInquiry
+                      "
+                    >
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button
                           (click)="
                             displaySection('business', category.id);
@@ -149,7 +157,7 @@
                           text="{{ category.name }}"
                         ></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button
                           (click)="
                             displaySection('business', category.id);
@@ -161,8 +169,12 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === CustomerServiceCategories.Complaints">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div
+                      *ngIf="
+                        category.name === CustomerServiceCategories.Complaints
+                      "
+                    >
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button
                           (click)="
                             displaySection('complaint', category.id);
@@ -173,7 +185,7 @@
                           text="{{ category.name }}"
                         ></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button
                           (click)="
                             displaySection('complaint', category.id);
@@ -185,8 +197,10 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === CustomerServiceCategories.Other">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div
+                      *ngIf="category.name === CustomerServiceCategories.Other"
+                    >
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button
                           (click)="
                             displaySection('otherDetails', category.id);
@@ -196,7 +210,7 @@
                           text="{{ category.name }}"
                         ></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button
                           (click)="
                             displaySection('otherDetails', category.id);
@@ -244,7 +258,7 @@
                       class="w-1/2 pr-3.5 mb-3"
                       *ngFor="let business of businesses"
                     >
-                      <div *ngIf="choosedButtons.business === business.id">
+                      <div *ngIf="chosenButtons.business === business.id">
                         <app-button
                           (click)="
                             displayProductSection(business.id);
@@ -255,7 +269,7 @@
                           text="{{ business.name }}"
                         ></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.business !== business.id">
+                      <div *ngIf="chosenButtons.business !== business.id">
                         <app-button
                           (click)="
                             displayProductSection(business.id);
@@ -302,7 +316,7 @@
                       class="w-1/2 pr-3.5 mb-3"
                       *ngFor="let product of products"
                     >
-                      <div *ngIf="product.id === choosedButtons.product">
+                      <div *ngIf="product.id === chosenButtons.product">
                         <app-button
                           (click)="
                             displayInitialSection(product.id);
@@ -313,7 +327,7 @@
                           text="MVA - Full Risk Cover"
                         ></app-button>
                       </div>
-                      <div *ngIf="product.id !== choosedButtons.product">
+                      <div *ngIf="product.id !== chosenButtons.product">
                         <app-button
                           (click)="
                             displayInitialSection(product.id);
@@ -445,9 +459,7 @@
                       *ngFor="let emergencyType of emergencyTypes"
                     >
                       <div
-                        *ngIf="
-                          emergencyType.id === choosedButtons.emergencyType
-                        "
+                        *ngIf="emergencyType.id === chosenButtons.emergencyType"
                       >
                         <app-button
                           (click)="
@@ -460,9 +472,7 @@
                         ></app-button>
                       </div>
                       <div
-                        *ngIf="
-                          emergencyType.id !== choosedButtons.emergencyType
-                        "
+                        *ngIf="emergencyType.id !== chosenButtons.emergencyType"
                       >
                         <app-button
                           (click)="
@@ -568,7 +578,7 @@
                       >
                         <div
                           *ngIf="
-                            choosedButtons.initiate.includes(
+                            chosenButtons.initiate.includes(
                               emergencyInitiateItem.id
                             )
                           "
@@ -583,7 +593,7 @@
                         </div>
                         <div
                           *ngIf="
-                            !choosedButtons.initiate.includes(
+                            !chosenButtons.initiate.includes(
                               emergencyInitiateItem.id
                             )
                           "
@@ -631,7 +641,11 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-details-accordion
-                      (saveClicked)="otherOutcomeAccordion.toggle()"
+                      [data]="otherDetails"
+                      (saveClicked)="
+                        onSubmitOtherDetails($event);
+                        otherOutcomeAccordion.toggle()
+                      "
                     ></app-details-accordion>
                   </div>
                 </div>
@@ -666,7 +680,11 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-outcome-accordion
-                      (saveClicked)="otherOutcomeAccordion.toggle()"
+                      [data]="otherOutcome"
+                      (saveClicked)="
+                        onSubmitOtherOutcome($event);
+                        otherOutcomeAccordion.toggle()
+                      "
                       [outcomeText]="'Outcome'"
                     ></app-outcome-accordion>
                   </div>
@@ -683,7 +701,7 @@
               [attr.aria-expanded]="complaintCategoryAccordion.expanded"
               [attr.aria-controls]="'accordion-body-1'"
             >
-              <div *ngIf="complaintCategoryAccordion && complaintFlowFlag">
+              <div *ngIf="complaintCategoryFlowFlag && complaintFlowFlag">
                 <p
                   (click)="complaintCategoryAccordion.toggle()"
                   class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary"
@@ -706,13 +724,15 @@
                     >
                       <div
                         *ngIf="
-                          choosedButtons.complaintCategory ===
+                          chosenButtons.complaintCategory ===
                           complaintCategoryItem.value
                         "
                       >
                         <app-button
                           (click)="
-                            onSelectComplaintCategory(complaintCategoryItem.value);
+                            onSelectComplaintCategory(
+                              complaintCategoryItem.value
+                            );
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
@@ -722,13 +742,15 @@
                       </div>
                       <div
                         *ngIf="
-                          choosedButtons.complaintCategory !==
+                          chosenButtons.complaintCategory !==
                           complaintCategoryItem.value
                         "
                       >
                         <app-button
                           (click)="
-                          onSelectComplaintCategory(complaintCategoryItem.value);
+                            onSelectComplaintCategory(
+                              complaintCategoryItem.value
+                            );
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
@@ -770,7 +792,11 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-details-accordion
-                      (saveClicked)="complaintOutcomeAccordion.toggle()"
+                      [data]="complaintDetails"
+                      (saveClicked)="
+                        onSubmitComplaintDetails($event);
+                        complaintOutcomeAccordion.toggle()
+                      "
                     ></app-details-accordion>
                   </div>
                 </div>
@@ -805,7 +831,11 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-outcome-accordion
-                      (saveClicked)="complaintOutcomeAccordion.toggle()"
+                      [data]="complaintOutcome"
+                      (saveClicked)="
+                        onSubmitComplaintOutcome($event);
+                        complaintOutcomeAccordion.toggle()
+                      "
                       [outcomeText]="'Complaint Outcome'"
                     ></app-outcome-accordion>
                   </div>

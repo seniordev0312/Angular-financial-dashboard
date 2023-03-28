@@ -4,15 +4,15 @@
       <p class="text-[11px] font-bold">Customer Satisfaction:</p>
       <div class="flex flex-row pt-2">
         <div class="mx-1">
-          <div *ngIf="response == 0">
+          <div *ngIf="response == 1">
             <mat-icon
-              (click)="getResponse(0)"
+              (click)="getResponse(1)"
               svgIcon="customer-service-happy-icon"
             ></mat-icon>
           </div>
-          <div *ngIf="response !== 0">
+          <div *ngIf="response !== 1">
             <mat-icon
-              (click)="getResponse(0)"
+              (click)="getResponse(1)"
               svgIcon="customer-service-happy-nocolor-icon"
             ></mat-icon>
           </div>
@@ -32,15 +32,15 @@
           </div>
         </div>
         <div class="mx-1">
-          <div *ngIf="response == 1">
+          <div *ngIf="response == 3">
             <mat-icon
-              (click)="getResponse(1)"
+              (click)="getResponse(3)"
               svgIcon="customer-service-sad-1-icon"
             ></mat-icon>
           </div>
-          <div *ngIf="response !== 1">
+          <div *ngIf="response !== 3">
             <mat-icon
-              (click)="getResponse(1)"
+              (click)="getResponse(3)"
               svgIcon="customer-service-sad-nocolor-icon"
             ></mat-icon>
           </div>
@@ -51,7 +51,7 @@
     <div class="w-[65%]">
       <div class="h-[33px] colorflag">
         <app-input-field
-          [control]="getFormControl('outcome')"
+        [control]="getFormControl('outcome')"
           (inputValueChange)="onChangeInputValue()"
           name="description"
           id="outcomeDescription"
