@@ -65,10 +65,8 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
 
   onSubmitNote(event: Event) {
     let body: any = {
-      location: null,
-      notes: event,
-      messageTitle: null,
-      messageDescription: null,
+      note: event,
+      noteSpecified: true,
     };
     this.policyCardService.updateCustomServiceTicketDetails(
       this.data.dataKey.id,

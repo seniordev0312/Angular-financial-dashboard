@@ -41,10 +41,11 @@ export class CustomerCardService {
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
   apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
   apiGetTicketStatus = `${this.customerServiceServerURL}/Resource/Reference/TicketStatus`;
+  apiGetComplaintsCategories = `${this.customerServiceServerURL}/Resource/Reference/ComplaintCategory`;
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
-  getCutomerServiceTickets() {
+  getCustomerServiceTickets() {
     let paramObj: any = {
       searchQuery: null,
       assignedToId: null,
@@ -124,6 +125,12 @@ export class CustomerCardService {
   getTicketStatusApi() {
     return this.http
       .get<any>(this.apiGetTicketStatus, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+  
+  getComplaintsCategoriesApi() {
+    return this.http
+      .get<any>(this.apiGetComplaintsCategories, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 

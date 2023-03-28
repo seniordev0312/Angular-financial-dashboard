@@ -1,7 +1,7 @@
 <mat-form-field class="w-full" appearance="fill">
   <mat-label class="font-xl">{{ label }}</mat-label>
   <input class="font-xl" #input [matAutocomplete]="auto" [name]="name" [formControl]="control" value="{{ value }}"
-    matInput [type]="type" (change)="getValue($event)" [readonly]="this.readonly" />
+    matInput [type]="type" (ngModelChange)="getValue($event)" [readonly]="this.readonly" />
   <span *ngIf="icon" class="material-icons-outlined" matSuffix>{{icon}}</span>
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of baseListItemsList" [value]="option.id">

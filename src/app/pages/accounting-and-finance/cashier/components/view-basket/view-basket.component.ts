@@ -25,7 +25,8 @@ export class ViewBasketComponent implements OnInit {
   table1: WidgetTableComponent<AdvancePaymentModel>;
   invoicelist: VendorInvoiceModel[] = [];
   paymentlist: AdvancePaymentModel[] = [];
-  dueUnPaidPrice: number;
+  dueUnPaidPrice: number = 0;
+  totalSelected: number = 0;
   // dueUnPaidPrice1: number;
   paymentStatusFlag: boolean = true;
   totalAdvancePrice: number;
