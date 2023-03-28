@@ -33,15 +33,15 @@ export class TillViewComponent implements OnInit {
 
   changeStatus(status: string) {
     console.log(status);
-    //   if ((status = 'check')) {
-    //     this.checkSection = true;
-    //     this.checkFontColor = this.checkFontColors[1];
-    //     this.cashFontColor = this.cashFontColors[0];
-    //   } else {
-    //     this.checkSection = false;
-    //     this.checkFontColor = this.checkFontColors[0];
-    //     this.cashFontColor = this.cashFontColors[1];
-    //   }
+    if (status === 'check') {
+      this.checkSection = true;
+      this.checkFontColor = this.checkFontColors[1];
+      this.cashFontColor = this.cashFontColors[0];
+    } else {
+      this.checkSection = false;
+      this.checkFontColor = this.checkFontColors[0];
+      this.cashFontColor = this.cashFontColors[1];
+    }
   }
   addCurrency() {
     this.currencyList.push({
