@@ -116,37 +116,4 @@ export class PolicyCardService {
     });
   }
 
-  getFollowUpHistoryList(ticketId: number) {
-    return this.http
-      .get<PolicyCard>(`${this.apiGetFollowUpHistory}/${ticketId}`, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
-  }
-
-  addNewFollowUpHistory(option: {}) {
-    this.http
-      .post<PolicyCard>(this.apiGetFollowUpHistory, option, this.httpOptions)
-      .subscribe((data) => {
-        this.policyRenewalsTicketsRepository.updateTickets(data);
-      });
-  }
-
-  updateFollowUpHistory(option: {}) {
-    this.http
-      .put<PolicyCard>(this.apiGetFollowUpHistory, option, this.httpOptions)
-      .subscribe((data) => {
-        this.policyRenewalsTicketsRepository.updateTickets(data);
-      });
-  }
-
-  deleteFollowUpHistory(followUpId: number) {
-    this.http
-      .delete<PolicyCard>(`${this.apiGetFollowUpHistory}/${followUpId}`,).subscribe(data => {
-        console.log(data);
-        //this.deleteRoleSubject.next(true);
-        this.policyRenewalsTicketsRepository.updateTickets(data);
-
-      });
-  }
-
-
 }

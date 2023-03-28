@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   AfterViewInit,
-  ChangeDetectorRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -18,20 +18,22 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TicketHistoryListItem } from '../../../models/ticket-history-list-item.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
+//import { delay } from 'rxjs';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
-import { Subscription } from 'rxjs';
+import { followUpHistoryList$, getFollowUpHistory$ } from '../store/follow-up-history.store';
+import { FollowUpHistoryService } from '../services/follow-up-history.services';
 @Component({
   selector: 'app-history-list',
   templateUrl: './history-list.component.html',
   styleUrls: ['./history-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HistoryListComponent
-  extends BaseComponent
-  implements OnInit, AfterViewInit {
+export class HistoryListComponent extends BaseComponent implements OnInit, AfterViewInit {
+
   constructor(public policyCardService: PolicyCardService,
     private securityCheckerService: SecurityCheckerService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public followUpHistoryService: FollowUpHistoryService
   ) {
     super();
   }
@@ -41,6 +43,9 @@ export class HistoryListComponent
   @Output() NextPageEvent = new EventEmitter<boolean>();
   @Output() pageControlChange = new EventEmitter<any>();
   @Output() actionFlagChange = new EventEmitter<any>();
+
+  @Input() exportHistoryData: any;//sent to edit-history
+  @Output() exportHistoryDataChange = new EventEmitter<any>();
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<TicketHistoryListItem>;
@@ -61,11 +66,22 @@ export class HistoryListComponent
   historyData: {
     id: number;
     response: number;
+    dateModified: string;
+    details: string;
+    followUpActionType: number;
+    premiumPrice: string;
+    ticketId: number;
+    userId: string;
+    additionalDetailContent: string;
+  }[];
+  /* historyData: {
+    id: number;
+    response: number;
     detailContent: string;
     policyPrice: string;
     additionalDetailContent: string;
     date: string;
-  }[];
+  }[]; */
 
   happyIcon: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
@@ -208,16 +224,37 @@ export class HistoryListComponent
   }
 
   employeeName: string;
-  historyData2: any;
-  subscription: Subscription;
 
   ngOnInit(): void {
+    this.followUpHistoryService.getFollowUpHistoryList(this.data.id);
+
+    this.subscriptions.add(
+      followUpHistoryList$.subscribe((data: any) => {
+        if (data) {
+          this.historyData = data;
+          this.getHistoryData();
+          console.log('this.historyData', this.historyData);
+          if (this.table) {
+            this.table.refresh();
+          }
+        }
+        this.cdr.detectChanges();
+      })
+    )
+
+    this.subscriptions.add(
+      getFollowUpHistory$.subscribe((data: boolean) => {
+        if (data) {
+          console.log('getFollowUpHistory$', data);
+          this.followUpHistoryService.getFollowUpHistoryList(this.data.id);
+        }
+      })
+    )
+
     this.securityCheckerService.userClaims$.subscribe(data => {
       this.employeeName = data?.name;
       this.cdr.detectChanges();
     })
-    //define the type of historyData
-    this.getHistoryData();
   }
 
   ngAfterViewInit(): void {
@@ -225,28 +262,20 @@ export class HistoryListComponent
   }
 
   getHistoryData() {
-    this.subscription = this.policyCardService
-      .getFollowUpHistoryList(this.data.id)
-      .subscribe((data: any) => {
-        this.historyData2 = data;
-        // this.isLoading = false;
-        this.cdr.detectChanges();
-      });
-    console.log("HISTORY", this.historyData2)
-    this.historyData = Object.values(this.data.detailsJson);
-
+    this.historyList = [];
     for (let i = 0; i < this.historyData.length; i++) {
       let historyItem = {
         id: this.historyData[i].id,
         Response: this.displayIcon(this.historyData[i].response),
         employeeName: this.employeeName,
-        Date: new Date(this.historyData[i].date).toDateString(),
+        Date: new Date(this.historyData[i].dateModified).toDateString(),
       };
       this.historyList.push(historyItem);
     }
-
     this.tableConfiguration.data = this.historyList;
     this.tableConfiguration.dataCount = this.historyList.length;
+    console.log(this.historyList);
+
   }
 
   onTicketEdited(_category: TicketHistoryListItem) {
@@ -255,21 +284,21 @@ export class HistoryListComponent
     this.pageControlChange.emit('next');
     // send id to edit.
     this.actionFlagChange.emit(_category.id);
+
+    this.exportHistoryData = this.historyData.find(e => e.id === _category.id);
+    this.exportHistoryDataChange.emit(this.exportHistoryData);
   }
 
   onTicketViewed(_category: TicketHistoryListItem) { }
 
   onTicketDeleted(_category: TicketHistoryListItem) {
-    this.historyData.splice(_category.id, 1);
-    this.historyList.splice(_category.id, 1);
+    this.followUpHistoryService.deleteFollowUpHistory(_category.id);
 
-    for (let i = 0; i < this.historyData.length; i++) {
-      this.historyData[i].id = i;
-      this.historyList[i].id = i;
-    }
+    /*  let elementToRemove1 = this.historyList.find(e => e.id === _category.id);
+     this.historyList.splice(this.historyList.indexOf(elementToRemove1), 1);
+     let elementToRemove2 = this.historyData.find(e => e.id === _category.id);
+     this.historyData.splice(this.historyData.indexOf(elementToRemove2), 1); */
 
-    this.data.detailsJson = Object.assign({}, this.historyData);
-    this.policyCardService.updatePolicyRenewalTickets(this.data);
     this.table.refresh();
   }
 

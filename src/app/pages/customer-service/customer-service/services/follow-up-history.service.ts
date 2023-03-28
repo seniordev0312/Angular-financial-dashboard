@@ -5,9 +5,9 @@ import { FollowUpHistory } from '../models/follow-up-history.model';
 @Injectable({
   providedIn: 'root',
 })
-export class FollowUpHistoryService {
+export class FollowUpHistoryFormGroup {
   fg: FormGroup;
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder) { }
 
   getFormGroup(item?: FollowUpHistory): FormGroup {
     this.fg = this.fb.group({

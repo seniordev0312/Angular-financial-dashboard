@@ -4,12 +4,15 @@ import {
   OnInit,
   Input,
   Output,
-  EventEmitter,
+  EventEmitter
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
-import { FollowUpHistoryService } from '../../../services/follow-up-history.service';
+import { FollowUpHistoryFormGroup } from '../../../services/follow-up-history.service';
+import { FollowUpActionType } from '../models/enums/follow-up-action-type.enums';
+import { FollowUpHistoryService } from '../services/follow-up-history.services';
+
 
 @Component({
   selector: 'app-edit-history',
@@ -20,13 +23,21 @@ import { FollowUpHistoryService } from '../../../services/follow-up-history.serv
 export class EditHistoryComponent implements OnInit {
   constructor(
     public policyCardService: PolicyCardService,
-    private followUpHistoryService: FollowUpHistoryService
+    private followUpHistoryService: FollowUpHistoryService,
+    private followUpHistoryFormGroup: FollowUpHistoryFormGroup,
+    //private ref: ChangeDetectorRef
+
   ) { }
 
   @Input() pageControl = '';
   @Input() actionFlag: number;
   @Input() data = <PolicyCard>{};
   @Output() pageControlChange = new EventEmitter<any>();
+
+  @Input() exportHistoryData: any;//received from history-list
+  //@Input() exportHistoryDataList: any;//received from history-list
+  //@Input() updatedHistoryDataList: any;//sent to history-list
+  //@Output() updatedHistoryDataListChange = new EventEmitter<any>();
 
   bgColorRequest: string = 'bg-main-gray';
   bgColorSend: string = 'bg-main-gray';
@@ -37,24 +48,33 @@ export class EditHistoryComponent implements OnInit {
   detailContent: string = '';
   policyPrice: string = '';
   additionalDetailContent: string = '';
-  toEditCommunciation: any;
+  toEditCommunication: any;
   fg: FormGroup;
   isFormValid: boolean = false;
 
+  followUpActionType: number;
+
+  FollowUpActionType = FollowUpActionType;
+
   ngOnInit(): void {
-    this.fg = this.followUpHistoryService.getFormGroup();
+    if (this.exportHistoryData) { console.log("edit list", this.exportHistoryData) }
+
+    this.fg = this.followUpHistoryFormGroup.getFormGroup();
 
     // actionFlag = -1 means creating communication.
     if (this.actionFlag !== -1) {
-      this.toEditCommunciation = Object.values(this.data.detailsJson)[
-        this.actionFlag
-      ];
 
-      this.response = this.toEditCommunciation.response;
-      this.detailContent = this.toEditCommunciation.detailContent;
-      this.policyPrice = this.toEditCommunciation.policyPrice;
-      this.additionalDetailContent =
-        this.toEditCommunciation.additionalDetailContent;
+      this.response = this.exportHistoryData.response;
+      this.getFormControl('details').setValue(this.exportHistoryData.details);
+      this.getFormControl('additionalDetails').setValue(this.exportHistoryData.additionalDetails);
+      this.getFormControl('policyAgreedPrice').setValue(this.exportHistoryData.premiumPrice);
+    }
+
+    if (this.actionFlag === -1) {
+      this.response = -1;
+      this.getFormControl('details').setValue(null);
+      this.getFormControl('additionalDetails').setValue(null);
+      this.getFormControl('policyAgreedPrice').setValue(null);
     }
   }
 
@@ -83,7 +103,6 @@ export class EditHistoryComponent implements OnInit {
   // get current response value(0, 1, 2)
   getResponse(res: number) {
     this.response = res;
-
     this.checkFormValidity();
   }
 
@@ -92,37 +111,79 @@ export class EditHistoryComponent implements OnInit {
   }
 
   // edit existing communication
-  editCommunciation(currentArray: {}[]) {
+  editCommunication(editedData: any) {
+
+    if (this.pageFlag === 'request') {
+      this.followUpActionType = this.FollowUpActionType.Underwriting;
+      this.policyPrice = '';
+      this.getFormControl('policyAgreedPrice').setValue(this.policyPrice);
+    }
+    if (this.pageFlag === 'send') {
+      this.followUpActionType = this.FollowUpActionType.SameTerms;
+      this.additionalDetailContent = '';
+      this.getFormControl('additionalDetails').setValue(this.additionalDetailContent);
+
+    }
+
     const detail = {
       id: this.actionFlag,
+      ticketId: editedData.id,
       response: this.response,
-      detailContent: this.detailContent,
-      policyPrice: this.policyPrice,
-      additionalDetailContent: this.additionalDetailContent,
-      date: new Date(),
+      details: this.getFormControl('details').getRawValue(),
+      additionalDetails: this.getFormControl('additionalDetails').getRawValue(),
+      premiumPrice: this.policyPrice,
+      followUpActionType: this.followUpActionType
     };
+    this.followUpHistoryService.updateFollowUpHistory(detail);
 
-    currentArray.splice(this.actionFlag, 1, detail);
+    /* let element = this.exportHistoryDataList.find((e: any) => e.id === this.actionFlag);
+    element.response = this.response;
+    element.details = this.getFormControl('details').getRawValue();
+    element.additionalDetails = this.getFormControl('additionalDetails').getRawValue();
+    element.followUpActionType = this.followUpActionType;
+    element.premiumPrice = this.policyPrice;
+    element.dateModified = new Date();
 
-    this.data.detailsJson = Object.assign({}, currentArray);
-    this.policyCardService.updatePolicyRenewalTickets(this.data);
+    console.log("element", element); */
   }
 
   // create existing communication
-  createNewCommunications(currentArray: {}[]) {
-    const detail = {
-      id: currentArray.length,
+  async createNewCommunications(dataToSave: any) {
+
+    if (this.pageFlag === 'request') {
+      this.followUpActionType = this.FollowUpActionType.Underwriting;
+      this.policyPrice = '';
+      this.getFormControl('policyAgreedPrice').setValue(this.policyPrice);
+
+    }
+    if (this.pageFlag === 'send') {
+      this.followUpActionType = this.FollowUpActionType.SameTerms;
+      this.additionalDetailContent = '';
+      this.getFormControl('additionalDetails').setValue(this.additionalDetailContent);
+    }
+
+    /* const detail = {
+      //id: dataToSave.id,
+      ticketId: dataToSave.id,
       response: this.response,
-      detailContent: this.detailContent,
-      policyPrice: this.policyPrice,
-      additionalDetailContent: this.additionalDetailContent,
-      date: new Date(),
+      details: this.getFormControl('details').getRawValue(),
+      additionalDetails: this.getFormControl('additionalDetails').getRawValue(),
+      premiumPrice: this.policyPrice,
+      followUpActionType: this.followUpActionType,
+      dateModified: new Date()
     };
+    this.exportHistoryDataList.push(detail); */
 
-    currentArray.push(detail);
-
-    this.data.detailsJson = Object.assign({}, currentArray);
-    this.policyCardService.updatePolicyRenewalTickets(this.data);
+    const detail_saved = {
+      //id: dataToSave.id,
+      ticketId: dataToSave.id,
+      response: this.response,
+      details: this.getFormControl('details').getRawValue(),
+      additionalDetails: this.getFormControl('additionalDetails').getRawValue(),
+      premiumPrice: this.policyPrice,
+      followUpActionType: this.followUpActionType,
+    }
+    this.followUpHistoryService.addNewFollowUpHistory(detail_saved);
   }
 
   checkFormValidity() {
@@ -149,19 +210,20 @@ export class EditHistoryComponent implements OnInit {
           this.data.constructor === Object
         ) {
           this.createNewCommunications(currentCommunications);
+
         } else {
           //this.createNewCommunications(Object.values(this.data.detailsJson));
-          this.createNewCommunications(Object.values(this.data));
+          this.createNewCommunications((this.data));
         }
         break;
       // actionFlag != -1 means edit communication[actionFlag]
       default:
-        //this.editCommunciation(Object.values(this.data.detailsJson));
-        this.editCommunciation(Object.values(this.data));
+        //this.editCommunication(Object.values(this.data.detailsJson));
+        this.editCommunication((this.data));
         break;
     }
-
     this.pageControlChange.emit('first');
+
   }
 
   onBackToHistory() {
