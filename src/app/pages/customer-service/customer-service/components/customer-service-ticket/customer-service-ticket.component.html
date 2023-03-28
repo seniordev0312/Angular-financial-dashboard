@@ -113,8 +113,12 @@
                     class="w-1/2 pr-3.5 mb-3"
                     *ngFor="let category of categories"
                   >
-                    <div *ngIf="category.name === CustomerServiceCategories.Emergency">
-                      <div *ngIf="(choosedButtons.category === category.id)">
+                    <div
+                      *ngIf="
+                        category.name === CustomerServiceCategories.Emergency
+                      "
+                    >
+                      <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
                             displaySection('type', category.id);
@@ -137,7 +141,11 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === CustomerServiceCategories.SalesInquiry">
+                    <div
+                      *ngIf="
+                        category.name === CustomerServiceCategories.SalesInquiry
+                      "
+                    >
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
@@ -161,7 +169,11 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === CustomerServiceCategories.Complaints">
+                    <div
+                      *ngIf="
+                        category.name === CustomerServiceCategories.Complaints
+                      "
+                    >
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
@@ -185,7 +197,9 @@
                         ></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === CustomerServiceCategories.Other">
+                    <div
+                      *ngIf="category.name === CustomerServiceCategories.Other"
+                    >
                       <div *ngIf="choosedButtons.category === category.id">
                         <app-button
                           (click)="
@@ -712,7 +726,9 @@
                       >
                         <app-button
                           (click)="
-                            onSelectComplaintCategory(complaintCategoryItem.value);
+                            onSelectComplaintCategory(
+                              complaintCategoryItem.value
+                            );
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
@@ -728,7 +744,9 @@
                       >
                         <app-button
                           (click)="
-                          onSelectComplaintCategory(complaintCategoryItem.value);
+                            onSelectComplaintCategory(
+                              complaintCategoryItem.value
+                            );
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
@@ -770,7 +788,10 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-details-accordion
-                      (saveClicked)="complaintOutcomeAccordion.toggle()"
+                      (saveClicked)="
+                        onSubmitComplaintDetails($event);
+                        complaintOutcomeAccordion.toggle()
+                      "
                     ></app-details-accordion>
                   </div>
                 </div>
@@ -805,7 +826,10 @@
                     [attr.aria-labelledby]="'accordion-header-7'"
                   >
                     <app-outcome-accordion
-                      (saveClicked)="complaintOutcomeAccordion.toggle()"
+                      (saveClicked)="
+                        onSubmitComplaintOutcome($event);
+                        complaintOutcomeAccordion.toggle()
+                      "
                       [outcomeText]="'Complaint Outcome'"
                     ></app-outcome-accordion>
                   </div>

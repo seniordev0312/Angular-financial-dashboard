@@ -16,16 +16,32 @@
       <p class="text-[11px] font-bold pl-[13%]">Severity:</p>
       <div class="flex flex-row pt-2 justify-evenly">
         <div class="mx-1">
-          <div *ngIf="response == 2">
+          <div *ngIf="response == 3">
             <mat-icon
-              (click)="getSeverityResponse(2)"
+              (click)="getSeverityResponse(3)"
               svgIcon="customer-service-severity-low"
             ></mat-icon>
           </div>
+          <div *ngIf="response !== 3">
+            <mat-icon
+              (click)="getSeverityResponse(3)"
+              svgIcon="customer-service-severity-low-no-color"
+            ></mat-icon>
+          </div>
+        </div>
+
+        <div class="mx-1">
+          <div *ngIf="response == 2">
+            <mat-icon
+              (click)="getSeverityResponse(2)"
+              svgIcon="customer-service-severity-medium"
+            ></mat-icon>
+          </div>
+
           <div *ngIf="response !== 2">
             <mat-icon
               (click)="getSeverityResponse(2)"
-              svgIcon="customer-service-severity-low-no-color"
+              svgIcon="customer-service-severity-medium-no-color"
             ></mat-icon>
           </div>
         </div>
@@ -34,28 +50,12 @@
           <div *ngIf="response == 1">
             <mat-icon
               (click)="getSeverityResponse(1)"
-              svgIcon="customer-service-severity-medium"
-            ></mat-icon>
-          </div>
-
-          <div *ngIf="response !== 1">
-            <mat-icon
-              (click)="getSeverityResponse(1)"
-              svgIcon="customer-service-severity-medium-no-color"
-            ></mat-icon>
-          </div>
-        </div>
-
-        <div class="mx-1">
-          <div *ngIf="response == 0">
-            <mat-icon
-              (click)="getSeverityResponse(0)"
               svgIcon="customer-service-severity-high"
             ></mat-icon>
           </div>
-          <div *ngIf="response !== 0">
+          <div *ngIf="response !== 1">
             <mat-icon
-              (click)="getSeverityResponse(0)"
+              (click)="getSeverityResponse(1)"
               svgIcon="customer-service-severity-high-no-color"
             ></mat-icon>
           </div>
@@ -65,7 +65,9 @@
   </div>
 
   <div class="flex-1 flex items-end justify-end mb-1 pt-6">
-    <div class="py-3 justify-items-end leading-none text-center flex items-center">
+    <div
+      class="py-3 justify-items-end leading-none text-center flex items-center"
+    >
       <app-button
         (click)="onSave()"
         [isDisabled]="!isFormValid"

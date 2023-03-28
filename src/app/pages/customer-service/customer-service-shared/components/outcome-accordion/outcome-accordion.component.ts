@@ -17,7 +17,7 @@ import { OutcomeAccordionService } from '@root/pages/customer-service/customer-s
 })
 export class OutcomeAccordionComponent implements OnInit {
   @Input() outcomeText: string = 'Outcome';
-  
+
   @Output()
   saveClicked: EventEmitter<any> = new EventEmitter<any>();
 
@@ -59,6 +59,9 @@ export class OutcomeAccordionComponent implements OnInit {
   onSave() {
     if (!this.isFormValid) return;
 
-    this.saveClicked.emit();
+    this.saveClicked.emit({
+      outcome: this.fg.get('outcome').value,
+      response: this.response,
+    });
   }
 }

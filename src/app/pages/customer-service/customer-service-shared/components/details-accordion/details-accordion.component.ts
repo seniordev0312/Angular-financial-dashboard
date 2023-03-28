@@ -54,6 +54,6 @@ export class DetailsAccordionComponent implements OnInit {
 
   onSave() {
     if (!this.isFormValid) return;
-    this.saveClicked.emit();
+    this.saveClicked.emit({response: this.response, details: this.fg.get('description').value});
   }
 }

@@ -174,22 +174,47 @@ export class CustomerServiceTicketComponent
       this.choosedButtons.category = this.dataTicket.category;
     }
 
-    if (this.dataTicket.lineOfBusinessId) {
-      this.choosedButtons.business = this.dataTicket.lineOfBusinessId;
-      this.salesFlowFlag = true;
-      this.businessSectionFlag = true;
-      this.productSectionFlag = true;
-
-      this.getProducts(this.dataTicket.lineOfBusinessId);
-    }
-
     if (this.dataTicket.emergencyTypeId) {
       this.choosedButtons.emergencyType = this.dataTicket.emergencyTypeId;
       this.emergencyFlowFlag = true;
       this.typeSectionFlag = true;
       this.locationSectionFlag = true;
+      this.salesFlowFlag = false;
+      this.complaintFlowFlag = false;
+      this.otherFlowFlag = false;
 
       this.getEmergencyTypes();
+    }
+
+    if (this.dataTicket.lineOfBusinessId) {
+      this.choosedButtons.business = this.dataTicket.lineOfBusinessId;
+      this.salesFlowFlag = true;
+      this.businessSectionFlag = true;
+      this.productSectionFlag = true;
+      this.emergencyFlowFlag = false;
+      this.complaintFlowFlag = false;
+      this.otherFlowFlag = false;
+
+      this.getProducts(this.dataTicket.lineOfBusinessId);
+    }
+
+    if (this.dataTicket.productId) {
+      this.choosedButtons.product = this.dataTicket.productId;
+      this.initialSectionFlag = true;
+    }
+
+    if (this.dataTicket.complaintCategory) {
+      this.choosedButtons.complaintCategory = this.dataTicket.complaintCategory;
+      this.productSectionFlag = false;
+      this.emergencyFlowFlag = false;
+      this.complaintFlowFlag = true;
+      this.otherFlowFlag = false;
+      
+      this.getComplaintCategories();
+    }
+
+    if (this.dataTicket.locationAddress) {
+      this.displayEmergencyInitateSection();
     }
   }
 
@@ -285,13 +310,7 @@ export class CustomerServiceTicketComponent
           body
         );
 
-        this.customerCardService
-          .getComplaintsCategoriesApi()
-          .subscribe((data: any) => {
-            this.complaintCategories = data;
-            this.ref.detectChanges();
-          });
-
+        this.getComplaintCategories();
         break;
       }
       case 'otherDetails': {
@@ -316,6 +335,15 @@ export class CustomerServiceTicketComponent
       default:
         break;
     }
+  }
+
+  getComplaintCategories() {
+    this.customerCardService
+      .getComplaintsCategoriesApi()
+      .subscribe((data: any) => {
+        this.complaintCategories = data;
+        this.ref.detectChanges();
+      });
   }
 
   getEmergencyTypes() {
@@ -365,6 +393,16 @@ export class CustomerServiceTicketComponent
     this.choosedButtons.product = productId;
     this.initialSectionFlag = true;
     this.canShowCalculator = true;
+
+    let body: any = {
+      productId: productId,
+      productIdSpecified: true,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
   }
 
   //  move to type section
@@ -408,8 +446,46 @@ export class CustomerServiceTicketComponent
     this.emergencyInitialSectionFlag = true;
   }
 
-  onSelectComplaintCategory(complaintCategory: number) {
-    this.choosedButtons.complaintCategory = complaintCategory;
+  onSelectComplaintCategory(complaintCategoryId: number) {
+    this.choosedButtons.complaintCategory = complaintCategoryId;
+
+    let body: any = {
+      complaintCategory: complaintCategoryId,
+      complaintCategorySpecified: true,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+  }
+
+  onSubmitComplaintDetails(event: any) {
+    let body: any = {
+      description: event.details,
+      descriptionSpecified: true,
+      severity: event.response,
+      severitySpecified: true,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+  }
+
+  onSubmitComplaintOutcome(event: any) {
+    let body: any = {
+      outcome: event.outcome,
+      outcomeSpecified: true,
+      customerStatisfication: event.response,
+      customerStatisficationSpecified: true,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
   }
 
   onSelectEmergencyItem(emergencyInitiateItem: any) {
