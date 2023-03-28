@@ -80,12 +80,13 @@ export class ContactFormComponent extends BaseComponent implements OnInit {
 
   onSend() {
     if (/\S/.test(this.text)) {
+      console.log(this.chatData)
       let formData: FormData = new FormData();
       formData.append('image', this.fileBlob);
       formData.append('SenderId', this.userData.sub);
       formData.append('ChatId', this.chatData.chatId.toString());
       formData.append('Body', this.text);
-      formData.append('SourceCommunicationChannelId', '1');
+      formData.append('SourceCommunicationChannelId', this.chatData.primaryCommunicationChannelId);
       this.text = '';
 
       this.contactFormService.sendMessage(formData);

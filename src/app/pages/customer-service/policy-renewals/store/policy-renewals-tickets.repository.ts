@@ -20,4 +20,18 @@ export class PolicyRenewalsTicketsRepository {
       tickets: tickets,
     }));
   }
+
+  updateFilterOptions(policyRenewalFilterOptions: any) {
+    this.policyRenewalsTicketsStore.update((state) => ({
+      ...state,
+      policyRenewalFilterOptions: policyRenewalFilterOptions,
+    }));
+  }
+
+   updateNumberOfAppliedFilters(numberOfPolicyRenewalAppliedFilters: any) {
+    this.policyRenewalsTicketsStore.update((state) => ({
+      ...state,
+      numberOfPolicyRenewalAppliedFilters: numberOfPolicyRenewalAppliedFilters,
+    }));
+  }
 }

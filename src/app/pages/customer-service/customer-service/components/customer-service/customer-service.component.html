@@ -13,32 +13,61 @@
             placeholder="Search CST Number"
             (keyup)="onSearchFilter()"
           />
-          <mat-icon class="cursor-pointer" (click)="openFilter()" svgIcon="policy-filter"></mat-icon>
-          <mat-icon class="cursor-pointer" (click)="onClearFilter()">cancel</mat-icon>
+
+          <mat-icon
+            class="cursor-pointer"
+            (click)="openFilter()"
+            svgIcon="policy-filter"
+            matBadge="{{ numberOfCustomerServiceAppliedFilters }}"
+            [matBadgeHidden]="numberOfCustomerServiceAppliedFilters == 0"
+          ></mat-icon>
+          <mat-icon class="cursor-pointer" (click)="onClearSearchFilter()"
+            >cancel</mat-icon
+          >
         </div>
         <div class="flex gap-2">
           <button
-          (click)="filterByAssignedTo('personal')"
-            class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center bg-white border-2 border-black text-[#000000] w-30 h-8"
+            (click)="filterByAssignedTo(FilterButtons.Personal)"
+            class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center border-2 w-30 h-8"
+            [ngClass]="
+              isAllFilterSelected
+                ? 'unselectedFilterWrapper'
+                : 'selectedFilterWrapper'
+            "
           >
             <div
-              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-primary rounded-2xl text-[#FFFFFF] h-7 w-7"
+              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-primary rounded-2xl h-7 w-7 font-semibold"
+              [ngClass]="
+                isAllFilterSelected
+                  ? 'unselectedFilterNumber'
+                  : 'selectedFilterNumber'
+              "
             >
-              {{numberOfAllTickets}}
+              {{ numberPersonalTickets }}
             </div>
-            <span class="items-center flex gap-3 text-[12px]">Personal</span>
+            <span class="items-center flex gap-3 text-[12px]">{{FilterButtons.Personal}}</span>
           </button>
-       
+
           <button
-            (click)="filterByAssignedTo('all')"
-            class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 border-black text-[#FFFFFF] w-30 h-8"
+            (click)="filterByAssignedTo(FilterButtons.All)"
+            class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 w-30 h-8"
+            [ngClass]="
+              isAllFilterSelected
+                ? 'selectedFilterWrapper'
+                : 'unselectedFilterWrapper'
+            "
           >
             <div
-              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs bg-white rounded-2xl text-[#005f83] h-6 w-6 font-semibold"
+              class="absolute flex justify-center items-center right-[3px] align-baseline text-xs rounded-2xl h-6 w-6 font-semibold"
+              [ngClass]="
+                isAllFilterSelected
+                  ? 'selectedFilterNumber'
+                  : 'unselectedFilterNumber'
+              "
             >
-                {{numberOfAllTickets}}
+              {{ numberAllTickets }}
             </div>
-            <span class="items-center flex gap-3 text-[12px]">Show All</span>
+            <span class="items-center flex gap-3 text-[12px]">{{FilterButtons.All}}</span>
           </button>
         </div>
       </div>
@@ -95,14 +124,14 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.inQueueTickets"
-        (cdkDropListDropped)="drop($event, 0)"
+        [cdkDropListData]="tickets?.inQueueTickets"
+        (cdkDropListDropped)="drop($event, 1)"
       >
         <div
           class="flex justify-center relative"
           cdkDragBoundary=".drag-boundary"
           cdkDrag
-          *ngFor="let card of tickets.inQueueTickets"
+          *ngFor="let card of tickets?.inQueueTickets"
         >
           <app-policy-card
             [card]="card"
@@ -115,39 +144,19 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.inProgressTickets"
-        (cdkDropListDropped)="drop($event, 1)"
-      >
-        <div
-          class="flex justify-center"
-          cdkDragBoundary=".drag-boundary"
-          *ngFor="let card of tickets.inProgressTickets"
-          cdkDrag
-        >
-          <app-policy-card
-            (dblclick)="openDialog(card)"
-            [card]="card"
-            class="w-[100%]"
-          ></app-policy-card>
-        </div>
-      </div>
-
-      <div
-        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
-        cdkDropList
-        [cdkDropListData]="tickets.processedTickets"
+        [cdkDropListData]="tickets?.inProgressTickets"
         (cdkDropListDropped)="drop($event, 2)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
-          *ngFor="let card of tickets.processedTickets"
+          *ngFor="let card of tickets?.inProgressTickets"
           cdkDrag
         >
           <app-policy-card
-            class="w-[100%]"
-            [card]="card"
             (dblclick)="openDialog(card)"
+            [card]="card"
+            class="w-[100%]"
           ></app-policy-card>
         </div>
       </div>
@@ -155,14 +164,14 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.resolvedTickets"
+        [cdkDropListData]="tickets?.processedTickets"
         (cdkDropListDropped)="drop($event, 3)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
+          *ngFor="let card of tickets?.processedTickets"
           cdkDrag
-          *ngFor="let card of tickets.resolvedTickets"
         >
           <app-policy-card
             class="w-[100%]"
@@ -175,14 +184,34 @@
       <div
         class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
         cdkDropList
-        [cdkDropListData]="tickets.closedTickets"
+        [cdkDropListData]="tickets?.resolvedTickets"
         (cdkDropListDropped)="drop($event, 4)"
       >
         <div
           class="flex justify-center"
           cdkDragBoundary=".drag-boundary"
           cdkDrag
-          *ngFor="let card of tickets.closedTickets"
+          *ngFor="let card of tickets?.resolvedTickets"
+        >
+          <app-policy-card
+            class="w-[100%]"
+            [card]="card"
+            (dblclick)="openDialog(card)"
+          ></app-policy-card>
+        </div>
+      </div>
+
+      <div
+        class="w-1/5 flex flex-col justify-start gap-y-5 p-5"
+        cdkDropList
+        [cdkDropListData]="tickets?.closedTickets"
+        (cdkDropListDropped)="drop($event, 5)"
+      >
+        <div
+          class="flex justify-center"
+          cdkDragBoundary=".drag-boundary"
+          cdkDrag
+          *ngFor="let card of tickets?.closedTickets"
         >
           <app-policy-card
             class="w-[100%]"

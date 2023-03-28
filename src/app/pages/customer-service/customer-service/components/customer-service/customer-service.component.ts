@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
-import { PolicyStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/policy-status.model';
 import { PolicyCard } from '@root/pages/customer-service/customer-service-shared/components/policy-card/models/policy-card.model';
 import {
   CdkDragDrop,
@@ -18,8 +17,17 @@ import { CustomerServiceTicketComponent } from '../customer-service-ticket/custo
 import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { Subscription } from 'rxjs';
-import { tickets$ } from '../../store/customer-service-tickets.store';
+import {
+  customerServiceFilterOptions$,
+  numberOfCustomerServiceAppliedFilters$,
+  tickets$,
+} from '../../store/customer-service-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
+import { CustomerServiceTicketsRepository } from '../../store/customer-service-tickets.repository';
+import { CustomerServiceStatus } from '@root/pages/customer-service/customer-service-shared/components/policy-status/models/customer-service-status.model';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { CustomerServiceSignalRService } from '../../services/customer-service-signalr.service';
+import { FilterButtons } from '../../enums/filter-buttons.enum';
 
 @Component({
   selector: 'app-customer-service',
@@ -27,23 +35,35 @@ import { SecurityCheckerService } from '@root/shared/services/security-checker.s
   styleUrls: ['./customer-service.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerServiceComponent implements OnInit {
+export class CustomerServiceComponent extends BaseComponent implements OnInit {
   subscription: Subscription;
-  steps: PolicyStatus[] = [
-    { title: 'Created/Received Queue', color: 'bg-[#d8d8d8]' },
-    { title: 'In Process', color: 'bg-[#0098ef]' },
-    { title: 'Processed', color: 'bg-[#c2c2c2]' },
-    { title: 'Resolved', color: 'bg-[#31CD3D]' },
-    { title: 'Closed', color: 'bg-[#e7e7e7]' },
-  ];
+
+  steps: CustomerServiceStatus[] = [];
 
   isFilter: boolean = false;
+  isAllFilterSelected: boolean = true;
   flag: number = 0;
-  numberOfAllTickets: number = 0;
+  numberAllTickets: number = 0;
+  numberPersonalTickets: number = 0;
   userId: string = '';
   tickets: any = null;
+  customerServiceFilterOptions: any = {
+    searchQuery: '',
+    assignedToId: null,
+    fromDateCreated: null,
+    toDateCreated: null,
+    fromDateModified: null,
+    toDateModified: null,
+    communicationChannelId: null,
+    followUpResponse: null,
+    followUpStatus: null,
+    category: null,
+  };
+  numberOfCustomerServiceAppliedFilters: number = 0;
 
   searchBarValue: string = '';
+
+  FilterButtons = FilterButtons;
 
   constructor(
     private customerCardService: CustomerCardService,
@@ -51,32 +71,96 @@ export class CustomerServiceComponent implements OnInit {
     private router: Router,
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
-    private securityCheckerService: SecurityCheckerService
-  ) {}
+    private securityCheckerService: SecurityCheckerService,
+    private customerServiceTicketsRepository: CustomerServiceTicketsRepository,
+    public customerServiceSignalRService: CustomerServiceSignalRService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.customerCardService.getCutomerServiceTickets();
+    this.customerCardService.getCustomerServiceTickets();
 
-    this.subscription = tickets$.subscribe((data: any) => {
-      this.tickets = data;
-      this.ref.detectChanges();
-    });
+    this.customerServiceSignalRService.initConnection();
+
+    this.subscriptions.add(
+      this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
+        this.steps = data.map((e: any) => ({
+          id: e.value,
+          title: e.code,
+          color: this.getStatusColor(e.value),
+        }));
+        this.ref.detectChanges();
+      })
+    );
+
+    this.subscriptions.add(
+      tickets$.subscribe((data: any) => {
+        this.tickets = data;
+        if (this.tickets) {
+          this.numberAllTickets = this.tickets.all;
+          this.numberPersonalTickets = this.tickets.personal;
+        }
+        this.ref.detectChanges();
+      })
+    );
+
+    this.subscriptions.add(
+      customerServiceFilterOptions$.subscribe((data: any) => {
+        if (data) this.customerServiceFilterOptions = data;
+        else {
+          this.customerServiceFilterOptions = {
+            searchQuery: '',
+            assignedToId: null,
+            fromDateCreated: null,
+            toDateCreated: null,
+            fromDateModified: null,
+            toDateModified: null,
+            communicationChannelId: null,
+            followUpResponse: null,
+            followUpStatus: null,
+            category: null,
+          };
+        }
+
+        this.ref.detectChanges();
+      })
+    );
+
+    this.subscriptions.add(
+      numberOfCustomerServiceAppliedFilters$.subscribe((data: any) => {
+        this.numberOfCustomerServiceAppliedFilters = data;
+        this.ref.detectChanges();
+      })
+    );
 
     this.securityCheckerService.userClaims$.subscribe((data) => {
       this.userId = data?.sub;
       this.ref.detectChanges();
     });
+  }
 
-    this.numberOfAllTickets =
-      this.tickets.closedTickets.length +
-      this.tickets.inProgressTickets.length +
-      this.tickets.inQueueTickets.length +
-      this.tickets.processedTickets.length +
-      this.tickets.resolvedTickets.length;
+  getStatusColor(statusId: number): string {
+    switch (statusId) {
+      case 1:
+        return 'bg-[#d8d8d8]';
+      case 2:
+        return 'bg-[#0098ef]';
+      case 3:
+        return 'bg-[#c2c2c2]';
+      case 4:
+        return 'bg-[#31CD3D]';
+      case 5:
+        return 'bg-[#e7e7e7]';
+      default:
+        return '';
+    }
   }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+
+    this.customerServiceSignalRService.stopSignalRConnection();
   }
 
   openFilter() {
@@ -98,7 +182,7 @@ export class CustomerServiceComponent implements OnInit {
 
   openDialog(card: any): void {
     let ticketData: any = null;
-    
+
     this.customerCardService.getTicketData(card.id).subscribe((data: any) => {
       ticketData = data;
       this.ref.detectChanges();
@@ -115,15 +199,16 @@ export class CustomerServiceComponent implements OnInit {
         })
         .afterClosed()
         .subscribe(() => {
-          this.customerCardService.getCutomerServiceTickets();
+          this.customerCardService.getCustomerServiceTickets();
 
-          this.subscription = tickets$.subscribe((data: any) => {
-            this.tickets = data;
-            this.ref.detectChanges();
-          });
+          this.subscriptions.add(
+            tickets$.subscribe((data: any) => {
+              this.tickets = data;
+              this.ref.detectChanges();
+            })
+          );
         });
     });
-
   }
 
   drop(event: CdkDragDrop<PolicyCard[]>, status: number) {
@@ -153,45 +238,50 @@ export class CustomerServiceComponent implements OnInit {
   }
 
   onSearchFilter() {
-    const filterOption: any = {
-      searchQuery: this.searchBarValue,
-      assignedToId: null,
-      fromDateCreated: null,
-      toDateCreated: null,
-      fromDateModified: null,
-      toDateModified: null,
-      communicationChannelId: null,
-    };
+    this.customerServiceFilterOptions.searchQuery = this.searchBarValue;
 
-    this.customerCardService.filterCustomerServiceTickets(filterOption);
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
   }
 
   filterByAssignedTo(filterMode: string) {
     let assignedId: string;
 
-    if (filterMode == 'personal') assignedId = this.userId;
-    else if (filterMode == 'all') assignedId = null;
+    if (filterMode == FilterButtons.Personal) {
+      assignedId = this.userId;
+      this.isAllFilterSelected = false;
+    } else if (filterMode == FilterButtons.All) {
+      assignedId = null;
+      this.isAllFilterSelected = true;
+    }
+    this.customerServiceFilterOptions.assignedToId = assignedId;
 
-    const filterOption: any = {
-      searchQuery: null,
-      assignedToId: assignedId,
-      fromDateCreated: null,
-      toDateCreated: null,
-      fromDateModified: null,
-      toDateModified: null,
-      communicationChannelId: null,
-    };
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
 
-    this.customerCardService.filterCustomerServiceTickets(filterOption);
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
   }
 
-  onClearFilter() {
-    this.searchBarValue = '';
+  onClearSearchFilter() {
+    if (this.searchBarValue !== '') {
+      this.searchBarValue = '';
 
-    const filterOption = {
-      searchQuery: this.searchBarValue,
-    };
+      this.customerServiceFilterOptions.searchQuery = this.searchBarValue;
 
-    this.customerCardService.filterCustomerServiceTickets(filterOption);
+      this.customerCardService.filterCustomerServiceTickets(
+        this.customerServiceFilterOptions
+      );
+
+      this.customerServiceTicketsRepository.updateFilterOptions(
+        this.customerServiceFilterOptions
+      );
+    }
   }
 }

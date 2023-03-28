@@ -1,14 +1,17 @@
 <ng-container [formGroup]="fg">
     <div class="flex flex-col border border-accent container relative pt-5 w-full px-4">
-        <ng-content></ng-content>
+        <p *ngIf="isViewMode" class="text-lg font-bold mb-2">Elements </p>
+        <ng-content *ngIf="!isViewMode"></ng-content>
 
-        <button appFormValidationTrigger (click)="onAddClicked()" class="absolute top-[50%] -right-[0.79rem] ">
-            <span class="material-icons text-accent">
-                add_circle_outline
+        <button *ngIf="!isViewMode" appFormValidationTrigger (click)="onAddClicked()"
+            class="absolute top-[50%] -right-[0.80rem] ">
+            <span class="material-icons text-accent bg-white rounded-full  border-accent border-2">
+                add
             </span>
         </button>
     </div>
-    <mat-chip-list class="border-t-primary">
+    <mat-chip-list class="border-t-primary py-5">
+
         <mat-chip class=" relative" *ngFor="let chip of chipsList;  let i = index" color="primary">
             <span>{{getChipLabel(i)}}</span>
             <button (click)="removeChip(i)" class="absolute -top-1 -right-2 z-10" matChipRemove

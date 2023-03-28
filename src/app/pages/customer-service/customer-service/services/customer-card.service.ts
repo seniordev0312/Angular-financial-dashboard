@@ -40,10 +40,12 @@ export class CustomerCardService {
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
   apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
+  apiGetTicketStatus = `${this.customerServiceServerURL}/Resource/Reference/TicketStatus`;
+  apiGetComplaintsCategories = `${this.customerServiceServerURL}/Resource/Reference/ComplaintCategory`;
   apiGetUserDetails = `${this.customerServiceServerURL}/User/UserDetails?SearchCriteria=`;
 
   // HttpClient API post() method => Get customer service tickets
-  getCutomerServiceTickets() {
+  getCustomerServiceTickets() {
     let paramObj: any = {
       searchQuery: null,
       assignedToId: null,
@@ -108,7 +110,6 @@ export class CustomerCardService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-
   getCustomerServiceTicketTypeApi() {
     return this.http
       .get<any>(this.apiGetCategory, this.httpOptions)
@@ -118,6 +119,18 @@ export class CustomerCardService {
   getCommunicationChannelApi() {
     return this.http
       .get<any>(this.apiGetCommunicationChannel, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getTicketStatusApi() {
+    return this.http
+      .get<any>(this.apiGetTicketStatus, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getComplaintsCategoriesApi() {
+    return this.http
+      .get<any>(this.apiGetComplaintsCategories, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 

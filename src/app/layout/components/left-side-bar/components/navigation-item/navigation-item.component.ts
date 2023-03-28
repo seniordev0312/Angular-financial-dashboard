@@ -16,18 +16,14 @@ export class NavigationItemComponent {
   @Input() isSubItem = false;
   @Input() extended: boolean;
 
-@ViewChild(MatMenuTrigger) customerServiceMenuTrigger: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger) customerServiceMenuTrigger: MatMenuTrigger;
 
 
   constructor(private router: Router,
     private securityCheckerService: SecurityCheckerService) { }
 
-  navigate(url: string, sidenavLink: string = null) {
-    this.router.navigate([url, {
-      outlets: {
-        sidenav: sidenavLink
-      },
-    }]);
+  navigate(url: string) {
+    this.router.navigate([url]);
   }
 
   isLink(item: NavigationLink | NavigationDropdown): item is NavigationLink {
@@ -49,6 +45,6 @@ export class NavigationItemComponent {
   }
 
   closeMenu() {
-     this.customerServiceMenuTrigger.closeMenu();
+    this.customerServiceMenuTrigger.closeMenu();
   }
 }

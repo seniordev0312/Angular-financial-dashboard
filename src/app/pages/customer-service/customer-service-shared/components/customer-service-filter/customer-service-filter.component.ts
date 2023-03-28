@@ -15,6 +15,11 @@ import { LayoutService } from '@root/shared/services/layout.service';
 import { ApplicationRoutes } from '@root/shared/settings/common.settings';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { CustomerServiceTicketsRepository } from '@root/pages/customer-service/customer-service/store/customer-service-tickets.repository';
+import {
+  customerServiceFilterOptions$,
+  numberOfCustomerServiceAppliedFilters$,
+} from '@root/pages/customer-service/customer-service/store/customer-service-tickets.store';
 
 @Component({
   selector: 'app-customer-service-filter',
@@ -28,65 +33,26 @@ export class CustomerServiceFilterComponent implements OnInit {
   @Output() filteringArrayChange = new EventEmitter<any>();
 
   ticketType: any;
-  fromDateCreated: Date;
-  toDateCreated: Date;
-  fromDateModified: Date;
-  toDateModified: Date;
+  fromDateCreated: Date = null;
+  toDateCreated: Date = null;
+  fromDateModified: Date = null;
+  toDateModified: Date = null;
 
   subscription: Subscription;
   ticketTypeList: any;
   ticketTypeListControl: FormControl = new FormControl({ id: 0, value: null });
-  selectedTicketType: any;
+  selectedTicketType: any = null;
 
   cstSourceList: any;
   cstSourceListControl: FormControl = new FormControl({ id: 0, value: null });
-  selectedCstSource: any;
-  
+  selectedCstSource: any = null;
+
   assignedToListControl: FormControl = new FormControl({ id: -1, value: null });
   assignedToList: any;
-  selectedAssignedTo: any;
+  selectedAssignedTo: any = null;
 
-
-  /* AssignedStatus: BaseListItem[] = [
-    {
-      id: '1',
-      value: 'unAssigned',
-    },
-  ]; */
-
-  /* FollowUpStatus: BaseListItem[] = [
-    {
-      id: '1',
-      value: 'Follow Up',
-    },
-    {
-      id: '2',
-      value: 'In Process',
-    },
-    {
-      id: '3',
-      value: 'Processed',
-    },
-    {
-      id: '4',
-      value: 'Renewal Approved',
-    },
-    {
-      id: '5',
-      value: 'Closed',
-    },
-  ]; */
-
-  /* CstSourceList: BaseListItem[] = [
-     {
-      id: '1',
-      value: 'Email',
-    },
-    {
-      id: '2',
-      value: 'Whatsapp',
-    },
-  ] */
+  public customerServiceFilterOptions: any = {};
+  public numberOfCustomerServiceAppliedFilters: number = 0;
 
   constructor(
     public policyCardService: PolicyCardService,
@@ -94,7 +60,8 @@ export class CustomerServiceFilterComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private layoutService: LayoutService,
     private router: Router,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private customerServiceTicketsRepository: CustomerServiceTicketsRepository
   ) {}
 
   ngOnInit(): void {
@@ -102,27 +69,78 @@ export class CustomerServiceFilterComponent implements OnInit {
       this.ticketType = params.get('ticketType');
     });
 
+    this.subscription = customerServiceFilterOptions$.subscribe((data: any) => {
+      if (data) {
+        this.customerServiceFilterOptions = data;
+        this.selectedAssignedTo =
+          this.customerServiceFilterOptions.assignedToId;
+      } else {
+        this.customerServiceFilterOptions = {
+          searchQuery: '',
+          assignedToId: null,
+          fromDateCreated: null,
+          toDateCreated: null,
+          fromDateModified: null,
+          toDateModified: null,
+          communicationChannelId: null,
+          followUpResponse: null,
+          followUpStatus: null,
+          category: null,
+        };
+      }
+      this.ref.detectChanges();
+    });
+
+    this.subscription = numberOfCustomerServiceAppliedFilters$.subscribe(
+      (data: any) => {
+        this.numberOfCustomerServiceAppliedFilters = data;
+        this.ref.detectChanges();
+      }
+    );
+
     this.subscription = this.customerCardService
       .getCustomerServiceTicketTypeApi()
       .subscribe((data: any) => {
-        this.ticketTypeList = data.map((e:any) => ({ id: e.id, value: e.name }));
+        this.ticketTypeList = data.map((e: any) => ({
+          id: e.id,
+          value: e.name,
+        }));
         this.ref.detectChanges();
       });
-    
+
     this.subscription = this.customerCardService
       .getCommunicationChannelApi()
       .subscribe((data: any) => {
-        this.cstSourceList = data.map((e:any) => ({ id: e.value, value: e.code }));
+        this.cstSourceList = data.map((e: any) => ({
+          id: e.value,
+          value: e.code,
+        }));
         this.ref.detectChanges();
       });
-    
+
     //this.emailService.getEmails(0, 100);
     this.subscription = this.customerCardService
       .getUserDetails()
       .subscribe((data: any) => {
-        this.assignedToList = data.map((e:any) => ({ id: e.userId, value: e.email, }));
+        this.assignedToList = data.map((e: any) => ({
+          id: e.userId,
+          value: e.email,
+        }));
         this.ref.detectChanges();
       });
+
+    this.customerServiceFilterOptions = {
+      searchQuery: '',
+      fromDateCreated: null,
+      toDateCreated: null,
+      fromDateModified: null,
+      toDateModified: null,
+      communicationChannelId: null,
+      assignedToId: null,
+      category: null,
+      followUpResponse: null,
+      followUpStatus: null,
+    };
   }
 
   onChangeTicketType(event: Event) {
@@ -139,11 +157,14 @@ export class CustomerServiceFilterComponent implements OnInit {
     this.router.navigate([
       `${ApplicationRoutes.CustomerService}/${ApplicationRoutes.Filter}`,
     ]);
+
     this.layoutService.closeRightSideNav();
   }
 
   filter() {
-    const filterOption = {
+    this.numberOfCustomerServiceAppliedFilters = 0;
+
+    this.customerServiceFilterOptions = {
       searchQuery: '',
       fromDateCreated: this.fromDateCreated,
       toDateCreated: this.toDateCreated,
@@ -151,23 +172,62 @@ export class CustomerServiceFilterComponent implements OnInit {
       toDateModified: this.toDateModified,
       communicationChannelId: this.selectedCstSource,
       assignedToId: this.selectedAssignedTo,
-      category:this.selectedTicketType
+      followUpResponse: null,
+      followUpStatus: null,
+      category: this.selectedTicketType,
     };
 
-    this.ticketType == 'customerService'
-      ?
-      this.customerCardService.filterCustomerServiceTickets(filterOption)
-      : this.policyCardService.filterPolicyRenewalTickets(filterOption);
+    this.customerCardService.filterCustomerServiceTickets(
+      this.customerServiceFilterOptions
+    );
+
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
+
+    Object.keys(this.customerServiceFilterOptions).forEach((key) => {
+      const value = this.customerServiceFilterOptions[key];
+      if (value !== null && value !== '') {
+        this.numberOfCustomerServiceAppliedFilters++;
+      }
+    });
+
+    this.customerServiceTicketsRepository.updateNumberOfAppliedFilters(
+      this.numberOfCustomerServiceAppliedFilters
+    );
+
+    this.onCancel();
   }
 
   onClearFilters() {
     this.fromDateCreated = null;
-    this.toDateCreated = null; 
-    this.toDateModified = null; 
-    this.fromDateModified = null; 
+    this.toDateCreated = null;
+    this.toDateModified = null;
+    this.fromDateModified = null;
     this.selectedCstSource = null;
     this.selectedTicketType = null;
-    this.selectedAssignedTo = null; 
-   
+    this.selectedAssignedTo = null;
+
+    this.customerServiceFilterOptions = {
+      searchQuery: '',
+      fromDateCreated: this.fromDateCreated,
+      toDateCreated: this.toDateCreated,
+      fromDateModified: this.fromDateModified,
+      toDateModified: this.toDateModified,
+      communicationChannelId: this.selectedCstSource,
+      assignedToId: this.selectedAssignedTo,
+      category: this.selectedTicketType,
+      followUpResponse: null,
+      followUpStatus: null,
+    };
+
+    this.customerServiceTicketsRepository.updateFilterOptions(
+      this.customerServiceFilterOptions
+    );
+
+    this.numberOfCustomerServiceAppliedFilters = 0;
+    this.customerServiceTicketsRepository.updateNumberOfAppliedFilters(
+      this.numberOfCustomerServiceAppliedFilters
+    );
   }
 }

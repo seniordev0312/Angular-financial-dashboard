@@ -4,8 +4,6 @@ import {
   OnInit,
   Input,
 } from '@angular/core';
-import { PolicyStatus } from './models/policy-status.model';
-
 @Component({
   selector: 'app-policy-status',
   templateUrl: './policy-status.component.html',
@@ -13,9 +11,12 @@ import { PolicyStatus } from './models/policy-status.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PolicyStatusComponent implements OnInit {
-  @Input() step?: PolicyStatus;
+  @Input() step?: any;
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 }

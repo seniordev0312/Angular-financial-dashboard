@@ -10,6 +10,7 @@ import { FormArrayService } from '@root/shared/services/form-array.service';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class SelectListWithChipsComponent {
+  @Input() isViewMode = false;
   @Output() addNewItem = new EventEmitter<void>();
   @Input() isFirstFieldSelectList = false;
 
@@ -40,10 +41,12 @@ export class SelectListWithChipsComponent {
   }
 
   getSecondLabel(id: string) {
-    return this.secondSelectListOptionsList.find(e => e.id === id).value;
+    const ID = id ?? 0;
+    return this.secondSelectListOptionsList.find(e => e.id === ID).value;
   }
 
   getFirstLabel(id: string) {
+
     return this.firstSelectListOptionsList.find(e => e.id === id).value;
   }
 

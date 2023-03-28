@@ -6,13 +6,13 @@
         <app-input-field label="Relationship Type Description:"
             [control]="getFormControl('description')"></app-input-field>
         <div class="w-full">
-            <div class="flex flex-col border border-accent container relative pt-5 w-full px-4">
+            <div class="flex flex-col border border-accent container relative pt-5 w-full px-6">
                 <app-select-list label="Allowed Entities:" [control]="allowedEntitiesFormControl"
                     [optionsList]="entityTypesList"></app-select-list>
 
-                <button (click)="onAddClicked()" class="absolute top-[50%] -right-[0.79rem] ">
-                    <span class="material-icons text-accent">
-                        add_circle_outline
+                <button (click)="onAddClicked()" class="absolute top-[50%] -right-[0.9rem] ">
+                    <span class=" material-icons  text-accent bg-white rounded-full  border-accent border-2">
+                        add
                     </span>
                 </button>
             </div>
@@ -21,7 +21,8 @@
                     <span>{{getAllowedEntityLabel(chip)}}</span>
                     <button (click)="removeChip(chip)" class="absolute -top-1 -right-2 z-10" matChipRemove
                         aria-label="'remove ' + chip">
-                        <span class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon">
+                        <span
+                            class="material-icons border-2 rounded-full text-black bg-white border-black cancel-icon p-1">
                             close
                         </span>
                     </button>

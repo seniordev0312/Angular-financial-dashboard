@@ -70,8 +70,10 @@
                 [attr.aria-labelledby]="'accordion-header-1'">
                 <div class="flex flex-wrap px-6">
                   <div class="w-1/2 pr-3.5 mb-3" *ngFor="let category of categories">
-                    <div *ngIf="category.name === 'Emergency'">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div *ngIf="
+                        category.name === CustomerServiceCategories.Emergency
+                      ">
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button (click)="
                             displaySection('type', category.id);
                             categoryAccordion.toggle();
@@ -80,7 +82,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ category.name }}"></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button (click)="
                             displaySection('type', category.id);
                             categoryAccordion.toggle();
@@ -90,8 +92,10 @@
                           text="{{ category.name }}"></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === 'Sales Inquiry'">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div *ngIf="
+                        category.name === CustomerServiceCategories.SalesInquiry
+                      ">
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button (click)="
                             displaySection('business', category.id);
                             categoryAccordion.toggle();
@@ -100,7 +104,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ category.name }}"></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button (click)="
                             displaySection('business', category.id);
                             categoryAccordion.toggle();
@@ -110,8 +114,10 @@
                           text="{{ category.name }}"></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === 'Complaints'">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div *ngIf="
+                        category.name === CustomerServiceCategories.Complaints
+                      ">
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button (click)="
                             displaySection('complaint', category.id);
                             categoryAccordion.toggle();
@@ -120,7 +126,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ category.name }}"></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button (click)="
                             displaySection('complaint', category.id);
                             categoryAccordion.toggle();
@@ -130,8 +136,8 @@
                           text="{{ category.name }}"></app-button>
                       </div>
                     </div>
-                    <div *ngIf="category.name === 'Other'">
-                      <div *ngIf="choosedButtons.category === category.id">
+                    <div *ngIf="category.name === CustomerServiceCategories.Other">
+                      <div *ngIf="chosenButtons.category === category.id">
                         <app-button (click)="
                             displaySection('otherDetails', category.id);
                             otherDetailsAccordion.toggle()
@@ -139,7 +145,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ category.name }}"></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.category !== category.id">
+                      <div *ngIf="chosenButtons.category !== category.id">
                         <app-button (click)="
                             displaySection('otherDetails', category.id);
                             otherDetailsAccordion.toggle()
@@ -167,7 +173,7 @@
                   " [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'">
                   <div class="flex flex-wrap px-6">
                     <div class="w-1/2 pr-3.5 mb-3" *ngFor="let business of businesses">
-                      <div *ngIf="choosedButtons.business === business.id">
+                      <div *ngIf="chosenButtons.business === business.id">
                         <app-button (click)="
                             displayProductSection(business.id);
                             lineOfBusinessAccordion.toggle();
@@ -176,7 +182,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ business.name }}"></app-button>
                       </div>
-                      <div *ngIf="choosedButtons.business !== business.id">
+                      <div *ngIf="chosenButtons.business !== business.id">
                         <app-button (click)="
                             displayProductSection(business.id);
                             lineOfBusinessAccordion.toggle();
@@ -204,7 +210,7 @@
                   [attr.id]="'accordion-body-3'" [attr.aria-labelledby]="'accordion-header-3'">
                   <div class="flex flex-wrap px-6">
                     <div class="w-1/2 pr-3.5 mb-3" *ngFor="let product of products">
-                      <div *ngIf="product.id === choosedButtons.product">
+                      <div *ngIf="product.id === chosenButtons.product">
                         <app-button (click)="
                             displayInitialSection(product.id);
                             productAccordion.toggle();
@@ -213,7 +219,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="MVA - Full Risk Cover"></app-button>
                       </div>
-                      <div *ngIf="product.id !== choosedButtons.product">
+                      <div *ngIf="product.id !== chosenButtons.product">
                         <app-button (click)="
                             displayInitialSection(product.id);
                             productAccordion.toggle();
@@ -298,9 +304,7 @@
                   [attr.id]="'accordion-body-6'" [attr.aria-labelledby]="'accordion-header-6'">
                   <div class="flex flex-wrap px-6">
                     <div class="w-1/2 pr-3.5 mb-3" *ngFor="let emergencyType of emergencyTypes">
-                      <div *ngIf="
-                          emergencyType.id === choosedButtons.emergencyType
-                        ">
+                      <div *ngIf="emergencyType.id === chosenButtons.emergencyType">
                         <app-button (click)="
                             typeAccordion.toggle();
                             displayLocationSection(emergencyType.id);
@@ -309,9 +313,7 @@
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
                           text="{{ emergencyType.name }}"></app-button>
                       </div>
-                      <div *ngIf="
-                          emergencyType.id !== choosedButtons.emergencyType
-                        ">
+                      <div *ngIf="emergencyType.id !== chosenButtons.emergencyType">
                         <app-button (click)="
                             typeAccordion.toggle();
                             displayLocationSection(emergencyType.id);
@@ -378,7 +380,7 @@
                           let emergencyInitiateItem of emergencyInitiateItems
                         ">
                         <div *ngIf="
-                            choosedButtons.initiate.includes(
+                            chosenButtons.initiate.includes(
                               emergencyInitiateItem.id
                             )
                           ">
@@ -389,7 +391,7 @@
                             text="{{ emergencyInitiateItem.name }}"></app-button>
                         </div>
                         <div *ngIf="
-                            !choosedButtons.initiate.includes(
+                            !chosenButtons.initiate.includes(
                               emergencyInitiateItem.id
                             )
                           ">
@@ -418,7 +420,10 @@
                   <div class="mt-2 mb-5 bg-white" role="region" [style.display]="
                       otherDetailsAccordion.expanded ? '' : 'none'
                     " [attr.id]="'accordion-body-7'" [attr.aria-labelledby]="'accordion-header-7'">
-                    <app-details-accordion (saveClicked)="otherOutcomeAccordion.toggle()"></app-details-accordion>
+                    <app-details-accordion [data]="otherDetails" (saveClicked)="
+                        onSubmitOtherDetails($event);
+                        otherOutcomeAccordion.toggle()
+                      "></app-details-accordion>
                   </div>
                 </div>
               </div>
@@ -436,8 +441,10 @@
                   <div class="mt-2 mb-5 bg-white" role="region" [style.display]="
                       otherOutcomeAccordion.expanded ? '' : 'none'
                     " [attr.id]="'accordion-body-7'" [attr.aria-labelledby]="'accordion-header-7'">
-                    <app-outcome-accordion (saveClicked)="otherOutcomeAccordion.toggle()"
-                      [outcomeText]="'Outcome'"></app-outcome-accordion>
+                    <app-outcome-accordion [data]="otherOutcome" (saveClicked)="
+                        onSubmitOtherOutcome($event);
+                        otherOutcomeAccordion.toggle()
+                      " [outcomeText]="'Outcome'"></app-outcome-accordion>
                   </div>
                 </div>
               </div>
@@ -446,7 +453,7 @@
             <cdk-accordion-item class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
               #complaintCategoryAccordion="cdkAccordionItem" role="button" tabindex="1" [attr.id]="'accordion-header-1'"
               [attr.aria-expanded]="complaintCategoryAccordion.expanded" [attr.aria-controls]="'accordion-body-1'">
-              <div *ngIf="complaintCategoryAccordion && complaintFlowFlag">
+              <div *ngIf="complaintCategoryFlowFlag && complaintFlowFlag">
                 <p (click)="complaintCategoryAccordion.toggle()"
                   class="w-full font-semibold text-[14px] py-3 flex justify-center items-center text-primary">
                   Complaint Category
@@ -457,26 +464,32 @@
                   <div class="flex flex-wrap px-6">
                     <div class="w-1/2 pr-3.5 mb-3" *ngFor="let complaintCategoryItem of complaintCategories">
                       <div *ngIf="
-                          choosedButtons.complaintCategory ===
-                          complaintCategoryItem.id
+                          chosenButtons.complaintCategory ===
+                          complaintCategoryItem.value
                         ">
                         <app-button (click)="
+                            onSelectComplaintCategory(
+                              complaintCategoryItem.value
+                            );
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-[#005F83] text-white"
-                          text="{{ complaintCategoryItem.name }}"></app-button>
+                          text="{{ complaintCategoryItem.code }}"></app-button>
                       </div>
                       <div *ngIf="
-                          choosedButtons.complaintCategory !==
-                          complaintCategoryItem.id
+                          chosenButtons.complaintCategory !==
+                          complaintCategoryItem.value
                         ">
                         <app-button (click)="
+                            onSelectComplaintCategory(
+                              complaintCategoryItem.value
+                            );
                             complaintCategoryAccordion.toggle();
                             complaintDetailsAccordion.toggle()
                           "
                           classes="w-1/2 py-3 text-[12px] leading-none text-center flex justify-center items-center bg-main-gray"
-                          text="{{ complaintCategoryItem.name }}"></app-button>
+                          text="{{ complaintCategoryItem.code }}"></app-button>
                       </div>
                     </div>
                   </div>
@@ -496,7 +509,10 @@
                   <div class="mt-2 mb-5 bg-white" role="region" [style.display]="
                       complaintDetailsAccordion.expanded ? '' : 'none'
                     " [attr.id]="'accordion-body-7'" [attr.aria-labelledby]="'accordion-header-7'">
-                    <app-details-accordion (saveClicked)="complaintOutcomeAccordion.toggle()"></app-details-accordion>
+                    <app-details-accordion [data]="complaintDetails" (saveClicked)="
+                        onSubmitComplaintDetails($event);
+                        complaintOutcomeAccordion.toggle()
+                      "></app-details-accordion>
                   </div>
                 </div>
               </div>
@@ -514,8 +530,10 @@
                   <div class="mt-2 mb-5 bg-white" role="region" [style.display]="
                       complaintOutcomeAccordion.expanded ? '' : 'none'
                     " [attr.id]="'accordion-body-7'" [attr.aria-labelledby]="'accordion-header-7'">
-                    <app-outcome-accordion (saveClicked)="complaintOutcomeAccordion.toggle()"
-                      [outcomeText]="'Complaint Outcome'"></app-outcome-accordion>
+                    <app-outcome-accordion [data]="complaintOutcome" (saveClicked)="
+                        onSubmitComplaintOutcome($event);
+                        complaintOutcomeAccordion.toggle()
+                      " [outcomeText]="'Complaint Outcome'"></app-outcome-accordion>
                   </div>
                 </div>
               </div>

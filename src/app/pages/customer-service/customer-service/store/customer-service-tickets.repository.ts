@@ -21,6 +21,20 @@ export class CustomerServiceTicketsRepository {
     }));
   }
 
+  updateFilterOptions(customerServiceFilterOptions: any) {
+    this.customerServiceTicketsStore.update((state) => ({
+      ...state,
+      customerServiceFilterOptions: customerServiceFilterOptions,
+    }));
+  }
+  
+  updateNumberOfAppliedFilters(numberOfCustomerServiceAppliedFilters: any) {
+    this.customerServiceTicketsStore.update((state) => ({
+      ...state,
+      numberOfCustomerServiceAppliedFilters: numberOfCustomerServiceAppliedFilters,
+    }));
+  }
+
   getKeyType(id: any) {
     let key = null;
 

@@ -19,7 +19,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { PolicyRenewalsCustomerServiceTicketComponent } from '@root/pages/customer-service/policy-renewals/components/policy-renewals-customer-service-ticket/policy-renewals-customer-service-ticket.component';
 import { Subscription } from 'rxjs';
 import { LayoutService } from '@root/shared/services/layout.service';
-import { tickets$ } from '../../store/policy-renewals-tickets.store';
+import {
+  numberOfPolicyRenewalAppliedFilters$,
+  policyRenewalFilterOptions$,
+  tickets$,
+} from '../../store/policy-renewals-tickets.store';
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
+import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tickets.repository';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { PolicyRenewalSignalRService } from '../../services/policy-renewal-signalr.service';
+import { FilterButtons } from '@root/pages/customer-service/customer-service/enums/filter-buttons.enum';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -27,43 +36,150 @@ import { tickets$ } from '../../store/policy-renewals-tickets.store';
   styleUrls: ['./policy-renewals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PolicyRenewalsComponent implements OnInit {
+export class PolicyRenewalsComponent extends BaseComponent implements OnInit {
   subscription: Subscription;
-  steps: PolicyStatus[] = [
-    { title: 'Policy Renewal Followup', color: 'bg-[#d8d8d8]' },
-    { title: 'In Process', color: 'bg-[#0098ef]' },
-    { title: 'Processed (Renewal Issued)', color: 'bg-[#c2c2c2]' },
-    { title: 'Renewal Approved', color: 'bg-[#31CD3D]' },
-    { title: 'Closed (No Renewal)', color: 'bg-[#e7e7e7]' },
-  ];
+
+  steps: PolicyStatus[] = [];
 
   isFilter: boolean = false;
+  isAllFilterSelected: boolean = true;
 
   flag: number = 0;
+  numberAllTickets: number = 0;
+  numberPersonalTickets: number = 0;
+  numberOfPolicyRenewalAppliedFilters: number = 0;
 
   tickets: any = null;
 
   searchBarValue: string = '';
+  userId: string = '';
+
+  FilterButtons = FilterButtons; 
+
+  policyRenewalFilterOptions: any = {
+    searchQuery: '',
+    assignedToId: null,
+    fromDateCreated: null,
+    toDateCreated: null,
+    fromDateModified: null,
+    toDateModified: null,
+    communicationChannelId: null,
+    followUpResponse: null,
+    followUpStatus: null,
+    category: null,
+  };
 
   constructor(
     public policyCardService: PolicyCardService,
     public dialog: MatDialog,
     private router: Router,
     private ref: ChangeDetectorRef,
-    private layoutService: LayoutService
-  ) {}
+    private layoutService: LayoutService,
+    private securityCheckerService: SecurityCheckerService,
+    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository,
+    public policyRenewalSignalRService: PolicyRenewalSignalRService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.policyCardService.getPolicyRenewalTickets();
+    this.policyRenewalSignalRService.initConnection();
 
-    this.subscription = tickets$.subscribe((data: any) => {
-      this.tickets = data;
+    this.subscriptions.add(
+      this.policyCardService.getFollowUpStatusApi().subscribe((data: any) => {
+        this.steps = data.map((e: any) => ({
+          id: e.value,
+          title: this.getStatusFullName(e.value),
+          color: this.getStatusColor(e.value),
+        }));
+        this.ref.detectChanges();
+      })
+    );
+
+    this.subscriptions.add(
+      tickets$.subscribe((data: any) => {
+        this.tickets = data;
+        if (this.tickets) {
+          this.numberAllTickets = this.tickets.all;
+          this.numberPersonalTickets = this.tickets.personal;
+        }
+        this.ref.detectChanges();
+      })
+    );
+
+    this.securityCheckerService.userClaims$.subscribe((data) => {
+      this.userId = data?.sub;
       this.ref.detectChanges();
     });
+
+    this.subscriptions.add(
+      policyRenewalFilterOptions$.subscribe((data: any) => {
+        if (data) this.policyRenewalFilterOptions = data;
+        else {
+          this.policyRenewalFilterOptions = {
+            searchQuery: '',
+            assignedToId: null,
+            fromDateCreated: null,
+            toDateCreated: null,
+            fromDateModified: null,
+            toDateModified: null,
+            communicationChannelId: null,
+            followUpResponse: null,
+            followUpStatus: null,
+            category: null,
+          };
+        }
+        this.ref.detectChanges();
+      })
+    );
+
+    this.subscriptions.add(
+      numberOfPolicyRenewalAppliedFilters$.subscribe((data: any) => {
+        this.numberOfPolicyRenewalAppliedFilters = data;
+        this.ref.detectChanges();
+      })
+    );
+  }
+
+  getStatusFullName(statusId: Number): string {
+    switch (statusId) {
+      case 1:
+        return 'Policy Renewal Followup';
+      case 2:
+        return 'In Process';
+      case 3:
+        return 'Processed (Renewal Issued)';
+      case 4:
+        return 'Renewal Approved';
+      case 5:
+        return 'Closed (No Renewal)';
+      default:
+        return '';
+    }
+  }
+
+  getStatusColor(statusId: number): string {
+    switch (statusId) {
+      case 1:
+        return 'bg-[#d8d8d8]';
+      case 2:
+        return 'bg-[#0098ef]';
+      case 3:
+        return 'bg-[#c2c2c2]';
+      case 4:
+        return 'bg-[#31CD3D]';
+      case 5:
+        return 'bg-[#e7e7e7]';
+      default:
+        return '';
+    }
   }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+
+    this.policyRenewalSignalRService.stopSignalRConnection();
   }
 
   openFilter() {
@@ -104,10 +220,12 @@ export class PolicyRenewalsComponent implements OnInit {
         .subscribe(() => {
           this.policyCardService.getPolicyRenewalTickets();
 
-          this.subscription = tickets$.subscribe((data: any) => {
-            this.tickets = data;
-            this.ref.detectChanges();
-          });
+          this.subscriptions.add(
+            tickets$.subscribe((data: any) => {
+              this.tickets = data;
+              this.ref.detectChanges();
+            })
+          );
         });
     });
   }
@@ -136,20 +254,51 @@ export class PolicyRenewalsComponent implements OnInit {
   }
 
   onSearchFilter() {
-    const filterOption = {
-      searchQuery: this.searchBarValue,
-    };
+    this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
 
-    this.policyCardService.filterPolicyRenewalTickets(filterOption);
+    this.policyCardService.filterPolicyRenewalTickets(
+      this.policyRenewalFilterOptions
+    );
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
   }
 
-  onClearFilter() {
-    this.searchBarValue = '';
+  onClearSearchFilter() {
+    if (this.searchBarValue !== '') {
+      this.searchBarValue = '';
 
-    const filterOption = {
-      searchQuery: this.searchBarValue,
-    };
+      this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
 
-    this.policyCardService.filterPolicyRenewalTickets(filterOption);
+      this.policyCardService.filterPolicyRenewalTickets(
+        this.policyRenewalFilterOptions
+      );
+
+      this.policyRenewalsTicketsRepository.updateFilterOptions(
+        this.policyRenewalFilterOptions
+      );
+    }
+  }
+
+  filterByAssignedTo(filterMode: string) {
+    let assignedId: string;
+
+    if (filterMode == FilterButtons.Personal) {
+      assignedId = this.userId;
+      this.isAllFilterSelected = false;
+    } else if (filterMode == FilterButtons.All) {
+      assignedId = null;
+      this.isAllFilterSelected = true;
+    }
+
+    this.policyRenewalFilterOptions.assignedToId = assignedId;
+
+    this.policyCardService.filterPolicyRenewalTickets(
+      this.policyRenewalFilterOptions
+    );
+
+    this.policyRenewalsTicketsRepository.updateFilterOptions(
+      this.policyRenewalFilterOptions
+    );
   }
 }
