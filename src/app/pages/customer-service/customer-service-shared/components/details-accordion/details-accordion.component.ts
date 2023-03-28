@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -21,6 +22,9 @@ export class DetailsAccordionComponent implements OnInit {
 
   isFormValid: boolean = false;
 
+  @Input()
+  data: any;
+
   @Output()
   saveClicked: EventEmitter<any> = new EventEmitter<any>();
 
@@ -28,11 +32,18 @@ export class DetailsAccordionComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.detailsAccordionService.getFormGroup();
+
+    if (this.data) {
+      this.fg.setValue({
+        description: this.data.description,
+      });
+      this.response = this.data.response;
+      this.checkFormValidity();
+    }
   }
 
   getSeverityResponse(response: number) {
     this.response = response;
-    console.log(response);
     this.checkFormValidity();
   }
 
@@ -41,11 +52,8 @@ export class DetailsAccordionComponent implements OnInit {
   }
 
   checkFormValidity() {
-    if (this.fg.valid && this.response !== -1) {
-      this.isFormValid = true;
-    } else {
-      this.isFormValid = false;
-    }
+    if (this.fg.valid && this.response !== -1) this.isFormValid = true;
+    else this.isFormValid = false;
   }
 
   getFormControl(key: string): FormControl {
@@ -54,6 +62,9 @@ export class DetailsAccordionComponent implements OnInit {
 
   onSave() {
     if (!this.isFormValid) return;
-    this.saveClicked.emit({response: this.response, details: this.fg.get('description').value});
+    this.saveClicked.emit({
+      response: this.response,
+      details: this.fg.get('description').value,
+    });
   }
 }

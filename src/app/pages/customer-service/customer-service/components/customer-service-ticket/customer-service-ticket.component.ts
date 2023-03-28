@@ -54,6 +54,7 @@ export class CustomerServiceTicketComponent
   emergencyFlowFlag: boolean = false;
   otherFlowFlag: boolean = false;
   complaintFlowFlag: boolean = false;
+  complaintCategoryFlowFlag: boolean = false;
   pendingCardFlag: boolean = false;
   isShowAppField = false;
   isLoading = false;
@@ -72,7 +73,7 @@ export class CustomerServiceTicketComponent
     emergencyTypeId: number;
   }[] = [];
   isBlue: boolean = false;
-  choosedButtons: {
+  chosenButtons: {
     category: number;
     complaintCategory: number;
     business: number;
@@ -96,6 +97,26 @@ export class CustomerServiceTicketComponent
   priceRange: FormControl = new FormControl();
 
   location: FormControl = new FormControl('', Validators.required);
+
+  complaintDetails: any = {
+    description: '',
+    response: -1,
+  };
+
+  otherDetails: any = {
+    description: '',
+    response: -1,
+  };
+
+  complaintOutcome: any = {
+    outcome: '',
+    response: -1,
+  };
+
+  otherOutcome: any = {
+    outcome: '',
+    response: -1,
+  };
 
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
@@ -161,60 +182,90 @@ export class CustomerServiceTicketComponent
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
     this.contactFormService.getMessageHistory(425);
-
-    console.log('dataTicket', this.dataTicket);
   }
 
   setExistingData() {
-    if (this.dataTicket.locationAddress) {
-      this.location.setValue(this.dataTicket.locationAddress);
-    }
-
     if (this.dataTicket.category) {
-      this.choosedButtons.category = this.dataTicket.category;
+      this.chosenButtons.category = this.dataTicket.category;
     }
 
-    if (this.dataTicket.emergencyTypeId) {
-      this.choosedButtons.emergencyType = this.dataTicket.emergencyTypeId;
-      this.emergencyFlowFlag = true;
-      this.typeSectionFlag = true;
-      this.locationSectionFlag = true;
-      this.salesFlowFlag = false;
-      this.complaintFlowFlag = false;
-      this.otherFlowFlag = false;
-
+    // emergency category
+    if (this.dataTicket.category == CustomerServiceCategories.EmergencyId) {
+      this.emergencyCategorySelected();
       this.getEmergencyTypes();
+
+      if (this.dataTicket.emergencyTypeId) {
+        this.locationSectionFlag = true;
+        this.chosenButtons.emergencyType = this.dataTicket.emergencyTypeId;
+      }
+
+      if (this.dataTicket.locationAddress) {
+        this.location.setValue(this.dataTicket.locationAddress);
+        this.emergencyInitialSectionFlag = true;
+      }
     }
 
-    if (this.dataTicket.lineOfBusinessId) {
-      this.choosedButtons.business = this.dataTicket.lineOfBusinessId;
-      this.salesFlowFlag = true;
-      this.businessSectionFlag = true;
-      this.productSectionFlag = true;
-      this.emergencyFlowFlag = false;
-      this.complaintFlowFlag = false;
-      this.otherFlowFlag = false;
+    // sales category
+    if (this.dataTicket.category == CustomerServiceCategories.SalesInquiryId) {
+      this.salesCategorySelected();
+      this.getLineOfBusiness();
 
-      this.getProducts(this.dataTicket.lineOfBusinessId);
+      if (this.dataTicket.lineOfBusinessId) {
+        this.chosenButtons.business = this.dataTicket.lineOfBusinessId;
+
+        this.productSectionFlag = true;
+
+        this.getProducts(this.dataTicket.lineOfBusinessId);
+      }
+
+      if (this.dataTicket.productId) {
+        this.chosenButtons.product = this.dataTicket.productId;
+        this.initialSectionFlag = true;
+      }
     }
 
-    if (this.dataTicket.productId) {
-      this.choosedButtons.product = this.dataTicket.productId;
-      this.initialSectionFlag = true;
-    }
-
-    if (this.dataTicket.complaintCategory) {
-      this.choosedButtons.complaintCategory = this.dataTicket.complaintCategory;
-      this.productSectionFlag = false;
-      this.emergencyFlowFlag = false;
-      this.complaintFlowFlag = true;
-      this.otherFlowFlag = false;
-      
+    // complaints category
+    if (this.dataTicket.category == CustomerServiceCategories.ComplaintsId) {
       this.getComplaintCategories();
+      this.complaintCategoryFlowFlag = true;
+
+      if (this.dataTicket.complaintCategory) {
+        this.complaintsCategorySelected();
+
+        this.chosenButtons.complaintCategory =
+          this.dataTicket.complaintCategory;
+
+        if (this.dataTicket.complaintDescription)
+          this.complaintDetails.description =
+            this.dataTicket.complaintDescription;
+
+        if (this.dataTicket.complaintSeverity)
+          this.complaintDetails.response = this.dataTicket.complaintSeverity;
+
+        if (this.dataTicket.complaintOutcome)
+          this.complaintOutcome.outcome = this.dataTicket.complaintOutcome;
+
+        if (this.dataTicket.complaintCustomerSatisfaction)
+          this.complaintOutcome.response =
+            this.dataTicket.complaintCustomerSatisfaction;
+      }
     }
 
-    if (this.dataTicket.locationAddress) {
-      this.displayEmergencyInitateSection();
+    // others category
+    if (this.dataTicket.category == CustomerServiceCategories.OtherId) {
+      this.otherCategorySelected();
+
+      if (this.dataTicket.otherDescription)
+        this.otherDetails.description = this.dataTicket.otherDescription;
+
+      if (this.dataTicket.otherSeverity)
+        this.otherDetails.response = this.dataTicket.otherSeverity;
+
+      if (this.dataTicket.otherOutcome)
+        this.otherOutcome.outcome = this.dataTicket.otherOutcome;
+
+      if (this.dataTicket.otherCustomerSatisfaction)
+        this.otherOutcome.response = this.dataTicket.otherCustomerSatisfaction;
     }
   }
 
@@ -241,18 +292,14 @@ export class CustomerServiceTicketComponent
 
   // move to emergency flow or sales flow section
   displaySection(sectionFlag: string, categoryId: number) {
-    this.choosedButtons.category = categoryId;
+    this.chosenButtons.category = categoryId;
     this.canShowCalculator = false;
     // this.isLoading = true;
     this.isSpinning$ = isSpinning$;
     this.isBlue = !this.isBlue;
     switch (sectionFlag) {
       case 'business': {
-        this.businessSectionFlag = true;
-        this.salesFlowFlag = true;
-        this.emergencyFlowFlag = false;
-        this.complaintFlowFlag = false;
-        this.otherFlowFlag = false;
+        this.salesCategorySelected();
 
         let body: any = {
           category: 2,
@@ -264,21 +311,11 @@ export class CustomerServiceTicketComponent
           body
         );
 
-        this.subscriptions.add(
-          this.customerCardService.getBusiness().subscribe((data: any) => {
-            this.businesses = data;
-            // this.isLoading = false;
-            this.ref.detectChanges();
-          })
-        );
+        this.getLineOfBusiness();
         break;
       }
       case 'type': {
-        this.typeSectionFlag = true;
-        this.salesFlowFlag = false;
-        this.otherFlowFlag = false;
-        this.complaintFlowFlag = false;
-        this.emergencyFlowFlag = true;
+        this.emergencyCategorySelected();
 
         let body: any = {
           category: 1,
@@ -294,11 +331,7 @@ export class CustomerServiceTicketComponent
         break;
       }
       case 'complaint': {
-        this.typeSectionFlag = false;
-        this.salesFlowFlag = false;
-        this.otherFlowFlag = false;
-        this.emergencyFlowFlag = false;
-        this.complaintFlowFlag = true;
+        this.complaintsCategorySelected();
 
         let body: any = {
           category: 3,
@@ -314,11 +347,7 @@ export class CustomerServiceTicketComponent
         break;
       }
       case 'otherDetails': {
-        this.otherFlowFlag = true;
-        this.salesFlowFlag = false;
-        this.typeSectionFlag = false;
-        this.emergencyFlowFlag = false;
-        this.complaintFlowFlag = false;
+        this.otherCategorySelected();
 
         let body: any = {
           category: 4,
@@ -337,13 +366,57 @@ export class CustomerServiceTicketComponent
     }
   }
 
+  emergencyCategorySelected() {
+    this.typeSectionFlag = true;
+    this.emergencyFlowFlag = true;
+    this.salesFlowFlag = false;
+    this.otherFlowFlag = false;
+    this.complaintFlowFlag = false;
+  }
+
+  salesCategorySelected() {
+    this.businessSectionFlag = true;
+    this.salesFlowFlag = true;
+    this.emergencyFlowFlag = false;
+    this.complaintFlowFlag = false;
+    this.otherFlowFlag = false;
+  }
+
+  complaintsCategorySelected() {
+    this.typeSectionFlag = false;
+    this.salesFlowFlag = false;
+    this.otherFlowFlag = false;
+    this.emergencyFlowFlag = false;
+    this.complaintFlowFlag = true;
+  }
+
+  otherCategorySelected() {
+    this.otherFlowFlag = true;
+    this.salesFlowFlag = false;
+    this.typeSectionFlag = false;
+    this.emergencyFlowFlag = false;
+    this.complaintFlowFlag = false;
+  }
+
   getComplaintCategories() {
-    this.customerCardService
-      .getComplaintsCategoriesApi()
-      .subscribe((data: any) => {
-        this.complaintCategories = data;
+    this.subscriptions.add(
+      this.customerCardService
+        .getComplaintsCategoriesApi()
+        .subscribe((data: any) => {
+          this.complaintCategories = data;
+          this.ref.detectChanges();
+        })
+    );
+  }
+
+  getLineOfBusiness() {
+    this.subscriptions.add(
+      this.customerCardService.getBusiness().subscribe((data: any) => {
+        this.businesses = data;
+        // this.isLoading = false;
         this.ref.detectChanges();
-      });
+      })
+    );
   }
 
   getEmergencyTypes() {
@@ -381,7 +454,7 @@ export class CustomerServiceTicketComponent
     );
 
     this.isSpinning$ = isSpinning$;
-    this.choosedButtons.business = businessId;
+    this.chosenButtons.business = businessId;
 
     this.getProducts(businessId);
 
@@ -390,7 +463,7 @@ export class CustomerServiceTicketComponent
 
   // move to initialSection
   displayInitialSection(productId: number) {
-    this.choosedButtons.product = productId;
+    this.chosenButtons.product = productId;
     this.initialSectionFlag = true;
     this.canShowCalculator = true;
 
@@ -426,7 +499,7 @@ export class CustomerServiceTicketComponent
 
     // this.isLoading = true;
     this.isSpinning$ = isSpinning$;
-    this.choosedButtons.emergencyType = emergencyTypeId;
+    this.chosenButtons.emergencyType = emergencyTypeId;
 
     this.locationSectionFlag = true;
   }
@@ -434,7 +507,7 @@ export class CustomerServiceTicketComponent
   displayEmergencyInitateSection() {
     this.subscriptions.add(
       this.customerCardService
-        .getEmergencyInitiateItems(this.choosedButtons.emergencyType)
+        .getEmergencyInitiateItems(this.chosenButtons.emergencyType)
         .subscribe((data: any) => {
           this.emergencyInitiateItems = data;
 
@@ -447,7 +520,7 @@ export class CustomerServiceTicketComponent
   }
 
   onSelectComplaintCategory(complaintCategoryId: number) {
-    this.choosedButtons.complaintCategory = complaintCategoryId;
+    this.chosenButtons.complaintCategory = complaintCategoryId;
 
     let body: any = {
       complaintCategory: complaintCategoryId,
@@ -460,12 +533,26 @@ export class CustomerServiceTicketComponent
     );
   }
 
+  onSubmitOtherDetails(event: any) {
+    let body: any = {
+      otherDescription: event.details,
+      otherDescriptionSpecified: true,
+      otherSeverity: event.response,
+      otherSeveritySpecified: true,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+  }
+
   onSubmitComplaintDetails(event: any) {
     let body: any = {
-      description: event.details,
-      descriptionSpecified: true,
-      severity: event.response,
-      severitySpecified: true,
+      complaintDescription: event.details,
+      complaintDescriptionSpecified: true,
+      complaintSeverity: event.response,
+      complaintSeveritySpecified: true,
     };
 
     this.customerCardService.updateCustomServiceTicketDetails(
@@ -476,10 +563,24 @@ export class CustomerServiceTicketComponent
 
   onSubmitComplaintOutcome(event: any) {
     let body: any = {
-      outcome: event.outcome,
-      outcomeSpecified: true,
-      customerStatisfication: event.response,
-      customerStatisficationSpecified: true,
+      complaintOutcome: event.outcome,
+      complaintOutcomeSpecified: true,
+      complaintCustomerSatisfaction: event.response,
+      complaintCustomerSatisfactionSpecified: true,
+    };
+
+    this.customerCardService.updateCustomServiceTicketDetails(
+      this.ticketId,
+      body
+    );
+  }
+
+  onSubmitOtherOutcome(event: any) {
+    let body: any = {
+      otherOutcome: event.outcome,
+      otherOutcomeSpecified: true,
+      otherCustomerSatisfaction: event.response,
+      otherCustomerSatisfactionSpecified: true,
     };
 
     this.customerCardService.updateCustomServiceTicketDetails(
@@ -491,7 +592,7 @@ export class CustomerServiceTicketComponent
   onSelectEmergencyItem(emergencyInitiateItem: any) {
     if (
       emergencyInitiateItem &&
-      !this.choosedButtons.initiate.includes(emergencyInitiateItem.id)
+      !this.chosenButtons.initiate.includes(emergencyInitiateItem.id)
     ) {
       let location = this.location.value;
 
@@ -502,13 +603,13 @@ export class CustomerServiceTicketComponent
           data: {
             emergencyAction: emergencyInitiateItem,
             location: location,
-            choosedButtons: this.choosedButtons.initiate,
+            chosenButtons: this.chosenButtons.initiate,
           },
         })
         .afterClosed()
         .subscribe((result) => {
           if (result) {
-            this.choosedButtons.initiate.push(result.emergencyAction);
+            this.chosenButtons.initiate.push(result.emergencyAction);
             this.ref.detectChanges();
           }
         });

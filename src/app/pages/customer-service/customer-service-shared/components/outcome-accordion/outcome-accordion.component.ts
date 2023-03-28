@@ -18,6 +18,9 @@ import { OutcomeAccordionService } from '@root/pages/customer-service/customer-s
 export class OutcomeAccordionComponent implements OnInit {
   @Input() outcomeText: string = 'Outcome';
 
+  @Input()
+  data: any;
+
   @Output()
   saveClicked: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,9 +34,15 @@ export class OutcomeAccordionComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.outcomeAccordionService.getFormGroup();
+    if (this.data) {
+      this.fg.setValue({
+        outcome: this.data.outcome,
+      });
+      this.response = this.data.response;
+       this.checkFormValidity();
+    }
   }
 
-  // get current response value(0, 1, 2)
   getResponse(res: number) {
     this.response = res;
 
@@ -45,11 +54,8 @@ export class OutcomeAccordionComponent implements OnInit {
   }
 
   checkFormValidity() {
-    if (this.fg.valid && this.response !== -1) {
-      this.isFormValid = true;
-    } else {
-      this.isFormValid = false;
-    }
+    if (this.fg.valid && this.response !== -1) this.isFormValid = true;
+    else this.isFormValid = false;
   }
 
   getFormControl(key: string): FormControl {

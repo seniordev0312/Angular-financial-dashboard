@@ -35,6 +35,6 @@ export class InputFieldComponent implements OnInit {
   }
 
   getValue(event: any) {
-    this.inputValueChange.emit(event.target.value);
+    this.inputValueChange.emit(event);
   }
 }
