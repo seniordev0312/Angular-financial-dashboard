@@ -23,6 +23,7 @@ import { TillModel } from '../../model/till.model';
 export class TillHistoryComponent implements OnInit, OnChanges {
   constructor(private cdr: ChangeDetectorRef) {}
   // tillHistory: [] = [];
+  depositHistory: boolean = false;
   tillHistory: TillModel[] = [
     {
       id: 1,
@@ -278,5 +279,9 @@ export class TillHistoryComponent implements OnInit, OnChanges {
       this.table.refresh();
       // this.tableColumns.pop();
     }
+  }
+
+  viewDepositedHistory() {
+    this.depositHistory = !this.depositHistory;
   }
 }
