@@ -18,7 +18,6 @@ import { Observable } from 'rxjs';
 import { ContactViewComponent } from '../contact-view/contact-view.component';
 import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import { FormControl, Validators } from '@angular/forms';
-import { ContactFormService } from '../../services/contact-form.service';
 import { BaseListItem } from '@root/shared/models/base-list-item.model';
 import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/customer-service-shared/components/confirm-emergency-action/confirm-emergency-action.component';
 import { ClientChatService } from '@root/pages/customer-service/customer-service-shared/services/client-chat.service';
@@ -132,7 +131,6 @@ export class CustomerServiceTicketComponent
     public customerCardService: CustomerCardService,
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private ref: ChangeDetectorRef,
-    private contactFormService: ContactFormService,
     public clientChatSignalRService: ClientChatService
   ) {
     super();
@@ -161,7 +159,7 @@ export class CustomerServiceTicketComponent
 
     this.dataTicket = this.data.dataKey;
     this.ticketId = this.data.dataKey.id;
-
+console.log('data ticket', this.dataTicket)
     if (this.ticketId)
       this.clientChatSignalRService.initConnection(this.ticketId);
 
@@ -180,8 +178,6 @@ export class CustomerServiceTicketComponent
     );
 
     this.customerTicket.setValue(this.dataTicket.ticketCode);
-
-    this.contactFormService.getMessageHistory(425);
   }
 
   setExistingData() {
