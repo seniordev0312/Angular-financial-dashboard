@@ -74,15 +74,6 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
     userId: string;
     additionalDetailContent: string;
   }[];
-  /* historyData: {
-    id: number;
-    response: number;
-    detailContent: string;
-    policyPrice: string;
-    additionalDetailContent: string;
-    date: string;
-  }[]; */
-
   happyIcon: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
     cssClasses: 'text-primary',
@@ -215,10 +206,8 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
       case 0:
         return 'customer-service-happy-icon';
       case 1:
-        //return 'customer-service-sad-color-2';
         return 'customer-service-sad-1-icon';
       default:
-        //return 'customer-service-sad-color-1';
         return 'customer-service-sad-icon';
     }
   }
@@ -233,7 +222,6 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
         if (data) {
           this.historyData = data;
           this.getHistoryData();
-          console.log('this.historyData', this.historyData);
           if (this.table) {
             this.table.refresh();
           }
@@ -245,7 +233,6 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
     this.subscriptions.add(
       getFollowUpHistory$.subscribe((data: boolean) => {
         if (data) {
-          console.log('getFollowUpHistory$', data);
           this.followUpHistoryService.getFollowUpHistoryList(this.data.id);
         }
       })
@@ -274,12 +261,9 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
     }
     this.tableConfiguration.data = this.historyList;
     this.tableConfiguration.dataCount = this.historyList.length;
-    console.log(this.historyList);
-
   }
 
   onTicketEdited(_category: TicketHistoryListItem) {
-    console.log('onTicketEdited', _category);
     // display other pages for editing
     this.pageControlChange.emit('next');
     // send id to edit.
@@ -293,13 +277,6 @@ export class HistoryListComponent extends BaseComponent implements OnInit, After
 
   onTicketDeleted(_category: TicketHistoryListItem) {
     this.followUpHistoryService.deleteFollowUpHistory(_category.id);
-
-    /*  let elementToRemove1 = this.historyList.find(e => e.id === _category.id);
-     this.historyList.splice(this.historyList.indexOf(elementToRemove1), 1);
-     let elementToRemove2 = this.historyData.find(e => e.id === _category.id);
-     this.historyData.splice(this.historyData.indexOf(elementToRemove2), 1); */
-
-    this.table.refresh();
   }
 
   onTicketLocked(_category: TicketHistoryListItem) { }
