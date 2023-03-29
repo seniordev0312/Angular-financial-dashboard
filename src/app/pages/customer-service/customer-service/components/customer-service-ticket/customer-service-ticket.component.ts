@@ -24,6 +24,7 @@ import { ConfirmEmergencyActionComponent } from '@root/pages/customer-service/cu
 import { ClientChatService } from '@root/pages/customer-service/customer-service-shared/services/client-chat.service';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { CustomerServiceCategories } from '../../enums/customer-service-cateogries.enum';
+import { RequiredProductData } from '../../models/pending-information-card.model';
 
 @Component({
   selector: 'app-customer-service-ticket',
@@ -33,8 +34,7 @@ import { CustomerServiceCategories } from '../../enums/customer-service-cateogri
 })
 export class CustomerServiceTicketComponent
   extends BaseComponent
-  implements OnInit
-{
+  implements OnInit {
   isSpinning$: Observable<boolean>;
   subscription: Subscription;
   // state variable
@@ -81,15 +81,22 @@ export class CustomerServiceTicketComponent
     emergencyType: number;
     initiate: number[];
   } = {
-    category: 0,
-    complaintCategory: 0,
-    business: 0,
-    product: 0,
-    emergencyType: 0,
-    initiate: [],
-  };
+      category: 0,
+      complaintCategory: 0,
+      business: 0,
+      product: 0,
+      emergencyType: 0,
+      initiate: [],
+    };
 
   ticketStatus: BaseListItem[] = [];
+  /* ticketStatus: BaseListItem[] = [
+    { id: 0, value: 'Created/Received Queue' },
+    { id: 1, value: 'In Process' },
+    { id: 2, value: 'Processed' },
+    { id: 3, value: 'Resolved' },
+    { id: 4, value: 'Closed' },
+  ]; */
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
 
@@ -117,6 +124,9 @@ export class CustomerServiceTicketComponent
     outcome: '',
     response: -1,
   };
+
+  selectedProductId: number;
+  requiredProductData: RequiredProductData;
 
   @ViewChild(ContactViewComponent)
   contactViewComponent: ContactViewComponent;
@@ -146,8 +156,7 @@ export class CustomerServiceTicketComponent
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
-      })
-    );
+      }));
 
     this.subscriptions.add(
       this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
@@ -188,6 +197,7 @@ export class CustomerServiceTicketComponent
     if (this.dataTicket.category) {
       this.chosenButtons.category = this.dataTicket.category;
     }
+
 
     // emergency category
     if (this.dataTicket.category == CustomerServiceCategories.EmergencyId) {
@@ -458,7 +468,20 @@ export class CustomerServiceTicketComponent
 
     this.getProducts(businessId);
 
+    this.selectedProductId = businessId;
+
+    this.subscription = this.customerCardService
+      .getRequiredProductData(this.selectedProductId)
+      .subscribe((data: any) => {
+        this.requiredProductData = data;
+        console.log("Required Product data", this.requiredProductData)
+        this.ref.detectChanges();
+      });
+
     this.productSectionFlag = true;
+
+
+
   }
 
   // move to initialSection

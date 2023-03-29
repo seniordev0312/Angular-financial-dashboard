@@ -14,7 +14,7 @@ export class CustomerCardService {
   constructor(
     private http: HttpClient,
     private customerServiceTicketsRepository: CustomerServiceTicketsRepository
-  ) {}
+  ) { }
 
   /*========================================
     CRUD Methods for CustomerService RESTful API
@@ -36,7 +36,7 @@ export class CustomerCardService {
   apiPutStatus = `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketStatus`;
   apiGetCategory = `${this.customerServiceServerURL}/Resource/Category`;
   apiGetBusiness = `${this.customerServiceServerURL}/Resource/LineOfBusiness`;
-  apiGetRequireData = `${this.customerServiceServerURL}/Resource/RequiredData`;
+  apiGetRequiredData = `${this.customerServiceServerURL}/Resource/Product/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
   apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;
@@ -54,7 +54,7 @@ export class CustomerCardService {
       fromDateModified: null,
       toDateModified: null,
       communicationChannelId: null,
-      category: null,
+      category: null
     };
 
     this.http
@@ -127,7 +127,7 @@ export class CustomerCardService {
       .get<any>(this.apiGetTicketStatus, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
-  
+
   getComplaintsCategoriesApi() {
     return this.http
       .get<any>(this.apiGetComplaintsCategories, this.httpOptions)
@@ -167,7 +167,21 @@ export class CustomerCardService {
   // HttpClient API get() method => get required data in CustomerServiceTicket
   getRequiredData() {
     return this.http
-      .get<TicketCategory>(this.apiGetRequireData, this.httpOptions)
+      .get<TicketCategory>(this.apiGetRequiredData, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getRequiredProductData(productId: number) {
+    const apiGetRequiredProductData = `${this.apiGetRequiredData}/${productId}`;
+    return this.http
+      .get<any>(apiGetRequiredProductData, this.httpOptions)
+      .pipe(retry(1), catchError(this.handleError));
+  }
+
+  getElementsTypes() {
+    let endPointUrl = `${environment.entityApiUrl}/Reference/GetElementTypes`;
+    return this.http
+      .get<any>(endPointUrl, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
