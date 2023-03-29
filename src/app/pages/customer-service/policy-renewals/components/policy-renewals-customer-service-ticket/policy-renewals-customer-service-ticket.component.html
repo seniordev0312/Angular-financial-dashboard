@@ -12,9 +12,9 @@
           <div class="flex flex-row pb-4 items-center">
             <div class="w-1/2">
               <p
-                class="font-base text-xs leading-none items-center pt-5 font-bold"
+                class="font-base text-s leading-none items-center pt-5 font-bold"
               >
-                ENTITY NAME HERE
+                {{ this.data.dataKey.entityName }}
               </p>
               <p class="text-xs">
                 EIN: &nbsp;
@@ -216,7 +216,10 @@
                   </div>
                 </div>
                 <div *ngIf="noteSectionFlag">
-                  <app-notes (noteSubmitted)="onSubmitNote($event)" [ticketNoteData]="data.dataKey?.note"></app-notes>
+                  <app-notes
+                    (noteSubmitted)="onSubmitNote($event)"
+                    [ticketNoteData]="data.dataKey?.note"
+                  ></app-notes>
                 </div>
               </div>
             </div>
