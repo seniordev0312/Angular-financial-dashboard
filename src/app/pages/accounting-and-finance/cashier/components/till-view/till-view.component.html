@@ -346,7 +346,7 @@
       <app-till-history class="mt-auto mb-auto"></app-till-history>
     </div>
   </div>
-  <div class="flex w-full" *ngIf="!checkSection">
+  <div class="flex w-full" *ngIf="checkSection">
     <div class="flex w-[10%] flex-col h-[660px]">
       <div
         class="flex flex-col px-10 py-10 justify-center"
@@ -371,6 +371,60 @@
     </div>
     <div class="w-[90%] pt-10">
       <app-till-history class="mt-auto mb-auto"></app-till-history>
+    </div>
+  </div>
+  <div class="flex w-full" *ngIf="!checkSection">
+    <div class="flex w-[10%] flex-col h-[660px]">
+      <div
+        class="flex flex-col px-10 py-10 justify-center"
+        (click)="changeStatus('check')"
+      >
+        <img
+          src="../../../../../../assets/images/cashier-icons/check.svg"
+          alt=""
+        />
+        <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
+      </div>
+      <div
+        class="flex flex-col px-10 py-10 justify-center mt-auto mb-auto"
+        (click)="changeStatus('cash')"
+      >
+        <img
+          src="../../../../../../assets/images/cashier-icons/selected-cash.svg"
+          alt=""
+        />
+        <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
+      </div>
+    </div>
+    <div class="w-[90%] pt-10">
+      <app-till-history *ngIf="" class="mt-auto mb-auto"></app-till-history>
+    </div>
+  </div>
+  <div class="flex w-full" *ngIf="!checkSection">
+    <div class="flex w-[10%] flex-col h-[660px]">
+      <div
+        class="flex flex-col px-10 py-10 justify-center"
+        (click)="changeStatus('check')"
+      >
+        <img
+          src="../../../../../../assets/images/cashier-icons/checkvg"
+          alt=""
+        />
+        <p class="text-center" ngClass="{{ checkFontColor }}">Checks</p>
+      </div>
+      <div
+        class="flex flex-col px-10 py-10 justify-center mt-auto mb-auto"
+        (click)="changeStatus('cash')"
+      >
+        <img
+          src="../../../../../../assets/images/cashier-icons/selected-cash.svg"
+          alt=""
+        />
+        <p class="text-center" ngClass="{{ cashFontColor }}">Cash</p>
+      </div>
+    </div>
+    <div class="w-[90%] pt-10">
+      <app-till-history *ngIf="" class="mt-auto mb-auto"></app-till-history>
     </div>
   </div>
 </mat-dialog-content>
