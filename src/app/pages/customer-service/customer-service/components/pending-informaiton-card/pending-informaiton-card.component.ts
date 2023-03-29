@@ -3,14 +3,14 @@ import {
   Component,
   OnInit,
   Input,
-  ChangeDetectorRef,
+  //ChangeDetectorRef,
 } from '@angular/core';
-import { EinValue$ } from '@root/pages/accounting-and-finance/General-accounting/general-accounting/general-accounting.store';
+//import { EinValue$ } from '@root/pages/accounting-and-finance/General-accounting/general-accounting/general-accounting.store';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FieldsObject, RequiredProductData } from '../../models/pending-information-card.model';
 //import { DraftPolicyPendingInfoService } from '../../services/draft-policy-pending-info.service';
-import { CustomerCardService } from '../../services/customer-card.service';
+//import { CustomerCardService } from '../../services/customer-card.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { ElementsTypes } from '../../models/enum/elementsType.enum';
 
@@ -39,27 +39,27 @@ export class PendingInformaitonCardComponent implements OnInit {
 
   constructor(
     //private draftPolicyPendingInfoService: DraftPolicyPendingInfoService,
-    private customerCardService: CustomerCardService,
-    private ref: ChangeDetectorRef,
+    //private customerCardService: CustomerCardService,
+    //private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
   ) { }
 
 
   ngOnInit(): void {
-    this.subscription = this.customerCardService
+    /* this.subscription = this.customerCardService
       .getElementsTypes()
       .subscribe((data: any) => {
         this.elementsTypes = data;
         this.ref.detectChanges();
-      });
+      }); */
 
-    this.subscription.add(EinValue$.subscribe(data => {
+    /* this.subscription.add(EinValue$.subscribe(data => {
       if (data.search('01-') !== -1) {
         //console.log(data);
         this.einValue = data;
       }
       this.ref.detectChanges();
-    }));
+    })); */
 
     this.fg = this.getFormGroup();
     this.detectValueChanges();
@@ -88,16 +88,22 @@ export class PendingInformaitonCardComponent implements OnInit {
 
   getFormGroup(): FormGroup {
     const fg: any = {};
-    this.requiredData?.sections?.map(section => {
+    this.requiredData?.schema.sections?.map(section => {
       section.fields?.map(field => {
-        if (field.mandatory === true) {
-          fg[field.description] = new FormControl(null, [Validators.required]);
-        }
-        else {
-          fg[field.description] = new FormControl();
-        }
-      })
+        this.requiredData?.defaultData.sections?.map((section2: any) => {
+          section2.fields?.map((defaultValueField: any) => {
 
+            if (Object.keys(defaultValueField)[0] === field.elementName) {
+              if (field.mandatory === true) {
+                fg[field.description] = new FormControl(null || Object.values(defaultValueField)[0], [Validators.required]);
+              }
+              else {
+                fg[field.description] = new FormControl();
+              }
+            }
+          })
+        })
+      })
     });
     return new FormGroup(fg);
   }

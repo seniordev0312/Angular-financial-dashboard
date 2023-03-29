@@ -1,9 +1,22 @@
 import { ElementsTypes } from "./enum/elementsType.enum";
 
 export interface RequiredProductData {
-    //entityName: string;
-    //entityCode: string;
-    sections: Sections[]
+    defaultData: DefaultData;
+    schema: Schema;
+    //sections: Sections[]
+}
+
+export interface Schema {
+    entityCode: string;
+    entityDefinitionId: string;
+    entityName: string;
+    sections: Sections[];
+}
+
+export interface DefaultData {
+    entityCode: string;
+    entityName: string;
+    sections: Sections[];
 }
 
 export interface Sections {

@@ -36,7 +36,7 @@ export class CustomerCardService {
   apiPutStatus = `${this.customerServiceServerURL}/CustomerServiceTicket/UpdateTicketStatus`;
   apiGetCategory = `${this.customerServiceServerURL}/Resource/Category`;
   apiGetBusiness = `${this.customerServiceServerURL}/Resource/LineOfBusiness`;
-  apiGetRequiredData = `${this.customerServiceServerURL}/Resource/RequiredData`;
+  apiGetRequiredData = `${this.customerServiceServerURL}/Resource/Product/RequiredData`;
   apiEmergencyTypeData = `${this.customerServiceServerURL}/Resource/Emergency/Types`;
   apiGetContactDetails = `${this.customerServiceServerURL}/Contact/contactDetailsByEin`;
   apiGetCommunicationChannel = `${this.customerServiceServerURL}/Resource/Reference/CommunicationChannel`;

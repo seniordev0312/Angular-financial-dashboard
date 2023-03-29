@@ -156,46 +156,48 @@ export class CustomerServiceTicketComponent
         this.categories = data;
         // this.isLoading = false;
         this.ref.detectChanges();
+      }));
 
-        this.subscriptions.add(
-          this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
-            this.ticketStatus = data.map((e: any) => ({
-              id: e.value,
-              value: e.code,
-            }));
-            this.ref.detectChanges();
-          })
-        );
+    this.subscriptions.add(
+      this.customerCardService.getTicketStatusApi().subscribe((data: any) => {
+        this.ticketStatus = data.map((e: any) => ({
+          id: e.value,
+          value: e.code,
+        }));
+        this.ref.detectChanges();
+      })
+    );
 
-        this.dataTicket = this.data.dataKey;
-        this.ticketId = this.data.dataKey.id;
+    this.dataTicket = this.data.dataKey;
+    this.ticketId = this.data.dataKey.id;
 
-        if (this.ticketId)
-          this.clientChatSignalRService.initConnection(this.ticketId);
+    if (this.ticketId)
+      this.clientChatSignalRService.initConnection(this.ticketId);
 
-        this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
+    this.kYCDocumentTypeService.saveTicketData(this.dataTicket);
 
-        this.setExistingData();
+    this.setExistingData();
 
-        this.subscriptions.add(
-          this.customerCardService
-            .getContactDetails(this.dataTicket)
-            .subscribe((data: any) => {
-              console.log(data);
-              // this.isLoading = false;
-              this.ref.detectChanges();
-            })
-        );
+    this.subscriptions.add(
+      this.customerCardService
+        .getContactDetails(this.dataTicket)
+        .subscribe((data: any) => {
+          console.log(data);
+          // this.isLoading = false;
+          this.ref.detectChanges();
+        })
+    );
 
-        this.customerTicket.setValue(this.dataTicket.ticketCode);
+    this.customerTicket.setValue(this.dataTicket.ticketCode);
 
-        this.contactFormService.getMessageHistory(425);
-      }
+    this.contactFormService.getMessageHistory(425);
+  }
 
   setExistingData() {
-        if(this.dataTicket.category) {
+    if (this.dataTicket.category) {
       this.chosenButtons.category = this.dataTicket.category;
     }
+
 
     // emergency category
     if (this.dataTicket.category == CustomerServiceCategories.EmergencyId) {
@@ -472,6 +474,7 @@ export class CustomerServiceTicketComponent
       .getRequiredProductData(this.selectedProductId)
       .subscribe((data: any) => {
         this.requiredProductData = data;
+        console.log("Required Product data", this.requiredProductData)
         this.ref.detectChanges();
       });
 
