@@ -3,7 +3,7 @@ import {
   Component,
   OnInit,
   Inject,
-  ChangeDetectorRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -23,6 +23,8 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
   communicationAction: number = -1;
   noteSectionFlag: boolean = false;
 
+  exportHistoryData: any;//object sent to the edit-history from history-list when editing
+
   statusList: BaseListItem[] = [];
 
   selectedTicketStatus: FormControl = new FormControl({ id: -1 });
@@ -31,8 +33,9 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
     private policyCardService: PolicyCardService,
     private ref: ChangeDetectorRef,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+
+  ) { }
 
   ngOnInit(): void {
     this.policyCardService.getFollowUpStatusApi().subscribe((data: any) => {
@@ -47,6 +50,8 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
   }
 
   nextPage() {
+    //flag = -1 because it's adding a new communication
+    this.communicationAction = -1;
     this.pageFlag = 'next';
   }
 

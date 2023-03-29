@@ -6,157 +6,88 @@
   <div class="w-[75%]">
     <div class="w-full">
       <div class="flex flex-row bg-white">
-        <div
-          class="w-[60%] overflow-auto backgroundSepreated flex flex-col pr-10 pl-7 h-[80vh]"
-        >
+        <div class="w-[60%] overflow-auto backgroundSepreated flex flex-col pr-10 pl-7 h-[80vh]">
           <div class="flex flex-row pb-4 items-center">
             <div class="w-1/2">
-              <p
-                class="font-base text-s leading-none items-center pt-5 font-bold"
-              >
+              <p class="font-base text-s leading-none items-center pt-5 font-bold">
                 {{ this.data.dataKey.entityName }}
               </p>
               <p class="text-xs">
                 EIN: &nbsp;
-                <span
-                  class="underline text-xs text-primary decoration-sky-100 items-center"
-                  >{{ this.data.dataKey.ein }}</span
-                >
+                <span class="underline text-xs text-primary decoration-sky-100 items-center">{{ this.data.dataKey.ein
+                  }}</span>
               </p>
             </div>
             <div class="w-1/2 flex flex-row">
-              <p
-                class="text-xs px-4 leading-none pt-5 text-center font-bold flex items-center"
-              >
+              <p class="text-xs px-4 leading-none pt-5 text-center font-bold flex items-center">
                 TICKET STATUS:
               </p>
               <div class="inProcessSelect">
-                <app-select-list
-                  name="ticketStatus"
-                  [optionsList]="statusList"
-                  [selectedValue]="data.dataKey.status"
-                  [control]="selectedTicketStatus"
-                  (statusValueChange)="onChangeTicketStatus($event)"
-                ></app-select-list>
+                <app-select-list name="ticketStatus" [optionsList]="statusList" [selectedValue]="data.dataKey.status"
+                  [control]="selectedTicketStatus" (statusValueChange)="onChangeTicketStatus($event)"></app-select-list>
               </div>
             </div>
           </div>
           <cdk-accordion>
-            <cdk-accordion-item
-              class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
-              #contactDetailsAccordion="cdkAccordionItem"
-              role="button"
-              tabindex="1"
-              [attr.id]="'accordion-header-1'"
-              [attr.aria-expanded]="contactDetailsAccordion.expanded"
-              [attr.aria-controls]="'accordion-body-1'"
-            >
-              <p
-                (click)="contactDetailsAccordion.toggle()"
-                class="flex justify-center items-center h-[50px] text-primary w-full font-semibold text-[14px]"
-              >
+            <cdk-accordion-item class="mt-4 w-full bg-white flex flex-col rounded-md shadow-md"
+              #contactDetailsAccordion="cdkAccordionItem" role="button" tabindex="1" [attr.id]="'accordion-header-1'"
+              [attr.aria-expanded]="contactDetailsAccordion.expanded" [attr.aria-controls]="'accordion-body-1'">
+              <p (click)="contactDetailsAccordion.toggle()"
+                class="flex justify-center items-center h-[50px] text-primary w-full font-semibold text-[14px]">
                 Contact Details
               </p>
 
-              <div
-                class="mt-2 bg-white"
-                role="region"
-                [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
-                [attr.id]="'accordion-body-1'"
-                [attr.aria-labelledby]="'accordion-header-1'"
-              >
-                <app-contact-details
-                  (saveClicked)="policyInformationAccordion.toggle()"
-                ></app-contact-details>
+              <div class="mt-2 bg-white" role="region" [style.display]="contactDetailsAccordion.expanded ? '' : 'none'"
+                [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-1'">
+                <app-contact-details (saveClicked)="policyInformationAccordion.toggle()"></app-contact-details>
               </div>
             </cdk-accordion-item>
 
             <div class="mt-5 shadow-md bg-white">
-              <cdk-accordion-item
-                #policyInformationAccordion="cdkAccordionItem"
-                role="button"
-                tabindex="1"
-                [attr.id]="'accordion-header-1'"
-                [attr.aria-expanded]="policyInformationAccordion.expanded"
-                [attr.aria-controls]="'accordion-body-1'"
-              >
-                <p
-                  (click)="policyInformationAccordion.toggle()"
-                  class="flex justify-center items-center h-[50px] text-primary w-full font-semibold text-[14px]"
-                >
+              <cdk-accordion-item #policyInformationAccordion="cdkAccordionItem" role="button" tabindex="1"
+                [attr.id]="'accordion-header-1'" [attr.aria-expanded]="policyInformationAccordion.expanded"
+                [attr.aria-controls]="'accordion-body-1'">
+                <p (click)="policyInformationAccordion.toggle()"
+                  class="flex justify-center items-center h-[50px] text-primary w-full font-semibold text-[14px]">
                   Policy Information
                 </p>
-                <div
-                  class="mt-5"
-                  role="region"
-                  [style.display]="
+                <div class="mt-5" role="region" [style.display]="
                     policyInformationAccordion.expanded ? '' : 'none'
-                  "
-                  [attr.id]="'accordion-body-1'"
-                  [attr.aria-labelledby]="'accordion-header-1'"
-                >
+                  " [attr.id]="'accordion-body-1'" [attr.aria-labelledby]="'accordion-header-1'">
                   <app-policy-information></app-policy-information>
                 </div>
               </cdk-accordion-item>
             </div>
 
-            <div
-              class="flex flex-col justify-center rounded-md shadow-md bg-white mt-5"
-            >
-              <cdk-accordion-item
-                #followUpHistorty="cdkAccordionItem"
-                role="button"
-                tabindex="2"
-                [attr.id]="'accordion-header-2'"
-                [attr.aria-expanded]="followUpHistorty.expanded"
-                [attr.aria-controls]="'accordion-body-2'"
-              >
-                <div
-                  class="flex justify-center w-full relative h-[50px] button-responsive"
-                >
-                  <p
-                    class="pt-5 text-primary text-center text-class font-semibold text-[14px]"
-                    (click)="followUpHistorty.toggle()"
-                  >
+            <div class="flex flex-col justify-center rounded-md shadow-md bg-white mt-5">
+              <cdk-accordion-item #followUpHistorty="cdkAccordionItem" role="button" tabindex="2"
+                [attr.id]="'accordion-header-2'" [attr.aria-expanded]="followUpHistorty.expanded"
+                [attr.aria-controls]="'accordion-body-2'">
+                <div class="flex justify-center w-full relative h-[50px] button-responsive">
+                  <p class="pt-5 text-primary text-center text-class font-semibold text-[14px]"
+                    (click)="followUpHistorty.toggle()">
                     Follow-Up History
                   </p>
-                  <div
-                    class="button-class"
-                    role="region"
-                    [style.display]="followUpHistorty.expanded ? '' : 'none'"
-                    [attr.id]="'accordion-body-2'"
-                    [attr.aria-labelledby]="'accordion-header-2'"
-                  >
-                    <button
-                      *ngIf="pageFlag == 'first'"
-                      (click)="nextPage()"
-                      class="rounded-md text-xs p-2 text-white bg-primary absolute right-6 top-3 communication-button"
-                    >
+                  <div class="button-class" role="region" [style.display]="followUpHistorty.expanded ? '' : 'none'"
+                    [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'">
+                    <button *ngIf="pageFlag == 'first'" (click)="nextPage()"
+                      class="rounded-md text-xs p-2 text-white bg-primary absolute right-6 top-3 communication-button">
                       Add Communication
                     </button>
                   </div>
                 </div>
-                <div
-                  role="region"
-                  [style.display]="followUpHistorty.expanded ? '' : 'none'"
-                  [attr.id]="'accordion-body-2'"
-                  [attr.aria-labelledby]="'accordion-header-2'"
-                  class="border-none"
-                >
+                <div role="region" [style.display]="followUpHistorty.expanded ? '' : 'none'"
+                  [attr.id]="'accordion-body-2'" [attr.aria-labelledby]="'accordion-header-2'" class="border-none">
                   <div *ngIf="pageFlag == 'first'">
-                    <app-history-list
-                      [(pageControl)]="pageFlag"
-                      [(actionFlag)]="communicationAction"
-                      [data]="data.dataKey"
-                    ></app-history-list>
+                    <app-history-list [(pageControl)]="pageFlag" [(actionFlag)]="communicationAction"
+                      [data]="data.dataKey" [(exportHistoryData)]="exportHistoryData">
+                    </app-history-list>
                     <div class="none"></div>
                   </div>
                   <div *ngIf="pageFlag == 'next'">
-                    <app-edit-history
-                      [(pageControl)]="pageFlag"
-                      [actionFlag]="communicationAction"
-                      [data]="data.dataKey"
-                    ></app-edit-history>
+                    <app-edit-history [(pageControl)]="pageFlag" [actionFlag]="communicationAction"
+                      [data]="data.dataKey" [exportHistoryData]="exportHistoryData">
+                    </app-edit-history>
                   </div>
                 </div>
               </cdk-accordion-item>
@@ -192,34 +123,20 @@
             </div> -->
 
             <div class="mt-5 mb-3">
-              <div
-                class="mt-auto mb-0.5 w-[100%] rounded-md shadow-md bg-white items-center"
-              >
-                <div
-                  (click)="openNote()"
-                  class="flex flex-row p-4 items-center noteIcon cursor-pointer"
-                >
-                  <div
-                    class="flex-1 text-primary text-center font-semibold text-[14px]"
-                  >
+              <div class="mt-auto mb-0.5 w-[100%] rounded-md shadow-md bg-white items-center">
+                <div (click)="openNote()" class="flex flex-row p-4 items-center noteIcon cursor-pointer">
+                  <div class="flex-1 text-primary text-center font-semibold text-[14px]">
                     Notes
                   </div>
                   <div *ngIf="noteSectionFlag">
-                    <mat-icon
-                      svgIcon="customer-service-arrow-up-notes"
-                    ></mat-icon>
+                    <mat-icon svgIcon="customer-service-arrow-up-notes"></mat-icon>
                   </div>
                   <div *ngIf="!noteSectionFlag">
-                    <mat-icon
-                      svgIcon="customer-service-arrow-down-notes"
-                    ></mat-icon>
+                    <mat-icon svgIcon="customer-service-arrow-down-notes"></mat-icon>
                   </div>
                 </div>
                 <div *ngIf="noteSectionFlag">
-                  <app-notes
-                    (noteSubmitted)="onSubmitNote($event)"
-                    [ticketNoteData]="data.dataKey?.note"
-                  ></app-notes>
+                  <app-notes (noteSubmitted)="onSubmitNote($event)" [ticketNoteData]="data.dataKey?.note"></app-notes>
                 </div>
               </div>
             </div>
@@ -240,14 +157,9 @@
 
         <div class="w-[40%] pl-4">
           <div class="flex flex-col h-[80vh] w-[100%]">
-            <div
-              class="h-[75%] w-full bgColor rounded-md shadow-md relative bg-[#FAFAFA]"
-            >
-              <app-contact-view
-                #contactViewComponent
-                [isDepartmentChat]="false"
-                [canShowCalculator]="false"
-              ></app-contact-view>
+            <div class="h-[75%] w-full bgColor rounded-md shadow-md relative bg-[#FAFAFA]">
+              <app-contact-view #contactViewComponent [isDepartmentChat]="false"
+                [canShowCalculator]="false"></app-contact-view>
             </div>
 
             <div class="h-[25%] rounded-md shadow-md">

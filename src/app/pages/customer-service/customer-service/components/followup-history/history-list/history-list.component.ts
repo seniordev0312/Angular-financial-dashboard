@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   AfterViewInit,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -17,18 +18,22 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TicketHistoryListItem } from '../../../models/ticket-history-list-item.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
-
+import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
+import { followUpHistoryList$, getFollowUpHistory$ } from '../store/follow-up-history.store';
+import { FollowUpHistoryService } from '../services/follow-up-history.services';
 @Component({
   selector: 'app-history-list',
   templateUrl: './history-list.component.html',
   styleUrls: ['./history-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HistoryListComponent
-  extends BaseComponent
-  implements OnInit, AfterViewInit
-{
-  constructor(public policyCardService: PolicyCardService) {
+export class HistoryListComponent extends BaseComponent implements OnInit, AfterViewInit {
+
+  constructor(public policyCardService: PolicyCardService,
+    private securityCheckerService: SecurityCheckerService,
+    private cdr: ChangeDetectorRef,
+    public followUpHistoryService: FollowUpHistoryService
+  ) {
     super();
   }
   @Input() pageControl: string;
@@ -37,6 +42,9 @@ export class HistoryListComponent
   @Output() NextPageEvent = new EventEmitter<boolean>();
   @Output() pageControlChange = new EventEmitter<any>();
   @Output() actionFlagChange = new EventEmitter<any>();
+
+  @Input() exportHistoryData: any;//sent to edit-history
+  @Output() exportHistoryDataChange = new EventEmitter<any>();
 
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<TicketHistoryListItem>;
@@ -57,12 +65,14 @@ export class HistoryListComponent
   historyData: {
     id: number;
     response: number;
-    detailContent: string;
-    policyPrice: string;
+    dateModified: string;
+    details: string;
+    followUpActionType: number;
+    premiumPrice: string;
+    ticketId: number;
+    userId: string;
     additionalDetailContent: string;
-    date: string;
   }[];
-
   happyIcon: TableRowAction<TicketHistoryListItem> = {
     action: (data) => this.onTicketEdited(data),
     cssClasses: 'text-primary',
@@ -108,7 +118,7 @@ export class HistoryListComponent
     },
     {
       translationKey: 'Response',
-      property: 'Response', 
+      property: 'Response',
       type: 'icon',
       cssClasses: () => 'text-primary',
       dataCssClasses: () => '',
@@ -173,7 +183,7 @@ export class HistoryListComponent
     actionsMode: 'inline',
     pageSize: this.pageSize,
     enableCustomizingColumns: false,
-    enableActions:true
+    enableActions: true
   });
 
   tableConfiguration: TableConfiguration<TicketHistoryListItem> = {
@@ -195,17 +205,42 @@ export class HistoryListComponent
       case 0:
         return 'customer-service-happy-icon';
       case 1:
-        //return 'customer-service-sad-color-2';
         return 'customer-service-sad-1-icon';
       default:
-        //return 'customer-service-sad-color-1';
         return 'customer-service-sad-icon';
     }
   }
 
+  employeeName: string;
+
   ngOnInit(): void {
-    //define the type of historyData
-    this.getHistoryData();
+    this.followUpHistoryService.getFollowUpHistoryList(this.data.id);
+
+    this.subscriptions.add(
+      followUpHistoryList$.subscribe((data: any) => {
+        if (data) {
+          this.historyData = data;
+          this.getHistoryData();
+          if (this.table) {
+            this.table.refresh();
+          }
+        }
+        this.cdr.detectChanges();
+      })
+    )
+
+    this.subscriptions.add(
+      getFollowUpHistory$.subscribe((data: boolean) => {
+        if (data) {
+          this.followUpHistoryService.getFollowUpHistoryList(this.data.id);
+        }
+      })
+    )
+
+    this.securityCheckerService.userClaims$.subscribe(data => {
+      this.employeeName = data?.name;
+      this.cdr.detectChanges();
+    })
   }
 
   ngAfterViewInit(): void {
@@ -213,45 +248,35 @@ export class HistoryListComponent
   }
 
   getHistoryData() {
-    this.historyData = Object.values(this.data.detailsJson);
-
+    this.historyList = [];
     for (let i = 0; i < this.historyData.length; i++) {
       let historyItem = {
         id: this.historyData[i].id,
         Response: this.displayIcon(this.historyData[i].response),
-        employeeName: '',
-        Date: new Date(this.historyData[i].date).toDateString(),
+        employeeName: this.employeeName,
+        Date: new Date(this.historyData[i].dateModified).toDateString(),
       };
       this.historyList.push(historyItem);
     }
-
     this.tableConfiguration.data = this.historyList;
     this.tableConfiguration.dataCount = this.historyList.length;
   }
 
   onTicketEdited(_category: TicketHistoryListItem) {
-    console.log('onTicketEdited', _category);
     // display other pages for editing
     this.pageControlChange.emit('next');
     // send id to edit.
     this.actionFlagChange.emit(_category.id);
+
+    this.exportHistoryData = this.historyData.find(e => e.id === _category.id);
+    this.exportHistoryDataChange.emit(this.exportHistoryData);
   }
 
-  onTicketViewed(_category: TicketHistoryListItem) {}
+  onTicketViewed(_category: TicketHistoryListItem) { }
 
   onTicketDeleted(_category: TicketHistoryListItem) {
-    this.historyData.splice(_category.id, 1);
-    this.historyList.splice(_category.id, 1);
-
-    for (let i = 0; i < this.historyData.length; i++) {
-      this.historyData[i].id = i;
-      this.historyList[i].id = i;
-    }
-
-    this.data.detailsJson = Object.assign({}, this.historyData);
-    this.policyCardService.updatePolicyRenewalTickets(this.data);
-    this.table.refresh();
+    this.followUpHistoryService.deleteFollowUpHistory(_category.id);
   }
 
-  onTicketLocked(_category: TicketHistoryListItem) {}
+  onTicketLocked(_category: TicketHistoryListItem) { }
 }
