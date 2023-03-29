@@ -320,7 +320,7 @@
 ></app-dialog-header>
 <mat-dialog-content *ngIf="!managementDiaglog">
   <div class="flex w-full">
-    <div class="flex w-[10%] flex-col h-[660px]">
+    <div class="flex w-[10%] flex-col h-[660px] overflow-y-hidden">
       <div
         class="flex flex-col px-10 py-10 justify-center mt-auto mb-auto"
         (click)="changeStatus('check')"

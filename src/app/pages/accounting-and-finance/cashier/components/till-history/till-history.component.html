@@ -1,1 +1,12 @@
-<app-widget-table [tableConfiguration]="tableConfiguration"></app-widget-table>
+<app-widget-table
+  [tableConfiguration]="tableConfiguration"
+  (onRowSelection)="onRowSelection($event)"
+></app-widget-table>
+
+<app-button
+  classes="py-4 px-10 mt-5 mb-5 text-white bg-[#275E80]"
+  text="History"
+  (click)="viewDepositedHistory()"
+></app-button>
+
+<app-view-deposited-history *ngIf="depositHistory"></app-view-deposited-history>

@@ -18,6 +18,7 @@ export class TableSettings {
   dataKey: string;
   dynamicActions?: boolean;
   controlActionsKey?: string;
+  isRowHeaderSeclectionAvailable?: boolean;
   constructor(data: any) {
     if (!data) {
       return;
@@ -38,6 +39,8 @@ export class TableSettings {
     this.hasNextPage = data?.hasNextPage ?? true;
     this.haxPreviousPage = data?.haxPreviousPage ?? true;
     this.isRowsSelectionAvailable = data?.isRowsSelectionAvailable ?? false;
+    this.isRowHeaderSeclectionAvailable =
+      data?.isRowHeaderSeclectionAvailable ?? false;
     this.dataKey = data.dataKey ?? 'id';
     this.dynamicActions = data.dynamicActions ?? false;
     this.controlActionsKey = data.controlActionsKey ?? '';

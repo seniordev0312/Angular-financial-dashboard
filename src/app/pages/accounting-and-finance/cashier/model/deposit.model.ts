@@ -1,9 +1,9 @@
-export interface TillModel {
+export interface DepositModel {
   id: number;
-  date: string;
+  dateFrom: string;
+  dateTo: string;
   bankName: string;
   currency: string;
   amount: number;
   status: string;
-  nextStatus?: string;
 }
