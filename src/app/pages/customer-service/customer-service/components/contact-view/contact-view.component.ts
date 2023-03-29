@@ -56,6 +56,8 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
 
   fgCar: FormGroup;
 
+  messageHistoryList: any[] = [];
+
   @Input() isDepartmentChat: boolean = false;
   @Input() chosenCategoryInfo: any;
   @Input() canShowCalculator: any;
@@ -105,71 +107,14 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
       this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
     }
 
-    this.data = [
-      {
-        id: 0,
-        type: 0,
-        body: 'Hello!',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image.png',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-      {
-        id: 1,
-        type: 0,
-        body: 'Hello!',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: false,
-      },
-      {
-        id: 2,
-        type: 0,
-        body: 'Testing the design, this is a long text to test big chat bubbles. Big text testinggg noww! Testing the design, this is a long text to test big chat bubbles. Big text testinggg noww!',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image.png',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-      {
-        id: 3,
-        type: 0,
-        body: 'Testing a medium sized text mediumm',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image.png',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-      {
-        id: 4,
-        type: 0,
-        body: 'Okay thanks',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: false,
-      },
-      {
-        id: 5,
-        type: 0,
-        body: 'Thanks again',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: false,
-      },
-      {
-        id: 6,
-        type: 0,
-        body: 'Youre welcome',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-    ];
+    this.subscriptions.add(
+      this.contactFormService.getMessageHistory(424).subscribe((data: any) => { 
+        this.messageHistoryList = data;
+        this.cdr.detectChanges();
+        console.log('message history', this.messageHistoryList);
+      })
+    );
+
   }
 
   onSelect(data: any, id: any): void {

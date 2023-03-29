@@ -27,7 +27,7 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
 
   statusList: BaseListItem[] = [];
 
-  selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
+  selectedTicketStatus: FormControl = new FormControl({ id: -1 });
 
   constructor(
     public dialogRef: MatDialogRef<PolicyRenewalsCustomerServiceTicketComponent>,
@@ -45,6 +45,8 @@ export class PolicyRenewalsCustomerServiceTicketComponent implements OnInit {
       }));
       this.ref.detectChanges();
     });
+
+    this.selectedTicketStatus.setValue(this.data.dataKey.status);
   }
 
   nextPage() {

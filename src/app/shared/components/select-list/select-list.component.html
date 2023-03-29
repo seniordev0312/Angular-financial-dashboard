@@ -8,6 +8,7 @@
     [disabled]="isDisabled"
     [attr.name]="name"
     [multiple]="isMultiple"
+    [formControl]="control"
   >
     <mat-option *ngIf="hasSearch">
       <ngx-mat-select-search

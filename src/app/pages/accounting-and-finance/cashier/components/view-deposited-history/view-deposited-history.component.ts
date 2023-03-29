@@ -2,91 +2,90 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  OnChanges,
   ViewChild,
   ChangeDetectorRef,
-  SimpleChanges,
 } from '@angular/core';
 import { WidgetTableComponent } from '@root/shared/components/widget-table/widget-table.component';
 import { TableColumnFilterDataType } from '@root/shared/models/table/enum/table-column-filter-data-type.enum';
 import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
-import { TillModel } from '../../model/till.model';
+import { DepositModel } from '../../model/deposit.model';
 
 @Component({
-  selector: 'app-till-history',
-  templateUrl: './till-history.component.html',
-  styleUrls: ['./till-history.component.scss'],
+  selector: 'app-view-deposited-history',
+  templateUrl: './view-deposited-history.component.html',
+  styleUrls: ['./view-deposited-history.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TillHistoryComponent implements OnInit, OnChanges {
+export class ViewDepositedHistoryComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
-  // tillHistory: [] = [];
-  depositHistory: boolean = false;
-  tillHistory: TillModel[] = [
+
+  depositHistory: DepositModel[] = [
     {
       id: 1,
-      date: '03/24/2022',
+      dateFrom: '03/24/2022',
+      dateTo: '03/24/2022',
       bankName: 'Audi',
       currency: 'USD',
       amount: 1500,
-      status: 'Till',
+      status: 'Deposited',
     },
     {
       id: 2,
-      date: '03/24/2022',
+      dateFrom: '03/24/2022',
+      dateTo: '03/24/2022',
       bankName: 'Audi',
       currency: 'USD',
       amount: 1500,
-      status: 'Transit',
+      status: 'Deposited',
     },
     {
       id: 3,
-      date: '03/24/2022',
+      dateFrom: '03/24/2022',
+      dateTo: '03/24/2022',
       bankName: 'Audi',
       currency: 'USD',
       amount: 1500,
-      status: 'Till',
+      status: 'Deposited',
     },
     {
       id: 4,
-      date: '03/24/2022',
+      dateFrom: '03/24/2022',
+      dateTo: '03/24/2022',
       bankName: 'Audi',
       currency: 'USD',
       amount: 1500,
-      status: 'Transit',
+      status: 'Deposited',
     },
     {
       id: 5,
-      date: '03/24/2022',
+      dateFrom: '03/24/2022',
+      dateTo: '03/24/2022',
       bankName: 'Audi',
       currency: 'USD',
       amount: 1500,
-      status: 'Till',
+      status: 'Deposited',
     },
     {
       id: 6,
-      date: '03/24/2022',
+      dateFrom: '03/24/2022',
+      dateTo: '03/24/2022',
       bankName: 'Audi',
       currency: 'USD',
       amount: 1500,
-      status: 'Transit',
+      status: 'Deposited',
     },
   ];
 
   @ViewChild(WidgetTableComponent)
-  table: WidgetTableComponent<TillModel>;
+  table: WidgetTableComponent<DepositModel>;
 
   ngOnInit(): void {
-    this.tableConfiguration.data = this.tillHistory;
-    this.tableConfiguration.dataCount = this.tillHistory.length;
+    this.tableConfiguration.data = this.depositHistory;
+    this.tableConfiguration.dataCount = this.depositHistory.length;
     this.cdr.detectChanges();
     this.table.refresh();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 
   tableColumns: TableColumn[] = [
@@ -108,11 +107,27 @@ export class TillHistoryComponent implements OnInit, OnChanges {
       },
     },
     {
-      translationKey: 'Date',
-      property: 'date',
+      translationKey: 'Date From',
+      property: 'dateFrom',
       type: 'text',
       cssClasses: () => '',
-      dataCssClasses: () => 'ml-[30%]',
+      dataCssClasses: () => 'ml-[10%]',
+      enableSort: true,
+      hasFilter: true,
+      visible: true,
+      displayInFilterList: true,
+      hasToolTip: false,
+      showText: true,
+      filter: {
+        filterType: TableColumnFilterDataType.Text,
+      },
+    },
+    {
+      translationKey: 'Date To',
+      property: 'dateTo',
+      type: 'text',
+      cssClasses: () => '',
+      dataCssClasses: () => 'ml-[10%]',
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -176,7 +191,7 @@ export class TillHistoryComponent implements OnInit, OnChanges {
       property: 'status',
       type: 'text',
       cssClasses: () => 'text-center',
-      dataCssClasses: () => 'ml-[30%]',
+      dataCssClasses: () => 'ml-[10%]',
       enableSort: true,
       hasFilter: true,
       visible: true,
@@ -201,87 +216,11 @@ export class TillHistoryComponent implements OnInit, OnChanges {
     isRowHeaderSeclectionAvailable: false,
   });
 
-  tableConfiguration: TableConfiguration<TillModel> = {
+  tableConfiguration: TableConfiguration<DepositModel> = {
     tableRowsActionsList: [],
     columns: this.tableColumns,
     data: [],
     dataCount: 0,
     settings: this.tableSettings,
   };
-
-  key: number = 0;
-
-  onRowSelection(data: any) {
-    console.log('rojafijaoifjd', this.key);
-    this.key++;
-    if (!data.status) {
-      this.tableSettings.isRowHeaderSeclectionAvailable = false;
-    } else {
-      console.log(this.tableSettings.isRowHeaderSeclectionAvailable);
-      this.tableSettings.isRowHeaderSeclectionAvailable = true;
-      this.tillHistory = this.tillHistory.filter(
-        (item) => item.status === data.status
-      );
-      console.log(this.tillHistory);
-      if (data.status === 'Till') {
-        if (this.key === 1) {
-          this.tableColumns.push({
-            translationKey: 'Bank Status',
-            property: 'nextStatus',
-            selectOptionsList: ['123'],
-            type: 'text',
-            cssClasses: () => 'text-center',
-            dataCssClasses: () => 'ml-[30%]',
-            enableSort: true,
-            hasFilter: true,
-            visible: true,
-            displayInFilterList: true,
-            hasToolTip: false,
-            showText: true,
-            filter: {
-              filterType: TableColumnFilterDataType.DropDown,
-            },
-          });
-        }
-
-        for (let i = 0; i < this.tillHistory.length; i++) {
-          this.tillHistory[i].nextStatus = 'in transit';
-        }
-      } else {
-        if (this.key === 1) {
-          this.tableColumns.push({
-            translationKey: 'Bank Status',
-            property: 'nextStatus',
-            selectOptionsList: ['123'],
-            type: 'text',
-            cssClasses: () => 'text-center',
-            dataCssClasses: () => 'ml-[30%]',
-            enableSort: true,
-            hasFilter: true,
-            visible: true,
-            contentVisible: false,
-            displayInFilterList: true,
-            hasToolTip: false,
-            showText: true,
-            filter: {
-              filterType: TableColumnFilterDataType.DropDown,
-            },
-          });
-        }
-
-        for (let i = 0; i < this.tillHistory.length; i++) {
-          this.tillHistory[i].nextStatus = 'Deposited';
-        }
-      }
-      this.tableConfiguration.data = this.tillHistory;
-      this.tableConfiguration.dataCount = this.tillHistory.length;
-      this.cdr.detectChanges();
-      this.table.refresh();
-      // this.tableColumns.pop();
-    }
-  }
-
-  viewDepositedHistory() {
-    this.depositHistory = !this.depositHistory;
-  }
 }
