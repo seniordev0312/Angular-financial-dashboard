@@ -98,7 +98,7 @@ export class CustomerServiceTicketComponent
     { id: 4, value: 'Closed' },
   ]; */
 
-  selectedTicketStatus: FormControl = new FormControl({ id: -1, value: '' });
+  selectedTicketStatus: FormControl = new FormControl({ id: -1 });
 
   customerTicket: FormControl = new FormControl();
   priceRange: FormControl = new FormControl();
@@ -191,6 +191,8 @@ export class CustomerServiceTicketComponent
     this.customerTicket.setValue(this.dataTicket.ticketCode);
 
     this.contactFormService.getMessageHistory(425);
+
+    this.selectedTicketStatus.setValue(this.dataTicket.status);
   }
 
   setExistingData() {
