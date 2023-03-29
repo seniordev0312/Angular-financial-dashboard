@@ -18,7 +18,6 @@ import { TableRowAction } from '@root/shared/models/table/table-row-action.model
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
 import { TicketHistoryListItem } from '../../../models/ticket-history-list-item.model';
 import { PolicyCardService } from '@root/pages/customer-service/policy-renewals/services/policy-card.service';
-//import { delay } from 'rxjs';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { followUpHistoryList$, getFollowUpHistory$ } from '../store/follow-up-history.store';
 import { FollowUpHistoryService } from '../services/follow-up-history.services';

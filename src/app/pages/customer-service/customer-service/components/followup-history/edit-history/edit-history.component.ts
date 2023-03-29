@@ -24,9 +24,7 @@ export class EditHistoryComponent implements OnInit {
   constructor(
     public policyCardService: PolicyCardService,
     private followUpHistoryService: FollowUpHistoryService,
-    private followUpHistoryFormGroup: FollowUpHistoryFormGroup,
-    //private ref: ChangeDetectorRef
-
+    private followUpHistoryFormGroup: FollowUpHistoryFormGroup
   ) { }
 
   @Input() pageControl = '';
@@ -34,10 +32,7 @@ export class EditHistoryComponent implements OnInit {
   @Input() data = <PolicyCard>{};
   @Output() pageControlChange = new EventEmitter<any>();
 
-  @Input() exportHistoryData: any;//received from history-list
-  //@Input() exportHistoryDataList: any;//received from history-list
-  //@Input() updatedHistoryDataList: any;//sent to history-list
-  //@Output() updatedHistoryDataListChange = new EventEmitter<any>();
+  @Input() exportHistoryData: any;
 
   bgColorRequest: string = 'bg-main-gray';
   bgColorSend: string = 'bg-main-gray';
@@ -57,8 +52,6 @@ export class EditHistoryComponent implements OnInit {
   FollowUpActionType = FollowUpActionType;
 
   ngOnInit(): void {
-    if (this.exportHistoryData) { console.log("edit list", this.exportHistoryData) }
-
     this.fg = this.followUpHistoryFormGroup.getFormGroup();
 
     // actionFlag = -1 means creating communication.
@@ -135,16 +128,6 @@ export class EditHistoryComponent implements OnInit {
       followUpActionType: this.followUpActionType
     };
     this.followUpHistoryService.updateFollowUpHistory(detail);
-
-    /* let element = this.exportHistoryDataList.find((e: any) => e.id === this.actionFlag);
-    element.response = this.response;
-    element.details = this.getFormControl('details').getRawValue();
-    element.additionalDetails = this.getFormControl('additionalDetails').getRawValue();
-    element.followUpActionType = this.followUpActionType;
-    element.premiumPrice = this.policyPrice;
-    element.dateModified = new Date();
-
-    console.log("element", element); */
   }
 
   // create existing communication
@@ -161,19 +144,6 @@ export class EditHistoryComponent implements OnInit {
       this.additionalDetailContent = '';
       this.getFormControl('additionalDetails').setValue(this.additionalDetailContent);
     }
-
-    /* const detail = {
-      //id: dataToSave.id,
-      ticketId: dataToSave.id,
-      response: this.response,
-      details: this.getFormControl('details').getRawValue(),
-      additionalDetails: this.getFormControl('additionalDetails').getRawValue(),
-      premiumPrice: this.policyPrice,
-      followUpActionType: this.followUpActionType,
-      dateModified: new Date()
-    };
-    this.exportHistoryDataList.push(detail); */
-
     const detail_saved = {
       //id: dataToSave.id,
       ticketId: dataToSave.id,
@@ -204,21 +174,17 @@ export class EditHistoryComponent implements OnInit {
       // actionFlag = -1 means creating communication.
       case -1:
         if (
-          /* Object.keys(this.data.detailsJson).length === 0 &&
-          this.data.detailsJson.constructor === Object */
           Object.keys(this.data).length === 0 &&
           this.data.constructor === Object
         ) {
           this.createNewCommunications(currentCommunications);
 
         } else {
-          //this.createNewCommunications(Object.values(this.data.detailsJson));
           this.createNewCommunications((this.data));
         }
         break;
       // actionFlag != -1 means edit communication[actionFlag]
       default:
-        //this.editCommunication(Object.values(this.data.detailsJson));
         this.editCommunication((this.data));
         break;
     }
