@@ -30,6 +30,7 @@ import { NewTransactionComponent } from './components/new-transaction/new-transa
 import { TillViewComponent } from './components/till-view/till-view.component';
 import { OtherMakePaymentComponent } from './components/other-make-payment/other-make-payment.component';
 import { TillHistoryComponent } from './components/till-history/till-history.component';
+import { CashTillHistoryComponent } from './components/cash-till-history/cash-till-history.component';
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
@@ -61,6 +62,7 @@ const routes: Route[] = [
     OtherMakePaymentComponent,
     TillViewComponent,
     TillHistoryComponent,
+    CashTillHistoryComponent,
   ],
  imports: [
     CommonModule,
