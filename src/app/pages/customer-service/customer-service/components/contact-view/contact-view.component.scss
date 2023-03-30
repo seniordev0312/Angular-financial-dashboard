@@ -23,12 +23,34 @@
   top: -0.75rem;
 }
 
+.received-img-message-pp {
+  bottom: 98%;
+  left: -6%;
+  position: absolute;
+}
+
+.sent-img-message-pp {
+  right: 1%;
+  top: 0%;
+  position: absolute;
+}
+
+.received-img-message-icon {
+  top: -4%;
+  right: -6%;
+}
+
+.sent-img-message-icon {
+  left: -4%;
+  top: -5%;
+}
+
 .received-message-icon {
   left: 93%;
 }
 
 .sent-message-time {
-  right: 13%;
+  right: 10%;
   top: 0%;
 }
 
