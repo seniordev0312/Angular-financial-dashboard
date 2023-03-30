@@ -60,7 +60,7 @@ const routes: Route[] = [
     MatChipsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
   ]
 })
 export class EntitiesTemplatesManagementModule { }
