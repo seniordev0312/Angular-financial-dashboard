@@ -229,6 +229,7 @@ console.log('data ticket', this.dataTicket)
       if (this.dataTicket.productId) {
         this.chosenButtons.product = this.dataTicket.productId;
         this.initialSectionFlag = true;
+        this.canShowCalculator = true;
       }
     }
 

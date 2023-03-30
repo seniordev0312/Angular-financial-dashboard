@@ -93,33 +93,4 @@
   .mat-select-panel .mat-option {
     height: 3rem;
   }
-
-  .mat-slider-horizontal {
-    min-width: 251px;
-  }
-
-  .mat-slider-thumb-label {
-    background-color: #5db75d !important;
-    width: 20px !important;
-    height: 20px !important;
-    top: -27px !important;
-  }
-
-  .mat-slider-thumb-label-text {
-    color: #5db75d;
-    padding-bottom: 2.75rem;
-    font-size: 15px;
-    font-weight: 600;
-  }
-}
-
-.chat-icon-buttons {
-  width: 65px !important;
-  height: 65px !important;
-}
-
-.selected-button {
-  background-color: white !important;
-  color: #005f83 !important;
-  border: 1px solid #005f83 !important;
 }
