@@ -53,24 +53,19 @@ export class EntitiesControlService {
     }
 
     addEntityEntry(data: AddEntityEntry, code: string): void {
-        console.log('data', data)
-        console.log('code', code)
         let endPointUrl = `${environment.entityApiUrl}/Entity/CreateEntityEntry/${code}`;
         this.httpClient.post<any>(endPointUrl, data).subscribe(data => {
             if (data) {
                 this.entitiesControlRepository.updateEntityAddState(true);
-                console.log('result', data)
             }
         });
     }
 
     updateEntityEntry(data: AddEntityEntry, ein: string): void {
-        console.log('Data', data);
-        console.log('Ein', ein);
         let endPointUrl = `${environment.entityApiUrl}/Entity/UpdateEntityEntry/${ein}`;
         this.httpClient.put<any>(endPointUrl, data).subscribe(data => {
             if (data) {
-                console.log(data);
+                this.entitiesControlRepository.updateEntityAddState(true);
             }
         });
     }

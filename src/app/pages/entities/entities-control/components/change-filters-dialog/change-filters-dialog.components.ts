@@ -67,7 +67,6 @@ export class ChangeFiltersDialogComponent implements OnInit {
         if (query.target.value?.length >= 0) {
             this.showSelectField = true;
             this.resultFields = this.newFilterFields.filter((item) => item.elementName.toLowerCase().includes(query.target.value?.toLowerCase()));
-            console.log(this.resultFields)
             this.cdr.detectChanges();
             this.select.open();
             this.select.openedChange.subscribe((isOpen: any) => {
