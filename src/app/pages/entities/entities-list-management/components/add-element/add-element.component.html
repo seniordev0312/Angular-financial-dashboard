@@ -6,10 +6,13 @@
             [optionsList]="elementTypesReferenceList"></app-select-list>
         <app-input-field *ngIf="isCreateMode()" label="Element Description:" [control]="getFormControl('description')">
         </app-input-field>
-        <app-input-field *ngIf="isCreateMode() &&  getFormControl('elementType').value === 8 " label="Element Script:"
+        <!-- <app-input-field *ngIf="isCreateMode() &&  getFormControl('elementType').value === 8 " label="Element Script:"
             [control]="getFormControl('script')" r>
-        </app-input-field>
-        <div *ngIf="isCreateMode()" class="flex items-center justify-between mb-3">
+        </app-input-field> -->
+        <textarea *ngIf="isCreateMode() &&  getFormControl('elementType').value === 8 " formControlName="script"
+            class="block  p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+            placeholder="Element Script:"></textarea>
+        <div *ngIf="isCreateMode()" class="pt-5 flex items-center justify-between mb-3">
             <p class="text-xs font-bold">Validation</p>
             <mat-slide-toggle formControlName="validation"></mat-slide-toggle>
         </div>

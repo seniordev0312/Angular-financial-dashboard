@@ -76,8 +76,8 @@ export class AddElementComponent extends BaseComponent implements OnInit {
   onSave(): void {
     if (this.fg.valid) {
       if (this.getFormControl('elementType').value !== 8) {
-        if (this.getFormControl('validation').value && this.getFormControl('validation').value === true) {
-          if (this.getFormControl('regularExpression').value && this.getFormControl('regularExpression').value !== '') {
+        if (this.getFormControl('validation') && this.getFormControl('validation').value === true) {
+          if (this.getFormControl('regularExpression') && this.getFormControl('regularExpression').value && this.getFormControl('regularExpression').value !== '') {
             this.addNewOne();
           }
         } else {
@@ -87,8 +87,8 @@ export class AddElementComponent extends BaseComponent implements OnInit {
       }
       else {
         if (this.getFormControl('script').value && this.getFormControl('script').value !== '') {
-          if (this.getFormControl('validation').value && this.getFormControl('validation').value === true) {
-            if (this.getFormControl('regularExpression').value && this.getFormControl('regularExpression').value !== '') {
+          if (this.getFormControl('validation') && this.getFormControl('validation').value && this.getFormControl('validation').value === true) {
+            if (this.getFormControl('regularExpression') && this.getFormControl('regularExpression').value && this.getFormControl('regularExpression').value !== '') {
               this.addNewOne();
             }
           } else {

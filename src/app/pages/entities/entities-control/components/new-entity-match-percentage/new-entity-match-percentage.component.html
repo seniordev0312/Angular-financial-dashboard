@@ -9,13 +9,14 @@
         </div>
     </div>
     <div *ngIf="this.entitySimilarity.length !==0" class="px-12 grid grid-cols-4 gap-5 mb-6">
-        <app-entity-information [entityTemplate]="this.entitySimilarity[0].newEntity" label="New Entity Information">
+        <app-entity-information [hasSections]="false" [entityTemplate]="this.entitySimilarity[0].newEntity"
+            label="New Entity Information">
         </app-entity-information>
-        <app-entity-information [entityTemplate]="this.entitySimilarity[0].systemEntity"
+        <app-entity-information [hasSections]="true" [entityTemplate]="this.entitySimilarity[0].systemEntity"
             label="In System Entity Information">
         </app-entity-information>
-        <app-entity-information [entityTemplate]="this.entitySimilarity[0].result" [hasContent]="true"
-            [isMatchCard]="true" label="In System Entity Information">
+        <app-entity-information [hasSections]="true" [entityTemplate]="this.entitySimilarity[0].result"
+            [hasContent]="true" [isMatchCard]="true" label="In System Entity Information">
             <div class="flex justify-center items-center bg-success h-44 rounded-xl match-box text-white">
                 <h5 class="text-3xl font-light">{{getAvg(this.entitySimilarity[0].result)}}% Match</h5>
             </div>

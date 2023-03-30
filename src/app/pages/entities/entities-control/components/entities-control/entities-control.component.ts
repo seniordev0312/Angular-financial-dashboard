@@ -187,7 +187,6 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, O
 
     this.layoutService.onHandleEinFocus().subscribe((data: any) => {
       this.einFocus = data ? data : -1;
-      console.log(this.einFocus);
     });
 
     if (this.showSelection) {
@@ -229,7 +228,6 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, O
 
     this.subscriptions.add(entityTypes$.subscribe(data => {
       if (!this.isEmpty(data)) {
-        // console.log('data', data)
         if (this.einFocus !== -1) {
           this.onFirstActive = false;
           this.entityTypesList = data;
@@ -266,7 +264,6 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, O
     this.subscriptions.add(dynamicFiltersList$.subscribe(data => {
       this.filterFG = this.getFormGroup([]);
       if (!this.isEmpty(data)) {
-        console.log('data', data)
         this.filterFields = [];
         this.filterFG = this.getFormGroup(data);
         this.tableConfiguration.columns = [];
@@ -298,7 +295,6 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, O
           }
         } else {
           data.forEach(item => {
-            console.log(this.dataTypeControlService.getDataType(item.elementType),)
             this.filterFields.push({
               elementName: item.elementName,
               elementType: item.elementType,
@@ -407,9 +403,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit, O
     const data: any = {};
     value.forEach((e: any) => {
       if (this.checkIfTypeIsName(e['name'])) {
-        console.log(data[e['value']])
         data[e['name']] = this.pipe.transform(e['value'], 'dd/MM/yyyy')
-        console.log(data[e['name']])
       } else {
         data[e['name']] = e['value'];
       }

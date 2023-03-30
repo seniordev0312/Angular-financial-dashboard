@@ -29,7 +29,7 @@ export class AppComponent extends BaseComponent {
       })
     }
     else if (event.key == 'F2') {
-      
+
       this.dialog.open(EntitiesControlComponent, {
         width: '90%',
         height: '90%'

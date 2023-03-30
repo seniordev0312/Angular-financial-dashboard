@@ -12,12 +12,21 @@ export class EntityInformationComponent implements OnInit {
   @Input() isMatchCard = false;
   @Input() hasContent = false;
   @Input() entityTemplate: any;
-  newEntity: any;
+  @Input() hasSections = false;
+  newEntity: any = [];
   result: any;
 
   constructor() { }
   ngOnInit(): void {
-    this.newEntity = Object.entries(this.entityTemplate);
+    if (this.hasSections) {
+      this.entityTemplate.forEach((item: any) => {
+        this.newEntity = [...this.newEntity, ...Object.entries(item.properties)]
+        console.log(this.newEntity)
+      });
+    } else {
+      this.newEntity = Object.entries(this.entityTemplate);
+    }
+
   }
 
 

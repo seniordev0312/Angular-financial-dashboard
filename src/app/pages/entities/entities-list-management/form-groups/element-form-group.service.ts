@@ -20,6 +20,7 @@ export class ElementFormGroup {
             lockModifications: new FormControl(),
             searchable: new FormControl(),
             script: new FormControl(),
+            validation: new FormControl(),
         });
         return this.fg;
     }

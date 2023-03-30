@@ -31,8 +31,7 @@ export class NewEntityMatchPercentageComponent extends BaseComponent implements 
         this.cdr.detectChanges();
       }
     }));
-
-    this.entitiesControlService.getSimilarEntity(this.data.addEntity, this.data.entityCode);
+    this.cdr.detectChanges();
   }
 
 
@@ -48,39 +47,55 @@ export class NewEntityMatchPercentageComponent extends BaseComponent implements 
   }
 
   getAvg(list: any) {
-    let temp = Object.entries(list);
+    let tempList: any = [];
+    list.forEach((item: any) => {
+      tempList = [...tempList, ...Object.entries(item.properties)]
+    });
+
     let count = 0;
-    temp.forEach((item) => {
+    tempList.forEach((item: any) => {
       count = count + Number(item[1]);
     })
-    return (count / temp.length).toFixed(2);
+    return (count / tempList.length).toFixed(2);
 
   }
 
 
-  mergeAndSelect(list: EntitySimilarityModel) {
-    // let newObject = this.data.addEntity;
+  mergeAndSelect(list: any) {
     let EIN;
-    const newEntity = Object.entries(list.newEntity);
-    const systemEntity = Object.entries(list.systemEntity);
-    const result = Object.entries(list.result);
-    newEntity.forEach((newItem) => {
-      systemEntity.forEach((sysItem) => {
-        if (newItem[0] === sysItem[0]) {
-          result.forEach((resultItem) => {
-            if (resultItem[0] === newItem[0] && resultItem[1] !== 100) {
-              sysItem[1] = newItem[1];
-            }
+    const newEntity = this.data.addEntity;
+    newEntity.sections.forEach((secItem: any) => {
+      list.systemEntity.forEach((sysItem: any) => {
+        if (secItem.name === sysItem.name) {
+          let tempPropertiesSections = Object.entries(secItem.properties);
+          let tempPropertiesSystem = Object.entries(sysItem.properties);
+          tempPropertiesSections.forEach((secPropItem) => {
+            tempPropertiesSystem.forEach((sysPropItem) => {
+              if (sysPropItem[0] === 'EIN') {
+                EIN = sysPropItem[1];
+              }
+              if (secPropItem[0] === sysPropItem[0]) {
+                list.result.forEach((secResult: any) => {
+                  if (secItem.name === secResult.name) {
+                    let tempPropertiesResult = Object.entries(secResult.properties);
+                    tempPropertiesResult.forEach((resultPropItem) => {
+                      if (resultPropItem[0] === sysPropItem[0]) {
+                        if (resultPropItem[1] < 75) { }
+                      }
+                    })
+                  }
+
+                })
+              }
+            })
           })
         }
-        if (sysItem[0] === 'EIN') {
-          EIN = sysItem[1];
-          console.log(EIN)
-        }
-      })
+      });
     });
-    // this.entitiesControlService.updateEntityEntry(this.data.addEntity, EIN);
+    this.entitiesControlRepository.updateEntityAddState(false);
+    this.entitiesControlService.updateEntityEntry(this.data.addEntity, EIN);
   }
+
 
   ngOnDestroy(): void {
     this.entitiesControlRepository.updateEntitySimilarityModel([]);
