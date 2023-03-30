@@ -95,6 +95,7 @@ export class AddNewEntityComponent extends BaseComponent implements OnInit {
   }
 
   onSave(): void {
+    this.router.navigate([`${ApplicationRoutes.Entities}/${ApplicationRoutes.EntitiesListManagement}`]);
   }
 
 

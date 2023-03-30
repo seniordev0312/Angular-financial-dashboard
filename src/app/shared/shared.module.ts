@@ -115,4 +115,4 @@ import { SearchBarInputComponent } from './components/search-bar-input/search-ba
   ],
   providers: [],
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -75,26 +75,52 @@ export class AddElementComponent extends BaseComponent implements OnInit {
 
   onSave(): void {
     if (this.fg.valid) {
-      const entityDefinitionField = this.elementFormGroup.getValueFromFormGroup(this.fg);
-      const data: AddElement = {
-        entityDefinitionField,
-        entityDefinitionId: this.entitiesListRepository.values.sectionDetails.entityDefinitionId,
-        entityDefinitionSectionId: this.entitiesListRepository.values.sectionDetails.entitySectionId,
-      };
+      if (this.getFormControl('elementType').value !== 8) {
+        if (this.getFormControl('validation').value && this.getFormControl('validation').value === true) {
+          if (this.getFormControl('regularExpression').value && this.getFormControl('regularExpression').value !== '') {
+            this.addNewOne();
+          }
+        } else {
+          this.addNewOne();
+        }
 
-      if (this.isCreateMode()) {
-        this.elementService.addElement(data);
       }
       else {
-        this.elementService.editElement(data);
+        if (this.getFormControl('script').value && this.getFormControl('script').value !== '') {
+          if (this.getFormControl('validation').value && this.getFormControl('validation').value === true) {
+            if (this.getFormControl('regularExpression').value && this.getFormControl('regularExpression').value !== '') {
+              this.addNewOne();
+            }
+          } else {
+            this.addNewOne();
+          }
+        }
       }
-      this.layoutService.closeRightSideNav();
     }
+
   }
 
 
+  addNewOne() {
+    const entityDefinitionField = this.elementFormGroup.getValueFromFormGroup(this.fg);
+    const data: AddElement = {
+      entityDefinitionField,
+      entityDefinitionId: this.entitiesListRepository.values.sectionDetails.entityDefinitionId,
+      entityDefinitionSectionId: this.entitiesListRepository.values.sectionDetails.entitySectionId,
+    };
+
+    if (this.isCreateMode()) {
+      this.elementService.addElement(data);
+    }
+    else {
+      this.elementService.editElement(data);
+    }
+    this.onClose();
+  }
+
   onClose(): void {
     this.layoutService.closeRightSideNav();
+    this.fg.reset();
   }
 
   getFormControl(key: string): FormControl {

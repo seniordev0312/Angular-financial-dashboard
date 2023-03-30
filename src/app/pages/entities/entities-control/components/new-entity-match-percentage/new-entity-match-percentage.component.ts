@@ -1,59 +1,90 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { EntityTemplatePercentage } from '@root/shared/models/entities/entity-template-percentage.model';
-import { EntityTemplate } from '@root/shared/models/entities/entity-template.model';
-import { AddEntityComponent } from '../add-entity/add-entity.component';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { AddEntityEntry } from '../../models/add-entity.model';
+import { EntitySimilarityModel } from '../../models/entity_similarity_model';
+import { EntitiesControlService } from '../../services/entity-control.service';
+import { EntitiesControlRepository } from '../../store/entities-control.repository';
+import { newEntityAdded$ } from '../../store/entities-control.store';
 
 @Component({
+
   selector: 'app-new-entity-match-percentage',
   templateUrl: './new-entity-match-percentage.component.html',
   styleUrls: ['./new-entity-match-percentage.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewEntityMatchPercentageComponent implements OnInit {
+export class NewEntityMatchPercentageComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  entityTemplatePercentage: EntityTemplatePercentage = {
-    address: 100,
-    city: 50,
-    country: 40,
-    dateOfBirth: 20,
-    educationLevel: 10,
-    einNumber: 40,
-    firstName: 90,
-    firstNameLL: 99,
-    gender: 98,
-    lastName: 89,
-    lastNameLL: 78,
-    nationality: 98,
-    profession: 9,
-    state: 100
-  };
-  entityTemplate: EntityTemplate = {
-    address: 'Lebanon',
-    city: 'Lebanon',
-    country: 'Lebanon',
-    dateOfBirth: '24/11/1998',
-    educationLevel: 'Master',
-    einNumber: '0909',
-    firstName: 'tamara',
-    firstNameLL: 'jkjkjkjkj',
-    gender: 'Female',
-    lastName: 'jammoul',
-    lastNameLL: 'ham,m',
-    nationality: 'Syrian',
-    profession: 'nmmnm',
-    state: 'lebanon'
-  };
-  constructor(private dialog: MatDialog) { }
+  entitySimilarity: EntitySimilarityModel[];
 
-  ngOnInit(): void {
+  constructor(private entitiesControlRepository: EntitiesControlRepository, private cdr: ChangeDetectorRef, private dialog: MatDialog,
+    private entitiesControlService: EntitiesControlService, @Inject(MAT_DIALOG_DATA) public data: { addEntity: AddEntityEntry, entityCode: string, entitySimilarity: EntitySimilarityModel[] },) {
+    super();
   }
 
+  ngOnInit(): void {
+    this.entitySimilarity = this.data.entitySimilarity;
+    this.subscriptions.add(newEntityAdded$.subscribe(data => {
+      if (data === true) {
+        this.dialog.closeAll();
+        this.cdr.detectChanges();
+      }
+    }));
+
+    this.entitiesControlService.getSimilarEntity(this.data.addEntity, this.data.entityCode);
+  }
+
+
   onBackClicked() {
-    this.dialog.open(AddEntityComponent, {
-      width: '90%',
-      height: '90%'
+    this.dialog.closeAll();
+  }
+  selectEIN() {
+    this.dialog.closeAll();
+  }
+
+  createNew() {
+    this.entitiesControlService.addEntityEntry(this.data.addEntity, this.data.entityCode);
+  }
+
+  getAvg(list: any) {
+    let temp = Object.entries(list);
+    let count = 0;
+    temp.forEach((item) => {
+      count = count + Number(item[1]);
+    })
+    return (count / temp.length).toFixed(2);
+
+  }
+
+
+  mergeAndSelect(list: EntitySimilarityModel) {
+    // let newObject = this.data.addEntity;
+    let EIN;
+    const newEntity = Object.entries(list.newEntity);
+    const systemEntity = Object.entries(list.systemEntity);
+    const result = Object.entries(list.result);
+    newEntity.forEach((newItem) => {
+      systemEntity.forEach((sysItem) => {
+        if (newItem[0] === sysItem[0]) {
+          result.forEach((resultItem) => {
+            if (resultItem[0] === newItem[0] && resultItem[1] !== 100) {
+              sysItem[1] = newItem[1];
+            }
+          })
+        }
+        if (sysItem[0] === 'EIN') {
+          EIN = sysItem[1];
+          console.log(EIN)
+        }
+      })
     });
+    // this.entitiesControlService.updateEntityEntry(this.data.addEntity, EIN);
+  }
+
+  ngOnDestroy(): void {
+    this.entitiesControlRepository.updateEntitySimilarityModel([]);
+    this.entitiesControlRepository.updateEntityAddState(false);
   }
 
 }

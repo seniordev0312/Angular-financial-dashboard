@@ -8,4 +8,5 @@ export interface ElementsListItem {
     searchable: boolean;
     indexable: boolean;
     lockModifications: boolean;
+    script: boolean;
 }

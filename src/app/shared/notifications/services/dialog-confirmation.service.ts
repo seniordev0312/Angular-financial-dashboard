@@ -18,6 +18,7 @@ export class ConfirmationDialogService {
             data: options,
             panelClass: 'notification-dialog',
             width: width ?? '400px',
+            height: '220px'
         });
         this.dialogRef
             .afterClosed()

@@ -13,12 +13,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-
+import { ChangeFiltersDialogComponent } from './components/change-filters-dialog/change-filters-dialog.components';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     EntitiesControlComponent,
     AddEntityComponent,
+    ChangeFiltersDialogComponent,
     EntityTypeComponent,
     NewEntityMatchPercentageComponent,
     EntitySectionComponent
@@ -32,7 +33,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SharedModule,
     MatInputModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
   ]
 })
 export class EntitiesControlModule { }

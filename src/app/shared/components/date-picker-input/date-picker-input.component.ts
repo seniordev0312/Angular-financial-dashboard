@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,14 +21,23 @@ export class DatePickerInputComponent extends BaseComponent implements OnInit {
   @Input() value: string;
   @Input() label: string;
   @Input() control: FormControl;
-  @Output() trigger = new EventEmitter<void>();
+  @Input() name: string;
+  @Input() dateFormat: string;
+  @Output() trigger = new EventEmitter<any>();
+  pipe = new DatePipe('en-US');
   @Output() dateValueChange = new EventEmitter<any>();
   constructor() {
     super();
   }
-
   ngOnInit(): void {
-    this.subscriptions.add(this.control.valueChanges.subscribe((data) => this.trigger.emit(data)));
+    this.control.valueChanges.subscribe((data) => {
+      this.dateValue = data;
+      let date = this.pipe.transform(
+        data,
+        this.dateFormat
+      )
+      this.trigger.emit(date)
+    });
   }
 
   dateChange() {

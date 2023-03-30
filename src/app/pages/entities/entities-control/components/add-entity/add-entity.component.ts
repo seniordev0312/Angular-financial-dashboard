@@ -1,12 +1,14 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren, Inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EntitiesReferenceListsService } from '@root/pages/entities/services/reference-lists.service';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
 import { AddEntityEntry } from '../../models/add-entity.model';
 import { EntityDefinition } from '../../models/entity-definitions-list-item.model';
 import { EntityEntriesListItem } from '../../models/entity-entries-list-item.model';
+import { EntitySimilarityModel } from '../../models/entity_similarity_model';
 import { EntitiesControlService } from '../../services/entity-control.service';
+import { EntitiesControlRepository } from '../../store/entities-control.repository';
 import { entityDefinition$, selectedEntity$ } from '../../store/entities-control.store';
 import { EntitySectionComponent } from '../entity-section/entity-section.component';
 import { EntityTypeComponent } from '../entity-type/entity-type.component';
@@ -18,7 +20,7 @@ import { NewEntityMatchPercentageComponent } from '../new-entity-match-percentag
   styleUrls: ['./add-entity.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class AddEntityComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class AddEntityComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren(EntitySectionComponent) sections: QueryList<EntitySectionComponent>
   @ViewChild('entityType') entityType!: EntityTypeComponent;
   expandedPanelIndex: number;
@@ -34,6 +36,7 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cdr: ChangeDetectorRef,
     private entitiesReferenceListsService: EntitiesReferenceListsService,
+    private entitiesControlRepository: EntitiesControlRepository,
     private entitiesControlService: EntitiesControlService) { super(); }
 
   get sectionsData() {
@@ -90,8 +93,23 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
         this.cdr.detectChanges();
       }
     }));
+
+
+
   }
 
+  openSimilarityDialog(addEntity: AddEntityEntry, entityCode: string, entitySimilarity: EntitySimilarityModel[]) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '90%';
+    dialogConfig.height = '90%';
+    dialogConfig.data = {
+      addEntity: addEntity,
+      entityCode: entityCode,
+      entitySimilarity: entitySimilarity
+    }
+    const CurrentDialog = this.dialog.open(NewEntityMatchPercentageComponent, dialogConfig);
+    console.log(CurrentDialog);
+  }
 
   onEntitySaved() {
     const addEntity: AddEntityEntry = { sections: [] };
@@ -101,23 +119,27 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
         properties: section.fg.value
       });
     });
+    this.checkSimilarEntity(addEntity, this.entityCode);
 
-    if (this.isUpdateMode) {
-      this.entitiesControlService.updateEntityEntry(addEntity, this.ein);
-    }
-    else {
-      this.entitiesControlService.addEntityEntry(addEntity, this.entityCode);
-    }
-    this.dialog.closeAll();
-
-    // if (isValid) {
-    this.dialog.open(NewEntityMatchPercentageComponent, {
-      width: '90%',
-      height: '90%'
-    });
-    // }
   }
 
+  async checkSimilarEntity(addEntity: any, ein: any) {
+    const result = this.entitiesControlService.checkSimilarEntity(addEntity, ein);
+    result.subscribe({
+      error: (_error: any) => {
+      },
+      next: async (data: any) => {
+        if (!this.isEmpty(data)) {
+          this.openSimilarityDialog(addEntity, ein, data);
+        } else {
+          this.entitiesControlService.addEntityEntry(addEntity, ein);
+          this.dialog.closeAll();
+        }
+        this.cdr.detectChanges();
+      },
+      complete: async () => { },
+    });
+  }
   toggleExpandedPanel(index: number) {
     this.expandedPanelIndex = index;
   }
@@ -135,8 +157,8 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
   }
 
   isFormControlRequired(control: FormControl) {
-    const validator = control.validator({} as AbstractControl);
-    if (validator && validator.required) {
+    const validator = control.hasValidator;
+    if (validator) {
       return true;
     }
     return false;
@@ -144,5 +166,12 @@ export class AddEntityComponent extends BaseComponent implements OnInit, AfterVi
 
   getFormControlName(item: FormGroup, index: number) {
     return Object.keys(item.controls)[index];
+  }
+
+  ngOnDestroy(): void {
+    this.entitiesControlRepository.updateSelectedEntityEntry({} as EntityEntriesListItem);
+    this.entitiesControlRepository.updateEntitiesDefinitionsList({} as EntityDefinition);
+    this.entitiesControlRepository.updateEntitySimilarityModel([]);
+    this.entitiesControlRepository.updateEntityAddState(false);
   }
 }

@@ -6,6 +6,7 @@ import { EntityDefinitionsReferenceListItem } from '../models/entity-definitions
 import { EntityEntriesListItem } from '../models/entity-entries-list-item.model';
 import { EntityEntriesList } from '../models/entity-entries-list.model';
 import { EntityType } from '../models/entity-type.model';
+import { EntitySimilarityModel } from '../models/entity_similarity_model';
 
 export interface EntitiesControlModel {
     entitiesList: EntityEntriesList;
@@ -13,7 +14,9 @@ export interface EntitiesControlModel {
     entityTypes: EntityType[];
     entityDefinitionsReferenceList: EntityDefinitionsReferenceListItem[];
     entityDefinition: EntityDefinition;
-    dynamicFiltersList: DynamicFilter[]
+    dynamicFiltersList: DynamicFilter[],
+    entitySimilarityModel: EntitySimilarityModel[],
+    newEntityAdded: boolean,
 }
 
 const store = createStore(
@@ -26,7 +29,9 @@ const store = createStore(
         entityTypes: [],
         entityDefinitionsReferenceList: [],
         entityDefinition: {} as EntityDefinition,
-        dynamicFiltersList: []
+        dynamicFiltersList: [],
+        entitySimilarityModel: [],
+        newEntityAdded: false,
     })
 );
 
@@ -37,6 +42,8 @@ export const entityTypes$ = store.pipe(select(({ entityTypes }) => entityTypes))
 export const entityDefinitionsReferenceList$ = store.pipe(select(({ entityDefinitionsReferenceList }) => entityDefinitionsReferenceList));
 export const entityDefinition$ = store.pipe(select(({ entityDefinition }) => entityDefinition));
 export const dynamicFiltersList$ = store.pipe(select(({ dynamicFiltersList }) => dynamicFiltersList));
+export const entitySimilarityModel$ = store.pipe(select(({ entitySimilarityModel }) => entitySimilarityModel));
+export const newEntityAdded$ = store.pipe(select(({ newEntityAdded }) => newEntityAdded));
 
 
 export type EntitiesControlStore = typeof store;

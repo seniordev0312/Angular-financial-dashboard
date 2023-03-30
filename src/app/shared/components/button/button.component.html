@@ -1,4 +1,5 @@
-<button [disabled]="isDisabled" class="rounded-xl flex items-center justify-center hover:bg-accent hover:text-white"
-    (click)="onClick()" [ngClass]="classes" mat-button>
+<button [disabled]="isDisabled"
+    class="rounded-xl flex items-center justify-center hover:bg-accent hover:text-white px-2" (click)="onClick()"
+    [ngClass]="classes" mat-button>
     <span *ngIf="icon" class="material-icons mr-2">{{icon}}</span>
     <span>{{text}}</span></button>

@@ -1,0 +1,9 @@
+ ::ng-deep .mat-select-arrow {
+     width: 16px !important;
+     height: 16px !important;
+     border-left: 15px solid transparent !important;
+     border-right: none !important;
+     border-top: 15px solid transparent !important;
+     border-radius: 100;
+     border-image-repeat: stretch !important;
+ }

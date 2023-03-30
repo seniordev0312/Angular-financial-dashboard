@@ -132,7 +132,9 @@ export class EntitiesListManagementComponent extends BaseComponent implements On
         this.entitiesList = data;
         this.tableConfiguration.data = data;
         this.tableConfiguration.dataCount = data.length;
-        this.table.refresh();
+        if (this.table) {
+          this.table.refresh();
+        }
       }
     }))
     this.layoutService.updateBreadCrumbsRouter({

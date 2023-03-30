@@ -5,6 +5,7 @@ import { EntityDefinitionsReferenceListItem } from '../models/entity-definitions
 import { EntityEntriesListItem } from '../models/entity-entries-list-item.model';
 import { EntityEntriesList } from '../models/entity-entries-list.model';
 import { EntityType } from '../models/entity-type.model';
+import { EntitySimilarityModel } from '../models/entity_similarity_model';
 import { EntitiesControlStore, ENTITIES_CONTROL_STORE } from './entities-control.store';
 
 @Injectable({
@@ -59,4 +60,19 @@ export class EntitiesControlRepository {
             entityDefinition
         }));
     }
+
+    updateEntitySimilarityModel(entitySimilarityModel: EntitySimilarityModel[]): void {
+        this.entitiesControlStore.update((state) => ({
+            ...state,
+            entitySimilarityModel
+        }));
+    }
+
+    updateEntityAddState(newEntityAdded: boolean): void {
+        this.entitiesControlStore.update((state) => ({
+            ...state,
+            newEntityAdded
+        }));
+    }
+
 }

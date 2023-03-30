@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { JournalService } from '@root/pages/accounting-and-finance/General-accounting/add-journal/services/jornal.service';
 import { GeneralAccountingRepository } from '@root/pages/accounting-and-finance/General-accounting/general-accounting/general-accounting.repository';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
@@ -12,6 +13,7 @@ import { TableColumn } from '@root/shared/models/table/table-column.model';
 import { TableConfiguration } from '@root/shared/models/table/table-configuration.model';
 import { TableRowAction } from '@root/shared/models/table/table-row-action.model';
 import { TableSettings } from '@root/shared/models/table/table-settings.model';
+import { DataTypeControlService } from '@root/shared/services/data-type-control.service';
 import { LayoutService } from '@root/shared/services/layout.service';
 import { isSpinning$ } from '@root/shared/store/shared.store';
 import { Observable } from 'rxjs';
@@ -19,10 +21,12 @@ import { DynamicFilter } from '../../models/dynamic-filter.model';
 import { EntitiesTableItem } from '../../models/entities-table-item.model';
 import { EntityEntriesListItem } from '../../models/entity-entries-list-item.model';
 import { EntityType } from '../../models/entity-type.model';
+import { FilterFieldsModel } from '../../models/filter-fields-model';
 import { EntitiesControlService } from '../../services/entity-control.service';
 import { EntitiesControlRepository } from '../../store/entities-control.repository';
 import { dynamicFiltersList$, entitiesList$, entityTypes$ } from '../../store/entities-control.store';
 import { AddEntityComponent } from '../add-entity/add-entity.component';
+import { ChangeFiltersDialogComponent } from '../change-filters-dialog/change-filters-dialog.components';
 
 @Component({
   selector: 'app-entities-control',
@@ -30,7 +34,7 @@ import { AddEntityComponent } from '../add-entity/add-entity.component';
   styleUrls: ['./entities-control.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntitiesControlComponent extends BaseComponent implements OnInit {
+export class EntitiesControlComponent extends BaseComponent implements OnInit, OnDestroy {
   @ViewChild(WidgetTableComponent)
   table: WidgetTableComponent<any>;
   pageSize = 10000;
@@ -39,11 +43,14 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   filter: Filter[];
   entityTypesOptionsList: BaseListItem[] = [];
   entityTypesList: EntityType[] = [];
-  filterFields: string[] = ['EIN', 'Name', 'Source', 'Location', 'Icon'];
-  entityTypeFormControl = new FormControl('100');
+  filterFields: FilterFieldsModel[] = [];
+  entityTypeFormControl = new FormControl('Entity');
   entitiesList: any[] = [];
   isSpinning$: Observable<boolean>;
   einFocus = -1;
+  onFirstActive = true;
+  entityName = 'Entity';
+  pipe = new DatePipe('en-US');
   tableColumns: TableColumn[] = [
     {
       translationKey: 'EIN',
@@ -172,6 +179,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     private layoutService: LayoutService,
     private generalAccountingRepository: GeneralAccountingRepository,
     private cdr: ChangeDetectorRef,
+    private dataTypeControlService: DataTypeControlService,
     private entitiesControlService: EntitiesControlService) { super(); }
 
 
@@ -198,7 +206,7 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     this.isSpinning$ = isSpinning$;
     const fg: any = {};
     this.filterFields.forEach(field => {
-      fg[field] = new FormControl(null);
+      fg[field.elementName] = new FormControl(null);
     });
     this.filterFG = new FormGroup(fg);
     this.subscriptions.add(entitiesList$.subscribe(data => {
@@ -221,66 +229,114 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
 
     this.subscriptions.add(entityTypes$.subscribe(data => {
       if (!this.isEmpty(data)) {
+        // console.log('data', data)
         if (this.einFocus !== -1) {
+          this.onFirstActive = false;
           this.entityTypesList = data;
           this.entityTypesList = this.einFocus === 1 ? data.filter(x => x.name == 'Person') : data.filter(x => x.name == 'Policy');
           this.entityTypesOptionsList = this.einFocus === 1 ? data.filter(x => x.name == 'Person').map(e => ({ id: e.code, value: e.name })) : data.filter(x => x.name == 'Policy').map(e => ({ id: e.code, value: e.name }));
           this.entityTypeFormControl = new FormControl(this.entityTypesOptionsList[0].id.toString());
           this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
           this.tableConfiguration.tableRowsActionsList = [this.editAction, this.viewAction, this.selectAction];
+          this.table.refresh();
+          this.cdr.detectChanges();
         } else {
           this.entityTypesList = data;
           this.entityTypesOptionsList = [{ id: '100', value: 'All' }, ...data.map(e => ({ id: e.code, value: e.name }))];
-          this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
-          this.tableConfiguration.tableRowsActionsList = [this.editAction, this.viewAction,];
-
+          // if (this.onFirstActive == false) {
+          //   this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, this.entityTypeFormControl.value);
+          // }
+          // this.tableConfiguration.tableRowsActionsList = [this.editAction, this.viewAction,];
+          // this.table.refresh();
+          // this.cdr.detectChanges();
         }
       }
-      this.table.refresh();
-      this.cdr.detectChanges();
+
     }));
 
     this.subscriptions.add(this.entityTypeFormControl.valueChanges.subscribe(data => {
-      this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
-      const entityDefinitionId = this.entityTypesList.find(entity => entity.code === data).entityDefinitionId;
-      this.entitiesControlService.getEntityDynamicFiltersList(entityDefinitionId);
+      if (!this.isEmpty(data)) {
+        this.entityName = this.entityTypesList.filter(x => x.code == data)[0].name;
+        this.entitiesControlService.getEntitiesList(this.pageIndex, this.pageSize, data);
+        const entityDefinitionId = this.entityTypesList.find(entity => entity.code === data).entityDefinitionId;
+        this.entitiesControlService.getEntityDynamicFiltersList(entityDefinitionId);
+      }
     }));
 
     this.subscriptions.add(dynamicFiltersList$.subscribe(data => {
+      this.filterFG = this.getFormGroup([]);
       if (!this.isEmpty(data)) {
+        console.log('data', data)
         this.filterFields = [];
         this.filterFG = this.getFormGroup(data);
         this.tableConfiguration.columns = [];
         const einClass = 'underline text-center text-accent';
-        data.forEach(item => {
-          this.filterFields.push(item.elementName);
-          this.tableConfiguration.columns.push({
-            translationKey: item.elementName,
-            property: item.elementName,
-            type: 'text',
-            svgIcon: '',
-            cssClasses: () => '',
-            dataCssClasses: () => item.elementName === 'EIN' ? einClass : 'text-center',
-            enableSort: true,
-            hasFilter: true,
-            visible: true,
-            displayInFilterList: false,
-            hasToolTip: false,
-            showText: true,
-            filter: {
-              filterType: TableColumnFilterDataType.Text
-            }
-          })
-        });
+        if (data.length > 8) {
+          for (let index = 0; index < data.length; index++) {
+            this.filterFields.push({
+              elementName: data[index].elementName,
+              elementType: data[index].elementType,
+              isActive: index + 1 <= 8,
+            });
+            this.tableConfiguration.columns.push({
+              translationKey: data[index].elementName,
+              property: data[index].elementName,
+              type: 'text',
+              svgIcon: '',
+              cssClasses: () => '',
+              dataCssClasses: () => data[index].elementName === 'EIN' ? einClass : 'text-center',
+              enableSort: true,
+              hasFilter: true,
+              visible: true,
+              displayInFilterList: false,
+              hasToolTip: false,
+              showText: true,
+              filter: {
+                filterType: TableColumnFilterDataType.Text
+              }
+            })
+          }
+        } else {
+          data.forEach(item => {
+            console.log(this.dataTypeControlService.getDataType(item.elementType),)
+            this.filterFields.push({
+              elementName: item.elementName,
+              elementType: item.elementType,
+              isActive: true,
+            });
+            this.tableConfiguration.columns.push({
+              translationKey: item.elementName,
+              property: item.elementName,
+              type: 'text',
+              svgIcon: '',
+              cssClasses: () => '',
+              dataCssClasses: () => item.elementName === 'EIN' ? einClass : 'text-center',
+              enableSort: true,
+              hasFilter: true,
+              visible: true,
+              displayInFilterList: false,
+              hasToolTip: false,
+              showText: true,
+              filter: {
+                filterType: TableColumnFilterDataType.Text
+              }
+            })
+          });
+        }
+
         this.table.refresh();
       }
     }));
   }
 
 
-
+  ngOnDestroy(): void {
+    this.entitiesControlRepository.updateEntitiesTypesList([]);
+    this.entitiesControlRepository.updateEntityDynamicFiltersList([]);
+    this.layoutService.changeEinFocus(-1);
+  }
   tableSettings = new TableSettings({
-    actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true, dataKey: 'EIN'
+    actionsMode: 'inline', pageSize: this.pageSize, isLocalPaging: true, dynamicActions: false, dataKey: 'EIN'
   });
   filterFG: FormGroup;
   tableConfiguration: TableConfiguration<any> = {
@@ -290,6 +346,8 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     dataCount: 0,
     settings: this.tableSettings,
   };
+
+
 
   getFormGroup(data: DynamicFilter[]) {
     const fg: any = {};
@@ -348,8 +406,16 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
   onTableFilter(value: any[]) {
     const data: any = {};
     value.forEach((e: any) => {
-      data[e['name']] = e['value'];
+      if (this.checkIfTypeIsName(e['name'])) {
+        console.log(data[e['value']])
+        data[e['name']] = this.pipe.transform(e['value'], 'dd/MM/yyyy')
+        console.log(data[e['name']])
+      } else {
+        data[e['name']] = e['value'];
+      }
+
     });
+
     this.filterFG.patchValue(data, { emitEvent: false })
   }
 
@@ -357,4 +423,71 @@ export class EntitiesControlComponent extends BaseComponent implements OnInit {
     this.journalService.updateJournalEIN(data[0].EIN);
     this.dialog.closeAll();
   }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '35%';
+    dialogConfig.height = '28%';
+    dialogConfig.data = {
+      filterFields: this.filterFields
+    }
+    const CurrentDialog = this.dialog.open(ChangeFiltersDialogComponent, dialogConfig);
+    CurrentDialog.beforeClosed().subscribe(
+      data => {
+        if (!this.isEmpty(data) && data.newFilterFields.length !== 0) {
+          const einClass = 'underline text-center text-accent';
+          this.filterFields = [];
+          let filterFieldsTempActive = [];
+          let filterFieldsTempDisActive = [];
+          this.tableConfiguration.columns = [];
+          this.filterFields = data.newFilterFields;
+          for (let index = 0; index < this.filterFields.length; index++) {
+            if (this.filterFields[index].isActive) {
+              this.tableConfiguration.columns.push({
+                translationKey: this.filterFields[index].elementName,
+                property: this.filterFields[index].elementName,
+                type: 'text',
+                svgIcon: '',
+                cssClasses: () => '',
+                dataCssClasses: () => this.filterFields[index].elementName === 'EIN' ? einClass : 'text-center',
+                enableSort: true,
+                hasFilter: true,
+                visible: true,
+                displayInFilterList: false,
+                hasToolTip: false,
+                showText: true,
+                filter: {
+                  filterType: TableColumnFilterDataType.Text
+                }
+              })
+            }
+            if (!this.filterFields[index].isActive) {
+              filterFieldsTempDisActive.push(this.filterFields[index])
+            } else {
+              filterFieldsTempActive.push(this.filterFields[index])
+            }
+          }
+          this.filterFields = [...filterFieldsTempActive, ...filterFieldsTempDisActive];
+          this.table.refresh();
+          this.cdr.detectChanges();
+        }
+      }
+    );
+  }
+
+  getDataType(elementType: number) {
+    return this.dataTypeControlService.getDataType(elementType);
+  }
+
+  checkIfTypeIsName(name: string) {
+    let result = this.filterFields.filter((item) => item.elementName == name);
+    if (result.length !== 0) {
+      return this.getDataType(result[0].elementType) === 'date';
+    } else {
+      return false;
+    }
+
+  }
 }
+
+

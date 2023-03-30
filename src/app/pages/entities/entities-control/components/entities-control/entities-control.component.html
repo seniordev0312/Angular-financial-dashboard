@@ -8,8 +8,8 @@
             <h5 class="text-base mr-4">Entity Type</h5>
             <app-select-list [control]="entityTypeFormControl" [optionsList]="entityTypesOptionsList"></app-select-list>
         </div>
-        <app-button (trigger)="onEntityAdded()" text="Add Entity" icon="add"
-            classes="bg-accent text-sm h-10 w-32 text-white">
+        <app-button (trigger)="onEntityAdded()" [text]=" 'Add ' + entityName" icon="add"
+            classes="bg-accent text-sm h-10 text-white">
         </app-button>
     </div>
     <form [formGroup]="filterFG"
@@ -17,10 +17,36 @@
         <div class="flex justify-center filter-title items-center w-28 h-full bg-[#F2F2F2]">
             <p class="text-xs font-bold text-center">Dynamically Generated Filters</p>
         </div>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-1 py-2 px-4 filters">
-            <app-input-field *ngFor="let control of filterFields" [control]="getFormControl(control)" class="mr-8"
-                [label]="control" (trigger)="onFilterChange($event,control)"></app-input-field>
+        <div *ngIf="filterFields.length > 8" class="grid grid-cols-2 lg:grid-cols-4 gap-1 mt-3  px-4 filters">
+            <div *ngFor="let control of filterFields" class="mt-2 mr-8">
+                <app-date-picker-input *ngIf="control.isActive && getDataType(control.elementType) === 'date' "
+                    [control]="getFormControl(control.elementName)" [label]="control.elementName"
+                    [dateFormat]="'dd/MM/yyyy'"
+                    (trigger)="onFilterChange($event,control.elementName)"></app-date-picker-input>
+                <app-input-field *ngIf="control.isActive && getDataType(control.elementType) !== 'date'"
+                    [type]="getDataType(control.elementType)" [control]="getFormControl(control.elementName)"
+                    [label]="control.elementName"
+                    (trigger)="onFilterChange($event,control.elementName)"></app-input-field>
+            </div>
         </div>
+        <div *ngIf="filterFields.length <= 8" class="grid grid-cols-2 lg:grid-cols-4 gap-1 py-2 px-4 filters">
+            <div *ngFor="let control of filterFields" class="mt-2 mr-8">
+                <app-date-picker-input *ngIf="control.isActive && getDataType(control.elementType) === 'date' "
+                    [control]="getFormControl(control.elementName)" [label]="control.elementName"
+                    [dateFormat]="'dd/MM/yyyy'"
+                    (trigger)="onFilterChange($event,control.elementName)"></app-date-picker-input>
+                <app-input-field *ngIf="control.isActive && getDataType(control.elementType) !== 'date'"
+                    [type]="getDataType(control.elementType)" [control]="getFormControl(control.elementName)"
+                    [label]="control.elementName"
+                    (trigger)="onFilterChange($event,control.elementName)"></app-input-field>
+            </div>
+        </div>
+        <button (click)="openDialog()" *ngIf="filterFields.length > 8"
+            class="h-full flex felx-col justify-start items-start p-1 pr-1">
+            <span class="material-icons text-accent">
+                expand_circle_down
+            </span>
+        </button>
         <div class="flex flex-col justify-center items-center w-32 h-full bg-accent text-white rounded-[14px]">
             <span class="material-icons">
                 search

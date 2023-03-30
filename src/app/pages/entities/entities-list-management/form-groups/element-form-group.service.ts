@@ -13,13 +13,13 @@ export class ElementFormGroup {
         this.fg = this.fb.group({
             elementType: new FormControl(item?.elementType || null, [Validators.required]),
             elementName: new FormControl(item?.elementName || null, [Validators.required]),
-            description: new FormControl(item?.description || null),
-            regularExpression: new FormControl(item?.regularExpression || null),
-            indexable: new FormControl(item?.indexable || false, [Validators.required]),
-            mandatory: new FormControl(item?.mandatory || false, [Validators.required]),
-            lockModifications: new FormControl(item?.lockModifications || false, [Validators.required]),
-            searchable: new FormControl(item?.searchable || false, [Validators.required]),
-            validation: new FormControl(item?.validation || false, [Validators.required]),
+            description: new FormControl(),
+            regularExpression: new FormControl(),
+            indexable: new FormControl(),
+            mandatory: new FormControl(),
+            lockModifications: new FormControl(),
+            searchable: new FormControl(),
+            script: new FormControl(),
         });
         return this.fg;
     }
@@ -28,13 +28,14 @@ export class ElementFormGroup {
         return {
             elementType: fg.controls.elementType.value,
             elementName: fg.controls.elementName.value,
-            description: fg.controls.description.value,
-            regularExpression: fg.controls.regularExpression.value,
-            indexable: fg.controls.indexable.value,
-            searchable: fg.controls.searchable.value,
-            mandatory: fg.controls.mandatory.value,
-            lockModifications: fg.controls.lockModifications.value,
-            validation: fg.controls.validation.value,
+            description: fg.controls.description.value ?? '',
+            regularExpression: fg.controls.regularExpression.value ?? '',
+            indexable: fg.controls.indexable.value ?? false,
+            searchable: fg.controls.searchable.value ?? false,
+            mandatory: fg.controls.mandatory.value ?? false,
+            lockModifications: fg.controls.lockModifications.value ?? false,
+            validation: fg.controls.validation.value ?? false,
+            script: fg.controls.script.value,
         };
     }
 }
