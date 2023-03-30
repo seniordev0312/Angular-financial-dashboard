@@ -42,6 +42,30 @@ export class CashTillHistoryComponent implements OnInit {
         amount: 1500,
         status: 'In Transit',
       },
+      {
+        id: 534,
+        date: '03/24/2022',
+        bankName: 'Audi',
+        currency: 'USD',
+        amount: 1500,
+        status: 'In Transit',
+      },
+      {
+        id: 534,
+        date: '03/24/2022',
+        bankName: 'Audi',
+        currency: 'USD',
+        amount: 1500,
+        status: 'In Transit',
+      },
+      {
+        id: 534,
+        date: '03/24/2022',
+        bankName: 'Audi',
+        currency: 'USD',
+        amount: 1500,
+        status: 'In Transit',
+      },
     ];
 
     this.tableConfiguration.data = this.tillHistory;
@@ -152,6 +176,16 @@ export class CashTillHistoryComponent implements OnInit {
   pageSize = 15;
 
   tableSettings = new TableSettings({
+    actionsMode: 'inline',
+    pageSize: this.pageSize,
+    isLocalPaging: true,
+    isRowSelectable: true,
+    enableActions: false,
+    enableCustomizingColumns: true,
+    isRowsSelectionAvailable: true,
+  });
+
+  tableSettings1 = new TableSettings({
     actionsMode: 'inline',
     pageSize: this.pageSize,
     isLocalPaging: true,
