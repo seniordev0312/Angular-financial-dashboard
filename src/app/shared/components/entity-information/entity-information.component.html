@@ -11,103 +11,18 @@
     <div class="flex justify-center item-center mt-3 mb-6">
         <img class="rounded-full h-32 w-32 shadow" src="assets/images/profile.svg" />
     </div>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">EIN Number</h3>
-        <h4 [ngClass]="getMatchColor('einNumber')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.einNumber:entityTemplate.einNumber}}<span *ngIf="isMatchCard">%
-                Match</span>
-        </h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">First Name</h3>
-        <h4 [ngClass]="getMatchColor('firstName')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.firstName:entityTemplate.firstName}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Last Name</h3>
-        <h4 [ngClass]="getMatchColor('lastName')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.lastName:entityTemplate.lastName}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">First Name (LL)</h3>
-        <h4 [ngClass]="getMatchColor('firstNameLL')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.firstNameLL:entityTemplate.firstNameLL}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Last Name (LL)</h3>
-        <h4 [ngClass]="getMatchColor('lastNameLL')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.lastNameLL:entityTemplate.lastNameLL}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">DOB</h3>
-        <h4 [ngClass]="getMatchColor('dateOfBirth')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.dateOfBirth:entityTemplate.dateOfBirth}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Nationality</h3>
-        <h4 [ngClass]="getMatchColor('nationality')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.nationality:entityTemplate.nationality}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Gender</h3>
-        <h4 [ngClass]="getMatchColor('gender')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.gender:entityTemplate.gender}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Profession</h3>
-        <h4 [ngClass]="getMatchColor('profession')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.profession:entityTemplate.profession}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Address</h3>
-        <h4 [ngClass]="getMatchColor('address')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.address:entityTemplate.address}}<span *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <div class="flex items-center">
-            <h3 class="text-xs font-bold mr-1">State: </h3>
-            <h4 [ngClass]="getMatchColor('state')" class="text-xs">
-                {{isMatchCard?entityTemplatePercentage.state:entityTemplate.state}}<span *ngIf="isMatchCard">%</span>
+    <div *ngFor="let item of  this.newEntity " class="flex flex-col justify-between">
+        <div class="flex flex-row justify-between ">
+            <h3 class="text-xs font-bold">{{item[0]}}</h3>
+            <h4 [ngClass]="getMatchColor(item[1])" class="text-sm">
+                {{item[1]}}<span *ngIf="isMatchCard">%
+                    Match</span>
             </h4>
         </div>
-        <div class="flex items-center">
-            <h3 class="text-xs font-bold mr-1">City: </h3>
-            <h4 [ngClass]="getMatchColor('city')" class="text-xs">
-                {{isMatchCard?entityTemplatePercentage.city:entityTemplate.city}}<span *ngIf="isMatchCard">%</span></h4>
-        </div>
-        <div class="flex items-center">
-            <h3 class="text-xs font-bold mr-1">Country: </h3>
-            <h4 [ngClass]="getMatchColor('country')" class="text-xs">
-                {{isMatchCard?entityTemplatePercentage.country:entityTemplate.country}}<span
-                    *ngIf="isMatchCard">%</span></h4>
+        <div class="flex flex-row justify-center py-1 p-1">
+            <div class="bg-gray-light1 w-full " style="height: 0.09px; "></div>
         </div>
     </div>
-    <mat-divider></mat-divider>
-    <div class="flex items-center justify-between">
-        <h3 class="text-xs font-bold">Education Level</h3>
-        <h4 [ngClass]="getMatchColor('educationLevel')" class="text-sm">
-            {{isMatchCard?entityTemplatePercentage.educationLevel:entityTemplate.educationLevel}}<span
-                *ngIf="isMatchCard">%
-                Match</span></h4>
-    </div>
+
 </div>
 <ng-content></ng-content>

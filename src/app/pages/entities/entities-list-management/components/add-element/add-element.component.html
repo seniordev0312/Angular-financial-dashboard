@@ -6,7 +6,9 @@
             [optionsList]="elementTypesReferenceList"></app-select-list>
         <app-input-field *ngIf="isCreateMode()" label="Element Description:" [control]="getFormControl('description')">
         </app-input-field>
-
+        <app-input-field *ngIf="isCreateMode() &&  getFormControl('elementType').value === 8 " label="Element Script:"
+            [control]="getFormControl('script')" r>
+        </app-input-field>
         <div *ngIf="isCreateMode()" class="flex items-center justify-between mb-3">
             <p class="text-xs font-bold">Validation</p>
             <mat-slide-toggle formControlName="validation"></mat-slide-toggle>
@@ -29,6 +31,7 @@
             <p class="text-xs font-bold">Lock Modifications</p>
             <mat-slide-toggle formControlName="lockModifications"></mat-slide-toggle>
         </div>
+
     </div>
     <div class="flex items-center mt-7 justify-between w-full">
         <app-button (trigger)="onClose()" text="cancel"

@@ -1,0 +1,31 @@
+<div class="flex flex-col justify-between items-center h-full  ">
+    <h1 class="ml-2 text-2xl text-start text-avenir-bold  font-bold text-black mt-6 ">
+        Customize Filters
+    </h1>
+    <div class="w-3/4 block bg-white drop-shadow-lg rounded-lg h-11 px-5">
+        <input matInput class=" h-full" name="search" placeholder="Search..." (keyup)="onTextChanged($event)" />
+        <mat-select class="mt-4" *ngIf="showSelectField" #selectList [disabled]="showSelect">
+            <mat-option disabled *ngFor="let item of this.resultFields"
+                class="font-avenir-medium font-medium text-[#A3A3A3]	" [value]="null">
+                <div class="flex items-center ">
+                    <button (click)="onCheckboxChange(item)" *ngIf="!item.isActive" class="material-icons text-gray">
+                        check_box_outline_blank
+                    </button>
+                    <button (click)="onCheckboxChange(item)" *ngIf="item.isActive" class="material-icons text-accent">
+                        check_box
+                    </button>
+                    <label (click)="onCheckboxChange(item)" class="ml-2 text-sm font-medium">{{item.elementName}}
+                    </label>
+                </div>
+            </mat-option>
+        </mat-select>
+    </div>
+
+    <div class="flex flex-row  mb-6  justify-center  w-full ">
+        <button (click)="onSubmitted()" [disabled]="this.activeList.length > 8 || this.activeList.length === 0"
+            [ngClass]="this.activeList.length > 8 || this.activeList.length === 0 ? 'bg-gray-light1' :'bg-accent'"
+            class="bloc  rounded-xl shadow-xl items-center text-center py-2 px-16 text-sm lg:text-lg text-white text-avenir-regular justify-around font-light">
+            Apply
+        </button>
+    </div>
+</div>

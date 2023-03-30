@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { EntityTemplatePercentage } from '@root/shared/models/entities/entity-template-percentage.model';
-import { EntityTemplate } from '@root/shared/models/entities/entity-template.model';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-entity-information',
@@ -8,20 +6,24 @@ import { EntityTemplate } from '@root/shared/models/entities/entity-template.mod
   styleUrls: ['./entity-information.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntityInformationComponent {
+export class EntityInformationComponent implements OnInit {
   @Input() label: string;
   @Input() showSelectButton = false;
   @Input() isMatchCard = false;
   @Input() hasContent = false;
-  @Input() entityTemplatePercentage: EntityTemplatePercentage;
-  @Input() entityTemplate: EntityTemplate;
+  @Input() entityTemplate: any;
+  newEntity: any;
+  result: any;
 
   constructor() { }
+  ngOnInit(): void {
+    this.newEntity = Object.entries(this.entityTemplate);
+  }
 
 
-  getMatchColor(value: string): string {
+  getMatchColor(value: number): string {
     if (this.isMatchCard) {
-      return this.entityTemplatePercentage[value as keyof EntityTemplatePercentage] > 50 ? 'text-success' : 'text-warn';
+      return value > 50 ? 'text-success' : 'text-warn';
     }
     return '';
   }

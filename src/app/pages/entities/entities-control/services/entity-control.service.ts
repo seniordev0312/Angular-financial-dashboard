@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { EntitiesControlRepository } from '../store/entities-control.repository';
 import { EntityEntriesList } from '../models/entity-entries-list.model';
@@ -53,15 +53,20 @@ export class EntitiesControlService {
     }
 
     addEntityEntry(data: AddEntityEntry, code: string): void {
+        console.log('data', data)
+        console.log('code', code)
         let endPointUrl = `${environment.entityApiUrl}/Entity/CreateEntityEntry/${code}`;
         this.httpClient.post<any>(endPointUrl, data).subscribe(data => {
             if (data) {
-                console.log(data);
+                this.entitiesControlRepository.updateEntityAddState(true);
+                console.log('result', data)
             }
         });
     }
 
     updateEntityEntry(data: AddEntityEntry, ein: string): void {
+        console.log('Data', data);
+        console.log('Ein', ein);
         let endPointUrl = `${environment.entityApiUrl}/Entity/UpdateEntityEntry/${ein}`;
         this.httpClient.put<any>(endPointUrl, data).subscribe(data => {
             if (data) {
@@ -87,4 +92,23 @@ export class EntitiesControlService {
             }
         });
     }
+
+    getSimilarEntity(data: AddEntityEntry, code: string): void {
+        let endPointUrl = `${environment.entityApiUrl}/Entity/FindSimilarEntities/${code}`;
+        this.httpClient.post<any>(endPointUrl, data).subscribe(data => {
+            if (data) {
+                this.entitiesControlRepository.updateEntitySimilarityModel(data);
+            }
+        });
+    }
+
+    checkSimilarEntity(data: AddEntityEntry, code: string) {
+        let endPointUrl = `${environment.entityApiUrl}/Entity/FindSimilarEntities/${code}`;
+        const header = {
+            headers: new HttpHeaders({
+            })
+        };
+        return this.httpClient.post(endPointUrl, data, header);
+    }
+
 }

@@ -2,35 +2,37 @@
 <mat-dialog-content>
     <div class="px-12">
         <div class="flex items-center my-6">
-            <button (click)="onBackClicked()" class="flex items-center" mat-button>
+            <!-- <button (click)="onBackClicked()" class="flex items-center" mat-button>
                 <mat-icon svgIcon="back" class="mr-4"></mat-icon>
                 <p class="font-semibold text-xl">Back</p>
-            </button>
+            </button> -->
         </div>
     </div>
-
-    <div class="px-12 grid grid-cols-4 gap-5 mb-6">
-        <app-entity-information [entityTemplate]="entityTemplate" label="New Entity Information">
+    <div *ngIf="this.entitySimilarity.length !==0" class="px-12 grid grid-cols-4 gap-5 mb-6">
+        <app-entity-information [entityTemplate]="this.entitySimilarity[0].newEntity" label="New Entity Information">
         </app-entity-information>
-        <app-entity-information [entityTemplate]="entityTemplate" label="In System Entity Information">
+        <app-entity-information [entityTemplate]="this.entitySimilarity[0].systemEntity"
+            label="In System Entity Information">
         </app-entity-information>
-        <app-entity-information [entityTemplatePercentage]="entityTemplatePercentage" [hasContent]="true"
+        <app-entity-information [entityTemplate]="this.entitySimilarity[0].result" [hasContent]="true"
             [isMatchCard]="true" label="In System Entity Information">
             <div class="flex justify-center items-center bg-success h-44 rounded-xl match-box text-white">
-                <h5 class="text-3xl font-light">87% Match</h5>
+                <h5 class="text-3xl font-light">{{getAvg(this.entitySimilarity[0].result)}}% Match</h5>
             </div>
         </app-entity-information>
         <div class="flex flex-col">
             <h4 class="text-lg font-bold">Suggested Action</h4>
-            <div
+            <div (click)="mergeAndSelect(this.entitySimilarity[0])"
                 class="flex items-center mt-4 mb-10 justify-center cursor-pointer text-white bg-accent rounded-lg h-[185px]">
                 <h3 class="text-3xl font-black ">Merge & Select</h3>
             </div>
             <h4 class="text-lg font-bold">Other Actions</h4>
-            <div class="flex items-center mt-4 justify-center cursor-pointer text-white bg-accent rounded-lg py-4">
+            <div (click)="selectEIN()"
+                class="flex items-center mt-4 justify-center cursor-pointer text-white bg-accent rounded-lg py-4">
                 <h3 class="text-sm font-light">Select EIN</h3>
             </div>
-            <app-button text="Create As New" classes="border-accent w-full border text-accent h-10 mt-5"></app-button>
+            <app-button (click)="createNew()" text="Create As New"
+                classes="border-accent w-full border text-accent h-10 mt-5"></app-button>
         </div>
     </div>
 </mat-dialog-content>

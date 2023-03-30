@@ -4,8 +4,8 @@
     <div class="flex w-full items-center justify-between mt-7 mb-5">
         <h4 *ngIf="!isUpdateMode" class="text-xl font-bold">Create New Entity</h4>
         <h4 *ngIf="isUpdateMode" class="text-xl font-bold">{{entityName}}</h4>
-        <app-button (trigger)="onEntitySaved()" text="Save and close" icon="save"
-            classes="bg-accent h-12 w-52 text-white">
+        <app-button [isDisabled]="!isValid" (trigger)="onEntitySaved()" text="Save and close" icon="save"
+            classes="bg-accent h-12 w-52 text-white hi ">
             <!-- [classes]="isValid&&!isViewMode?'bg-accent h-12 w-52 text-white':'bg-accent h-12 w-52 text-white opacity-50'" -->
         </app-button>
     </div>
@@ -70,7 +70,6 @@
                         </h5>
                         <h5 *ngIf="!isFormControlRequired(control)" class="text-xs font-bold col-span-2">Optional Field
                         </h5>
-
                         <div class="flex items-center justify-between">
                             <h6 class="text-sm mr-3">{{getFormControlName(item.fg,i)}}</h6>
                             <span *ngIf="control.valid" class="material-icons text-success">
