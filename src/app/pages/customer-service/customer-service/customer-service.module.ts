@@ -72,7 +72,7 @@ const routes: Route[] = [
     HistoryListComponent,
     EditHistoryComponent,
     CustomerServiceTicketComponent,
-    PendingInformaitonCardComponent,
+    PendingInformaitonCardComponent
   ],
   imports: [
     CommonModule,
