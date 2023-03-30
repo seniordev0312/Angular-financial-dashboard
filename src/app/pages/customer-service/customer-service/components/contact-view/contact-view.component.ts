@@ -5,9 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
-import { CalculatorFormGroupService } from '../../services/calculator-form-group.service';
 import { ContactFormService } from '../../services/contact-form.service';
 import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import {
@@ -27,13 +25,6 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   chatId: any;
   spinner = false;
   kycDocumentsTypeList: any = [];
-  chatMenuOptions: string[] = [
-    'Medical Insurance ADALs',
-    'Travel Insurance ADALs',
-    'Motor Insurance ADALs',
-    'Group Medical Insurance ADALs',
-    'Customer Insurance ADALs',
-  ];
   imageProcessingOptions: string[] = [
     'Process as Civil Extract',
     'Process as Passport',
@@ -43,18 +34,11 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
     'Store as Vehicle Registration',
   ];
 
-  chatMenuClicked: boolean = false;
-  calculatorClicked: boolean = false;
   imageProcessingClicked: boolean = false;
   locationProcessingClicked: boolean = false;
 
   selectedImageForProcessing: number = -1;
   selectedLocationForProcessing: number = -1;
-  selectedPricingCalculateBtn: number = -1;
-  minSumInsured: number = 24500;
-  maxSumInsured: number = 28500;
-
-  fgCar: FormGroup;
 
   messageHistoryList: any[] = [];
 
@@ -65,8 +49,7 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   constructor(
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private contactFormService: ContactFormService,
-    private cdr: ChangeDetectorRef,
-    private calculatorFormGroupService: CalculatorFormGroupService
+    private cdr: ChangeDetectorRef
   ) {
     super();
   }
@@ -108,13 +91,12 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
     }
 
     this.subscriptions.add(
-      this.contactFormService.getMessageHistory(424).subscribe((data: any) => { 
+      this.contactFormService.getMessageHistory(424).subscribe((data: any) => {
         this.messageHistoryList = data;
         this.cdr.detectChanges();
         console.log('message history', this.messageHistoryList);
       })
     );
-
   }
 
   onSelect(data: any, id: any): void {
@@ -148,26 +130,6 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
 
   containsHttp(data: string) {
     return data.includes('http');
-  }
-
-  onClickAssentifyLogo() {
-    this.chatMenuClicked = !this.chatMenuClicked;
-    if (this.chatMenuClicked) this.calculatorClicked = false;
-  }
-
-  onClickCalculator() {
-    this.fgCar = this.calculatorFormGroupService.getFormGroup();
-
-    this.calculatorClicked = !this.calculatorClicked;
-    if (this.calculatorClicked) this.chatMenuClicked = false;
-  }
-
-  getFormControl(key: string): FormControl {
-    return this.fgCar.controls[key] as FormControl;
-  }
-
-  onClickPricingBtn(btnValue: number) {
-    this.selectedPricingCalculateBtn = btnValue;
   }
 
   onOpenProcessImage(id: number) {
