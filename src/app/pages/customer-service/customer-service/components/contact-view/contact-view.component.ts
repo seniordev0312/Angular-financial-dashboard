@@ -5,9 +5,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { BaseComponent } from '@root/shared/components/base-component/base-component';
-import { CalculatorFormGroupService } from '../../services/calculator-form-group.service';
 import { ContactFormService } from '../../services/contact-form.service';
 import { KYCDocumentTypeService } from '../../services/kyc-documents-type.service';
 import {
@@ -27,13 +25,6 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   chatId: any;
   spinner = false;
   kycDocumentsTypeList: any = [];
-  chatMenuOptions: string[] = [
-    'Medical Insurance ADALs',
-    'Travel Insurance ADALs',
-    'Motor Insurance ADALs',
-    'Group Medical Insurance ADALs',
-    'Customer Insurance ADALs',
-  ];
   imageProcessingOptions: string[] = [
     'Process as Civil Extract',
     'Process as Passport',
@@ -43,18 +34,13 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
     'Store as Vehicle Registration',
   ];
 
-  chatMenuClicked: boolean = false;
-  calculatorClicked: boolean = false;
   imageProcessingClicked: boolean = false;
   locationProcessingClicked: boolean = false;
 
   selectedImageForProcessing: number = -1;
   selectedLocationForProcessing: number = -1;
-  selectedPricingCalculateBtn: number = -1;
-  minSumInsured: number = 24500;
-  maxSumInsured: number = 28500;
 
-  fgCar: FormGroup;
+  messageHistoryList: any[] = [];
 
   @Input() isDepartmentChat: boolean = false;
   @Input() chosenCategoryInfo: any;
@@ -63,8 +49,7 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   constructor(
     private kYCDocumentTypeService: KYCDocumentTypeService,
     private contactFormService: ContactFormService,
-    private cdr: ChangeDetectorRef,
-    private calculatorFormGroupService: CalculatorFormGroupService
+    private cdr: ChangeDetectorRef
   ) {
     super();
   }
@@ -105,71 +90,13 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
       this.kYCDocumentTypeService.getKYCDocumentType(0, 1000);
     }
 
-    this.data = [
-      {
-        id: 0,
-        type: 0,
-        body: 'Hello!',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image.png',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-      {
-        id: 1,
-        type: 0,
-        body: 'Hello!',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: false,
-      },
-      {
-        id: 2,
-        type: 0,
-        body: 'Testing the design, this is a long text to test big chat bubbles. Big text testinggg noww! Testing the design, this is a long text to test big chat bubbles. Big text testinggg noww!',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image.png',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-      {
-        id: 3,
-        type: 0,
-        body: 'Testing a medium sized text mediumm',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image.png',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-      {
-        id: 4,
-        type: 0,
-        body: 'Okay thanks',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: false,
-      },
-      {
-        id: 5,
-        type: 0,
-        body: 'Thanks again',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: false,
-      },
-      {
-        id: 6,
-        type: 0,
-        body: 'Youre welcome',
-        sentOn: new Date(),
-        profilePic: '../../../../../../assets/images/avatar-image-1.jpg',
-        sourceIconUrl: '../../../../../../assets/images/whatsapp.png',
-        sent: true,
-      },
-    ];
+    this.subscriptions.add(
+      this.contactFormService.getMessageHistory(424).subscribe((data: any) => {
+        this.messageHistoryList = data;
+        this.cdr.detectChanges();
+        console.log('message history', this.messageHistoryList);
+      })
+    );
   }
 
   onSelect(data: any, id: any): void {
@@ -187,40 +114,22 @@ export class ContactViewComponent extends BaseComponent implements OnInit {
   }
 
   updateData(data: any) {
-    if (data.type === 2) {
-      data.body = JSON.parse(data.body);
-      this.data.push(data);
-      this.contactFormService.updateChat(data);
-      this.cdr.detectChanges();
-    } else {
-      this.data.push(data);
-      this.contactFormService.updateChat(data);
-      this.cdr.detectChanges();
+    if (data) {
+      if (data.type === 2) {
+        data.body = JSON.parse(data.body);
+        this.data.push(data);
+        this.contactFormService.updateChat(data);
+        this.cdr.detectChanges();
+      } else {
+        this.data.push(data);
+        this.contactFormService.updateChat(data);
+        this.cdr.detectChanges();
+      }
     }
   }
 
   containsHttp(data: string) {
     return data.includes('http');
-  }
-
-  onClickAssentifyLogo() {
-    this.chatMenuClicked = !this.chatMenuClicked;
-    if (this.chatMenuClicked) this.calculatorClicked = false;
-  }
-
-  onClickCalculator() {
-    this.fgCar = this.calculatorFormGroupService.getFormGroup();
-
-    this.calculatorClicked = !this.calculatorClicked;
-    if (this.calculatorClicked) this.chatMenuClicked = false;
-  }
-
-  getFormControl(key: string): FormControl {
-    return this.fgCar.controls[key] as FormControl;
-  }
-
-  onClickPricingBtn(btnValue: number) {
-    this.selectedPricingCalculateBtn = btnValue;
   }
 
   onOpenProcessImage(id: number) {

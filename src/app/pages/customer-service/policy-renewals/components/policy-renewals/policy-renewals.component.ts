@@ -26,6 +26,9 @@ import {
 } from '../../store/policy-renewals-tickets.store';
 import { SecurityCheckerService } from '@root/shared/services/security-checker.service';
 import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tickets.repository';
+import { BaseComponent } from '@root/shared/components/base-component/base-component';
+import { PolicyRenewalSignalRService } from '../../services/policy-renewal-signalr.service';
+import { FilterButtons } from '@root/pages/customer-service/customer-service/enums/filter-buttons.enum';
 
 @Component({
   selector: 'app-policy-renewals',
@@ -33,7 +36,7 @@ import { PolicyRenewalsTicketsRepository } from '../../store/policy-renewals-tic
   styleUrls: ['./policy-renewals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PolicyRenewalsComponent implements OnInit {
+export class PolicyRenewalsComponent extends BaseComponent implements OnInit {
   subscription: Subscription;
 
   steps: PolicyStatus[] = [];
@@ -51,14 +54,19 @@ export class PolicyRenewalsComponent implements OnInit {
   searchBarValue: string = '';
   userId: string = '';
 
+  FilterButtons = FilterButtons; 
+
   policyRenewalFilterOptions: any = {
-    searchQuery: null,
+    searchQuery: '',
     assignedToId: null,
     fromDateCreated: null,
     toDateCreated: null,
     fromDateModified: null,
     toDateModified: null,
     communicationChannelId: null,
+    followUpResponse: null,
+    followUpStatus: null,
+    category: null,
   };
 
   constructor(
@@ -68,45 +76,69 @@ export class PolicyRenewalsComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private layoutService: LayoutService,
     private securityCheckerService: SecurityCheckerService,
-    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository
-  ) {}
+    private policyRenewalsTicketsRepository: PolicyRenewalsTicketsRepository,
+    public policyRenewalSignalRService: PolicyRenewalSignalRService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.policyCardService.getPolicyRenewalTickets();
+    this.policyRenewalSignalRService.initConnection();
 
-    this.subscription = this.policyCardService
-      .getFollowUpStatusApi()
-      .subscribe((data: any) => {
+    this.subscriptions.add(
+      this.policyCardService.getFollowUpStatusApi().subscribe((data: any) => {
         this.steps = data.map((e: any) => ({
           id: e.value,
           title: this.getStatusFullName(e.value),
           color: this.getStatusColor(e.value),
         }));
         this.ref.detectChanges();
-      });
+      })
+    );
 
-    this.subscription = tickets$.subscribe((data: any) => {
-      this.tickets = data;
-      this.numberAllTickets = this.tickets.all;
-      this.numberPersonalTickets = this.tickets.personal;
-      this.ref.detectChanges();
-    });
+    this.subscriptions.add(
+      tickets$.subscribe((data: any) => {
+        this.tickets = data;
+        if (this.tickets) {
+          this.numberAllTickets = this.tickets.all;
+          this.numberPersonalTickets = this.tickets.personal;
+        }
+        this.ref.detectChanges();
+      })
+    );
 
     this.securityCheckerService.userClaims$.subscribe((data) => {
       this.userId = data?.sub;
       this.ref.detectChanges();
     });
 
-    this.subscription = policyRenewalFilterOptions$.subscribe((data: any) => {
-      this.policyRenewalFilterOptions = data;
-      this.ref.detectChanges();
-    });
+    this.subscriptions.add(
+      policyRenewalFilterOptions$.subscribe((data: any) => {
+        if (data) this.policyRenewalFilterOptions = data;
+        else {
+          this.policyRenewalFilterOptions = {
+            searchQuery: '',
+            assignedToId: null,
+            fromDateCreated: null,
+            toDateCreated: null,
+            fromDateModified: null,
+            toDateModified: null,
+            communicationChannelId: null,
+            followUpResponse: null,
+            followUpStatus: null,
+            category: null,
+          };
+        }
+        this.ref.detectChanges();
+      })
+    );
 
-    this.subscription = numberOfPolicyRenewalAppliedFilters$.subscribe(
-      (data: any) => {
+    this.subscriptions.add(
+      numberOfPolicyRenewalAppliedFilters$.subscribe((data: any) => {
         this.numberOfPolicyRenewalAppliedFilters = data;
         this.ref.detectChanges();
-      }
+      })
     );
   }
 
@@ -146,6 +178,8 @@ export class PolicyRenewalsComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+
+    this.policyRenewalSignalRService.stopSignalRConnection();
   }
 
   openFilter() {
@@ -186,10 +220,12 @@ export class PolicyRenewalsComponent implements OnInit {
         .subscribe(() => {
           this.policyCardService.getPolicyRenewalTickets();
 
-          this.subscription = tickets$.subscribe((data: any) => {
-            this.tickets = data;
-            this.ref.detectChanges();
-          });
+          this.subscriptions.add(
+            tickets$.subscribe((data: any) => {
+              this.tickets = data;
+              this.ref.detectChanges();
+            })
+          );
         });
     });
   }
@@ -228,27 +264,29 @@ export class PolicyRenewalsComponent implements OnInit {
     );
   }
 
-  onClearFilter() {
-    this.searchBarValue = '';
+  onClearSearchFilter() {
+    if (this.searchBarValue !== '') {
+      this.searchBarValue = '';
 
-    this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
+      this.policyRenewalFilterOptions.searchQuery = this.searchBarValue;
 
-    this.policyCardService.filterPolicyRenewalTickets(
-      this.policyRenewalFilterOptions
-    );
+      this.policyCardService.filterPolicyRenewalTickets(
+        this.policyRenewalFilterOptions
+      );
 
-    this.policyRenewalsTicketsRepository.updateFilterOptions(
-      this.policyRenewalFilterOptions
-    );
+      this.policyRenewalsTicketsRepository.updateFilterOptions(
+        this.policyRenewalFilterOptions
+      );
+    }
   }
 
   filterByAssignedTo(filterMode: string) {
     let assignedId: string;
 
-    if (filterMode == 'personal') {
+    if (filterMode == FilterButtons.Personal) {
       assignedId = this.userId;
       this.isAllFilterSelected = false;
-    } else if (filterMode == 'all') {
+    } else if (filterMode == FilterButtons.All) {
       assignedId = null;
       this.isAllFilterSelected = true;
     }

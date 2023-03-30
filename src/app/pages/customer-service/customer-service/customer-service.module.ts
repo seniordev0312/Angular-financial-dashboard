@@ -32,6 +32,8 @@ import { SalesFlowComponent } from './components/sales-flow/sales-flow.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SharedModule } from '@root/shared/shared.module';
 import { CustomerServiceFilterComponent } from '../customer-service-shared/components/customer-service-filter/customer-service-filter.component';
+import { ChatCalculatorComponent } from './components/chat-calculator/chat-calculator.component';
+import { AssentifyProcessingComponent } from './components/assentify-processing/assentify-processing.component';
 
 const routes: Route[] = [
   {
@@ -73,6 +75,8 @@ const routes: Route[] = [
     EditHistoryComponent,
     CustomerServiceTicketComponent,
     PendingInformaitonCardComponent,
+    ChatCalculatorComponent,
+    AssentifyProcessingComponent
   ],
   imports: [
     CommonModule,

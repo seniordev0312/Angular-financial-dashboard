@@ -20,13 +20,13 @@
               matBadge="{{ numberOfPolicyRenewalAppliedFilters }}"
             [matBadgeHidden]="numberOfPolicyRenewalAppliedFilters == 0"
           ></mat-icon>
-          <mat-icon (click)="onClearFilter()" class="cursor-pointer"
+          <mat-icon (click)="onClearSearchFilter()" class="cursor-pointer"
             >cancel</mat-icon
           >
         </div>
         <div class="flex gap-2">
           <button
-          (click)="filterByAssignedTo('personal')"
+          (click)="filterByAssignedTo(FilterButtons.Personal)"
             class="py-4 pr-9 pl-3 relative rounded-full flex justify-center items-center border-2 w-30 h-8"
             [ngClass]="
               isAllFilterSelected
@@ -43,7 +43,7 @@
                           ">
               {{ numberPersonalTickets }}
             </div>
-            <span class="items-center flex gap-3 text-[12px]">Personal</span>
+            <span class="items-center flex gap-3 text-[12px]">{{FilterButtons.Personal}}</span>
           </button>
           <button
              class="py-4 pr-8 pl-3 relative rounded-full flex justify-center items-center bg-primary border-2 w-30 h-8"
@@ -52,7 +52,7 @@
                 ? 'selectedFilterWrapper'
                 : 'unselectedFilterWrapper'
             "
-            (click)="filterByAssignedTo('all')"
+            (click)="filterByAssignedTo(FilterButtons.All)"
           >
             <div
               class="absolute flex justify-center items-center right-[3px] align-baseline text-xs rounded-2xl h-6 w-6 font-semibold"
@@ -63,7 +63,7 @@
                           ">
               {{ numberAllTickets }}
             </div>
-            <span class="items-center flex gap-3 text-[12px]">Show All</span>
+            <span class="items-center flex gap-3 text-[12px]">{{FilterButtons.All}}</span>
           </button>
         </div>
       </div>

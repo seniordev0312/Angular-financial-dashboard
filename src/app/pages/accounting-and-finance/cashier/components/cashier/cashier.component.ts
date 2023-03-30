@@ -40,9 +40,7 @@ export class CashierComponent implements OnInit {
   constructor(
     private layoutService: LayoutService,
     private cdr: ChangeDetectorRef,
-    private dialog1: MatDialog,
-    private dialog: MatDialog,
-    private dialog2: MatDialog
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -109,7 +107,7 @@ export class CashierComponent implements OnInit {
   }
 
   openTillModal() {
-    this.dialog2.open(TillViewComponent, {
+    this.dialog.open(TillViewComponent, {
       height: '75%',
       width: '80%',
     });
@@ -266,7 +264,7 @@ export class CashierComponent implements OnInit {
     settings: this.tableSettings,
   };
   openViewBusket() {
-    this.dialog1.open(ViewBasketComponent, {
+    this.dialog.open(ViewBasketComponent, {
       width: '90%',
       height: '80%',
     });

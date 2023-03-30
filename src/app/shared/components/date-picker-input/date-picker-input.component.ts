@@ -8,6 +8,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BaseComponent } from '../base-component/base-component';
 
 @Component({
   selector: 'app-date-picker-input',
@@ -15,7 +16,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./date-picker-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatePickerInputComponent implements OnInit {
+export class DatePickerInputComponent extends BaseComponent implements OnInit {
   @Input() dateValue: Date;
   @Input() value: string;
   @Input() label: string;
@@ -25,8 +26,9 @@ export class DatePickerInputComponent implements OnInit {
   @Output() trigger = new EventEmitter<any>();
   pipe = new DatePipe('en-US');
   @Output() dateValueChange = new EventEmitter<any>();
-  constructor() { }
-
+  constructor() {
+    super();
+  }
   ngOnInit(): void {
     this.control.valueChanges.subscribe((data) => {
       this.dateValue = data;

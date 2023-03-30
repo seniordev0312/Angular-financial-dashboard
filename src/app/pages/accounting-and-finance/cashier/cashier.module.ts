@@ -29,6 +29,9 @@ import { ClaimMakePaymentComponent } from './components/claim-make-payment/claim
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 import { TillViewComponent } from './components/till-view/till-view.component';
 import { OtherMakePaymentComponent } from './components/other-make-payment/other-make-payment.component';
+import { TillHistoryComponent } from './components/till-history/till-history.component';
+import { ViewDepositedHistoryComponent } from './components/view-deposited-history/view-deposited-history.component';
+import { CashTillHistoryComponent } from './components/cash-till-history/cash-till-history.component';
 const routes: Route[] = [
   {
     path: ApplicationRoutes.Empty,
@@ -59,6 +62,9 @@ const routes: Route[] = [
     NewTransactionComponent,
     OtherMakePaymentComponent,
     TillViewComponent,
+    TillHistoryComponent,
+    ViewDepositedHistoryComponent,
+    CashTillHistoryComponent,
   ],
  imports: [
     CommonModule,
